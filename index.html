@@ -492,7 +492,23 @@
       margin-bottom: 2px;
     }
 
+<<<<<<< HEAD
 /* ─── PROCESS ─────────────────────────────────────────── */
+=======
+    /* Tags for service row */
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .svc-tag {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--bdr);
+      color: var(--dim);
+    }
+
+    /* ─── PROCESS ─────────────────────────────────────────── */
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
     .proc-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -815,6 +831,7 @@
       position: fixed;
       bottom: 28px; right: 28px;
       z-index: 99;
+<<<<<<< HEAD
       width: 48px; height: 48px;
       background: var(--bg);
       border: 1px solid rgba(255,255,255,.15);
@@ -845,6 +862,23 @@
     @media (max-width: 768px) {
       .stt { width: 52px; height: 52px; bottom: 20px; right: 20px; }
     }
+=======
+      width: 44px; height: 44px;
+      background: var(--txt);
+      border: none;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--bg);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .3s, transform .3s;
+      cursor: pointer;
+    }
+    .stt.sh { opacity: 1; transform: none; }
+    .stt:hover { background: #d4d4d4; }
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
 
     /* ─── Responsive ──────────────────────────────────────── */
     @media (max-width: 1024px) {
@@ -857,6 +891,7 @@
     @media (max-width: 768px) {
       .nav-links, .nav-cta-d { display: none; }
       .hbg { display: flex; }
+<<<<<<< HEAD
 
       /* iOS Safari 100vh fix — use svh with vh fallback */
       .hero { height: 100vh; height: 100svh; min-height: 560px; }
@@ -891,10 +926,26 @@
 
       section { padding: 72px 0; }
 
+=======
+      .hero-right { display: none; }
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+      .svc-row { grid-template-columns: 32px 1fr; gap: 16px; }
+      .svc-price { display: none; }
+      .svc-desc { display: none; }
+      .svc-row { padding: 24px 0; }
+      .work-grid, .proc-grid { grid-template-columns: 1fr; }
+      .ct-grid { grid-template-columns: 1fr; gap: 48px; }
+      .f-row { grid-template-columns: 1fr; }
+      .ct-form { padding: 28px 24px; }
+      .ft-main { grid-template-columns: 1fr; padding: 48px 0 36px; }
+      .ft-bot { flex-direction: column; gap: 14px; text-align: center; }
+      section { padding: 80px 0; }
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
       .corner-tr, .corner-br { right: 18px; }
       .corner-tl, .corner-bl { left: 18px; }
     }
     @media (max-width: 480px) {
+<<<<<<< HEAD
       .wrap { padding: 0 18px; }
       .h1 { font-size: 2.4rem; letter-spacing: -.03em; }
       .h2 { font-size: 1.9rem; }
@@ -923,6 +974,14 @@
       .wrap { padding: 0 16px; }
       .h1 { font-size: 2.1rem; }
       .nav-i { padding: 0 16px; }
+=======
+      .wrap { padding: 0 20px; }
+      .h1 { font-size: 2.6rem; }
+      .hero-actions { flex-direction: column; }
+      .btn { justify-content: center; }
+      .abt-card-bottom { grid-template-columns: 1fr 1fr; }
+      .abt-stat:last-child { grid-column: 1 / -1; border-right: none; border-top: 1px solid var(--bdr); }
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
     }
   </style>
 </head>
@@ -1049,56 +1108,144 @@
 
       <div class="svc-row">
         <div class="svc-num">01</div>
+<<<<<<< HEAD
         <div class="svc-name">Web Design</div>
+=======
+        <div>
+          <div class="svc-name">Web Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">UI / UX</span>
+            <span class="svc-tag">Responsive</span>
+            <span class="svc-tag">SEO-Ready</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Clean, fast websites built to convert visitors into clients. Custom-designed — no templates, no shortcuts.</div>
         <div class="svc-price"><strong>From R4,500</strong> per project</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">02</div>
+<<<<<<< HEAD
         <div class="svc-name">AI Agents</div>
+=======
+        <div>
+          <div class="svc-name">AI Agents</div>
+          <div class="svc-tags">
+            <span class="svc-tag">LLM</span>
+            <span class="svc-tag">24 / 7</span>
+            <span class="svc-tag">Lead Qual.</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Custom AI agents that qualify leads, book appointments, and handle customer queries around the clock — so you don't have to.</div>
         <div class="svc-price"><strong>From R6,500</strong> per agent</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">03</div>
+<<<<<<< HEAD
         <div class="svc-name">Automation</div>
+=======
+        <div>
+          <div class="svc-name">Automation</div>
+          <div class="svc-tags">
+            <span class="svc-tag">N8N</span>
+            <span class="svc-tag">Workflows</span>
+            <span class="svc-tag">API Integrations</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Workflows that eliminate repetitive tasks and connect your tools. Automate the boring stuff — focus on what moves the needle.</div>
         <div class="svc-price"><strong>From R4,000</strong> per workflow</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">04</div>
+<<<<<<< HEAD
         <div class="svc-name">Brand Identity</div>
+=======
+        <div>
+          <div class="svc-name">Brand Identity</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Logo</span>
+            <span class="svc-tag">Typography</span>
+            <span class="svc-tag">Guidelines</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Strategic identity systems — logo, colour, typography, and motion — that communicate your brand with unmistakable clarity.</div>
         <div class="svc-price"><strong>From R3,500</strong> per project</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">05</div>
+<<<<<<< HEAD
         <div class="svc-name">UI / UX Design</div>
+=======
+        <div>
+          <div class="svc-name">UI / UX Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Wireframes</span>
+            <span class="svc-tag">Prototypes</span>
+            <span class="svc-tag">User Research</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Interfaces designed around how real people think and click. From low-fi wireframes to high-fidelity interactive prototypes.</div>
         <div class="svc-price"><strong>From R3,000</strong> per screen set</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">06</div>
+<<<<<<< HEAD
         <div class="svc-name">Full-Stack Development</div>
+=======
+        <div>
+          <div class="svc-name">Full-Stack Development</div>
+          <div class="svc-tags">
+            <span class="svc-tag">React</span>
+            <span class="svc-tag">Node</span>
+            <span class="svc-tag">APIs</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">End-to-end web application development. Custom back-end logic, database architecture, and third-party API integrations.</div>
         <div class="svc-price"><strong>From R8,000</strong> per project</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">07</div>
+<<<<<<< HEAD
         <div class="svc-name">Packaging Design</div>
+=======
+        <div>
+          <div class="svc-name">Packaging Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Print</span>
+            <span class="svc-tag">Dielines</span>
+            <span class="svc-tag">Retail-Ready</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Product packaging that stands out on the shelf. Structural design, print-ready artwork, and supplier-ready dielines.</div>
         <div class="svc-price"><strong>From R2,500</strong> per SKU</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">08</div>
+<<<<<<< HEAD
         <div class="svc-name">Digital Strategy</div>
+=======
+        <div>
+          <div class="svc-name">Digital Strategy</div>
+          <div class="svc-tags">
+            <span class="svc-tag">SEO</span>
+            <span class="svc-tag">CRO</span>
+            <span class="svc-tag">Analytics</span>
+          </div>
+        </div>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         <div class="svc-desc">Data-driven roadmaps that align your digital presence with growth. SEO architecture, funnel optimisation, and performance analytics.</div>
         <div class="svc-price"><strong>From R2,000</strong> per month</div>
       </div>
@@ -1155,7 +1302,11 @@
     <div class="work-grid rv d1">
       <div class="work-cell">
         <div class="work-visual work-visual-img">
+<<<<<<< HEAD
           <img src="lead-gen.png" alt="Lead Generation Site Branding" loading="lazy" decoding="async" />
+=======
+          <img src="lead-gen.png" alt="Lead Generation Site Branding" />
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         </div>
         <div class="work-body">
           <div class="work-year">2024 — Branding / Web</div>
@@ -1166,7 +1317,11 @@
 
       <div class="work-cell">
         <div class="work-visual work-visual-img">
+<<<<<<< HEAD
           <img src="h23.png" alt="H23 Branding" loading="lazy" decoding="async" />
+=======
+          <img src="h23.png" alt="H23 Branding" />
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         </div>
         <div class="work-body">
           <div class="work-year">2025 — Brand Identity</div>
@@ -1177,7 +1332,11 @@
 
       <div class="work-cell">
         <div class="work-visual work-visual-img">
+<<<<<<< HEAD
           <img src="bistro-cafe.png" alt="The Bistro Cafe" loading="lazy" decoding="async" />
+=======
+          <img src="bistro-cafe.png" alt="The Bistro Cafe" />
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
         </div>
         <div class="work-body">
           <div class="work-year">2026 — Web Design</div>
@@ -1399,7 +1558,11 @@
   </div>
 </footer>
 
+<<<<<<< HEAD
 <button class="stt" id="stt" aria-label="Back to top"></button>
+=======
+<button class="stt" id="stt" aria-label="Back to top">^</button>
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
 
 <!-- ══════════════ JS ════════════════════════════════════ -->
 <script>
@@ -1408,7 +1571,11 @@
   const cvs = document.getElementById('hero-canvas');
   const ctx = cvs.getContext('2d');
   let W, H, cols, rows, dots = [], mouse = { x: -999, y: -999 };
+<<<<<<< HEAD
   const SPACING   = window.innerWidth < 768 ? 38 : 26;
+=======
+  const SPACING   = 26;
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
   const BASE_R    = 1.4;
   const MAX_R     = 5.5;
   const WAVE_SPEED= 0.0014;
@@ -1471,6 +1638,7 @@
     mouse.y = e.clientY - rect.top;
   });
   cvs.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+<<<<<<< HEAD
   cvs.addEventListener('touchmove', e => {
     const rect = cvs.getBoundingClientRect();
     const t = e.touches[0];
@@ -1478,6 +1646,8 @@
     mouse.y = t.clientY - rect.top;
   }, { passive: true });
   cvs.addEventListener('touchend', () => { mouse.x = -999; mouse.y = -999; });
+=======
+>>>>>>> 269358e2b5e12ade2ff206f0def25033476cdec5
 
   window.addEventListener('resize', resize, { passive: true });
   resize();
