@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ─── Primary SEO ─────────────────────────────────────── -->
+  <title>White Space Designs | Web Design &amp; AI Solutions — Southern Africa</title>
+  <meta name="description" content="White Space Designs is a Southern African web design and AI solutions agency. We build conversion-focused websites, custom AI agents, and smart automations. Book a free discovery call today." />
+  <meta name="keywords" content="web design South Africa, AI agents, automation, brand identity, UI UX design, N8N automation, full stack development, digital strategy, packaging design, Jason Russell" />
+  <meta name="author" content="Jason Russell — White Space Designs" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://whitespacedesigns.co/" />
+
+  <!-- ─── Open Graph (Facebook, WhatsApp, LinkedIn previews) ─ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://whitespacedesigns.co/" />
+  <meta property="og:title" content="White Space Designs | Web Design &amp; AI Solutions" />
+  <meta property="og:description" content="Sharp design. Smart systems. Southern African web design and AI solutions agency building websites, AI agents, and automations that grow your business." />
+  <meta property="og:image" content="https://whitespacedesigns.co/og-image.jpg" />
+  <meta property="og:site_name" content="White Space Designs" />
+  <meta property="og:locale" content="en_ZA" />
+
+  <!-- ─── Twitter / X card ────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="White Space Designs | Web Design &amp; AI Solutions" />
+  <meta name="twitter:description" content="Sharp design. Smart systems. Southern African web design and AI solutions agency." />
+  <meta name="twitter:image" content="https://whitespacedesigns.co/og-image.jpg" />
+
+  <!-- ─── Structured data (Google rich results) ───────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "White Space Designs",
+    "description": "Southern African web design and AI solutions agency specialising in conversion-focused websites, custom AI agents, and smart automations.",
+    "url": "https://whitespacedesigns.co",
+    "logo": "https://whitespacedesigns.co/logo.png",
+    "image": "https://whitespacedesigns.co/og-image.jpg",
+    "founder": {
+      "@type": "Person",
+      "name": "Jason Russell",
+      "jobTitle": "Brand Designer & Creative Director"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Southern Africa"
+    },
+    "serviceType": [
+      "Web Design",
+      "AI Agents",
+      "Automation",
+      "Brand Identity",
+      "UI/UX Design",
+      "Full-Stack Development",
+      "Packaging Design",
+      "Digital Strategy"
+    ],
+    "sameAs": [
+      "https://www.instagram.com/whitespacedesign_za/"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "hello@whitespacedesigns.co",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+
+  <!-- ─── Favicon ────────────────────────────────────────── -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ff3b30'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='14' fill='white'>WS</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────── */
+    :root {
+      --bg:    #0a0a0a;
+      --bg2:   #111111;
+      --sf:    #161616;
+      --sf2:   #1c1c1c;
+      --bdr:   rgba(255,255,255,.13);
+      --bdr2:  rgba(255,255,255,.07);
+      --txt:   #ffffff;
+      --mt:    #aaaaaa;
+      --dim:   #777777;
+      --red:   #ff3b30;
+      --fnt:   'Inter', system-ui, sans-serif;
+      --mono:  'Space Mono', monospace;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fnt); background: var(--bg); color: var(--txt); overflow-x: hidden; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    ::selection { background: rgba(255,59,48,.25); color: #fff; }
+
+    /* ─── Canvas hero ─────────────────────────────────────── */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+    }
+
+    /* ensure hero text sits above canvas but has no background blocking it */
+    .hero-content { background: transparent !important; }
+    .hero-left, .hero-right, .hero-inner, .hero-tag { background: transparent !important; }
+
+    /* ─── Utilities ───────────────────────────────────────── */
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+    .mono { font-family: var(--mono); }
+
+    .label {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--mt);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .h1 {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      letter-spacing: -.04em;
+      line-height: 1.02;
+    }
+    .h1 strong { font-weight: 700; }
+
+    .h2 {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+    }
+    .h2 strong { font-weight: 700; }
+
+    .lead {
+      font-size: 1rem;
+      color: var(--mt);
+      line-height: 1.8;
+      max-width: 520px;
+      font-weight: 400;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-size: .82rem;
+      font-family: var(--mono);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 0;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .btn-solid {
+      background: var(--txt);
+      color: var(--bg);
+    }
+    .btn-solid:hover { background: #d4d4d4; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--txt);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,.5); background: rgba(255,255,255,.04); }
+
+    .btn-arrow::after {
+      content: '→';
+      transition: transform .2s;
+    }
+    .btn-arrow:hover::after { transform: translateX(4px); }
+
+    /* Reveal */
+    .rv { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .rv.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; }
+    .d6 { transition-delay: .6s; }
+    .d7 { transition-delay: .7s; }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      transition: background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.sc {
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(20px);
+      border-color: var(--bdr);
+    }
+    .nav-i {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--mono);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--txt);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: dot-pulse 2.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes dot-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.6); }
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: .78rem;
+      font-family: var(--mono);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--mt);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--txt); }
+
+    .hbg { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+    .hbg span { display: block; width: 22px; height: 1px; background: #fff; transition: .3s; }
+    .hbg.op span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hbg.op span:nth-child(2) { opacity: 0; }
+    .hbg.op span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .mob-nav {
+      display: none;
+      flex-direction: column;
+      padding: 16px 32px 24px;
+      background: rgba(10,10,10,.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      gap: 0;
+    }
+    .mob-nav a {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--mt);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--bdr);
+      transition: color .2s;
+    }
+    .mob-nav a:last-child { border: none; }
+    .mob-nav a:hover { color: #fff; }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding-bottom: 72px;
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .hero-left { max-width: 700px; }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-tag-line { width: 28px; height: 1px; background: var(--red); }
+
+    .hero h1 { margin-bottom: 32px; }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .hero-index {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .1em;
+      line-height: 2.2;
+    }
+    .hero-index span { color: rgba(255,255,255,.35); }
+
+    /* Scan line overlay */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,.08) 2px,
+        rgba(0,0,0,.08) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Corner marks */
+    .corner {
+      position: absolute;
+      z-index: 3;
+      width: 20px;
+      height: 20px;
+    }
+    .corner-tl { top: 80px; left: 32px; border-top: 1px solid rgba(255,255,255,.4); border-left: 1px solid rgba(255,255,255,.4); }
+    .corner-tr { top: 80px; right: 32px; border-top: 1px solid rgba(255,255,255,.4); border-right: 1px solid rgba(255,255,255,.4); }
+    .corner-bl { bottom: 64px; left: 32px; border-bottom: 1px solid rgba(255,255,255,.4); border-left: 1px solid rgba(255,255,255,.4); }
+    .corner-br { bottom: 64px; right: 32px; border-bottom: 1px solid rgba(255,255,255,.4); border-right: 1px solid rgba(255,255,255,.4); }
+
+    /* Scroll indicator */
+    .scroll-ind {
+      position: absolute;
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.7), transparent);
+      animation: scroll-drop 2s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0%, 100% { transform: scaleY(1); opacity: .9; }
+      50% { transform: scaleY(.5); opacity: .35; }
+    }
+    .scroll-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      writing-mode: vertical-rl;
+    }
+
+    /* ─── MARQUEE ─────────────────────────────────────────── */
+    .marquee-wrap {
+      border-top: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: mq 32s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes mq { to { transform: translateX(-50%); } }
+    .mq-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 36px;
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      white-space: nowrap;
+      border-right: 1px solid var(--bdr);
+    }
+    .mq-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+
+    /* ─── SECTION SHELL ───────────────────────────────────── */
+    section { padding: 120px 0; position: relative; z-index: 1; }
+    .s-head { margin-bottom: 72px; }
+
+    /* ─── SERVICES ────────────────────────────────────────── */
+    .svc-bg { background: var(--bg2); }
+
+    /* Full-width table-style service list */
+    .svc-table {
+      border-top: 1px solid var(--bdr);
+    }
+    .svc-row {
+      display: grid;
+      grid-template-columns: 48px 2fr 3fr 120px;
+      gap: 32px;
+      align-items: center;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--bdr);
+      transition: background .2s;
+      cursor: default;
+    }
+    .svc-row:hover { background: rgba(255,255,255,.02); }
+    .svc-num {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--dim);
+      letter-spacing: .08em;
+    }
+    .svc-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    .svc-desc {
+      font-size: .88rem;
+      color: var(--mt);
+      line-height: 1.7;
+    }
+    .svc-price {
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--mt);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .svc-price strong {
+      display: block;
+      font-size: .9rem;
+      color: var(--txt);
+      margin-bottom: 2px;
+    }
+
+/* ─── PROCESS ─────────────────────────────────────────── */
+    .proc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--bdr);
+      border-left: 1px solid var(--bdr);
+    }
+    .proc-cell {
+      border-right: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      padding: 40px 36px;
+    }
+    .proc-n {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--red);
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+    }
+    .proc-cell h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -.01em; }
+    .proc-cell p { font-size: .85rem; color: var(--mt); line-height: 1.75; }
+    .proc-cta { margin-top: 48px; }
+
+    /* ─── WORK ────────────────────────────────────────────── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--bdr);
+      border-left: 1px solid var(--bdr);
+    }
+    .work-cell {
+      border-right: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      overflow: hidden;
+    }
+    .work-visual {
+      height: 200px;
+      background: var(--sf);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Dot-matrix pattern for work visuals */
+    .work-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+    .work-visual-accent {
+      position: absolute;
+      inset: 0;
+    }
+    .wa-1 { background: linear-gradient(135deg, rgba(255,59,48,.15), transparent 60%); }
+    .wa-2 { background: linear-gradient(135deg, rgba(255,255,255,.08), transparent 60%); }
+    .wa-3 { background: linear-gradient(225deg, rgba(255,59,48,.12), transparent 60%); }
+    .work-visual-label {
+      position: relative;
+      z-index: 1;
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: 6px 12px;
+    }
+    .work-visual-img {
+      background: var(--sf2);
+      height: 220px;
+    }
+    .work-visual-img::before { display: none; }
+    .work-visual-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .work-cell:hover .work-visual-img img {
+      transform: scale(1.04);
+    }
+    .work-body { padding: 24px; }
+    .work-year { font-family: var(--mono); font-size: .62rem; color: var(--dim); letter-spacing: .1em; margin-bottom: 10px; }
+    .work-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
+    .work-body p { font-size: .83rem; color: var(--mt); line-height: 1.65; }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    .abt-bg { background: var(--bg2); }
+    .abt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .abt-card {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      position: relative;
+      overflow: hidden;
+    }
+    .abt-card-top {
+      padding: 40px;
+      border-bottom: 1px solid var(--bdr);
+    }
+    /* Dot pattern in about card */
+    .abt-card-top::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 160px; height: 160px;
+      background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 12px 12px;
+      mask-image: radial-gradient(circle at top right, black 40%, transparent 70%);
+    }
+    .abt-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 4px;
+    }
+    .abt-role {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+    .abt-bio { font-size: .9rem; color: var(--mt); line-height: 1.75; }
+
+    .abt-card-bottom {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .abt-stat {
+      padding: 24px;
+      border-right: 1px solid var(--bdr);
+      text-align: center;
+    }
+    .abt-stat:last-child { border: none; }
+    .abt-stat-n {
+      font-family: var(--mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--txt);
+      margin-bottom: 4px;
+    }
+    .abt-stat-l { font-size: .72rem; color: var(--dim); font-weight: 500; }
+
+    .abt-skills { margin-top: 24px; }
+    .skill-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--bdr);
+      font-size: .85rem;
+    }
+    .skill-item:last-child { border: none; }
+    .skill-name { color: var(--mt); }
+    .skill-bar-wrap { display: flex; align-items: center; gap: 12px; }
+    .skill-bar { width: 80px; height: 2px; background: rgba(255,255,255,.06); position: relative; overflow: hidden; }
+    .skill-bar-fill { position: absolute; inset-y: 0; left: 0; background: var(--txt); }
+    .skill-pct { font-family: var(--mono); font-size: .65rem; color: var(--dim); width: 28px; text-align: right; }
+
+    .abt-text .lead { margin-bottom: 28px; }
+    .abt-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+    .abt-list li { display: flex; align-items: flex-start; gap: 14px; font-size: .9rem; color: var(--mt); }
+    .abt-list-mark {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--red);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .abt-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+    /* ─── CONTACT ─────────────────────────────────────────── */
+    .ct-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .ct-info .lead { margin-bottom: 40px; }
+    .ct-items { display: flex; flex-direction: column; }
+    .ct-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .ct-item:last-child { border: none; }
+    .ct-item-label {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      min-width: 90px;
+      padding-top: 2px;
+    }
+    .ct-item-val { font-size: .9rem; color: var(--txt); font-weight: 500; }
+    .ct-item-val a { color: var(--mt); transition: color .2s; }
+    .ct-item-val a:hover { color: var(--txt); }
+
+    .ct-form {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      padding: 44px 40px;
+      position: relative;
+    }
+    .ct-form::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--red);
+    }
+    .f-g { margin-bottom: 20px; }
+    .f-g label {
+      display: block;
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 8px;
+    }
+    .f-g input, .f-g textarea, .f-g select {
+      width: 100%;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--bdr);
+      border-radius: 0;
+      padding: 13px 16px;
+      color: var(--txt);
+      font-size: .9rem;
+      font-family: var(--fnt);
+      outline: none;
+      resize: none;
+      transition: border-color .2s, background .2s;
+      -webkit-appearance: none;
+    }
+    .f-g input::placeholder, .f-g textarea::placeholder { color: var(--dim); }
+    .f-g input:focus, .f-g textarea:focus, .f-g select:focus {
+      border-color: rgba(255,255,255,.25);
+      background: rgba(255,255,255,.04);
+    }
+    .f-g textarea { height: 120px; }
+    .f-g select { cursor: pointer; color: var(--mt); }
+    .f-g select option { background: var(--bg); color: var(--txt); }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-submit { width: 100%; margin-top: 8px; justify-content: center; }
+    .f-success { display: none; text-align: center; padding: 32px 0; }
+    .f-success-mark {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .f-success h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .f-success p { font-size: .85rem; color: var(--mt); }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--bdr);
+      position: relative;
+      z-index: 1;
+    }
+    .ft-main {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .ft-brand p { font-size: .85rem; color: var(--mt); line-height: 1.7; margin-top: 16px; max-width: 260px; }
+    .ft-col h5 {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 20px;
+    }
+    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .ft-links a { font-size: .85rem; color: var(--mt); transition: color .2s; }
+    .ft-links a:hover { color: var(--txt); }
+    .ft-bot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+    }
+    .ft-bot p { font-family: var(--mono); font-size: .62rem; color: var(--dim); letter-spacing: .06em; }
+    .ft-socs { display: flex; gap: 1px; }
+    .ft-soc {
+      width: 40px; height: 40px;
+      border: 1px solid var(--bdr);
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--dim);
+      transition: all .2s;
+      margin-left: -1px;
+    }
+    .ft-soc:hover { border-color: rgba(255,255,255,.2); color: var(--txt); z-index: 1; }
+
+    /* Scroll top */
+    .stt {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 99;
+      width: 48px; height: 48px;
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .3s, transform .3s, background .2s, border-color .2s;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(0,0,0,.5);
+    }
+    .stt::before {
+      content: '';
+      display: block;
+      width: 10px; height: 10px;
+      border-top: 2px solid #fff;
+      border-right: 2px solid #fff;
+      transform: rotate(-45deg) translate(2px, 2px);
+      transition: border-color .2s;
+    }
+    .stt.sh { opacity: 1; transform: none; }
+    .stt:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .stt:hover::before { border-color: #fff; }
+    @media (max-width: 768px) {
+      .stt { width: 52px; height: 52px; bottom: 20px; right: 20px; }
+    }
+
+    /* ─── Responsive ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .svc-row { grid-template-columns: 40px 1fr 1fr 100px; gap: 20px; }
+      .work-grid, .proc-grid { grid-template-columns: 1fr 1fr; }
+      .abt-grid { grid-template-columns: 1fr; gap: 48px; }
+      .ft-main { grid-template-columns: 1fr 1fr; }
+      .ft-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta-d { display: none; }
+      .hbg { display: flex; }
+
+      /* iOS Safari 100vh fix — use svh with vh fallback */
+      .hero { height: 100vh; height: 100svh; min-height: 560px; }
+
+      .hero-content { padding-bottom: 48px; }
+      .hero-right { display: none; }
+      .hero-inner { flex-direction: column; align-items: flex-start; }
+
+      /* Scroll indicator overlaps content on mobile */
+      .scroll-ind { display: none; }
+
+      .svc-row { grid-template-columns: 32px 1fr; gap: 12px 16px; padding: 20px 0; }
+      .svc-desc { display: none; }
+      .svc-price { grid-column: 2; text-align: left; white-space: normal; }
+      .svc-price strong { font-size: .82rem; }
+      .svc-price { font-size: .7rem; }
+
+      .work-grid, .proc-grid { grid-template-columns: 1fr; }
+      .proc-cell { padding: 28px 24px; }
+
+      .s-head { margin-bottom: 48px; }
+
+      .abt-card-top { padding: 28px 24px; }
+      .abt-stat { padding: 20px 16px; }
+
+      .ct-grid { grid-template-columns: 1fr; gap: 40px; }
+      .f-row { grid-template-columns: 1fr; }
+      .ct-form { padding: 28px 24px; }
+
+      .ft-main { grid-template-columns: 1fr; padding: 48px 0 36px; }
+      .ft-bot { flex-direction: column; gap: 14px; text-align: center; }
+
+      section { padding: 72px 0; }
+
+      .corner-tr, .corner-br { right: 18px; }
+      .corner-tl, .corner-bl { left: 18px; }
+    }
+    @media (max-width: 480px) {
+      .wrap { padding: 0 18px; }
+      .h1 { font-size: 2.4rem; letter-spacing: -.03em; }
+      .h2 { font-size: 1.9rem; }
+
+      section { padding: 60px 0; }
+      .s-head { margin-bottom: 32px; }
+
+      .hero-content { padding-bottom: 36px; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+
+      .proc-cell { padding: 22px 18px; }
+
+      .work-body { padding: 18px; }
+
+      .abt-card-top { padding: 22px 18px; }
+      .abt-card-bottom { grid-template-columns: 1fr 1fr; }
+      .abt-stat:last-child { grid-column: 1 / -1; border-right: none; border-top: 1px solid var(--bdr); }
+
+      .ct-form { padding: 22px 18px; }
+
+      .ft-main { padding: 40px 0 28px; }
+      .ft-bot { padding: 20px 0; }
+    }
+    @media (max-width: 360px) {
+      .wrap { padding: 0 16px; }
+      .h1 { font-size: 2.1rem; }
+      .nav-i { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-i">
+    <a href="#home" class="logo">
+      <div class="logo-dot"></div>
+      White Space Designs
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow nav-cta-d" style="font-size:.68rem;padding:10px 20px;letter-spacing:.1em;">Book a Call</a>
+    <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-nav" id="mobNav">
+    <a href="#services" class="mob-link">Services</a>
+    <a href="#process" class="mob-link">Process</a>
+    <a href="#work" class="mob-link">Work</a>
+    <a href="#about" class="mob-link">About</a>
+    <a href="#contact" class="mob-link">Contact</a>
+    <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="mob-link" style="color:#fff;margin-top:8px;">Book a Call →</a>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ════════════════════════════════ -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Corner marks -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="hero-tag">
+            <span class="hero-tag-line"></span>
+            Southern Africa — Est. 2018
+          </div>
+
+          <h1 class="h1">
+            Sharp design.<br />
+            <strong>Smart systems.</strong>
+          </h1>
+
+          <p class="lead" style="margin-bottom:36px;">
+            Web design, AI agents, and automation built for businesses that refuse to blend in.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book a Free Call</a>
+            <a href="#services" class="btn btn-outline">View Services</a>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-index">
+            <div>WSD / 2026</div>
+            <div>——</div>
+            <div><span>01</span> Web Design</div>
+            <div><span>02</span> AI Agents</div>
+            <div><span>03</span> Automation</div>
+            <div><span>04</span> Branding</div>
+            <div>——</div>
+            <div>Available for projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <div class="scroll-line"></div>
+    <div class="scroll-label">Scroll</div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mq-item"><span class="mq-dot"></span>Web Design</div>
+    <div class="mq-item"><span class="mq-dot"></span>AI Agents</div>
+    <div class="mq-item"><span class="mq-dot"></span>Automation</div>
+    <div class="mq-item"><span class="mq-dot"></span>Brand Identity</div>
+    <div class="mq-item"><span class="mq-dot"></span>UI / UX</div>
+    <div class="mq-item"><span class="mq-dot"></span>N8N Workflows</div>
+    <div class="mq-item"><span class="mq-dot"></span>Full-Stack Dev</div>
+    <div class="mq-item"><span class="mq-dot"></span>Lead Generation</div>
+    <div class="mq-item"><span class="mq-dot"></span>Packaging Design</div>
+    <div class="mq-item"><span class="mq-dot"></span>Digital Strategy</div>
+    <div class="mq-item"><span class="mq-dot"></span>Web Design</div>
+    <div class="mq-item"><span class="mq-dot"></span>AI Agents</div>
+    <div class="mq-item"><span class="mq-dot"></span>Automation</div>
+    <div class="mq-item"><span class="mq-dot"></span>Brand Identity</div>
+    <div class="mq-item"><span class="mq-dot"></span>UI / UX</div>
+    <div class="mq-item"><span class="mq-dot"></span>N8N Workflows</div>
+    <div class="mq-item"><span class="mq-dot"></span>Full-Stack Dev</div>
+    <div class="mq-item"><span class="mq-dot"></span>Lead Generation</div>
+    <div class="mq-item"><span class="mq-dot"></span>Packaging Design</div>
+    <div class="mq-item"><span class="mq-dot"></span>Digital Strategy</div>
+  </div>
+</div>
+
+<!-- ══════════════ SERVICES ════════════════════════════ -->
+<section class="svc-bg" id="services">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="label">What We Do</div>
+      <h2 class="h2">Every service you need.<br /><strong>Nothing you don't.</strong></h2>
+    </div>
+
+    <div class="svc-table rv d1">
+
+      <div class="svc-row">
+        <div class="svc-num">01</div>
+        <div class="svc-name">Web Design</div>
+        <div class="svc-desc">Clean, fast websites built to convert visitors into clients. Custom-designed — no templates, no shortcuts.</div>
+        <div class="svc-price"><strong>From R4,500</strong> per project</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">02</div>
+        <div class="svc-name">AI Agents</div>
+        <div class="svc-desc">Custom AI agents that qualify leads, book appointments, and handle customer queries around the clock — so you don't have to.</div>
+        <div class="svc-price"><strong>From R6,500</strong> per agent</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">03</div>
+        <div class="svc-name">Automation</div>
+        <div class="svc-desc">Workflows that eliminate repetitive tasks and connect your tools. Automate the boring stuff — focus on what moves the needle.</div>
+        <div class="svc-price"><strong>From R4,000</strong> per workflow</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">04</div>
+        <div class="svc-name">Brand Identity</div>
+        <div class="svc-desc">Strategic identity systems — logo, colour, typography, and motion — that communicate your brand with unmistakable clarity.</div>
+        <div class="svc-price"><strong>From R3,500</strong> per project</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">05</div>
+        <div class="svc-name">UI / UX Design</div>
+        <div class="svc-desc">Interfaces designed around how real people think and click. From low-fi wireframes to high-fidelity interactive prototypes.</div>
+        <div class="svc-price"><strong>From R3,000</strong> per screen set</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">06</div>
+        <div class="svc-name">Full-Stack Development</div>
+        <div class="svc-desc">End-to-end web application development. Custom back-end logic, database architecture, and third-party API integrations.</div>
+        <div class="svc-price"><strong>From R8,000</strong> per project</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">07</div>
+        <div class="svc-name">Packaging Design</div>
+        <div class="svc-desc">Product packaging that stands out on the shelf. Structural design, print-ready artwork, and supplier-ready dielines.</div>
+        <div class="svc-price"><strong>From R2,500</strong> per SKU</div>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">08</div>
+        <div class="svc-name">Digital Strategy</div>
+        <div class="svc-desc">Data-driven roadmaps that align your digital presence with growth. SEO architecture, funnel optimisation, and performance analytics.</div>
+        <div class="svc-price"><strong>From R2,000</strong> per month</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:48px;" class="rv d2">
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Discuss Your Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ PROCESS ══════════════════════════════ -->
+<section id="process">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="label">How It Works</div>
+      <h2 class="h2">Simple process.<br /><strong>Serious results.</strong></h2>
+    </div>
+
+    <div class="proc-grid rv d1">
+      <div class="proc-cell">
+        <div class="proc-n">Step / 01</div>
+        <h3>Book a Discovery Call</h3>
+        <p>Schedule a free 30-minute call via Calendly. We discuss your goals, challenges, and what success looks like for your business.</p>
+      </div>
+      <div class="proc-cell">
+        <div class="proc-n">Step / 02</div>
+        <h3>Map Your Business Needs</h3>
+        <p>We audit your current setup and identify the exact combination of services that will have the biggest measurable impact on your growth.</p>
+      </div>
+      <div class="proc-cell">
+        <div class="proc-n">Step / 03</div>
+        <h3>Proposal in 24 Hours</h3>
+        <p>A detailed, transparent proposal lands in your inbox within 24 hours — clear scope, realistic timeline, no surprise costs.</p>
+      </div>
+    </div>
+
+    <div class="proc-cta rv d2">
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book Your Free Call</a>
+      <p style="font-size:.75rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;margin-top:12px;text-transform:uppercase;">No commitment. No pressure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WORK ══════════════════════════════════ -->
+<section id="work" style="background:var(--bg2);">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="label">Recent Work</div>
+      <h2 class="h2">Projects we're<br /><strong>proud of.</strong></h2>
+    </div>
+
+    <div class="work-grid rv d1">
+      <div class="work-cell">
+        <div class="work-visual work-visual-img">
+          <img src="lead-gen.png" alt="Lead Generation Site Branding" loading="lazy" decoding="async" />
+        </div>
+        <div class="work-body">
+          <div class="work-year">2024 — Branding / Web</div>
+          <h3>Lead Generation Site Branding</h3>
+          <p>Full brand identity and conversion-optimised landing page for a B2B services client.</p>
+        </div>
+      </div>
+
+      <div class="work-cell">
+        <div class="work-visual work-visual-img">
+          <img src="h23.png" alt="H23 Branding" loading="lazy" decoding="async" />
+        </div>
+        <div class="work-body">
+          <div class="work-year">2025 — Brand Identity</div>
+          <h3>H23 Branding</h3>
+          <p>Comprehensive brand identity system — logo, typography, colour palette, and full brand guidelines.</p>
+        </div>
+      </div>
+
+      <div class="work-cell">
+        <div class="work-visual work-visual-img">
+          <img src="bistro-cafe.png" alt="The Bistro Cafe" loading="lazy" decoding="async" />
+        </div>
+        <div class="work-body">
+          <div class="work-year">2026 — Web Design</div>
+          <h3>The Bistro Cafe</h3>
+          <p>End-to-end web design for a Centurion cafe — reservation system, menu, and full brand rollout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ABOUT ════════════════════════════════ -->
+<section class="abt-bg" id="about">
+  <div class="wrap">
+    <div class="abt-grid">
+
+      <div class="rv">
+        <div class="abt-card">
+          <div class="abt-card-top">
+            <div class="abt-name">Jason Russell</div>
+            <div class="abt-role">Brand Designer / Creative Director / AI Developer</div>
+            <p class="abt-bio">A Southern African brand designer who loves to experiment. I combine a sharp design eye with hands-on AI and automation expertise — delivering work that's both beautiful and genuinely intelligent.</p>
+
+            <div class="abt-skills">
+              <div class="skill-item">
+                <span class="skill-name">Web Design &amp; Development</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar"><div class="skill-bar-fill" style="width:96%"></div></div>
+                  <span class="skill-pct">96%</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">AI Agents &amp; Automation</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar"><div class="skill-bar-fill" style="width:92%"></div></div>
+                  <span class="skill-pct">92%</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Brand &amp; Identity Design</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+                  <span class="skill-pct">95%</span>
+                </div>
+              </div>
+              <div class="skill-item">
+                <span class="skill-name">Digital Strategy</span>
+                <div class="skill-bar-wrap">
+                  <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
+                  <span class="skill-pct">88%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="abt-card-bottom">
+            <div class="abt-stat">
+              <div class="abt-stat-n">150+</div>
+              <div class="abt-stat-l">Projects</div>
+            </div>
+            <div class="abt-stat">
+              <div class="abt-stat-n">8 yr</div>
+              <div class="abt-stat-l">Experience</div>
+            </div>
+            <div class="abt-stat">
+              <div class="abt-stat-n">4.9</div>
+              <div class="abt-stat-l">Client Rating</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="abt-text rv d1">
+        <div class="label">About the Studio</div>
+        <h2 class="h2" style="margin-bottom:24px;">Where creativity meets <strong>intelligence.</strong></h2>
+        <p class="lead">White Space Designs is a multidisciplinary design studio built at the intersection of compelling design and smart technology. We don't just build websites — we build systems that grow your business while you sleep.</p>
+        <p class="lead" style="margin-top:14px;">From startups finding their footing to established brands ready to scale, we partner with businesses that are serious about their digital future.</p>
+
+        <ul class="abt-list" style="margin-top:28px;">
+          <li><span class="abt-list-mark">/01</span>Conversion-first design — beautiful work that actually performs</li>
+          <li><span class="abt-list-mark">/02</span>AI-native thinking applied across every service we offer</li>
+          <li><span class="abt-list-mark">/03</span>Transparent pricing with no hidden costs or surprises</li>
+          <li><span class="abt-list-mark">/04</span>Proposal delivered within 24 hours of your discovery call</li>
+          <li><span class="abt-list-mark">/05</span>Long-term partner — not a once-off vendor</li>
+        </ul>
+
+        <div class="abt-links">
+          <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book a Free Call</a>
+          <a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════════════════════ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="ct-grid">
+
+      <div class="ct-info rv">
+        <div class="label">Get In Touch</div>
+        <h2 class="h2" style="margin-bottom:20px;">Let's build something<br /><strong>great together.</strong></h2>
+        <p class="lead">Tell us about your project and we'll have a proposal in your inbox within 24 hours. Or skip straight to a call.</p>
+
+        <div class="ct-items" style="margin-top:40px;">
+          <div class="ct-item">
+            <div class="ct-item-label">Email</div>
+            <div class="ct-item-val">hello@whitespacedesigns.co</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-item-label">Book a Call</div>
+            <div class="ct-item-val"><a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener">Schedule via Calendly</a></div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-item-label">Instagram</div>
+            <div class="ct-item-val"><a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener">@whitespacedesign_za</a></div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-item-label">Based In</div>
+            <div class="ct-item-val">Southern Africa — serving clients globally</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-item-label">Response</div>
+            <div class="ct-item-val">Proposal within 24 hours</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ct-form rv d2">
+        <form id="cform">
+          <div class="f-row">
+            <div class="f-g"><label>First Name</label><input type="text" placeholder="Alex" required /></div>
+            <div class="f-g"><label>Last Name</label><input type="text" placeholder="Johnson" required /></div>
+          </div>
+          <div class="f-g"><label>Email Address</label><input type="email" placeholder="alex@company.com" required /></div>
+          <div class="f-g">
+            <label>Service Required</label>
+            <select>
+              <option value="" disabled selected>Select a service</option>
+              <option>Web Design — from R4,500</option>
+              <option>AI Agents — from R6,500</option>
+              <option>Automation — from R4,000</option>
+              <option>Brand Identity — from R3,500</option>
+              <option>UI / UX Design — from R3,000</option>
+              <option>Full-Stack Development — from R8,000</option>
+              <option>Packaging Design — from R2,500</option>
+              <option>Digital Strategy — from R2,000/mo</option>
+              <option>Multiple Services</option>
+              <option>Not sure yet — let's chat</option>
+            </select>
+          </div>
+          <div class="f-g"><label>Tell Us About Your Project</label><textarea placeholder="Goals, timeline, budget — the more detail, the better." required></textarea></div>
+          <button type="submit" class="btn btn-solid btn-arrow f-submit">Send Message</button>
+        </form>
+        <div class="f-success" id="fsuccess">
+          <div class="f-success-mark">// Message Received</div>
+          <h3>You'll hear from us within 24 hours.</h3>
+          <p>In the meantime, feel free to book a call directly via Calendly.</p>
+          <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:20px;font-size:.7rem;">Book a Call →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="ft-main">
+      <div class="ft-brand">
+        <a href="#home" class="logo">
+          <div class="logo-dot"></div>
+          White Space Designs
+        </a>
+        <p>Web design and AI solutions for brands that refuse to blend in. Southern Africa and beyond.</p>
+      </div>
+      <div class="ft-col">
+        <h5>Services</h5>
+        <ul class="ft-links">
+          <li><a href="#services">Web Design</a></li>
+          <li><a href="#services">AI Agents</a></li>
+          <li><a href="#services">Automation</a></li>
+          <li><a href="#services">Brand Identity</a></li>
+          <li><a href="#services">UI / UX</a></li>
+          <li><a href="#services">Full-Stack Dev</a></li>
+          <li><a href="#services">Packaging</a></li>
+          <li><a href="#services">Digital Strategy</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Studio</h5>
+        <ul class="ft-links">
+          <li><a href="#about">About Jason</a></li>
+          <li><a href="#work">Recent Work</a></li>
+          <li><a href="#process">Our Process</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h5>Connect</h5>
+        <ul class="ft-links">
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener">Book a Call</a></li>
+          <li><a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="mailto:hello@whitespacedesigns.co">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <p>WSD / 2026 — Jason Russell — Southern Africa</p>
+      <div class="ft-socs">
+        <a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener" class="ft-soc" aria-label="Instagram">IG</a>
+        <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="ft-soc" aria-label="Book">CAL</a>
+        <a href="mailto:hello@whitespacedesigns.co" class="ft-soc" aria-label="Email">EM</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button class="stt" id="stt" aria-label="Back to top"></button>
+
+<!-- ══════════════ JS ════════════════════════════════════ -->
+<script>
+/* ── Dot-wave canvas ────────────────────────────────── */
+(function () {
+  const cvs = document.getElementById('hero-canvas');
+  const ctx = cvs.getContext('2d');
+  let W, H, cols, rows, dots = [], mouse = { x: -999, y: -999 };
+  const SPACING   = window.innerWidth < 768 ? 38 : 26;
+  const BASE_R    = 1.4;
+  const MAX_R     = 5.5;
+  const WAVE_SPEED= 0.0014;
+  const WAVE_SCALE= 0.0055;
+
+  function resize() {
+    const hero = cvs.parentElement;
+    W = cvs.width  = hero.offsetWidth  || window.innerWidth;
+    H = cvs.height = hero.offsetHeight || window.innerHeight;
+    cols = Math.ceil(W / SPACING) + 3;
+    rows = Math.ceil(H / SPACING) + 3;
+    buildDots();
+  }
+
+  function buildDots() {
+    dots = [];
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        dots.push({ x: c * SPACING - SPACING, y: r * SPACING - SPACING });
+      }
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t += WAVE_SPEED;
+
+    dots.forEach(d => {
+      const wave = Math.sin(d.x * WAVE_SCALE + t * 3.2) *
+                   Math.cos(d.y * WAVE_SCALE + t * 2.1) *
+                   Math.sin((d.x + d.y) * WAVE_SCALE * 0.7 + t * 1.8);
+
+      const dx = d.x - mouse.x;
+      const dy = d.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const mouseFactor = Math.max(0, 1 - dist / 150);
+
+      const r     = BASE_R + wave * 2.2 + mouseFactor * (MAX_R - BASE_R);
+      const alpha = 0.22 + Math.abs(wave) * 0.45 + mouseFactor * 0.6;
+
+      const red = 255;
+      const g   = Math.floor(255 - mouseFactor * 210);
+      const b   = Math.floor(255 - mouseFactor * 210);
+
+      if (r > 0.3) {
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, Math.max(0.3, r), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${red},${g},${b},${Math.min(1, alpha)})`;
+        ctx.fill();
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  cvs.addEventListener('mousemove', e => {
+    const rect = cvs.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  cvs.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+  cvs.addEventListener('touchmove', e => {
+    const rect = cvs.getBoundingClientRect();
+    const t = e.touches[0];
+    mouse.x = t.clientX - rect.left;
+    mouse.y = t.clientY - rect.top;
+  }, { passive: true });
+  cvs.addEventListener('touchend', () => { mouse.x = -999; mouse.y = -999; });
+
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+  draw();
+})();
+
+/* ── Nav ────────────────────────────────────────────── */
+const nav = document.getElementById('nav');
+const stt = document.getElementById('stt');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('sc', scrollY > 40);
+  stt.classList.toggle('sh', scrollY > 500);
+}, { passive: true });
+
+/* ── Hamburger ──────────────────────────────────────── */
+const hbg = document.getElementById('hbg');
+const mob = document.getElementById('mobNav');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('op');
+  mob.style.display = mob.style.display === 'flex' ? 'none' : 'flex';
+  if (mob.style.display === 'flex') mob.style.flexDirection = 'column';
+});
+document.querySelectorAll('.mob-link').forEach(a => a.addEventListener('click', () => {
+  hbg.classList.remove('op'); mob.style.display = 'none';
+}));
+
+/* ── Scroll top ─────────────────────────────────────── */
+stt.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ── Reveal ─────────────────────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+/* ── Active nav ─────────────────────────────────────── */
+const secs = document.querySelectorAll('section[id]');
+const nls  = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 120) cur = s.id; });
+  nls.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? '#fff' : ''; });
+}, { passive: true });
+
+/* ── Form ───────────────────────────────────────────── */
+document.getElementById('cform').addEventListener('submit', function (e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('fsuccess').style.display = 'block';
+});
+</script>
+</body>
+</html>
