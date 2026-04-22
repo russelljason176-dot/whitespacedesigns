@@ -491,6 +491,18 @@
       margin-bottom: 2px;
     }
 
+    /* ─── SERVICE TAGS ───────────────────────────────────── */
+    .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .svc-tag {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,59,48,.25);
+      color: rgba(255,59,48,.7);
+    }
+
     /* ─── PROCESS ─────────────────────────────────────────── */
     .proc-grid {
       display: grid;
@@ -902,10 +914,12 @@
 
       .scroll-ind { display: none; }
 
-      .svc-row { grid-template-columns: 32px 1fr; gap: 12px 16px; padding: 20px 0; }
+      .svc-row { grid-template-columns: 32px 1fr; gap: 8px 16px; padding: 20px 0; align-items: start; }
       .svc-desc { display: none; }
       .svc-price { grid-column: 2; text-align: left; white-space: normal; font-size: .7rem; }
       .svc-price strong { font-size: .82rem; }
+      .svc-tags { margin-top: 6px; }
+      .svc-tag { font-size: .55rem; padding: 3px 8px; }
 
       .work-grid, .proc-grid { grid-template-columns: 1fr; }
       .proc-cell { padding: 28px 24px; }
@@ -1083,56 +1097,112 @@
 
       <div class="svc-row">
         <div class="svc-num">01</div>
-        <div class="svc-name">Web Design</div>
+        <div>
+          <div class="svc-name">Web Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Get More Clients</span>
+            <span class="svc-tag">Works on Mobile</span>
+            <span class="svc-tag">Ranks on Google</span>
+          </div>
+        </div>
         <div class="svc-desc">Clean, fast websites built to convert visitors into clients. Custom-designed — no templates, no shortcuts.</div>
         <div class="svc-price"><strong>From R4,500</strong> per project</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">02</div>
-        <div class="svc-name">AI Agents</div>
+        <div>
+          <div class="svc-name">AI Agents</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Works 24/7</span>
+            <span class="svc-tag">Books Appointments</span>
+            <span class="svc-tag">No More Admin</span>
+          </div>
+        </div>
         <div class="svc-desc">Custom AI agents that qualify leads, book appointments, and handle customer queries around the clock — so you don't have to.</div>
         <div class="svc-price"><strong>From R6,500</strong> per agent</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">03</div>
-        <div class="svc-name">Automation</div>
+        <div>
+          <div class="svc-name">Automation</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Save Hours Weekly</span>
+            <span class="svc-tag">Zero Manual Work</span>
+            <span class="svc-tag">Connects Your Tools</span>
+          </div>
+        </div>
         <div class="svc-desc">Workflows that eliminate repetitive tasks and connect your tools. Automate the boring stuff — focus on what moves the needle.</div>
         <div class="svc-price"><strong>From R4,000</strong> per workflow</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">04</div>
-        <div class="svc-name">Brand Identity</div>
+        <div>
+          <div class="svc-name">Brand Identity</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Stand Out</span>
+            <span class="svc-tag">Look Professional</span>
+            <span class="svc-tag">Be Remembered</span>
+          </div>
+        </div>
         <div class="svc-desc">Strategic identity systems — logo, colour, typography, and motion — that communicate your brand with unmistakable clarity.</div>
         <div class="svc-price"><strong>From R3,500</strong> per project</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">05</div>
-        <div class="svc-name">UI / UX Design</div>
+        <div>
+          <div class="svc-name">UI / UX Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Easy to Navigate</span>
+            <span class="svc-tag">Converts Visitors</span>
+            <span class="svc-tag">Feels Effortless</span>
+          </div>
+        </div>
         <div class="svc-desc">Interfaces designed around how real people think and click. From low-fi wireframes to high-fidelity interactive prototypes.</div>
         <div class="svc-price"><strong>From R3,000</strong> per screen set</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">06</div>
-        <div class="svc-name">Full-Stack Development</div>
+        <div>
+          <div class="svc-name">Full-Stack Development</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Any Idea Possible</span>
+            <span class="svc-tag">Built to Scale</span>
+            <span class="svc-tag">Fully Custom</span>
+          </div>
+        </div>
         <div class="svc-desc">End-to-end web application development. Custom back-end logic, database architecture, and third-party API integrations.</div>
         <div class="svc-price"><strong>From R8,000</strong> per project</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">07</div>
-        <div class="svc-name">Packaging Design</div>
+        <div>
+          <div class="svc-name">Packaging Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Stand Out on Shelf</span>
+            <span class="svc-tag">Print-Ready</span>
+            <span class="svc-tag">Retail-Worthy</span>
+          </div>
+        </div>
         <div class="svc-desc">Product packaging that stands out on the shelf. Structural design, print-ready artwork, and supplier-ready dielines.</div>
         <div class="svc-price"><strong>From R2,500</strong> per SKU</div>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">08</div>
-        <div class="svc-name">Digital Strategy</div>
+        <div>
+          <div class="svc-name">Digital Strategy</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Rank Higher</span>
+            <span class="svc-tag">Grow Traffic</span>
+            <span class="svc-tag">Track What Works</span>
+          </div>
+        </div>
         <div class="svc-desc">Data-driven roadmaps that align your digital presence with growth. SEO architecture, funnel optimisation, and performance analytics.</div>
         <div class="svc-price"><strong>From R2,000</strong> per month</div>
       </div>
