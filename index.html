@@ -581,6 +581,49 @@
     .work-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
     .work-body p { font-size: .83rem; color: var(--mt); line-height: 1.65; }
 
+    /* ─── TESTIMONIALS ───────────────────────────────────── */
+    .tst-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--bdr);
+      border-left: 1px solid var(--bdr);
+    }
+    .tst-card {
+      border-right: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .tst-quote {
+      font-size: .92rem;
+      color: var(--mt);
+      line-height: 1.85;
+      flex: 1;
+    }
+    .tst-quote::before {
+      content: '"';
+      display: block;
+      font-family: var(--mono);
+      font-size: 2rem;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .tst-author { border-top: 1px solid var(--bdr); padding-top: 20px; }
+    .tst-name { font-size: .88rem; font-weight: 600; margin-bottom: 4px; }
+    .tst-meta {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    @media (max-width: 1024px) { .tst-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .tst-grid { grid-template-columns: 1fr; } .tst-card { padding: 28px 24px; } }
+
     /* ─── ABOUT ───────────────────────────────────────────── */
     .abt-bg { background: var(--bg2); }
     .abt-grid {
@@ -1180,6 +1223,68 @@
   </div>
 </section>
 
+<!-- ══════════════ TESTIMONIALS ════════════════════════ -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="label">Client Feedback</div>
+      <h2 class="h2">Don't take our word<br /><strong>for it.</strong></h2>
+    </div>
+
+    <div class="tst-grid rv d1">
+
+      <div class="tst-card">
+        <div class="tst-quote">I was hesitant hiring someone so young. Honestly? Best decision I made for the business. The site went live in 6 days and we had our first online enquiry within 48 hours of launch.</div>
+        <div class="tst-author">
+          <div class="tst-name">Nadia Kotze</div>
+          <div class="tst-meta">Owner — NK Interiors, Pretoria</div>
+        </div>
+      </div>
+
+      <div class="tst-card">
+        <div class="tst-quote">Jason built an AI agent that handles our initial lead qualification on WhatsApp. It books calls, sends follow-ups, and filters tyre-kickers. We've saved roughly 5 hours of admin a week.</div>
+        <div class="tst-author">
+          <div class="tst-name">Thabo Dlamini</div>
+          <div class="tst-meta">Founder — Elevate Recruitment, Joburg</div>
+        </div>
+      </div>
+
+      <div class="tst-card">
+        <div class="tst-quote">Sharp eye, fast turnaround, and he actually listens instead of just doing whatever looks cool to him. Three rounds of feedback and the brand felt completely ours. That's rare.</div>
+        <div class="tst-author">
+          <div class="tst-name">Marize van der Merwe</div>
+          <div class="tst-meta">Marketing Manager — Strata Supply Co.</div>
+        </div>
+      </div>
+
+      <div class="tst-card">
+        <div class="tst-quote">Gave Jason the brief on a Monday. Had a full brand concept — logo, colour system, type — by Thursday. The packaging looked like it belonged next to the big retail brands. Clients noticed immediately.</div>
+        <div class="tst-author">
+          <div class="tst-name">Kyle Peterson</div>
+          <div class="tst-meta">Founder — Earthbound Snacks</div>
+        </div>
+      </div>
+
+      <div class="tst-card">
+        <div class="tst-quote">I needed a site that felt premium but wasn't over-engineered. Jason nailed the brief without me having to explain it twice. 11 discovery calls booked through the contact form in the first month.</div>
+        <div class="tst-author">
+          <div class="tst-name">Simone Jacobs</div>
+          <div class="tst-meta">Life & Business Coach, Cape Town</div>
+        </div>
+      </div>
+
+      <div class="tst-card">
+        <div class="tst-quote">The N8N automation he built connects our CRM, invoicing, and client onboarding into one flow. What used to take 45 minutes per new client now runs automatically. Proper time saver.</div>
+        <div class="tst-author">
+          <div class="tst-name">Ruan Louw</div>
+          <div class="tst-meta">Director — Louw Financial Services</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════ ABOUT ════════════════════════════════ -->
 <section class="abt-bg" id="about">
   <div class="wrap">
@@ -1190,7 +1295,7 @@
           <div class="abt-card-top">
             <div class="abt-name">Jason Russell</div>
             <div class="abt-role">Brand Designer / Creative Director / AI Developer</div>
-            <p class="abt-bio">A Southern African brand designer who loves to experiment. I combine a sharp design eye with hands-on AI and automation expertise — delivering work that's both beautiful and genuinely intelligent.</p>
+            <p class="abt-bio">20 years old, Southern African, and obsessed with building things that work. I picked up design at 16, taught myself to code shortly after, and have been combining both ever since. No agency overhead, no junior hand-offs — just one person who cares about the outcome.</p>
 
             <div class="abt-skills">
               <div class="skill-item">
@@ -1226,16 +1331,16 @@
 
           <div class="abt-card-bottom">
             <div class="abt-stat">
-              <div class="abt-stat-n">150+</div>
+              <div class="abt-stat-n">50+</div>
               <div class="abt-stat-l">Projects</div>
             </div>
             <div class="abt-stat">
-              <div class="abt-stat-n">8 yr</div>
-              <div class="abt-stat-l">Experience</div>
+              <div class="abt-stat-n">Since 21</div>
+              <div class="abt-stat-l">Freelancing</div>
             </div>
             <div class="abt-stat">
-              <div class="abt-stat-n">4.9</div>
-              <div class="abt-stat-l">Client Rating</div>
+              <div class="abt-stat-n">24hr</div>
+              <div class="abt-stat-l">Proposals</div>
             </div>
           </div>
         </div>
@@ -1300,15 +1405,15 @@
       </div>
 
       <div class="ct-form rv d2">
-        <form id="cform">
+        <form id="cform" action="https://formspree.io/f/xjgjpkwp" method="POST">
           <div class="f-row">
-            <div class="f-g"><label>First Name</label><input type="text" placeholder="Alex" required /></div>
-            <div class="f-g"><label>Last Name</label><input type="text" placeholder="Johnson" required /></div>
+            <div class="f-g"><label>First Name</label><input type="text" name="first_name" placeholder="Alex" required /></div>
+            <div class="f-g"><label>Last Name</label><input type="text" name="last_name" placeholder="Johnson" required /></div>
           </div>
-          <div class="f-g"><label>Email Address</label><input type="email" placeholder="alex@company.com" required /></div>
+          <div class="f-g"><label>Email Address</label><input type="email" name="email" placeholder="alex@company.com" required /></div>
           <div class="f-g">
             <label>Service Required</label>
-            <select>
+            <select name="service">
               <option value="" disabled selected>Select a service</option>
               <option>Web Design — from R4,500</option>
               <option>AI Agents — from R6,500</option>
@@ -1322,7 +1427,7 @@
               <option>Not sure yet — let's chat</option>
             </select>
           </div>
-          <div class="f-g"><label>Tell Us About Your Project</label><textarea placeholder="Goals, timeline, budget — the more detail, the better." required></textarea></div>
+          <div class="f-g"><label>Tell Us About Your Project</label><textarea name="message" placeholder="Goals, timeline, budget — the more detail, the better." required></textarea></div>
           <button type="submit" class="btn btn-solid btn-arrow f-submit">Send Message</button>
         </form>
         <div class="f-success" id="fsuccess">
