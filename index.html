@@ -706,6 +706,149 @@
     @media (max-width: 1024px) { .tst-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 768px) { .tst-grid { grid-template-columns: 1fr; } .tst-card { padding: 28px 24px; } }
 
+    /* ─── RETAINER PLANS ─────────────────────────────────── */
+    .ret-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--bdr);
+      border-left: 1px solid var(--bdr);
+    }
+    .ret-card {
+      border-right: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: var(--bg);
+      transition: background .2s;
+    }
+    .ret-card:hover { background: rgba(255,255,255,.018); }
+    .ret-card-pop {
+      background: var(--sf);
+      border-color: rgba(255,255,255,.22);
+    }
+    .ret-card-pop::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+    }
+    .ret-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid rgba(255,59,48,.35);
+      padding: 4px 10px;
+    }
+    .ret-head {
+      padding: 36px 32px 28px;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .ret-tier {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 20px;
+    }
+    .ret-price {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+    .ret-usd {
+      font-family: var(--mono);
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -.04em;
+      color: var(--txt);
+      line-height: 1;
+    }
+    .ret-period {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--dim);
+      letter-spacing: .04em;
+    }
+    .ret-zar {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--dim);
+      letter-spacing: .06em;
+      margin-bottom: 18px;
+    }
+    .ret-tag {
+      font-size: .82rem;
+      color: var(--mt);
+      font-style: italic;
+      line-height: 1.55;
+    }
+    .ret-body {
+      padding: 28px 32px;
+      flex: 1;
+    }
+    .ret-section-label {
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 14px;
+    }
+    .ret-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .ret-item { display: flex; align-items: flex-start; gap: 12px; font-size: .84rem; line-height: 1.5; }
+    .ret-item.in { color: var(--mt); }
+    .ret-item.out { color: #555; }
+    .ret-ic {
+      font-family: var(--mono);
+      font-size: .68rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+      width: 14px;
+    }
+    .ret-item.in .ret-ic { color: var(--red); }
+    .ret-item.out .ret-ic { color: #3a3a3a; }
+    .ret-foot {
+      padding: 24px 32px;
+      border-top: 1px solid var(--bdr);
+    }
+    .ret-foot .btn { width: 100%; justify-content: center; font-size: .68rem; letter-spacing: .1em; }
+
+    /* Audit CTA */
+    .ret-audit {
+      border: 1px solid var(--bdr);
+      border-top: none;
+    }
+    .ret-audit-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 32px 36px;
+      flex-wrap: wrap;
+    }
+    .ret-audit-text .label { margin-bottom: 10px; }
+    .ret-audit-text p { font-size: .88rem; color: var(--mt); line-height: 1.75; max-width: 520px; }
+
+    @media (max-width: 1024px) {
+      .ret-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .ret-head { padding: 28px 24px 22px; }
+      .ret-body { padding: 22px 24px; }
+      .ret-foot { padding: 20px 24px; }
+      .ret-usd { font-size: 2.1rem; }
+      .ret-badge { top: 16px; right: 16px; }
+      .ret-audit-inner { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px; }
+    }
+
     /* ─── ABOUT ───────────────────────────────────────────── */
     .abt-bg { background: var(--bg2); }
     .abt-grid {
@@ -1079,6 +1222,7 @@
       <li><a href="#services">Services</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#work">Work</a></li>
+      <li><a href="#retainer">Plans</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -1089,6 +1233,7 @@
     <a href="#services" class="mob-link">Services</a>
     <a href="#process" class="mob-link">Process</a>
     <a href="#work" class="mob-link">Work</a>
+    <a href="#retainer" class="mob-link">Plans</a>
     <a href="#about" class="mob-link">About</a>
     <a href="#contact" class="mob-link">Contact</a>
     <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="mob-link" style="color:#fff;margin-top:8px;">Book a Call →</a>
@@ -1461,6 +1606,123 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ══════════════ RETAINER PLANS ══════════════════════ -->
+<section id="retainer">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="label">Retainer Plans</div>
+      <h2 class="h2">Ongoing support.<br /><strong>Predictable pricing.</strong></h2>
+      <p class="lead" style="margin-top:16px;">Stop paying for one-off fixes. Get a dedicated partner who keeps your systems running, growing, and converting — while you focus on the business.</p>
+    </div>
+
+    <div class="ret-grid rv d1">
+
+      <!-- STARTER -->
+      <div class="ret-card">
+        <div class="ret-head">
+          <div class="ret-tier">Starter</div>
+          <div class="ret-price">
+            <span class="ret-usd">$350</span>
+            <span class="ret-period">/month</span>
+          </div>
+          <div class="ret-zar">~R6,400 / month</div>
+          <div class="ret-tag">"I just need things maintained"</div>
+        </div>
+        <div class="ret-body">
+          <div class="ret-section-label">Includes</div>
+          <ul class="ret-list">
+            <li class="ret-item in"><span class="ret-ic">✓</span>Website hosting &amp; upkeep</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>1 AI automation active</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Monthly performance report</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Email support (48hr response)</li>
+          </ul>
+          <div class="ret-section-label" style="margin-top:22px;">Not Included</div>
+          <ul class="ret-list">
+            <li class="ret-item out"><span class="ret-ic">—</span>New builds</li>
+            <li class="ret-item out"><span class="ret-ic">—</span>Strategy calls</li>
+          </ul>
+        </div>
+        <div class="ret-foot">
+          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-outline btn-arrow">Get Started</a>
+        </div>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="ret-card ret-card-pop">
+        <div class="ret-badge">Most Popular</div>
+        <div class="ret-head">
+          <div class="ret-tier">Growth</div>
+          <div class="ret-price">
+            <span class="ret-usd">$950</span>
+            <span class="ret-period">/month</span>
+          </div>
+          <div class="ret-zar">~R17,300 / month</div>
+          <div class="ret-tag">"I want to scale without hiring"</div>
+        </div>
+        <div class="ret-body">
+          <div class="ret-section-label">Includes</div>
+          <ul class="ret-list">
+            <li class="ret-item in"><span class="ret-ic">✓</span>Everything in Starter</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>3 active AI agents</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>1 new automation per month</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Monthly strategy call (45 min)</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Priority support (24hr response)</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Quarterly website refresh</li>
+          </ul>
+          <div class="ret-section-label" style="margin-top:22px;">Not Included</div>
+          <ul class="ret-list">
+            <li class="ret-item out"><span class="ret-ic">—</span>Unlimited agents</li>
+            <li class="ret-item out"><span class="ret-ic">—</span>Weekly calls</li>
+          </ul>
+        </div>
+        <div class="ret-foot">
+          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Get Started</a>
+        </div>
+      </div>
+
+      <!-- PRO -->
+      <div class="ret-card">
+        <div class="ret-head">
+          <div class="ret-tier">Pro</div>
+          <div class="ret-price">
+            <span class="ret-usd">$1,900</span>
+            <span class="ret-period">/month</span>
+          </div>
+          <div class="ret-zar">~R34,600 / month</div>
+          <div class="ret-tag">"I want a full AI ops partner"</div>
+        </div>
+        <div class="ret-body">
+          <div class="ret-section-label">Includes</div>
+          <ul class="ret-list">
+            <li class="ret-item in"><span class="ret-ic">✓</span>Everything in Growth</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Unlimited active agents</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>2 new automations per month</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Weekly check-in call</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Social media automation</li>
+            <li class="ret-item in"><span class="ret-ic">✓</span>Dedicated Slack channel</li>
+          </ul>
+        </div>
+        <div class="ret-foot">
+          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-outline btn-arrow">Get Started</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AUDIT CTA -->
+    <div class="ret-audit rv d2">
+      <div class="ret-audit-inner">
+        <div class="ret-audit-text">
+          <div class="label">Free Automation Audit</div>
+          <p>Not sure which tier? Book a free 30-min audit — we map exactly where your business is losing time.</p>
+        </div>
+        <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book Free Audit</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
