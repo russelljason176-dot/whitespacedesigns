@@ -500,6 +500,67 @@
       margin-bottom: 2px;
     }
 
+    /* ─── CURRENCY CONVERTER ─────────────────────────────── */
+    .cc-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .cc-label {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+    .cc-select {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--bdr);
+      color: var(--txt);
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .06em;
+      padding: 8px 12px;
+      cursor: pointer;
+      outline: none;
+      border-radius: 0;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+    .cc-select:focus { border-color: rgba(255,255,255,.3); }
+    .cc-select option { background: #111; color: #fff; }
+    .cc-rate {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--dim);
+      flex: 1;
+    }
+    .cc-rate strong { color: var(--red); }
+    .cc-status {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cc-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #555;
+      flex-shrink: 0;
+      transition: background .3s;
+    }
+    .cc-dot.live { background: #2ecc71; }
+
     /* ─── SERVICE TAGS ───────────────────────────────────── */
     .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
     .svc-tag {
@@ -1028,7 +1089,7 @@
         <div class="hero-left">
           <div class="hero-tag">
             <span class="hero-tag-line"></span>
-            Southern Africa — Est. 2018
+            Southern Africa — Est. 2024
           </div>
 
           <h1 class="h1">
@@ -1100,6 +1161,24 @@
     <div class="s-head rv">
       <div class="label">What We Do</div>
       <h2 class="h2">Every service you need.<br /><strong>Nothing you don't.</strong></h2>
+    </div>
+
+    <div class="cc-bar rv d1">
+      <span class="cc-label">View prices in</span>
+      <select class="cc-select" id="cc-select">
+        <option value="ZAR" selected>ZAR — South African Rand</option>
+        <option value="USD">USD — US Dollar</option>
+        <option value="EUR">EUR — Euro</option>
+        <option value="GBP">GBP — British Pound</option>
+        <option value="AUD">AUD — Australian Dollar</option>
+        <option value="CAD">CAD — Canadian Dollar</option>
+        <option value="NGN">NGN — Nigerian Naira</option>
+        <option value="KES">KES — Kenyan Shilling</option>
+        <option value="ZMW">ZMW — Zambian Kwacha</option>
+        <option value="BWP">BWP — Botswana Pula</option>
+      </select>
+      <span class="cc-rate" id="cc-rate">1 ZAR = 1.00 ZAR</span>
+      <span class="cc-status"><span class="cc-dot" id="cc-dot"></span><span id="cc-status-txt">Loading rates…</span></span>
     </div>
 
     <div class="svc-table rv d1">
@@ -1703,6 +1782,73 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   this.style.display = 'none';
   document.getElementById('fsuccess').style.display = 'block';
 });
+
+/* ── Currency Converter ─────────────────────────────── */
+(function () {
+  const prices = [
+    { selector: '.svc-row:nth-child(1) .svc-price strong', zar: 4500, unit: 'per project' },
+    { selector: '.svc-row:nth-child(2) .svc-price strong', zar: 6500, unit: 'per agent' },
+    { selector: '.svc-row:nth-child(3) .svc-price strong', zar: 4000, unit: 'per workflow' },
+    { selector: '.svc-row:nth-child(4) .svc-price strong', zar: 3500, unit: 'per project' },
+    { selector: '.svc-row:nth-child(5) .svc-price strong', zar: 3000, unit: 'per screen set' },
+    { selector: '.svc-row:nth-child(6) .svc-price strong', zar: 8000, unit: 'per project' },
+    { selector: '.svc-row:nth-child(7) .svc-price strong', zar: 2500, unit: 'per SKU' },
+    { selector: '.svc-row:nth-child(8) .svc-price strong', zar: 2000, unit: 'per month' },
+  ];
+
+  const symbols = {
+    ZAR: 'R', USD: '$', EUR: '€', GBP: '£',
+    AUD: 'A$', CAD: 'C$', NGN: '₦', KES: 'KSh',
+    ZMW: 'ZK', BWP: 'P'
+  };
+
+  let rates = {};
+  let currentCurrency = 'ZAR';
+
+  const sel    = document.getElementById('cc-select');
+  const rateEl = document.getElementById('cc-rate');
+  const dotEl  = document.getElementById('cc-dot');
+  const stEl   = document.getElementById('cc-status-txt');
+
+  function fmt(num, currency) {
+    return new Intl.NumberFormat('en-ZA', {
+      maximumFractionDigits: currency === 'ZAR' ? 0 : 2,
+      minimumFractionDigits: 0
+    }).format(num);
+  }
+
+  function updatePrices(currency) {
+    const rate = currency === 'ZAR' ? 1 : (rates[currency] || 1);
+    prices.forEach(p => {
+      const el = document.querySelector(p.selector);
+      if (!el) return;
+      const converted = p.zar * rate;
+      const sym = symbols[currency] || currency + ' ';
+      el.textContent = 'From ' + sym + fmt(converted, currency);
+    });
+    const r = currency === 'ZAR' ? 1 : (rates[currency] || 1);
+    rateEl.innerHTML = '1 ZAR = <strong>' + r.toFixed(4) + ' ' + currency + '</strong>';
+  }
+
+  fetch('https://open.er-api.com/v6/latest/ZAR')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.rates) {
+        rates = data.rates;
+        dotEl.classList.add('live');
+        stEl.textContent = 'Live rates';
+        updatePrices(currentCurrency);
+      }
+    })
+    .catch(() => {
+      stEl.textContent = 'Rates unavailable';
+    });
+
+  sel.addEventListener('change', function () {
+    currentCurrency = this.value;
+    updatePrices(currentCurrency);
+  });
+})();
 </script>
 </body>
 </html>
