@@ -486,80 +486,17 @@
       color: var(--mt);
       line-height: 1.7;
     }
-    .svc-price {
-      font-family: var(--mono);
-      font-size: .78rem;
-      color: var(--mt);
-      text-align: right;
-      white-space: nowrap;
-    }
-    .svc-price strong {
-      display: block;
-      font-size: .9rem;
-      color: var(--txt);
-      margin-bottom: 2px;
-    }
-
-    /* ─── CURRENCY CONVERTER ─────────────────────────────── */
-    .cc-bar {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      background: var(--sf);
-      border: 1px solid var(--bdr);
-      margin-bottom: 0;
-      flex-wrap: wrap;
-    }
-    .cc-label {
-      font-family: var(--mono);
-      font-size: .62rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--dim);
-      white-space: nowrap;
-    }
-    .cc-select {
-      background: rgba(255,255,255,.04);
-      border: 1px solid var(--bdr);
-      color: var(--txt);
+    .svc-quote {
       font-family: var(--mono);
       font-size: .72rem;
       letter-spacing: .06em;
-      padding: 8px 12px;
-      cursor: pointer;
-      outline: none;
-      border-radius: 0;
-      transition: border-color .2s;
-      -webkit-appearance: none;
-    }
-    .cc-select:focus { border-color: rgba(255,255,255,.3); }
-    .cc-select option { background: #111; color: #fff; }
-    .cc-rate {
-      font-family: var(--mono);
-      font-size: .65rem;
       color: var(--dim);
-      flex: 1;
+      text-decoration: none;
+      text-align: right;
+      white-space: nowrap;
+      transition: color .2s;
     }
-    .cc-rate strong { color: var(--red); }
-    .cc-status {
-      font-family: var(--mono);
-      font-size: .58rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--dim);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .cc-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: #555;
-      flex-shrink: 0;
-      transition: background .3s;
-    }
-    .cc-dot.live { background: #2ecc71; }
+    .svc-quote:hover { color: var(--txt); }
 
     /* ─── SERVICE TAGS ───────────────────────────────────── */
     .svc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
@@ -572,6 +509,35 @@
       border: 1px solid rgba(255,59,48,.25);
       color: rgba(255,59,48,.7);
     }
+
+    /* ─── WHY CUSTOM ─────────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--bdr);
+      border-left: 1px solid var(--bdr);
+      margin-top: 48px;
+    }
+    .why-item {
+      padding: 40px 36px;
+      border-right: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+    }
+    .why-n {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .14em;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+    .why-item h3 {
+      font-size: .98rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      line-height: 1.4;
+      letter-spacing: -.01em;
+    }
+    .why-item p { font-size: .875rem; color: var(--mt); line-height: 1.85; }
 
     /* ─── PROCESS ─────────────────────────────────────────── */
     .proc-grid {
@@ -704,6 +670,9 @@
       color: var(--dim);
     }
     @media (max-width: 1024px) { .tst-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 1024px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) { .tst-grid { grid-template-columns: 1fr; } .tst-card { padding: 28px 24px; } }
 
     /* ─── RETAINER PLANS ─────────────────────────────────── */
@@ -756,6 +725,13 @@
       text-transform: uppercase;
       color: var(--dim);
       margin-bottom: 20px;
+    }
+    .ret-enquire {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .08em;
+      color: var(--dim);
+      margin: 10px 0 4px;
     }
     .ret-price {
       display: flex;
@@ -1150,8 +1126,7 @@
 
       .svc-row { grid-template-columns: 32px 1fr; gap: 8px 16px; padding: 20px 0; align-items: start; }
       .svc-desc { display: none; }
-      .svc-price { grid-column: 2; text-align: left; white-space: normal; font-size: .7rem; }
-      .svc-price strong { font-size: .82rem; }
+      .svc-quote { grid-column: 2; text-align: left; }
       .svc-tags { margin-top: 6px; }
       .svc-tag { font-size: .55rem; padding: 3px 8px; }
 
@@ -1219,6 +1194,7 @@
       White Space Designs
     </a>
     <ul class="nav-links">
+      <li><a href="#why-custom">Why Custom</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#work">Work</a></li>
@@ -1230,6 +1206,7 @@
     <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
   <div class="mob-nav" id="mobNav">
+    <a href="#why-custom" class="mob-link">Why Custom</a>
     <a href="#services" class="mob-link">Services</a>
     <a href="#process" class="mob-link">Process</a>
     <a href="#work" class="mob-link">Work</a>
@@ -1321,30 +1298,42 @@
   </div>
 </div>
 
+<!-- ══════════════ WHY CUSTOM ══════════════════════════ -->
+<section id="why-custom" style="background:var(--bg2);border-top:1px solid var(--bdr);">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="label">The honest answer</div>
+      <h2 class="h2">"Why not just use<br /><strong>Wix or an AI builder?"</strong></h2>
+    </div>
+    <div class="why-grid rv d1">
+      <div class="why-item">
+        <div class="why-n">01 /</div>
+        <h3>Your brand is a competitive asset — not a template slot</h3>
+        <p>Wix, Squarespace, and AI website builders hand the same layout to tens of thousands of businesses. When your site looks identical to your competitors', your brand does nothing. Custom design is how you win before a word is read.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">02 /</div>
+        <h3>AI-built sites have a hard ceiling</h3>
+        <p>Framer AI and Wix ADI produce generic structures with poor Core Web Vitals and zero integration depth. They can't wire your CRM to a lead qualification agent, build automated outreach pipelines, or connect the tools your business actually runs on.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">03 /</div>
+        <h3>Most clients here already know this</h3>
+        <p>The majority of clients who come to us had a Squarespace or template site first. It looked acceptable, converted nobody, and became a liability. If you're reading this, you probably already know what the right decision is.</p>
+      </div>
+    </div>
+    <div style="margin-top:48px;" class="rv d2">
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Let's Talk About Your Project</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════ SERVICES ════════════════════════════ -->
 <section class="svc-bg" id="services">
   <div class="wrap">
     <div class="s-head rv">
       <div class="label">What We Do</div>
       <h2 class="h2">Every service you need.<br /><strong>Nothing you don't.</strong></h2>
-    </div>
-
-    <div class="cc-bar rv d1">
-      <span class="cc-label">View prices in</span>
-      <select class="cc-select" id="cc-select">
-        <option value="ZAR" selected>ZAR — South African Rand</option>
-        <option value="USD">USD — US Dollar</option>
-        <option value="EUR">EUR — Euro</option>
-        <option value="GBP">GBP — British Pound</option>
-        <option value="AUD">AUD — Australian Dollar</option>
-        <option value="CAD">CAD — Canadian Dollar</option>
-        <option value="NGN">NGN — Nigerian Naira</option>
-        <option value="KES">KES — Kenyan Shilling</option>
-        <option value="ZMW">ZMW — Zambian Kwacha</option>
-        <option value="BWP">BWP — Botswana Pula</option>
-      </select>
-      <span class="cc-rate" id="cc-rate">1 ZAR = 1.00 ZAR</span>
-      <span class="cc-status"><span class="cc-dot" id="cc-dot"></span><span id="cc-status-txt">Loading rates…</span></span>
     </div>
 
     <div class="svc-table rv d1">
@@ -1360,7 +1349,7 @@
           </div>
         </div>
         <div class="svc-desc">Clean, fast websites built to convert visitors into clients. Custom-designed — no templates, no shortcuts.</div>
-        <div class="svc-price"><strong>From R4,500</strong> per project</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1374,7 +1363,7 @@
           </div>
         </div>
         <div class="svc-desc">Custom AI agents that qualify leads, book appointments, and handle customer queries around the clock — so you don't have to.</div>
-        <div class="svc-price"><strong>From R6,500</strong> per agent</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1388,7 +1377,7 @@
           </div>
         </div>
         <div class="svc-desc">Workflows that eliminate repetitive tasks and connect your tools. Automate the boring stuff — focus on what moves the needle.</div>
-        <div class="svc-price"><strong>From R4,000</strong> per workflow</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1402,7 +1391,7 @@
           </div>
         </div>
         <div class="svc-desc">Strategic identity systems — logo, colour, typography, and motion — that communicate your brand with unmistakable clarity.</div>
-        <div class="svc-price"><strong>From R3,500</strong> per project</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1416,7 +1405,7 @@
           </div>
         </div>
         <div class="svc-desc">Interfaces designed around how real people think and click. From low-fi wireframes to high-fidelity interactive prototypes.</div>
-        <div class="svc-price"><strong>From R3,000</strong> per screen set</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1430,7 +1419,7 @@
           </div>
         </div>
         <div class="svc-desc">End-to-end web application development. Custom back-end logic, database architecture, and third-party API integrations.</div>
-        <div class="svc-price"><strong>From R8,000</strong> per project</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1444,7 +1433,7 @@
           </div>
         </div>
         <div class="svc-desc">Product packaging that stands out on the shelf. Structural design, print-ready artwork, and supplier-ready dielines.</div>
-        <div class="svc-price"><strong>From R2,500</strong> per SKU</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
@@ -1458,7 +1447,7 @@
           </div>
         </div>
         <div class="svc-desc">Data-driven roadmaps that align your digital presence with growth. SEO architecture, funnel optimisation, and performance analytics.</div>
-        <div class="svc-price"><strong>From R2,000</strong> per month</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
     </div>
@@ -1614,7 +1603,7 @@
   <div class="wrap">
     <div class="s-head rv">
       <div class="label">Retainer Plans</div>
-      <h2 class="h2">Ongoing support.<br /><strong>Predictable pricing.</strong></h2>
+      <h2 class="h2">Ongoing support.<br /><strong>Built for growth.</strong></h2>
       <p class="lead" style="margin-top:16px;">Stop paying for one-off fixes. Get a dedicated partner who keeps your systems running, growing, and converting — while you focus on the business.</p>
     </div>
 
@@ -1624,11 +1613,7 @@
       <div class="ret-card">
         <div class="ret-head">
           <div class="ret-tier">Starter</div>
-          <div class="ret-price">
-            <span class="ret-usd">$350</span>
-            <span class="ret-period">/month</span>
-          </div>
-          <div class="ret-zar">~R6,400 / month</div>
+          <div class="ret-enquire">Custom quote — book a call</div>
           <div class="ret-tag">"I just need things maintained"</div>
         </div>
         <div class="ret-body">
@@ -1655,11 +1640,7 @@
         <div class="ret-badge">Most Popular</div>
         <div class="ret-head">
           <div class="ret-tier">Growth</div>
-          <div class="ret-price">
-            <span class="ret-usd">$950</span>
-            <span class="ret-period">/month</span>
-          </div>
-          <div class="ret-zar">~R17,300 / month</div>
+          <div class="ret-enquire">Custom quote — book a call</div>
           <div class="ret-tag">"I want to scale without hiring"</div>
         </div>
         <div class="ret-body">
@@ -1687,11 +1668,7 @@
       <div class="ret-card">
         <div class="ret-head">
           <div class="ret-tier">Pro</div>
-          <div class="ret-price">
-            <span class="ret-usd">$1,900</span>
-            <span class="ret-period">/month</span>
-          </div>
-          <div class="ret-zar">~R34,600 / month</div>
+          <div class="ret-enquire">Custom quote — book a call</div>
           <div class="ret-tag">"I want a full AI ops partner"</div>
         </div>
         <div class="ret-body">
@@ -1796,7 +1773,7 @@
         <ul class="abt-list" style="margin-top:28px;">
           <li><span class="abt-list-mark">/01</span>Conversion-first design — beautiful work that actually performs</li>
           <li><span class="abt-list-mark">/02</span>AI-native thinking applied across every service we offer</li>
-          <li><span class="abt-list-mark">/03</span>Transparent pricing with no hidden costs or surprises</li>
+          <li><span class="abt-list-mark">/03</span>Every scope is bespoke — priced to your goals, never templated</li>
           <li><span class="abt-list-mark">/04</span>Proposal delivered within 24 hours of your discovery call</li>
           <li><span class="abt-list-mark">/05</span>Long-term partner — not a once-off vendor</li>
         </ul>
@@ -1856,14 +1833,14 @@
             <label>Service Required</label>
             <select name="service">
               <option value="" disabled selected>Select a service</option>
-              <option>Web Design — from R4,500</option>
-              <option>AI Agents — from R6,500</option>
-              <option>Automation — from R4,000</option>
-              <option>Brand Identity — from R3,500</option>
-              <option>UI / UX Design — from R3,000</option>
-              <option>Full-Stack Development — from R8,000</option>
-              <option>Packaging Design — from R2,500</option>
-              <option>Digital Strategy — from R2,000/mo</option>
+              <option>Web Design</option>
+              <option>AI Agents</option>
+              <option>Automation</option>
+              <option>Brand Identity</option>
+              <option>UI / UX Design</option>
+              <option>Full-Stack Development</option>
+              <option>Packaging Design</option>
+              <option>Digital Strategy</option>
               <option>Multiple Services</option>
               <option>Not sure yet — let's chat</option>
             </select>
@@ -2085,72 +2062,6 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   document.getElementById('fsuccess').style.display = 'block';
 });
 
-/* ── Currency Converter ─────────────────────────────── */
-(function () {
-  const prices = [
-    { selector: '.svc-row:nth-child(1) .svc-price strong', zar: 4500, unit: 'per project' },
-    { selector: '.svc-row:nth-child(2) .svc-price strong', zar: 6500, unit: 'per agent' },
-    { selector: '.svc-row:nth-child(3) .svc-price strong', zar: 4000, unit: 'per workflow' },
-    { selector: '.svc-row:nth-child(4) .svc-price strong', zar: 3500, unit: 'per project' },
-    { selector: '.svc-row:nth-child(5) .svc-price strong', zar: 3000, unit: 'per screen set' },
-    { selector: '.svc-row:nth-child(6) .svc-price strong', zar: 8000, unit: 'per project' },
-    { selector: '.svc-row:nth-child(7) .svc-price strong', zar: 2500, unit: 'per SKU' },
-    { selector: '.svc-row:nth-child(8) .svc-price strong', zar: 2000, unit: 'per month' },
-  ];
-
-  const symbols = {
-    ZAR: 'R', USD: '$', EUR: '€', GBP: '£',
-    AUD: 'A$', CAD: 'C$', NGN: '₦', KES: 'KSh',
-    ZMW: 'ZK', BWP: 'P'
-  };
-
-  let rates = {};
-  let currentCurrency = 'ZAR';
-
-  const sel    = document.getElementById('cc-select');
-  const rateEl = document.getElementById('cc-rate');
-  const dotEl  = document.getElementById('cc-dot');
-  const stEl   = document.getElementById('cc-status-txt');
-
-  function fmt(num, currency) {
-    return new Intl.NumberFormat('en-ZA', {
-      maximumFractionDigits: currency === 'ZAR' ? 0 : 2,
-      minimumFractionDigits: 0
-    }).format(num);
-  }
-
-  function updatePrices(currency) {
-    const rate = currency === 'ZAR' ? 1 : (rates[currency] || 1);
-    prices.forEach(p => {
-      const el = document.querySelector(p.selector);
-      if (!el) return;
-      const converted = p.zar * rate;
-      const sym = symbols[currency] || currency + ' ';
-      el.textContent = 'From ' + sym + fmt(converted, currency);
-    });
-    const r = currency === 'ZAR' ? 1 : (rates[currency] || 1);
-    rateEl.innerHTML = '1 ZAR = <strong>' + r.toFixed(4) + ' ' + currency + '</strong>';
-  }
-
-  fetch('https://open.er-api.com/v6/latest/ZAR')
-    .then(r => r.json())
-    .then(data => {
-      if (data && data.rates) {
-        rates = data.rates;
-        dotEl.classList.add('live');
-        stEl.textContent = 'Live rates';
-        updatePrices(currentCurrency);
-      }
-    })
-    .catch(() => {
-      stEl.textContent = 'Rates unavailable';
-    });
-
-  sel.addEventListener('change', function () {
-    currentCurrency = this.value;
-    updatePrices(currentCurrency);
-  });
-})();
 </script>
 </body>
 </html>
