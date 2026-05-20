@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing & Payment Policy | White Space Designs</title>
+  <meta name="description" content="White Space Designs payment and pricing policy — deposit structure, cancellation terms, client handoff, and retainer billing." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://whitespacedesigns.co.za/pricing-policy" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ff3b30'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='14' fill='white'>WS</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:   #0a0a0a;
+      --bg2:  #111111;
+      --sf:   #161616;
+      --sf2:  #1c1c1c;
+      --bdr:  rgba(255,255,255,.13);
+      --bdr2: rgba(255,255,255,.07);
+      --txt:  #ffffff;
+      --mt:   #aaaaaa;
+      --dim:  #8e8e8e;
+      --red:  #ff3b30;
+      --fnt:  'Inter', system-ui, sans-serif;
+      --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fnt); background: var(--bg); color: var(--txt); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    ::selection { background: rgba(255,59,48,.25); color: #fff; }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid var(--bdr);
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: .72rem;
+      letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+    }
+    .logo-dot {
+      width: 8px; height: 8px; background: var(--red); border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .nav-back {
+      font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mt); display: flex; align-items: center; gap: 8px;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--txt); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    /* HERO */
+    .policy-hero {
+      padding: 80px 0 56px;
+      border-bottom: 1px solid var(--bdr2);
+    }
+    .label {
+      font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--mt); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .label::before {
+      content: ''; display: inline-block;
+      width: 20px; height: 1px; background: var(--red); flex-shrink: 0;
+    }
+    .policy-hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; letter-spacing: -.03em; line-height: 1.08;
+      margin-bottom: 20px;
+    }
+    .policy-hero h1 strong { font-weight: 700; }
+    .policy-hero p {
+      font-size: 1rem; color: var(--mt); line-height: 1.8; max-width: 600px;
+    }
+    .updated {
+      margin-top: 28px;
+      font-family: var(--mono); font-size: .62rem;
+      letter-spacing: .08em; color: var(--dim);
+    }
+
+    /* CONTENT */
+    .policy-body { padding: 64px 0 80px; }
+
+    .policy-section { margin-bottom: 56px; }
+
+    .section-tag {
+      font-family: var(--mono); font-size: .62rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 12px;
+    }
+    .policy-section h2 {
+      font-size: 1.35rem; font-weight: 600;
+      letter-spacing: -.02em; margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--bdr2);
+    }
+    .policy-section p {
+      font-size: .93rem; color: var(--mt); line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section strong { color: var(--txt); font-weight: 600; }
+
+    /* PAYMENT TABLE */
+    .pay-table {
+      width: 100%; border-collapse: collapse; margin: 24px 0;
+      font-size: .88rem;
+    }
+    .pay-table th {
+      font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--dim); text-align: left;
+      padding: 10px 16px; border-bottom: 1px solid var(--bdr);
+    }
+    .pay-table td {
+      padding: 14px 16px; color: var(--mt);
+      border-bottom: 1px solid var(--bdr2);
+      vertical-align: top;
+    }
+    .pay-table td:first-child { color: var(--txt); font-weight: 500; }
+    .pay-table tr:last-child td { border-bottom: none; }
+    .pay-table tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* CALLOUT */
+    .callout {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      border-left: 3px solid var(--red);
+      padding: 20px 24px; margin: 28px 0;
+      font-size: .9rem; color: var(--mt); line-height: 1.75;
+    }
+    .callout strong { color: var(--txt); }
+
+    /* LIST */
+    .policy-list {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+      margin: 16px 0;
+    }
+    .policy-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .9rem; color: var(--mt); line-height: 1.7;
+    }
+    .policy-list li::before {
+      content: '—'; color: var(--red);
+      font-family: var(--mono); font-size: .78rem;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* CONTACT STRIP */
+    .policy-contact {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      padding: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-top: 64px;
+    }
+    .policy-contact p { font-size: .9rem; color: var(--mt); max-width: 420px; line-height: 1.7; }
+    .policy-contact p strong { color: var(--txt); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; font-size: .78rem;
+      font-family: var(--mono); font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: all .2s;
+    }
+    .btn-solid { background: var(--txt); color: var(--bg); }
+    .btn-solid:hover { background: #d4d4d4; }
+
+    /* FOOTER */
+    .policy-footer {
+      border-top: 1px solid var(--bdr);
+      padding: 24px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .policy-footer p {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--dim); letter-spacing: .06em;
+    }
+    .policy-footer a { color: var(--mt); transition: color .2s; }
+    .policy-footer a:hover { color: var(--txt); }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .policy-hero { padding: 48px 0 40px; }
+      .policy-contact { padding: 28px 24px; }
+      .pay-table th, .pay-table td { padding: 10px; }
+      .policy-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-dot"></div>
+      White Space Designs
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to site
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="policy-hero">
+  <div class="wrap">
+    <div class="label">Legal / Policy</div>
+    <h1>Pricing &amp;<br /><strong>Payment Policy</strong></h1>
+    <p>Everything you need to know about how we structure payments, handle deposits, and manage project milestones — before we get started.</p>
+    <p class="updated">Last updated: May 2026</p>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="policy-body">
+  <div class="wrap">
+
+    <!-- 1. DEPOSIT REQUIREMENT -->
+    <div class="policy-section">
+      <div class="section-tag">01</div>
+      <h2>Deposit Requirement</h2>
+      <p>White Space Designs requires a <strong>non-refundable deposit before any work commences</strong> on a project. This applies to all web design, development, and AI agent engagements, regardless of project size or client location.</p>
+      <div class="callout">
+        <strong>No deposit = no start date.</strong> Your project slot is only confirmed and reserved once the deposit payment has been received and cleared.
+      </div>
+      <p>The deposit covers the initial discovery, research, and design phase of your project. It also protects both parties — you get a committed timeline, we can allocate the right resources without risk.</p>
+    </div>
+
+    <!-- 2. PAYMENT STRUCTURE -->
+    <div class="policy-section">
+      <div class="section-tag">02</div>
+      <h2>Payment Structure by Service</h2>
+      <p>Payment is split across project milestones. The structure varies by service type:</p>
+
+      <table class="pay-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Deposit (upfront)</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Web Design &amp; Development</td>
+            <td>50% before work starts</td>
+            <td>50% before final delivery &amp; handoff</td>
+          </tr>
+          <tr>
+            <td>AI Agent Development</td>
+            <td>50% before build starts</td>
+            <td>50% before deployment &amp; access transfer</td>
+          </tr>
+          <tr>
+            <td>Brand Identity / UI&nbsp;UX</td>
+            <td>50% before work starts</td>
+            <td>50% on final file delivery</td>
+          </tr>
+          <tr>
+            <td>Retainer Plans (Starter / Growth / Pro)</td>
+            <td>First full month upfront</td>
+            <td>Monthly thereafter (billed on same date)</td>
+          </tr>
+          <tr>
+            <td>Rush / Expedited Projects</td>
+            <td>100% upfront</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The balance is due before the final deliverable is handed over. No assets, credentials, source files, or live deployments are transferred until the account is settled in full.</p>
+    </div>
+
+    <!-- 3. PAYMENT METHODS -->
+    <div class="policy-section">
+      <div class="section-tag">03</div>
+      <h2>Payment Methods</h2>
+      <p>We accept the following payment methods:</p>
+      <ul class="policy-list">
+        <li><strong>South African clients:</strong> EFT / bank transfer (ZAR). Banking details are provided on the invoice.</li>
+        <li><strong>International clients:</strong> Wise (TransferWise), PayPal, or another mutually agreed platform. All international invoices are quoted in USD or ZAR at the agreed exchange rate on the date of quote.</li>
+        <li><strong>Retainer billing:</strong> Monthly invoice sent 5 days before the billing date. Payment due within 3 business days.</li>
+      </ul>
+      <p>All prices are quoted exclusive of VAT unless otherwise stated. White Space Designs reserves the right to adjust pricing for currency fluctuation on international projects where payment is delayed beyond 7 days from quote date.</p>
+    </div>
+
+    <!-- 4. CANCELLATION -->
+    <div class="policy-section">
+      <div class="section-tag">04</div>
+      <h2>Cancellation Policy</h2>
+      <p>We understand plans change. Our cancellation terms are designed to be fair to both parties:</p>
+      <ul class="policy-list">
+        <li><strong>Before work commences:</strong> If you cancel after paying the deposit but before any design or development work has started, a 15% administration fee is deducted and the remainder is refunded within 5–7 business days.</li>
+        <li><strong>After work commences:</strong> The deposit is non-refundable once discovery, research, or design work has begun. Any work completed up to the cancellation point remains the property of White Space Designs until the account is settled.</li>
+        <li><strong>Retainer cancellations:</strong> Retainer agreements require 30 days written notice to cancel. No refunds are issued for the current billing period.</li>
+        <li><strong>Client-caused delays:</strong> If a project stalls for more than 30 days due to lack of client feedback, content, or approvals, we reserve the right to invoice for work completed to date and release the project slot.</li>
+      </ul>
+    </div>
+
+    <!-- 5. REVISIONS -->
+    <div class="policy-section">
+      <div class="section-tag">05</div>
+      <h2>Revisions &amp; Scope Changes</h2>
+      <p>Each project includes a set number of revision rounds as agreed in your project brief. Revisions are defined as adjustments within the original scope — not new features or direction changes.</p>
+      <ul class="policy-list">
+        <li>Revision rounds are outlined in the project proposal before work starts.</li>
+        <li>Requests that fall outside the original scope are quoted separately and billed as an addition.</li>
+        <li>Scope changes that significantly alter the project direction may require a revised deposit.</li>
+      </ul>
+    </div>
+
+    <!-- 6. HANDOFF -->
+    <div class="policy-section">
+      <div class="section-tag">06</div>
+      <h2>Project Handoff</h2>
+      <p>Once the final balance is received, all deliverables are transferred within <strong>2 business days</strong>. For clients who cannot be present in person, we provide a full remote handoff:</p>
+      <ul class="policy-list">
+        <li>A recorded Loom walkthrough of the completed project, covering all key functionality and settings.</li>
+        <li>A PDF or Notion guide covering logins, how to make common updates, and who to contact for support.</li>
+        <li>An optional live video call (30 min) to walk through the handoff in real time — available at no extra charge for all web and AI projects.</li>
+        <li>Transfer of all credentials, source files, and access on the same day as the live call or within 24 hours of the recorded walkthrough being delivered.</li>
+      </ul>
+      <p>International clients are accommodated across time zones — we schedule handoff calls to suit your region.</p>
+    </div>
+
+    <!-- 7. LATE PAYMENT -->
+    <div class="policy-section">
+      <div class="section-tag">07</div>
+      <h2>Late Payments</h2>
+      <p>Invoices are due within the timeframe stated on the invoice (typically 3–5 business days). If payment is not received by the due date:</p>
+      <ul class="policy-list">
+        <li>Work is paused after <strong>5 business days</strong> overdue. No new deliverables will be sent until the account is settled.</li>
+        <li>A late payment fee of <strong>5% of the outstanding balance</strong> is applied after 10 business days overdue.</li>
+        <li>For retainer clients, services (hosting, active agents, support) are suspended after 7 days without payment and resumed within 24 hours of receipt.</li>
+      </ul>
+    </div>
+
+    <!-- 8. INTERNATIONAL -->
+    <div class="policy-section">
+      <div class="section-tag">08</div>
+      <h2>International Clients</h2>
+      <p>White Space Designs works with clients across Southern Africa, Europe, the Middle East, and beyond. For international engagements:</p>
+      <ul class="policy-list">
+        <li>All project quotes for international clients are issued in <strong>USD</strong> (or agreed currency) at the rate on the quote date.</li>
+        <li>Bank transfer fees and currency conversion costs are the responsibility of the client — please ensure the full invoiced amount is received net of fees.</li>
+        <li>Wise (TransferWise) is our preferred platform for international payments due to low fees and fast settlement.</li>
+        <li>All handoffs, calls, and communication are conducted in English via email, WhatsApp, or video call.</li>
+      </ul>
+    </div>
+
+    <!-- CONTACT STRIP -->
+    <div class="policy-contact">
+      <div>
+        <p style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;">Questions about this policy?</p>
+        <p><strong>Reach out before booking</strong> — we're happy to walk through payment terms, timeline, and what's included before you commit to anything.</p>
+      </div>
+      <a href="mailto:contact.whitespacedesign@gmail.com" class="btn btn-solid">Contact Us</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--bdr);">
+  <div class="wrap policy-footer">
+    <p>WSD / 2026 — White Space Designs — Southern Africa</p>
+    <p><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="mailto:contact.whitespacedesign@gmail.com">contact.whitespacedesign@gmail.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
