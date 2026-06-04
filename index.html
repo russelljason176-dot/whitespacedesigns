@@ -1286,7 +1286,7 @@
   <div class="nmenu-panel">
     <div class="nmenu-head">
       <button class="nmenu-close" id="nmenu-close" aria-label="Close menu">
-        <canvas id="close-canvas" width="28" height="28" style="display:block;width:28px;height:28px;"></canvas>
+        <canvas id="close-canvas" width="20" height="20" style="display:block;width:20px;height:20px;"></canvas>
       </button>
       <span class="nmenu-wordmark">White Space Designs</span>
     </div>
@@ -2216,10 +2216,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu()
 (function () {
   const cv  = document.getElementById('close-canvas');
   const ctx = cv.getContext('2d');
-  const S   = 28;
+  const S   = 20;
   const CX  = S / 2, CY = S / 2;
   const ARM = S * 0.40;
-  const DOT_R = S * 0.055;
+  const DOT_R = S * 0.032;
   const DOTS  = 8;
   const DOT_CLR = '#1a1a1a';
 
