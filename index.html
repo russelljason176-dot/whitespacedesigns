@@ -1287,17 +1287,17 @@
   <div class="nmenu-panel">
     <div class="nmenu-head">
       <button class="nmenu-close" id="nmenu-close" aria-label="Close menu">
-        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-          <!-- dot-matrix X: made of small dots along the diagonal paths -->
-          <circle cx="2"  cy="2"  r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="6"  cy="6"  r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="9"  cy="9"  r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="16" cy="2"  r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="12" cy="6"  r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="6"  cy="12" r="1.4" fill="currentColor" stroke="none"/>
-          <circle cx="2"  cy="16" r="1.4" fill="currentColor" stroke="none"/>
+        <svg viewBox="0 0 20 20" fill="none">
+          <defs>
+            <marker id="ah" markerWidth="5" markerHeight="5" refX="3.5" refY="2.5" orient="auto">
+              <polygon points="0,0 5,2.5 0,5" fill="currentColor"/>
+            </marker>
+          </defs>
+          <!-- 4 arrows pointing inward from each corner to centre -->
+          <line x1="2"  y1="2"  x2="8"  y2="8"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
+          <line x1="18" y1="2"  x2="12" y2="8"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
+          <line x1="2"  y1="18" x2="8"  y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
+          <line x1="18" y1="18" x2="12" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
         </svg>
       </button>
       <span class="nmenu-wordmark">White Space Designs</span>
