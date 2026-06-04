@@ -66,7 +66,10 @@
       "Digital Strategy"
     ],
     "sameAs": [
-      "https://www.instagram.com/whitespacedesign_za/"
+      "https://www.instagram.com/whitespacedesign_za/",
+      "https://twitter.com/whitespacedesign_za",
+      "https://www.linkedin.com/company/white-space-designs",
+      "https://wa.me/27743357752"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -82,7 +85,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── Tokens ──────────────────────────────────────────── */
@@ -220,89 +223,154 @@
     .d6 { transition-delay: .6s; }
     .d7 { transition-delay: .7s; }
 
-    /* ─── NAV ─────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 200;
-      transition: background .3s, border-color .3s;
-      border-bottom: 1px solid transparent;
+    /* ─── NAV BAR — liquid glass (floating pill) ─────── */
+    .navbar {
+      display: flex; align-items: center; gap: 0;
+      height: 52px; padding: 0 20px;
+      border-radius: 16px; overflow: hidden;
+      position: fixed; top: 16px; left: 16px; right: 16px; z-index: 500;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(48px) saturate(240%) brightness(1.12);
+      -webkit-backdrop-filter: blur(48px) saturate(240%) brightness(1.12);
+      border: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.12);
     }
-    nav.sc {
-      background: rgba(10,10,10,.92);
-      backdrop-filter: blur(20px);
-      border-color: var(--bdr);
+    /* top shimmer — most visible glass cue */
+    .navbar::before {
+      content: ''; position: absolute;
+      top: 0; left: 5%; right: 5%; height: 1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.72) 25%,
+        rgba(255,255,255,.72) 75%,
+        transparent);
+      pointer-events: none;
     }
-    .nav-i {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 32px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* subtle noise grain overlay */
+    .navbar::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .04; pointer-events: none; mix-blend-mode: overlay;
     }
-    .logo {
-      font-family: var(--mono);
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--txt);
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* ── hamburger (2 lines) ── */
+    .nav-ham {
+      display: flex; flex-direction: column; gap: 7px;
+      cursor: pointer; padding: 6px; flex-shrink: 0;
+      background: none; border: none; position: relative; z-index: 1;
     }
-    .logo-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
+    .nav-ham span {
+      display: block; height: 1.5px; border-radius: 2px;
+      background: rgba(255,255,255,.82); transition: all .22s ease;
+    }
+    .nav-ham span:nth-child(1) { width: 22px; }
+    .nav-ham span:nth-child(2) { width: 14px; }
+    .nav-ham:hover span { background: #fff; }
+    .nav-ham:hover span:nth-child(2) { width: 22px; }
+    /* ── brand ── */
+    .nav-brand {
+      flex: 1; text-align: center; position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif; font-size: .72rem;
+      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: rgba(255,255,255,.92); text-decoration: none;
+    }
+    .nav-dot {
+      width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
       background: var(--red);
       animation: dot-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes dot-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.55)} }
+    /* ── book a call ── */
+    .nav-book {
+      font-family: var(--mono); font-size: .65rem;
+      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--red); cursor: pointer; flex-shrink: 0;
+      white-space: nowrap; background: none; border: none;
+      text-decoration: none; transition: opacity .18s;
+      position: relative; z-index: 1;
+    }
+    .nav-book:hover { opacity: .7; }
+
+    /* ─── NOTHING MENU OVERLAY ───────────────────────────── */
+    .nmenu-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .nmenu-overlay.open { opacity: 1; pointer-events: all; }
+    .nmenu-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(2px);
+    }
+    .nmenu-panel {
+      position: relative; z-index: 1;
+      background: #eeede8;
+      width: min(460px, 88vw);
+      height: min(700px, 88vh);
+      display: flex; flex-direction: column;
+      transform: translateY(-20px) scale(.96);
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+      overflow: hidden;
+    }
+    .nmenu-overlay.open .nmenu-panel { transform: translateY(0) scale(1); }
+
+    /* panel header */
+    .nmenu-head {
       flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      height: 52px; position: relative;
+      border-bottom: 1px solid rgba(0,0,0,.1);
     }
-    @keyframes dot-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: .4; transform: scale(.6); }
+    .nmenu-wordmark {
+      font-family: 'VT323', monospace; font-size: 1rem;
+      letter-spacing: .2em; text-transform: uppercase; color: #1a1a1a;
     }
+    .nmenu-close {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; padding: 6px 8px;
+      font-family: 'VT323', monospace; font-size: 1.3rem; color: #1a1a1a;
+      line-height: 1; transition: opacity .18s;
+    }
+    .nmenu-close:hover { opacity: .4; }
 
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      font-size: .78rem;
-      font-family: var(--mono);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--mt);
-      transition: color .2s;
+    /* panel main links — fills space between header and footer */
+    .nmenu-links {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 16px 20px; gap: 0;
     }
-    .nav-links a:hover { color: var(--txt); }
+    .nmenu-link {
+      font-family: 'VT323', monospace;
+      font-size: clamp(2.8rem, 9vw, 3.8rem);
+      letter-spacing: .05em; text-transform: uppercase;
+      color: #1a1a1a; text-decoration: none; line-height: 1.18;
+      text-align: center; display: block; width: 100%;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .nmenu-link:hover { opacity: .4 !important; }
+    .nmenu-overlay.open .nmenu-link { opacity: 1; transform: translateY(0); }
+    .nmenu-overlay.open .nmenu-link:nth-child(1) { transition-delay: .05s; }
+    .nmenu-overlay.open .nmenu-link:nth-child(2) { transition-delay: .09s; }
+    .nmenu-overlay.open .nmenu-link:nth-child(3) { transition-delay: .13s; }
+    .nmenu-overlay.open .nmenu-link:nth-child(4) { transition-delay: .17s; }
+    .nmenu-overlay.open .nmenu-link:nth-child(5) { transition-delay: .21s; }
+    .nmenu-overlay.open .nmenu-link:nth-child(6) { transition-delay: .25s; }
 
-    .hbg { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
-    .hbg span { display: block; width: 22px; height: 1px; background: #fff; transition: .3s; }
-    .hbg.op span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .hbg.op span:nth-child(2) { opacity: 0; }
-    .hbg.op span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    .mob-nav {
-      display: none;
-      flex-direction: column;
-      padding: 16px 32px 24px;
-      background: rgba(10,10,10,.96);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--bdr);
-      gap: 0;
+    /* panel footer */
+    .nmenu-foot {
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; gap: 28px;
+      height: 52px; border-top: 1px solid rgba(0,0,0,.1);
     }
-    .mob-nav a {
-      font-family: var(--mono);
-      font-size: .78rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--mt);
-      padding: 14px 0;
-      border-bottom: 1px solid var(--bdr);
-      transition: color .2s;
+    .nmenu-foot a {
+      font-family: 'VT323', monospace; font-size: .95rem;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: #666; text-decoration: none; transition: color .15s;
     }
-    .mob-nav a:last-child { border: none; }
-    .mob-nav a:hover { color: #fff; }
+    .nmenu-foot a:hover { color: #1a1a1a; }
 
     /* ─── HERO ────────────────────────────────────────────── */
     .hero {
@@ -1067,9 +1135,12 @@
     .ft-soc:hover::after { opacity: .04; }
     .ft-soc svg { width: 13px; height: 13px; flex-shrink: 0; transition: transform .25s; }
     .ft-soc:hover svg { transform: scale(1.2); }
-    .ft-soc-ig:hover { border-color: rgba(225,48,108,.5); color: #e1306c; box-shadow: 0 4px 20px rgba(225,48,108,.15); }
-    .ft-soc-cal:hover { border-color: rgba(255,59,48,.5); color: var(--red); box-shadow: 0 4px 20px rgba(255,59,48,.15); }
-    .ft-soc-em:hover { border-color: rgba(255,255,255,.3); box-shadow: 0 4px 20px rgba(255,255,255,.06); }
+    .ft-soc-ig:hover  { border-color: rgba(225,48,108,.5);  color: #e1306c; box-shadow: 0 4px 20px rgba(225,48,108,.15); }
+    .ft-soc-cal:hover { border-color: rgba(255,59,48,.5);   color: var(--red); box-shadow: 0 4px 20px rgba(255,59,48,.15); }
+    .ft-soc-em:hover  { border-color: rgba(255,255,255,.3); box-shadow: 0 4px 20px rgba(255,255,255,.06); }
+    .ft-soc-li:hover  { border-color: rgba(10,102,194,.5);  color: #0a66c2; box-shadow: 0 4px 20px rgba(10,102,194,.15); }
+    .ft-soc-x:hover   { border-color: rgba(255,255,255,.3); color: #fff;    box-shadow: 0 4px 20px rgba(255,255,255,.06); }
+    .ft-soc-wa:hover  { border-color: rgba(37,211,102,.5);  color: #25d366; box-shadow: 0 4px 20px rgba(37,211,102,.15); }
 
     /* ─── SCROLL TOP ──────────────────────────────────────── */
     .stt {
@@ -1114,9 +1185,6 @@
       .ft-brand { grid-column: 1 / -1; }
     }
     @media (max-width: 768px) {
-      .nav-links, .nav-cta-d { display: none; }
-      .hbg { display: flex; }
-
       .hero { height: 100vh; height: 100svh; min-height: 560px; }
       .hero-content { padding-bottom: 48px; }
       .hero-right { display: none; }
@@ -1187,35 +1255,41 @@
 <body>
 
 <!-- ══════════════ NAV ══════════════════════════════════ -->
-<nav id="nav">
-  <div class="nav-i">
-    <a href="#home" class="logo">
-      <div class="logo-dot"></div>
-      White Space Designs
-    </a>
-    <ul class="nav-links">
-      <li><a href="#why-custom">Why Custom</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#retainer">Plans</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow nav-cta-d" style="font-size:.68rem;padding:10px 20px;letter-spacing:.1em;">Book a Call</a>
-    <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-  <div class="mob-nav" id="mobNav">
-    <a href="#why-custom" class="mob-link">Why Custom</a>
-    <a href="#services" class="mob-link">Services</a>
-    <a href="#process" class="mob-link">Process</a>
-    <a href="#work" class="mob-link">Work</a>
-    <a href="#retainer" class="mob-link">Plans</a>
-    <a href="#about" class="mob-link">About</a>
-    <a href="#contact" class="mob-link">Contact</a>
-    <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="mob-link" style="color:#fff;margin-top:8px;">Book a Call →</a>
-  </div>
+<nav class="navbar" id="nav">
+  <button class="nav-ham" id="nmenu-open" aria-label="Open menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+  </button>
+  <a href="#home" class="nav-brand">
+    <span class="nav-dot"></span>
+    White Space Designs
+  </a>
+  <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="nav-book">Book a Call</a>
 </nav>
+
+<!-- ══════════════ NOTHING MENU OVERLAY ════════════════ -->
+<div class="nmenu-overlay" id="nmenu" role="dialog" aria-modal="true" aria-label="Navigation">
+  <div class="nmenu-backdrop" id="nmenu-backdrop"></div>
+  <div class="nmenu-panel">
+    <div class="nmenu-head">
+      <button class="nmenu-close" id="nmenu-close" aria-label="Close menu">✕</button>
+      <span class="nmenu-wordmark">White Space Designs</span>
+    </div>
+    <nav class="nmenu-links">
+      <a href="#services"   class="nmenu-link" data-close>Services</a>
+      <a href="#work"       class="nmenu-link" data-close>Work</a>
+      <a href="#process"    class="nmenu-link" data-close>Process</a>
+      <a href="#retainer"   class="nmenu-link" data-close>Plans</a>
+      <a href="#about"      class="nmenu-link" data-close>About</a>
+      <a href="#contact"    class="nmenu-link" data-close>Contact</a>
+    </nav>
+    <div class="nmenu-foot">
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener">Book a Call</a>
+      <a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://twitter.com/whitespacedesign_za" target="_blank" rel="noopener">X</a>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════════ HERO ════════════════════════════════ -->
 <section class="hero" id="home">
@@ -1333,7 +1407,7 @@
   <div class="wrap">
     <div class="s-head rv">
       <div class="label">What We Do</div>
-      <h2 class="h2">Eight disciplines.<br /><strong>One studio.</strong></h2>
+      <h2 class="h2">AI-first agency.<br /><strong>Built to grow your business.</strong></h2>
     </div>
 
     <div class="svc-table rv d1">
@@ -1341,42 +1415,42 @@
       <div class="svc-row">
         <div class="svc-num">01</div>
         <div>
-          <div class="svc-name">Web Design</div>
+          <div class="svc-name">AI Agents</div>
           <div class="svc-tags">
-            <span class="svc-tag">Get More Clients</span>
-            <span class="svc-tag">Works on Mobile</span>
-            <span class="svc-tag">Ranks on Google</span>
+            <span class="svc-tag">Works While You Sleep</span>
+            <span class="svc-tag">Qualifies Every Lead</span>
+            <span class="svc-tag">No Missed Enquiries</span>
           </div>
         </div>
-        <div class="svc-desc">Clean, fast websites built to convert visitors into clients. Custom-designed — no templates, no shortcuts.</div>
+        <div class="svc-desc">A custom AI agent handles your leads around the clock — qualifies prospects, answers questions, books calls. Your pipeline runs whether you're working or not.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">02</div>
         <div>
-          <div class="svc-name">AI Agents</div>
+          <div class="svc-name">Marketing Automation</div>
           <div class="svc-tags">
-            <span class="svc-tag">Works 24/7</span>
-            <span class="svc-tag">Books Appointments</span>
-            <span class="svc-tag">No More Admin</span>
+            <span class="svc-tag">10+ Hours Saved Weekly</span>
+            <span class="svc-tag">Leads on Autopilot</span>
+            <span class="svc-tag">Full System Visibility</span>
           </div>
         </div>
-        <div class="svc-desc">Custom AI agents that qualify leads, book appointments, and handle customer queries around the clock — so you don't have to.</div>
+        <div class="svc-desc">A 5-agent system that finds leads, posts to social, runs email sequences, and delivers SEO reports — all without you in the loop. Set it once, let it run.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">03</div>
         <div>
-          <div class="svc-name">Automation</div>
+          <div class="svc-name">Web Design</div>
           <div class="svc-tags">
-            <span class="svc-tag">Save Hours Weekly</span>
-            <span class="svc-tag">Zero Manual Work</span>
-            <span class="svc-tag">Connects Your Tools</span>
+            <span class="svc-tag">Converts Visitors</span>
+            <span class="svc-tag">Works on Mobile</span>
+            <span class="svc-tag">Ranks on Google</span>
           </div>
         </div>
-        <div class="svc-desc">Workflows that eliminate repetitive tasks and connect your tools. Automate the boring stuff — focus on what moves the needle.</div>
+        <div class="svc-desc">Fast, custom-designed websites built to turn visitors into enquiries. No templates, no shortcuts — built around how your clients actually make decisions.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
@@ -1386,58 +1460,44 @@
           <div class="svc-name">Brand Identity</div>
           <div class="svc-tags">
             <span class="svc-tag">Stand Out</span>
-            <span class="svc-tag">Look Professional</span>
+            <span class="svc-tag">Look Premium</span>
             <span class="svc-tag">Be Remembered</span>
           </div>
         </div>
-        <div class="svc-desc">Strategic identity systems — logo, colour, typography, and motion — that communicate your brand with unmistakable clarity.</div>
+        <div class="svc-desc">Logo, colour, typography, and brand guidelines that make you look like the obvious choice — before a client reads a single word.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">05</div>
         <div>
-          <div class="svc-name">UI / UX Design</div>
+          <div class="svc-name">Full-Stack Development</div>
           <div class="svc-tags">
-            <span class="svc-tag">Easy to Navigate</span>
-            <span class="svc-tag">Converts Visitors</span>
-            <span class="svc-tag">Feels Effortless</span>
+            <span class="svc-tag">Any Idea Possible</span>
+            <span class="svc-tag">Built to Scale</span>
+            <span class="svc-tag">API Integrations</span>
           </div>
         </div>
-        <div class="svc-desc">Interfaces designed around how real people think and click. From low-fi wireframes to high-fidelity interactive prototypes.</div>
+        <div class="svc-desc">Custom web applications with the back-end logic, database architecture, and third-party integrations your business actually needs to run.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">06</div>
         <div>
-          <div class="svc-name">Full-Stack Development</div>
+          <div class="svc-name">UI / UX Design</div>
           <div class="svc-tags">
-            <span class="svc-tag">Any Idea Possible</span>
-            <span class="svc-tag">Built to Scale</span>
-            <span class="svc-tag">Fully Custom</span>
+            <span class="svc-tag">Easy to Navigate</span>
+            <span class="svc-tag">Fewer Drop-Offs</span>
+            <span class="svc-tag">Feels Effortless</span>
           </div>
         </div>
-        <div class="svc-desc">End-to-end web application development. Custom back-end logic, database architecture, and third-party API integrations.</div>
+        <div class="svc-desc">Interfaces built around how real people think and click — from wireframes to high-fidelity prototypes that your dev team can build from immediately.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
       <div class="svc-row">
         <div class="svc-num">07</div>
-        <div>
-          <div class="svc-name">Packaging Design</div>
-          <div class="svc-tags">
-            <span class="svc-tag">Stand Out on Shelf</span>
-            <span class="svc-tag">Print-Ready</span>
-            <span class="svc-tag">Retail-Worthy</span>
-          </div>
-        </div>
-        <div class="svc-desc">Product packaging that stands out on the shelf. Structural design, print-ready artwork, and supplier-ready dielines.</div>
-        <a href="#contact" class="svc-quote">Enquire →</a>
-      </div>
-
-      <div class="svc-row">
-        <div class="svc-num">08</div>
         <div>
           <div class="svc-name">Digital Strategy</div>
           <div class="svc-tags">
@@ -1446,14 +1506,68 @@
             <span class="svc-tag">Track What Works</span>
           </div>
         </div>
-        <div class="svc-desc">Data-driven roadmaps that align your digital presence with growth. SEO architecture, funnel optimisation, and performance analytics.</div>
+        <div class="svc-desc">SEO architecture, funnel optimisation, and performance analytics — a clear roadmap that connects your digital presence to measurable business growth.</div>
+        <a href="#contact" class="svc-quote">Enquire →</a>
+      </div>
+
+      <div class="svc-row">
+        <div class="svc-num">08</div>
+        <div>
+          <div class="svc-name">Packaging Design</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Stand Out on Shelf</span>
+            <span class="svc-tag">Print-Ready</span>
+            <span class="svc-tag">Retail-Worthy</span>
+          </div>
+        </div>
+        <div class="svc-desc">Product packaging that wins at point of sale. Structural design, print-ready artwork, and supplier-ready dielines — shelf-ready from day one.</div>
         <a href="#contact" class="svc-quote">Enquire →</a>
       </div>
 
     </div>
 
-    <div style="margin-top:48px;" class="rv d2">
-      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Discuss Your Project</a>
+    <!-- HOW THE AUTOMATION SYSTEM WORKS -->
+    <div class="rv d2" style="margin-top:64px;border-top:1px solid var(--bdr);padding-top:56px;">
+      <div class="s-head" style="margin-bottom:40px;">
+        <div class="label">The Automation System</div>
+        <h2 class="h2" style="font-size:clamp(1.4rem,3vw,2rem);">Five agents. One system.<br /><strong>Running 24/7.</strong></h2>
+        <p style="font-size:.9rem;color:var(--mt);max-width:520px;line-height:1.7;margin-top:12px;">Most businesses post manually, chase leads by hand, and have no idea what's working. Our system handles all of it automatically — built on n8n, powered by AI, deployed for your business.</p>
+      </div>
+      <div class="proc-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--bdr);border:1px solid var(--bdr);">
+        <div class="proc-cell" style="background:var(--bg);">
+          <div class="proc-n">Agent / 01</div>
+          <h3>Lead Scraper</h3>
+          <p>Finds qualified prospects in your target industry and location via Google Maps. Scores each lead by relevance. Delivers to a live Google Sheet.</p>
+        </div>
+        <div class="proc-cell" style="background:var(--bg);">
+          <div class="proc-n">Agent / 02</div>
+          <h3>Email Campaign</h3>
+          <p>Sends AI-personalised outreach to your lead list. Follows up automatically after 3 days. Tracks opens and stops on reply.</p>
+        </div>
+        <div class="proc-cell" style="background:var(--bg);">
+          <div class="proc-n">Agent / 03</div>
+          <h3>Social Media</h3>
+          <p>Creates and publishes content to Instagram, Twitter/X, Facebook, and LinkedIn on a set schedule — AI-written, image included.</p>
+        </div>
+        <div class="proc-cell" style="background:var(--bg);">
+          <div class="proc-n">Agent / 04</div>
+          <h3>Content Creation</h3>
+          <p>Generates on-brand copy and translates it for your audience. Feeds the social and email agents so nothing runs dry.</p>
+        </div>
+        <div class="proc-cell" style="background:var(--bg);">
+          <div class="proc-n">Agent / 05</div>
+          <h3>SEO Reporting</h3>
+          <p>Pulls live Google Search Console data and emails you a performance report. Know exactly how you rank — without logging into anything.</p>
+        </div>
+      </div>
+      <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <a href="#contact" class="btn btn-solid btn-arrow">Get This System</a>
+        <span style="font-size:.72rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">From R6,000/month — setup in 2 weeks</span>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;" class="rv d3">
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-outline btn-arrow">Discuss Your Project</a>
     </div>
   </div>
 </section>
@@ -1758,7 +1872,7 @@
               <div class="abt-stat-l">Projects</div>
             </div>
             <div class="abt-stat">
-              <div class="abt-stat-n">Since 21</div>
+              <div class="abt-stat-n">Since 2025</div>
               <div class="abt-stat-l">Freelancing</div>
             </div>
             <div class="abt-stat">
@@ -1931,6 +2045,18 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
           Email Us
         </a>
+        <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" class="ft-soc ft-soc-li" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="8" y1="11" x2="8" y2="17"/><line x1="8" y1="7" x2="8" y2="8"/><path d="M12 17v-4a2 2 0 0 1 4 0v4"/><line x1="12" y1="11" x2="12" y2="17"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://twitter.com/whitespacedesign_za" target="_blank" rel="noopener" class="ft-soc ft-soc-x" aria-label="Twitter / X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X / Twitter
+        </a>
+        <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="ft-soc ft-soc-wa" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
       </div>
     </div>
   </div>
@@ -2031,17 +2157,27 @@ window.addEventListener('scroll', () => {
   stt.classList.toggle('sh', scrollY > 500);
 }, { passive: true });
 
-/* ── Hamburger ──────────────────────────────────────── */
-const hbg = document.getElementById('hbg');
-const mob = document.getElementById('mobNav');
-hbg.addEventListener('click', () => {
-  hbg.classList.toggle('op');
-  mob.style.display = mob.style.display === 'flex' ? 'none' : 'flex';
-  if (mob.style.display === 'flex') mob.style.flexDirection = 'column';
-});
-document.querySelectorAll('.mob-link').forEach(a => a.addEventListener('click', () => {
-  hbg.classList.remove('op'); mob.style.display = 'none';
-}));
+/* ── Nothing Menu ───────────────────────────────────── */
+const nmenu    = document.getElementById('nmenu');
+const nopen    = document.getElementById('nmenu-open');
+const nclose   = document.getElementById('nmenu-close');
+const nbackdrop= document.getElementById('nmenu-backdrop');
+
+function openNMenu() {
+  nmenu.classList.add('open');
+  nopen.setAttribute('aria-expanded','true');
+  document.body.style.overflow = 'hidden';
+}
+function closeNMenu() {
+  nmenu.classList.remove('open');
+  nopen.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+}
+nopen.addEventListener('click', openNMenu);
+nclose.addEventListener('click', closeNMenu);
+nbackdrop.addEventListener('click', closeNMenu);
+document.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', closeNMenu));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu(); });
 
 /* ── Scroll top ─────────────────────────────────────── */
 stt.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
@@ -2068,6 +2204,64 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   document.getElementById('fsuccess').style.display = 'block';
 });
 
+</script>
+
+<!-- ══════════════ COOKIE CONSENT ══════════════════════ -->
+<style>
+  #cookie-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+    background: rgba(10,10,10,.97); border-top: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    transform: translateY(100%); transition: transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  #cookie-bar.show { transform: translateY(0); }
+  #cookie-bar p {
+    font-family: 'Inter', sans-serif; font-size: .78rem; color: #aaa;
+    line-height: 1.6; flex: 1; min-width: 200px;
+  }
+  #cookie-bar p a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+  .ck-btn {
+    font-family: 'Space Mono', monospace; font-size: .58rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase; cursor: pointer;
+    padding: 9px 18px; border: 1px solid; transition: all .16s; white-space: nowrap;
+  }
+  .ck-accept { background: #fff; color: #0a0a0a; border-color: transparent; }
+  .ck-accept:hover { background: #d4d4d4; }
+  .ck-decline { background: transparent; color: #666; border-color: rgba(255,255,255,.12); }
+  .ck-decline:hover { color: #fff; border-color: rgba(255,255,255,.3); }
+  @media (max-width: 480px) {
+    #cookie-bar { padding: 14px 16px; gap: 12px; }
+    .ck-btn { flex: 1; text-align: center; }
+  }
+</style>
+
+<div id="cookie-bar" role="dialog" aria-label="Cookie consent">
+  <p>
+    We use cookies to analyse site traffic and improve your experience.
+    By clicking <strong style="color:#fff;">Accept</strong> you consent to our use of cookies.
+    <a href="#" onclick="return false;">Learn more</a>
+  </p>
+  <button class="ck-btn ck-decline" onclick="cookieConsent(false)">Decline</button>
+  <button class="ck-btn ck-accept" onclick="cookieConsent(true)">Accept</button>
+</div>
+
+<script>
+(function() {
+  var consent = localStorage.getItem('wsd-cookie-consent');
+  if (!consent) {
+    setTimeout(function() {
+      var bar = document.getElementById('cookie-bar');
+      if (bar) bar.classList.add('show');
+    }, 1200);
+  }
+})();
+function cookieConsent(accepted) {
+  localStorage.setItem('wsd-cookie-consent', accepted ? 'accepted' : 'declined');
+  var bar = document.getElementById('cookie-bar');
+  if (bar) { bar.style.transition = 'transform .3s'; bar.style.transform = 'translateY(100%)'; }
+}
 </script>
 </body>
 </html>
