@@ -307,12 +307,21 @@
     .nmenu-panel {
       position: relative; z-index: 1;
       background: #eeede8;
-      width: min(460px, 88vw);
+      width: min(460px, 92vw);
       height: min(700px, 88vh);
       display: flex; flex-direction: column;
       transform: translateY(-20px) scale(.96);
       transition: transform .4s cubic-bezier(.22,1,.36,1);
       overflow: hidden;
+    }
+    @media (max-width: 480px) {
+      .nmenu-panel {
+        width: 100vw; height: 100dvh;
+        border-radius: 0;
+      }
+      .nmenu-link { font-size: 3rem; }
+      .nmenu-foot { gap: 20px; }
+      .nmenu-foot a { font-size: .85rem; }
     }
     .nmenu-overlay.open .nmenu-panel { transform: translateY(0) scale(1); }
 
@@ -2231,9 +2240,14 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   .ck-accept:hover { background: #d4d4d4; }
   .ck-decline { background: transparent; color: #666; border-color: rgba(255,255,255,.12); }
   .ck-decline:hover { color: #fff; border-color: rgba(255,255,255,.3); }
-  @media (max-width: 480px) {
-    #cookie-bar { padding: 14px 16px; gap: 12px; }
-    .ck-btn { flex: 1; text-align: center; }
+  @media (max-width: 600px) {
+    #cookie-bar {
+      padding: 14px 16px; gap: 10px;
+      flex-direction: column; align-items: stretch;
+    }
+    #cookie-bar p { font-size: .75rem; min-width: unset; }
+    .ck-btns { display: flex; gap: 8px; }
+    .ck-btn { flex: 1; text-align: center; padding: 10px 12px; font-size: .56rem; }
   }
 </style>
 
@@ -2243,8 +2257,10 @@ document.getElementById('cform').addEventListener('submit', function (e) {
     By clicking <strong style="color:#fff;">Accept</strong> you consent to our use of cookies.
     <a href="#" onclick="return false;">Learn more</a>
   </p>
-  <button class="ck-btn ck-decline" onclick="cookieConsent(false)">Decline</button>
-  <button class="ck-btn ck-accept" onclick="cookieConsent(true)">Accept</button>
+  <div class="ck-btns">
+    <button class="ck-btn ck-decline" onclick="cookieConsent(false)">Decline</button>
+    <button class="ck-btn ck-accept" onclick="cookieConsent(true)">Accept</button>
+  </div>
 </div>
 
 <script>
