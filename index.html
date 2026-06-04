@@ -338,7 +338,6 @@
       display: flex; align-items: center;
     }
     .nmenu-close:hover { opacity: .35; }
-    .nmenu-close svg { width: 18px; height: 18px; display: block; }
 
     /* panel main links — fills space between header and footer */
     .nmenu-links {
@@ -1287,18 +1286,7 @@
   <div class="nmenu-panel">
     <div class="nmenu-head">
       <button class="nmenu-close" id="nmenu-close" aria-label="Close menu">
-        <svg viewBox="0 0 20 20" fill="none">
-          <defs>
-            <marker id="ah" markerWidth="5" markerHeight="5" refX="3.5" refY="2.5" orient="auto">
-              <polygon points="0,0 5,2.5 0,5" fill="currentColor"/>
-            </marker>
-          </defs>
-          <!-- 4 arrows pointing inward from each corner to centre -->
-          <line x1="2"  y1="2"  x2="8"  y2="8"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
-          <line x1="18" y1="2"  x2="12" y2="8"  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
-          <line x1="2"  y1="18" x2="8"  y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
-          <line x1="18" y1="18" x2="12" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" marker-end="url(#ah)"/>
-        </svg>
+        <canvas id="close-canvas" width="28" height="28" style="display:block;width:28px;height:28px;"></canvas>
       </button>
       <span class="nmenu-wordmark">White Space Designs</span>
     </div>
@@ -2223,6 +2211,85 @@ nclose.addEventListener('click', closeNMenu);
 nbackdrop.addEventListener('click', closeNMenu);
 document.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', closeNMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu(); });
+
+/* ── Close-button X animation ───────────────────────── */
+(function () {
+  const cv  = document.getElementById('close-canvas');
+  const ctx = cv.getContext('2d');
+  const S   = 28;
+  const CX  = S / 2, CY = S / 2;
+  const ARM = S * 0.40;
+  const DOT_R = S * 0.055;
+  const DOTS  = 8;
+  const DOT_CLR = '#1a1a1a';
+
+  const tips = [
+    { x: CX - ARM, y: CY - ARM },
+    { x: CX + ARM, y: CY - ARM },
+    { x: CX + ARM, y: CY + ARM },
+    { x: CX - ARM, y: CY + ARM },
+  ];
+
+  const arms = tips.map(tip => {
+    const a = [];
+    for (let i = 0; i <= DOTS; i++) {
+      const t = i / DOTS;
+      a.push({ x: tip.x + (CX - tip.x) * t, y: tip.y + (CY - tip.y) * t });
+    }
+    return a;
+  });
+
+  let phase = 0;
+
+  function drawArrow(tip, t) {
+    const x = tip.x + (CX - tip.x) * t;
+    const y = tip.y + (CY - tip.y) * t;
+    const dx = CX - tip.x, dy = CY - tip.y;
+    const len = Math.sqrt(dx*dx + dy*dy);
+    const nx = dx/len, ny = dy/len, px = -ny, py = nx;
+    const aw = DOT_R * 4.5, ah = DOT_R * 2.8;
+    const sL = aw * 0.5, hL = aw * 0.5, sH = ah * 0.38;
+    const tX = x + nx*hL, tY = y + ny*hL;
+    const bX = x - nx*sL, bY = y - ny*sL;
+    ctx.beginPath();
+    ctx.moveTo(bX + px*sH, bY + py*sH);
+    ctx.lineTo(x  + px*sH, y  + py*sH);
+    ctx.lineTo(x  + px*ah, y  + py*ah);
+    ctx.lineTo(tX, tY);
+    ctx.lineTo(x  - px*ah, y  - py*ah);
+    ctx.lineTo(x  - px*sH, y  - py*sH);
+    ctx.lineTo(bX - px*sH, bY - py*sH);
+    ctx.closePath();
+    ctx.fillStyle = DOT_CLR;
+    ctx.fill();
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, S, S);
+    phase = (phase + 0.012) % 1;
+
+    // static dots on each arm
+    arms.forEach(arm => arm.forEach(d => {
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, DOT_R, 0, Math.PI * 2);
+      ctx.fillStyle = DOT_CLR;
+      ctx.fill();
+    }));
+
+    // travelling arrow on each arm
+    if (phase > 0.01 && phase < 0.97)
+      tips.forEach(tip => drawArrow(tip, phase));
+
+    // centre dot
+    ctx.beginPath();
+    ctx.arc(CX, CY, DOT_R * 2.8, 0, Math.PI * 2);
+    ctx.fillStyle = DOT_CLR;
+    ctx.fill();
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
 
 /* ── Scroll top ─────────────────────────────────────── */
 stt.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
