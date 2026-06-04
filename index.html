@@ -2098,58 +2098,75 @@
 /* ── Dot-wave canvas ────────────────────────────────── */
 (function () {
   const cvs = document.getElementById('hero-canvas');
-  const ctx = cvs.getContext('2d');
-  let W, H, cols, rows, dots = [], mouse = { x: -999, y: -999 };
-  const SPACING   = window.innerWidth < 768 ? 38 : 26;
-  const BASE_R    = 1.4;
-  const MAX_R     = 5.5;
-  const WAVE_SPEED= 0.0014;
-  const WAVE_SCALE= 0.0055;
+  const ctx  = cvs.getContext('2d');
+  const isMob = () => window.innerWidth < 768;
+
+  let W, H, cols, rows, dots = [];
+  let mouse = { x: -999, y: -999, active: false };
+
+  // mobile: denser grid, bigger base dot, faster wave
+  const cfg = () => ({
+    spacing   : isMob() ? 28 : 26,
+    baseR     : isMob() ? 2.0 : 1.4,
+    maxR      : isMob() ? 7.0 : 5.5,
+    waveSpeed : isMob() ? 0.0022 : 0.0014,
+    waveScale : 0.0055,
+    touchRadius: isMob() ? 180 : 150,
+  });
+  let C = cfg();
 
   function resize() {
+    C = cfg();
     const hero = cvs.parentElement;
     W = cvs.width  = hero.offsetWidth  || window.innerWidth;
     H = cvs.height = hero.offsetHeight || window.innerHeight;
-    cols = Math.ceil(W / SPACING) + 3;
-    rows = Math.ceil(H / SPACING) + 3;
-    buildDots();
-  }
-
-  function buildDots() {
+    cols = Math.ceil(W / C.spacing) + 3;
+    rows = Math.ceil(H / C.spacing) + 3;
     dots = [];
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        dots.push({ x: c * SPACING - SPACING, y: r * SPACING - SPACING });
-      }
-    }
+    for (let r = 0; r < rows; r++)
+      for (let c = 0; c < cols; c++)
+        dots.push({ x: c * C.spacing - C.spacing, y: r * C.spacing - C.spacing });
   }
 
   let t = 0;
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    t += WAVE_SPEED;
+    t += C.waveSpeed;
+
+    // ambient breathing pulse for mobile — slow radial wave from centre
+    const breathe = isMob()
+      ? Math.sin(t * 1.4) * 0.5 + 0.5   // 0 → 1 oscillation
+      : 0;
 
     dots.forEach(d => {
-      const wave = Math.sin(d.x * WAVE_SCALE + t * 3.2) *
-                   Math.cos(d.y * WAVE_SCALE + t * 2.1) *
-                   Math.sin((d.x + d.y) * WAVE_SCALE * 0.7 + t * 1.8);
+      // multi-layered wave (same as desktop)
+      const wave = Math.sin(d.x * C.waveScale + t * 3.2) *
+                   Math.cos(d.y * C.waveScale + t * 2.1) *
+                   Math.sin((d.x + d.y) * C.waveScale * 0.7 + t * 1.8);
 
-      const dx = d.x - mouse.x;
-      const dy = d.y - mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const mouseFactor = Math.max(0, 1 - dist / 150);
+      // radial breathe from centre on mobile
+      const cx = W / 2, cy = H / 2;
+      const dCx = d.x - cx, dCy = d.y - cy;
+      const distC = Math.sqrt(dCx*dCx + dCy*dCy);
+      const breatheWave = breathe > 0
+        ? Math.sin(distC * 0.018 - t * 4.5) * breathe * 0.6
+        : 0;
 
-      const r     = BASE_R + wave * 2.2 + mouseFactor * (MAX_R - BASE_R);
-      const alpha = 0.22 + Math.abs(wave) * 0.45 + mouseFactor * 0.6;
+      // touch / mouse ripple
+      const dx = d.x - mouse.x, dy = d.y - mouse.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const touch = Math.max(0, 1 - dist / C.touchRadius);
 
-      const red = 255;
-      const g   = Math.floor(255 - mouseFactor * 210);
-      const b   = Math.floor(255 - mouseFactor * 210);
+      const r     = C.baseR + (wave + breatheWave) * 2.8 + touch * (C.maxR - C.baseR);
+      const alpha = 0.20 + Math.abs(wave + breatheWave) * 0.55 + touch * 0.65;
+
+      const g = Math.floor(255 - touch * 210);
+      const b = Math.floor(255 - touch * 210);
 
       if (r > 0.3) {
         ctx.beginPath();
         ctx.arc(d.x, d.y, Math.max(0.3, r), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${red},${g},${b},${Math.min(1, alpha)})`;
+        ctx.fillStyle = `rgba(255,${g},${b},${Math.min(1, alpha)})`;
         ctx.fill();
       }
     });
@@ -2157,17 +2174,18 @@
     requestAnimationFrame(draw);
   }
 
+  // mouse
   cvs.addEventListener('mousemove', e => {
-    const rect = cvs.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
+    const rc = cvs.getBoundingClientRect();
+    mouse.x = e.clientX - rc.left; mouse.y = e.clientY - rc.top;
   });
   cvs.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+  // touch — finger ripple
   cvs.addEventListener('touchmove', e => {
-    const rect = cvs.getBoundingClientRect();
-    const t = e.touches[0];
-    mouse.x = t.clientX - rect.left;
-    mouse.y = t.clientY - rect.top;
+    const rc = cvs.getBoundingClientRect();
+    mouse.x = e.touches[0].clientX - rc.left;
+    mouse.y = e.touches[0].clientY - rc.top;
   }, { passive: true });
   cvs.addEventListener('touchend', () => { mouse.x = -999; mouse.y = -999; });
 
