@@ -252,20 +252,15 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
       opacity: .04; pointer-events: none; mix-blend-mode: overlay;
     }
-    /* ── hamburger (2 lines) ── */
+    /* ── hamburger (2 dot rows) ── */
     .nav-ham {
-      display: flex; flex-direction: column; gap: 7px;
+      display: flex; align-items: center;
       cursor: pointer; padding: 6px; flex-shrink: 0;
       background: none; border: none; position: relative; z-index: 1;
+      color: rgba(255,255,255,.8); transition: color .2s;
     }
-    .nav-ham span {
-      display: block; height: 1.5px; border-radius: 2px;
-      background: rgba(255,255,255,.82); transition: all .22s ease;
-    }
-    .nav-ham span:nth-child(1) { width: 22px; }
-    .nav-ham span:nth-child(2) { width: 14px; }
-    .nav-ham:hover span { background: #fff; }
-    .nav-ham:hover span:nth-child(2) { width: 22px; }
+    .nav-ham:hover { color: #fff; }
+    .nav-ham svg { display: block; width: 26px; height: 16px; overflow: visible; }
     /* ── brand ── */
     .nav-brand {
       flex: 1; text-align: center; position: relative; z-index: 1;
@@ -338,11 +333,12 @@
     }
     .nmenu-close {
       position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer; padding: 6px 8px;
-      font-family: 'VT323', monospace; font-size: 1.3rem; color: #1a1a1a;
-      line-height: 1; transition: opacity .18s;
+      background: none; border: none; cursor: pointer; padding: 6px;
+      color: #1a1a1a; line-height: 1; transition: opacity .18s;
+      display: flex; align-items: center;
     }
-    .nmenu-close:hover { opacity: .4; }
+    .nmenu-close:hover { opacity: .35; }
+    .nmenu-close svg { width: 18px; height: 18px; display: block; }
 
     /* panel main links — fills space between header and footer */
     .nmenu-links {
@@ -1266,8 +1262,17 @@
 <!-- ══════════════ NAV ══════════════════════════════════ -->
 <nav class="navbar" id="nav">
   <button class="nav-ham" id="nmenu-open" aria-label="Open menu" aria-expanded="false">
-    <span></span>
-    <span></span>
+    <svg viewBox="0 0 26 16" fill="currentColor">
+      <!-- top row: 5 dots -->
+      <circle cx="1.8" cy="4" r="1.8"/>
+      <circle cx="8.3" cy="4" r="1.8"/>
+      <circle cx="14.8" cy="4" r="1.8"/>
+      <circle cx="21.3" cy="4" r="1.8"/>
+      <!-- bottom row: 3 dots (shorter) -->
+      <circle cx="1.8" cy="12" r="1.8"/>
+      <circle cx="8.3" cy="12" r="1.8"/>
+      <circle cx="14.8" cy="12" r="1.8"/>
+    </svg>
   </button>
   <a href="#home" class="nav-brand">
     <span class="nav-dot"></span>
@@ -1281,7 +1286,20 @@
   <div class="nmenu-backdrop" id="nmenu-backdrop"></div>
   <div class="nmenu-panel">
     <div class="nmenu-head">
-      <button class="nmenu-close" id="nmenu-close" aria-label="Close menu">✕</button>
+      <button class="nmenu-close" id="nmenu-close" aria-label="Close menu">
+        <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <!-- dot-matrix X: made of small dots along the diagonal paths -->
+          <circle cx="2"  cy="2"  r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="6"  cy="6"  r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="9"  cy="9"  r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="16" cy="2"  r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="12" cy="6"  r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="6"  cy="12" r="1.4" fill="currentColor" stroke="none"/>
+          <circle cx="2"  cy="16" r="1.4" fill="currentColor" stroke="none"/>
+        </svg>
+      </button>
       <span class="nmenu-wordmark">White Space Designs</span>
     </div>
     <nav class="nmenu-links">
