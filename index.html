@@ -113,20 +113,12 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    .dot-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
+    .dot-overlay span { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .12; }
     ::selection { background: rgba(255,59,48,.25); color: #fff; }
 
-    /* ─── Canvas hero ─────────────────────────────────────── */
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      z-index: 0;
-    }
-
-    /* ensure hero text sits above canvas but has no background blocking it */
-    .hero-content { background: transparent !important; }
+    /* ensure hero text sits above Vanta canvas */
+    .hero-content { background: transparent !important; position: relative; z-index: 2; }
     .hero-left, .hero-right, .hero-inner, .hero-tag { background: transparent !important; }
 
     /* ─── Utilities ───────────────────────────────────────── */
@@ -352,9 +344,9 @@
       color: #1a1a1a; text-decoration: none; line-height: 1.18;
       text-align: center; display: block; width: 100%;
       opacity: 0; transform: translateY(20px);
-      transition: opacity .3s ease, transform .3s ease;
+      transition: opacity .3s ease, transform .3s ease, color .25s ease;
     }
-    .nmenu-link:hover { opacity: .4 !important; }
+    .nmenu-link:hover { color: #ff3b30 !important; opacity: 1 !important; }
     .nmenu-overlay.open .nmenu-link { opacity: 1; transform: translateY(0); }
     .nmenu-overlay.open .nmenu-link:nth-child(1) { transition-delay: .05s; }
     .nmenu-overlay.open .nmenu-link:nth-child(2) { transition-delay: .09s; }
@@ -384,6 +376,20 @@
       overflow: hidden;
       display: flex;
       align-items: flex-end;
+      background: radial-gradient(ellipse 70% 60% at 50% 90%, rgba(255,59,48,.2), transparent 65%), #0a0a0a;
+    }
+    .hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0; display: block; pointer-events: none;
+    }
+    .hero-loader {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: #0a0a0a; transition: opacity 1s ease;
+    }
+    .hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to top, rgba(10,10,10,.9) 0%, rgba(10,10,10,.45) 32%, transparent 65%);
     }
 
     .hero-content {
@@ -1308,7 +1314,9 @@
 
 <!-- ══════════════ HERO ════════════════════════════════ -->
 <section class="hero" id="home">
-  <canvas id="hero-canvas"></canvas>
+
+  <canvas class="hero-canvas" id="hero-canvas"></canvas>
+  <div class="hero-loader" id="hero-loader"></div>
 
   <div class="corner corner-tl"></div>
   <div class="corner corner-tr"></div>
@@ -1742,7 +1750,7 @@
       <div class="ret-card">
         <div class="ret-head">
           <div class="ret-tier">Starter</div>
-          <div class="ret-enquire">Custom quote — book a call</div>
+          <div class="ret-enquire">From R1,500 / month</div>
           <div class="ret-tag">"I just need things maintained"</div>
         </div>
         <div class="ret-body">
@@ -1818,6 +1826,12 @@
 
     </div>
 
+    <!-- MAINTENANCE NOTE -->
+    <div class="rv d2" style="margin-top:24px;padding:18px 24px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+      <p style="font-size:.85rem;color:var(--mt);line-height:1.7;"><strong style="color:var(--txt);">Just need your site maintained?</strong> Website-only maintenance starts from <strong style="color:var(--txt);">R1,500/mo</strong> (Basic) · R2,500/mo (Standard) · R4,500/mo (Premium) — no new builds, just keeping what you have running perfectly.</p>
+      <a href="pricing-policy.html#maintenance" style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mt);white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--mt)'">See Plans →</a>
+    </div>
+
     <!-- AUDIT CTA -->
     <div class="ret-audit rv d2">
       <div class="ret-audit-inner">
@@ -1888,7 +1902,6 @@
             </div>
             <div class="abt-stat">
               <div class="abt-stat-n">Since 2025</div>
-              <div class="abt-stat-l">Freelancing</div>
             </div>
             <div class="abt-stat">
               <div class="abt-stat-n">24hr</div>
@@ -2083,105 +2096,6 @@
 
 <!-- ══════════════ JS ════════════════════════════════════ -->
 <script>
-/* ── Dot-wave canvas ────────────────────────────────── */
-(function () {
-  const cvs = document.getElementById('hero-canvas');
-  const ctx  = cvs.getContext('2d');
-  const isMob = () => window.innerWidth < 768;
-
-  let W, H, cols, rows, dots = [];
-  let mouse = { x: -999, y: -999, active: false };
-
-  // mobile: denser grid, bigger base dot, faster wave
-  const cfg = () => ({
-    spacing   : isMob() ? 28 : 26,
-    baseR     : isMob() ? 2.0 : 1.4,
-    maxR      : isMob() ? 7.0 : 5.5,
-    waveSpeed : isMob() ? 0.0022 : 0.0014,
-    waveScale : 0.0055,
-    touchRadius: isMob() ? 180 : 150,
-  });
-  let C = cfg();
-
-  function resize() {
-    C = cfg();
-    const hero = cvs.parentElement;
-    W = cvs.width  = hero.offsetWidth  || window.innerWidth;
-    H = cvs.height = hero.offsetHeight || window.innerHeight;
-    cols = Math.ceil(W / C.spacing) + 3;
-    rows = Math.ceil(H / C.spacing) + 3;
-    dots = [];
-    for (let r = 0; r < rows; r++)
-      for (let c = 0; c < cols; c++)
-        dots.push({ x: c * C.spacing - C.spacing, y: r * C.spacing - C.spacing });
-  }
-
-  let t = 0;
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    t += C.waveSpeed;
-
-    // ambient breathing pulse for mobile — slow radial wave from centre
-    const breathe = isMob()
-      ? Math.sin(t * 1.4) * 0.5 + 0.5   // 0 → 1 oscillation
-      : 0;
-
-    dots.forEach(d => {
-      // multi-layered wave (same as desktop)
-      const wave = Math.sin(d.x * C.waveScale + t * 3.2) *
-                   Math.cos(d.y * C.waveScale + t * 2.1) *
-                   Math.sin((d.x + d.y) * C.waveScale * 0.7 + t * 1.8);
-
-      // radial breathe from centre on mobile
-      const cx = W / 2, cy = H / 2;
-      const dCx = d.x - cx, dCy = d.y - cy;
-      const distC = Math.sqrt(dCx*dCx + dCy*dCy);
-      const breatheWave = breathe > 0
-        ? Math.sin(distC * 0.018 - t * 4.5) * breathe * 0.6
-        : 0;
-
-      // touch / mouse ripple
-      const dx = d.x - mouse.x, dy = d.y - mouse.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      const touch = Math.max(0, 1 - dist / C.touchRadius);
-
-      const r     = C.baseR + (wave + breatheWave) * 2.8 + touch * (C.maxR - C.baseR);
-      const alpha = 0.20 + Math.abs(wave + breatheWave) * 0.55 + touch * 0.65;
-
-      const g = Math.floor(255 - touch * 210);
-      const b = Math.floor(255 - touch * 210);
-
-      if (r > 0.3) {
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, Math.max(0.3, r), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,${g},${b},${Math.min(1, alpha)})`;
-        ctx.fill();
-      }
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  // mouse
-  cvs.addEventListener('mousemove', e => {
-    const rc = cvs.getBoundingClientRect();
-    mouse.x = e.clientX - rc.left; mouse.y = e.clientY - rc.top;
-  });
-  cvs.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
-
-  // touch — finger ripple
-  cvs.addEventListener('touchmove', e => {
-    const rc = cvs.getBoundingClientRect();
-    mouse.x = e.touches[0].clientX - rc.left;
-    mouse.y = e.touches[0].clientY - rc.top;
-  }, { passive: true });
-  cvs.addEventListener('touchend', () => { mouse.x = -999; mouse.y = -999; });
-
-  window.addEventListener('resize', resize, { passive: true });
-  resize();
-  draw();
-})();
-
 /* ── Nav ────────────────────────────────────────────── */
 const nav = document.getElementById('nav');
 const stt = document.getElementById('stt');
@@ -2212,16 +2126,17 @@ nbackdrop.addEventListener('click', closeNMenu);
 document.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', closeNMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu(); });
 
-/* ── Close-button X animation ───────────────────────── */
+/* ── Close-button X — pulsing dots ──────────────────── */
 (function () {
   const cv  = document.getElementById('close-canvas');
   const ctx = cv.getContext('2d');
   const S   = 20;
   const CX  = S / 2, CY = S / 2;
   const ARM = S * 0.40;
-  const DOT_R = S * 0.032;
-  const DOTS  = 8;
-  const DOT_CLR = '#1a1a1a';
+  const BASE_R = S * 0.032;
+  const PULSE  = BASE_R * 1.6;
+  const DOTS   = 8;
+  const CLR    = '#1a1a1a';
 
   const tips = [
     { x: CX - ARM, y: CY - ARM },
@@ -2230,61 +2145,35 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu()
     { x: CX - ARM, y: CY + ARM },
   ];
 
-  const arms = tips.map(tip => {
-    const a = [];
+  // build dots with distance-from-centre offset for ripple effect
+  const dots = [];
+  tips.forEach(tip => {
     for (let i = 0; i <= DOTS; i++) {
       const t = i / DOTS;
-      a.push({ x: tip.x + (CX - tip.x) * t, y: tip.y + (CY - tip.y) * t });
+      const x = tip.x + (CX - tip.x) * t;
+      const y = tip.y + (CY - tip.y) * t;
+      const dx = x - CX, dy = y - CY;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      dots.push({ x, y, dist });
     }
-    return a;
   });
 
-  let phase = 0;
-
-  function drawArrow(tip, t) {
-    const x = tip.x + (CX - tip.x) * t;
-    const y = tip.y + (CY - tip.y) * t;
-    const dx = CX - tip.x, dy = CY - tip.y;
-    const len = Math.sqrt(dx*dx + dy*dy);
-    const nx = dx/len, ny = dy/len, px = -ny, py = nx;
-    const aw = DOT_R * 4.5, ah = DOT_R * 2.8;
-    const sL = aw * 0.5, hL = aw * 0.5, sH = ah * 0.38;
-    const tX = x + nx*hL, tY = y + ny*hL;
-    const bX = x - nx*sL, bY = y - ny*sL;
-    ctx.beginPath();
-    ctx.moveTo(bX + px*sH, bY + py*sH);
-    ctx.lineTo(x  + px*sH, y  + py*sH);
-    ctx.lineTo(x  + px*ah, y  + py*ah);
-    ctx.lineTo(tX, tY);
-    ctx.lineTo(x  - px*ah, y  - py*ah);
-    ctx.lineTo(x  - px*sH, y  - py*sH);
-    ctx.lineTo(bX - px*sH, bY - py*sH);
-    ctx.closePath();
-    ctx.fillStyle = DOT_CLR;
-    ctx.fill();
-  }
-
+  let t = 0;
   function loop() {
     ctx.clearRect(0, 0, S, S);
-    phase = (phase + 0.012) % 1;
+    t += 0.06;
 
-    // static dots on each arm
-    arms.forEach(arm => arm.forEach(d => {
+    dots.forEach(d => {
+      // ripple outward from centre: dots closer to centre pulse first
+      const offset = d.dist * 0.18;
+      const pulse  = Math.sin(t - offset);
+      const r = Math.max(0.3, BASE_R + pulse * PULSE * 0.5);
+      const a = 0.55 + pulse * 0.45;
       ctx.beginPath();
-      ctx.arc(d.x, d.y, DOT_R, 0, Math.PI * 2);
-      ctx.fillStyle = DOT_CLR;
+      ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(26,26,26,${a.toFixed(2)})`;
       ctx.fill();
-    }));
-
-    // travelling arrow on each arm
-    if (phase > 0.01 && phase < 0.97)
-      tips.forEach(tip => drawArrow(tip, phase));
-
-    // centre dot
-    ctx.beginPath();
-    ctx.arc(CX, CY, DOT_R * 2.8, 0, Math.PI * 2);
-    ctx.fillStyle = DOT_CLR;
-    ctx.fill();
+    });
 
     requestAnimationFrame(loop);
   }
@@ -2381,6 +2270,143 @@ function cookieConsent(accepted) {
   var bar = document.getElementById('cookie-bar');
   if (bar) { bar.style.transition = 'transform .3s'; bar.style.transform = 'translateY(100%)'; }
 }
+</script>
+
+<!-- ─── Hero Shader ───────────────────────────────────────── -->
+<script>
+(function () {
+  var canvas = document.getElementById('hero-canvas');
+  var loader = document.getElementById('hero-loader');
+  if (!canvas) return;
+
+  /* Skip shader on mobile — use CSS gradient fallback */
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    if (loader) { loader.style.opacity = '0'; }
+    return;
+  }
+
+  var gl = canvas.getContext('webgl2', { antialias: false, depth: false, stencil: false });
+  if (!gl) { if (loader) loader.style.opacity = '0'; return; }
+
+  var VS = '#version 300 es\nin vec2 a;void main(){gl_Position=vec4(a,0,1);}';
+  var FS = [
+    '#version 300 es',
+    'precision highp float;',
+    'uniform float uTime;',
+    'uniform vec2 uRes;',
+    'out vec4 fragColor;',
+    'void main(){',
+    '  vec2 fragCoord = gl_FragCoord.xy;',
+    '  vec3 c = vec3(0.0);',
+    '  float l, z = uTime;',
+    '  for(int i=0;i<3;i++){',
+    '    vec2 uv, p = fragCoord / uRes;',
+    '    uv = p;',
+    '    p.x *= uRes.x / uRes.y;',
+    '    p -= vec2(0.5, 1.1);',
+    '    z += 0.05;',
+    '    l = length(p);',
+    '    float grid = 0.7 * sin(p.x*20.+z) * cos(p.y*20.+z+25.);',
+    '    float wave = (sin(z)+1.) * abs(sin(l*7.-z));',
+    '    uv += (p/l) * wave * grid;',
+    '    uv = mod(uv, 1.0);',
+    '    float angle = atan(p.y, p.x);',
+    '    float radius = length(p)*2.;',
+    '    uv += vec2(cos(angle*radius-z), sin(angle*radius-z)) * grid;',
+    '    c[i] = 0.03 / length(mod(uv,1.)-.5);',
+    '  }',
+    '  c = c / (l + 0.3);',
+    '  fragColor = vec4(c, 1.0);',
+    '}'
+  ].join('\n');
+
+  function mkShader(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(s)); return null; }
+    return s;
+  }
+  var prog = gl.createProgram();
+  gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(prog)); return; }
+  gl.useProgram(prog);
+
+  var buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  var loc = gl.getAttribLocation(prog, 'a');
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+  var uTime = gl.getUniformLocation(prog, 'uTime');
+  var uRes  = gl.getUniformLocation(prog, 'uRes');
+
+  var scale = 0.5, frameLog = [], settling = 8, start = performance.now();
+  var active = true, rafId = null;
+
+  function resize() {
+    canvas.width  = Math.round(window.innerWidth  * scale);
+    canvas.height = Math.round(window.innerHeight * scale);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function render(now) {
+    rafId = null;
+    if (!active) return;
+    var t = (now - start) / 1000;
+    gl.uniform1f(uTime, t % 120);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+    if (loader && loader.style.opacity !== '0') { loader.style.opacity = '0'; }
+
+    /* Adaptive quality */
+    if (settling > 0) { settling--; rafId = requestAnimationFrame(render); return; }
+    if (frameLog.length > 0) {
+      var prev = frameLog[frameLog.length - 1];
+      var dt = now - prev;
+      frameLog.push(now);
+      if (frameLog.length > 20) frameLog.shift();
+      var avgDt = (now - frameLog[0]) / (frameLog.length - 1);
+      if (avgDt > 22 && scale > 0.28) { scale = Math.max(0.28, +(scale - 0.05).toFixed(2)); resize(); }
+      else if (avgDt < 14 && scale < 0.65) { scale = Math.min(0.65, +(scale + 0.05).toFixed(2)); resize(); }
+    } else { frameLog.push(now); }
+
+    rafId = requestAnimationFrame(render);
+  }
+
+  /* Pause when hero scrolls out of view */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(e) {
+      active = e[0].isIntersecting;
+      if (active && !rafId) rafId = requestAnimationFrame(render);
+    }, { threshold: 0 }).observe(canvas);
+  }
+  rafId = requestAnimationFrame(render);
+})();
+</script>
+
+<!-- ─── Dot Overlay ─────────────────────────────────────── -->
+<div class="dot-overlay" id="dot-overlay" aria-hidden="true"></div>
+<script>
+(function(){
+  var el = document.getElementById('dot-overlay');
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var cols = Math.ceil(vw / 68), rows = Math.ceil(vh / 68);
+  var html = '';
+  for (var r = 0; r < rows; r++) {
+    for (var c = 0; c < cols; c++) {
+      var x = c * 68 + 10 + (Math.random() * 20 - 10);
+      var y = r * 68 + 10 + (Math.random() * 20 - 10);
+      html += '<span style="left:' + x.toFixed(1) + 'px;top:' + y.toFixed(1) + 'px"></span>';
+    }
+  }
+  el.innerHTML = html;
+})();
 </script>
 </body>
 </html>
