@@ -256,6 +256,7 @@
     .nmenu-overlay.open .nmenu-link:nth-child(2) { transition-delay: .09s; }
     .nmenu-overlay.open .nmenu-link:nth-child(3) { transition-delay: .13s; }
     .nmenu-overlay.open .nmenu-link:nth-child(4) { transition-delay: .17s; }
+    .nmenu-overlay.open .nmenu-link:nth-child(5) { transition-delay: .21s; }
     .nmenu-foot {
       flex-shrink: 0; display: flex; align-items: center;
       justify-content: center; gap: 28px;
@@ -805,14 +806,14 @@
       <span class="nmenu-wordmark">White Space Designs</span>
     </div>
     <nav class="nmenu-links">
-      <a href="#services" class="nmenu-link">Services</a>
-      <a href="#system"   class="nmenu-link">The System</a>
-      <a href="#process"  class="nmenu-link">Process</a>
-      <a href="#footer"   class="nmenu-link">Contact</a>
+      <a href="#services"          class="nmenu-link">Services</a>
+      <a href="#system"            class="nmenu-link">The System</a>
+      <a href="#process"           class="nmenu-link">Process</a>
+      <a href="../index.html#work" class="nmenu-link">Works</a>
+      <a href="#footer"            class="nmenu-link">Contact</a>
     </nav>
     <div class="nmenu-foot">
       <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" onclick="trackCTA('nav_menu')">Book a Call</a>
-      <a href="index.html">Full Website →</a>
       <a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
@@ -1268,7 +1269,22 @@
     if (backdrop)  backdrop.addEventListener('click', close);
 
     overlay.querySelectorAll('.nmenu-link').forEach(function(a) {
-      a.addEventListener('click', close);
+      a.addEventListener('click', function(e) {
+        var href = a.getAttribute('href') || '';
+        if (href.charAt(0) === '#') {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          var id = href.slice(1);
+          close();
+          setTimeout(function() {
+            var t = document.getElementById(id);
+            if (!t) return;
+            window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 72, behavior: 'smooth' });
+          }, 280);
+        } else {
+          close();
+        }
+      });
     });
 
     document.addEventListener('keydown', function(e) {
