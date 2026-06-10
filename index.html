@@ -2279,12 +2279,7 @@ function cookieConsent(accepted) {
   var loader = document.getElementById('hero-loader');
   if (!canvas) return;
 
-  /* Skip shader on mobile — use CSS gradient fallback */
-  if (window.matchMedia('(max-width: 768px)').matches) {
-    if (loader) { loader.style.opacity = '0'; }
-    return;
-  }
-
+  var isMob = window.matchMedia('(max-width: 768px)').matches;
   var gl = canvas.getContext('webgl2', { antialias: false, depth: false, stencil: false });
   if (!gl) { if (loader) loader.style.opacity = '0'; return; }
 
@@ -2343,7 +2338,7 @@ function cookieConsent(accepted) {
   var uTime = gl.getUniformLocation(prog, 'uTime');
   var uRes  = gl.getUniformLocation(prog, 'uRes');
 
-  var scale = 0.5, frameLog = [], settling = 8, start = performance.now();
+  var scale = isMob ? 0.3 : 0.5, frameLog = [], settling = 8, start = performance.now();
   var active = true, rafId = null;
 
   function resize() {
