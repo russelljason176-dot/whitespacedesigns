@@ -2423,7 +2423,6 @@ function cookieConsent(accepted) {
 (function(){
   var loader = document.getElementById('intro-loader');
   var video  = document.getElementById('intro-video');
-  if (window.innerWidth <= 768) video.src = 'intro-mobile.mp4';
   function dismiss() {
     loader.classList.add('fade-out');
     setTimeout(function(){ loader.style.display = 'none'; }, 1300);
