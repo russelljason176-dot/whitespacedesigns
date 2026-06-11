@@ -124,6 +124,13 @@
       transition: opacity 1.2s ease;
     }
     #intro-loader.fade-out { opacity: 0; pointer-events: none; }
+    #intro-loader::after {
+      content: ''; position: absolute;
+      bottom: 0; right: 0;
+      width: 260px; height: 80px;
+      background: linear-gradient(135deg, transparent 30%, #000 70%);
+      pointer-events: none; z-index: 1;
+    }
     #intro-video {
       width: 100%; height: 100%;
       object-fit: cover;
