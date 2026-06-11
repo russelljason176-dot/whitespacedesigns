@@ -1285,7 +1285,7 @@
 <body>
 <!-- ─── Intro Loader ──────────────────────────────────────── -->
 <div id="intro-loader">
-  <video id="intro-video" src="intro.mp4" autoplay muted playsinline></video>
+  <video id="intro-video" src="intro.mp4" autoplay muted playsinline preload="auto"></video>
 </div>
 
 <!-- ══════════════ NAV ══════════════════════════════════ -->
@@ -2414,6 +2414,7 @@ function cookieConsent(accepted) {
 (function(){
   var loader = document.getElementById('intro-loader');
   var video  = document.getElementById('intro-video');
+  if (window.innerWidth <= 768) video.src = 'intro-mobile.mp4';
   function dismiss() {
     loader.classList.add('fade-out');
     setTimeout(function(){ loader.style.display = 'none'; }, 1300);
