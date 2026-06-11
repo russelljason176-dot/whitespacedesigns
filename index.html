@@ -265,6 +265,64 @@
     }
     .btn-arrow:hover::after { transform: translateX(4px); }
 
+    /* ── Animated CTA button ── */
+    .animated-button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 14px 36px;
+      border: 4px solid transparent;
+      font-size: .78rem;
+      font-family: var(--mono);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background-color: transparent;
+      border-radius: 100px;
+      color: #ff3b30;
+      box-shadow: 0 0 0 2px #ff3b30;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      text-decoration: none;
+    }
+    .animated-button svg {
+      position: absolute;
+      width: 20px;
+      fill: #ff3b30;
+      z-index: 9;
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .animated-button .arr-1 { right: 16px; }
+    .animated-button .arr-2 { left: -25%; }
+    .animated-button .circle {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px; height: 20px;
+      background-color: #ff3b30;
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .animated-button .text {
+      position: relative;
+      z-index: 1;
+      transform: translateX(-12px);
+      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .animated-button:hover {
+      box-shadow: 0 0 0 12px transparent;
+      color: #fff;
+      border-radius: 12px;
+    }
+    .animated-button:hover .arr-1 { right: -25%; }
+    .animated-button:hover .arr-2 { left: 16px; }
+    .animated-button:hover .text { transform: translateX(12px); }
+    .animated-button:hover svg { fill: #fff; }
+    .animated-button:active { scale: 0.95; box-shadow: 0 0 0 4px #ff3b30; }
+    .animated-button:hover .circle { width: 280px; height: 280px; opacity: 1; }
+
     /* Reveal */
     .rv { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
     .rv.in { opacity: 1; transform: none; }
@@ -1407,7 +1465,7 @@
           </p>
 
           <div class="hero-actions">
-            <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book a Free Call</a>
+            <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
             <a href="#services" class="btn btn-outline">View Services</a>
           </div>
         </div>
@@ -1485,7 +1543,7 @@
       </div>
     </div>
     <div style="margin-top:48px;" class="rv d2">
-      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Let's Talk About Your Project</a>
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Let's Talk About Your Project</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
     </div>
   </div>
 </section>
@@ -1649,13 +1707,13 @@
         </div>
       </div>
       <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-        <a href="#contact" class="btn btn-solid btn-arrow">Get This System</a>
+        <a href="#contact" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get This System</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
         <span style="font-size:.72rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">From R6,000/month — setup in 2 weeks</span>
       </div>
     </div>
 
     <div style="margin-top:48px;" class="rv d3">
-      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-outline btn-arrow">Discuss Your Project</a>
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Discuss Your Project</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
     </div>
   </div>
 </section>
@@ -1687,7 +1745,7 @@
     </div>
 
     <div class="proc-cta rv d2">
-      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book Your Free Call</a>
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book Your Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
       <p style="font-size:.75rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;margin-top:12px;text-transform:uppercase;">No commitment. No pressure.</p>
     </div>
   </div>
@@ -1833,7 +1891,7 @@
           </ul>
         </div>
         <div class="ret-foot">
-          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-outline btn-arrow">Get Started</a>
+          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get Started</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
         </div>
       </div>
 
@@ -1862,7 +1920,7 @@
           </ul>
         </div>
         <div class="ret-foot">
-          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Get Started</a>
+          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get Started</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
         </div>
       </div>
 
@@ -1885,7 +1943,7 @@
           </ul>
         </div>
         <div class="ret-foot">
-          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-outline btn-arrow">Get Started</a>
+          <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get Started</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
         </div>
       </div>
 
@@ -1904,7 +1962,7 @@
           <div class="label">Free Automation Audit</div>
           <p>Not sure which tier? Book a free 30-min audit — we map exactly where your business is losing time.</p>
         </div>
-        <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book Free Audit</a>
+        <a href="https://wa.me/27743357752" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book Free Audit</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
       </div>
     </div>
 
@@ -1991,7 +2049,7 @@
         </ul>
 
         <div class="abt-links">
-          <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="btn btn-solid btn-arrow">Book a Free Call</a>
+          <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
           <a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
         </div>
       </div>
