@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WSD Tools Dashboard</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111111'/%3E%3Crect x='5' y='5' width='9' height='9' rx='2.5' fill='%23C8A96E'/%3E%3Crect x='18' y='5' width='9' height='9' rx='2.5' fill='%23C8A96E' opacity='.55'/%3E%3Crect x='5' y='18' width='9' height='9' rx='2.5' fill='%23C8A96E' opacity='.55'/%3E%3Crect x='18' y='18' width='9' height='9' rx='2.5' fill='%23C8A96E'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --dark: #0A0A0A;
+      --dark-2: #111111;
+      --dark-3: #1A1A1A;
+      --accent: #C8A96E;
+      --accent-dim: rgba(200,169,110,0.15);
+      --white: #FFFFFF;
+      --muted: rgba(255,255,255,0.45);
+      --border: rgba(255,255,255,0.07);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      min-height: 100vh;
+      padding: 48px 40px;
+    }
+
+    header {
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    header h1 span { color: var(--accent); }
+
+    header p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .search-bar {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .search-bar input {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      width: 300px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-bar input:focus { border-color: rgba(200,169,110,0.4); }
+    .search-bar input::placeholder { color: var(--muted); }
+
+    .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .filter-btn {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
+
+    .section-header h2 {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+
+    .tool-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(200,169,110,0.25);
+      background: var(--dark-3);
+    }
+
+    .tool-card:hover .tool-arrow { opacity: 1; transform: translate(0, 0); }
+
+    .tool-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .tool-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+
+    .tool-tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 100px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .tool-url {
+      font-size: 11px;
+      color: rgba(200,169,110,0.5);
+      margin-bottom: 10px;
+      font-family: monospace;
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .tool-tip {
+      font-size: 11px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.35);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    .tool-tip strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .tool-arrow {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: all 0.2s;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    .tool-card[data-hidden="true"] { display: none; }
+
+    .setup-box {
+      background: var(--dark-2);
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 16px;
+    }
+
+    .setup-box h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .setup-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .setup-item:last-child { margin-bottom: 0; }
+
+    .setup-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1px solid rgba(200,169,110,0.3);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .setup-text { color: rgba(255,255,255,0.7); line-height: 1.5; }
+    .setup-text a { color: var(--accent); }
+    .setup-text code {
+      background: rgba(255,255,255,0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: monospace;
+    }
+
+    .workflow-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .workflow-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 24px;
+    }
+
+    .workflow-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+    .workflow-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .workflow-card .verdict {
+      margin-top: 14px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      padding: 6px 12px;
+      background: var(--accent-dim);
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 24px 20px; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .workflow-section { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;">
+      <svg width="36" height="36" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:8px;">
+        <rect width="32" height="32" rx="7" fill="#111111"/>
+        <rect x="5" y="5" width="9" height="9" rx="2.5" fill="#C8A96E"/>
+        <rect x="18" y="5" width="9" height="9" rx="2.5" fill="#C8A96E" opacity=".55"/>
+        <rect x="5" y="18" width="9" height="9" rx="2.5" fill="#C8A96E" opacity=".55"/>
+        <rect x="18" y="18" width="9" height="9" rx="2.5" fill="#C8A96E"/>
+      </svg>
+      <h1>WSD <span>Tools</span> Dashboard</h1>
+    </div>
+    <p>Design tools, resources, workflow guides — everything in one place.</p>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search tools..." oninput="filterTools()" />
+      <div class="filter-btns">
+        <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setFilter('design', this)">Design</button>
+        <button class="filter-btn" onclick="setFilter('content', this)">Content</button>
+        <button class="filter-btn" onclick="setFilter('dev', this)">Dev</button>
+        <button class="filter-btn" onclick="setFilter('automation', this)">Automation</button>
+        <button class="filter-btn" onclick="setFilter('video', this)">Video</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- WORKFLOW SETUP CHECKLIST -->
+  <div class="section-header"><h2>Workflow Setup — Action Required</h2></div>
+  <div class="setup-box">
+    <h3>⚠ Fill these in before activating the n8n workflow</h3>
+    <div class="setup-item">
+      <div class="setup-num">1</div>
+      <div class="setup-text">
+        <strong>Google Maps API Key</strong> — go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → Credentials → copy your key → paste into the <code>Google Maps — Find Businesses</code> node URL, replacing <code>YOUR_GOOGLE_MAPS_API_KEY</code>
+      </div>
+    </div>
+    <div class="setup-item">
+      <div class="setup-num">2</div>
+      <div class="setup-text">
+        <strong>Instagram Access Token</strong> — go to <a href="https://developers.facebook.com/tools/explorer" target="_blank">developers.facebook.com/tools/explorer</a> → select your app → add permissions: <code>instagram_basic</code>, <code>instagram_content_publish</code>, <code>pages_read_engagement</code> → Generate Token → copy it → paste into all 3 Instagram nodes replacing <code>YOUR_INSTAGRAM_ACCESS_TOKEN</code>
+      </div>
+    </div>
+    <div class="setup-item">
+      <div class="setup-num">3</div>
+      <div class="setup-text">
+        <strong>Add 3 sheet tabs</strong> in your leads Google Sheet: <code>Leads</code>, <code>Social Drafts</code>, <code>Post Analytics</code> — leave them blank, n8n writes the headers on first run
+      </div>
+    </div>
+    <div class="setup-item">
+      <div class="setup-num">4</div>
+      <div class="setup-text">
+        <strong>Credential IDs</strong> — open each node in n8n and select from the dropdown: Groq nodes → <code>Groq account</code> · Sheets nodes → <code>WSD new</code> · Gmail nodes → <code>Gmail account</code> · Replicate node → <code>Replicate API Key</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESIGN TOOLS -->
+  <div class="section-header"><h2>Design Tools</h2></div>
+  <div class="tools-grid" id="tools-grid">
+
+    <a class="tool-card" href="https://glyphy.io" target="_blank" rel="noopener" data-category="design" data-name="glyphy">
+      <div class="tool-top">
+        <span class="tool-name">Glyphy</span>
+        <span class="tool-tag">Type</span>
+      </div>
+      <div class="tool-url">glyphy.io</div>
+      <div class="tool-desc">Search, copy and paste special characters, glyphs, symbols, and unicode characters directly into your designs or code.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Gold bullet points (✦ ◆ ▸), section dividers, decorative marks in landing page copy and email signatures. Makes premium layouts look intentional without images.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://fockups.com" target="_blank" rel="noopener" data-category="design" data-name="fockups mockup">
+      <div class="tool-top">
+        <span class="tool-name">Fockups</span>
+        <span class="tool-tag">Mockups</span>
+      </div>
+      <div class="tool-url">fockups.com</div>
+      <div class="tool-desc">Free device mockup generator. Drop your screenshot into a phone, laptop, or tablet frame instantly. No Photoshop needed.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Client deliverables and case studies. Show a client's new website inside a MacBook or iPhone instead of a flat screenshot — instantly looks more professional and justifies your pricing.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://halftone.xoihazard.com" target="_blank" rel="noopener" data-category="design" data-name="halftone pattern texture">
+      <div class="tool-top">
+        <span class="tool-name">Halftone Generator</span>
+        <span class="tool-tag">Texture</span>
+      </div>
+      <div class="tool-url">halftone.xoihazard.com</div>
+      <div class="tool-desc">Turn any image into a halftone dot pattern. Generates SVG or PNG. Adjustable dot size, spacing, and angle.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Background textures for hero sections and social media posts. A halftone overlay on your Replicate-generated images gives them a print/editorial feel that stands out in Instagram feeds.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://symbol.wtf" target="_blank" rel="noopener" data-category="design" data-name="symbol icon unicode">
+      <div class="tool-top">
+        <span class="tool-name">Symbol.wtf</span>
+        <span class="tool-tag">Symbols</span>
+      </div>
+      <div class="tool-url">symbol.wtf</div>
+      <div class="tool-desc">Browse and copy thousands of unicode symbols, icons, and special characters. Better search than Glyphy for finding obscure marks.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Use alongside Glyphy. Good for finding arrows (→ ↗ ⟶), geometric shapes, and decorative marks. Pair with your brand gold colour for section markers in proposals and slide decks.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://tinytools.design" target="_blank" rel="noopener" data-category="design" data-name="tiny tools design utilities">
+      <div class="tool-top">
+        <span class="tool-name">Tiny Tools</span>
+        <span class="tool-tag">Utilities</span>
+      </div>
+      <div class="tool-url">tinytools.design</div>
+      <div class="tool-desc">Collection of small, focused design utilities — contrast checkers, gradient generators, spacing tools, and more. All free, no login.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Quick contrast checks before sending client deliverables. Also use the gradient tools when building landing page backgrounds — saves time vs doing it manually in CSS.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://fontjoy.com" target="_blank" rel="noopener" data-category="design" data-name="font pairing typography">
+      <div class="tool-top">
+        <span class="tool-name">Fontjoy</span>
+        <span class="tool-tag">Typography</span>
+      </div>
+      <div class="tool-url">fontjoy.com</div>
+      <div class="tool-desc">AI-powered font pairing generator. Lock one font and generate complementary pairings instantly. All Google Fonts compatible.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Client site typography. Lock Inter as body, generate display font options for headlines. Show clients 3 pairing options — they feel involved in the process, you close faster. <br><br><em>⚠ tools.dia.tv is currently down — replaced with Fontjoy. Update this card when you remember the correct URL.</em></div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <!-- BONUS TOOLS -->
+    <a class="tool-card" href="https://spline.design" target="_blank" rel="noopener" data-category="design" data-name="spline 3d animation">
+      <div class="tool-top">
+        <span class="tool-name">Spline</span>
+        <span class="tool-tag">3D</span>
+      </div>
+      <div class="tool-url">spline.design</div>
+      <div class="tool-desc">3D design tool that exports interactive scenes as web components. Your R4X robot hero runs on this.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Hero sections and interactive brand elements. Free plan embeds are fine. Paid plan needed for CSS export — not required since we use the web component embed directly.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://gsap.com" target="_blank" rel="noopener" data-category="dev" data-name="gsap animation scroll">
+      <div class="tool-top">
+        <span class="tool-name">GSAP + ScrollTrigger</span>
+        <span class="tool-tag">Animation</span>
+      </div>
+      <div class="tool-url">gsap.com</div>
+      <div class="tool-desc">Industry-standard JavaScript animation library. ScrollTrigger plugin makes elements animate as the user scrolls — used by Stripe, Linear, Vercel.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Add to index.html for scroll animations on service cards, stats, and sections. Free for most uses. One CDN script tag — no install needed. This is the answer to your "should I add animations" question.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://replicate.com" target="_blank" rel="noopener" data-category="automation" data-name="replicate ai image generation">
+      <div class="tool-top">
+        <span class="tool-name">Replicate</span>
+        <span class="tool-tag">AI Images</span>
+      </div>
+      <div class="tool-url">replicate.com</div>
+      <div class="tool-desc">Run AI models via API. Powers your Instagram image generation with SDXL. Pay per run — no monthly subscription.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> SDXL costs ~$0.0023 per image. 30 posts/month = under $0.10. Your token: already saved in Credentials.md. Watch your usage at replicate.com/account.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://console.groq.com" target="_blank" rel="noopener" data-category="automation" data-name="groq ai llm fast">
+      <div class="tool-top">
+        <span class="tool-name">Groq Console</span>
+        <span class="tool-tag">AI</span>
+      </div>
+      <div class="tool-url">console.groq.com</div>
+      <div class="tool-desc">Where you manage your Groq API key. Groq runs llama3 at 800 tokens/second — fast and cheap for your content and email writing nodes.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Check usage and regenerate your API key here if it ever stops working. Free tier is generous — monitor it as your workflow scales.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://fonts.google.com" target="_blank" rel="noopener" data-category="design" data-name="google fonts typography">
+      <div class="tool-top">
+        <span class="tool-name">Google Fonts</span>
+        <span class="tool-tag">Typography</span>
+      </div>
+      <div class="tool-url">fonts.google.com</div>
+      <div class="tool-desc">Free web fonts. Your site currently uses Inter — the same font Vercel, Linear, and most premium SaaS products use.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Stick with Inter for body copy. If you want a display font for headlines, try Bricolage Grotesque or Cabinet Grotesk — both luxury-adjacent and free.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://coolors.co" target="_blank" rel="noopener" data-category="design" data-name="colour palette generator">
+      <div class="tool-top">
+        <span class="tool-name">Coolors</span>
+        <span class="tool-tag">Colour</span>
+      </div>
+      <div class="tool-url">coolors.co</div>
+      <div class="tool-desc">Generate and refine colour palettes. Lock your brand gold (#C8A96E) and generate complementary colours when building client sites.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Client onboarding — when a client can't describe their brand colours, run their logo through Coolors' image picker to extract them automatically.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://squoosh.app" target="_blank" rel="noopener" data-category="dev" data-name="image compression optimise">
+      <div class="tool-top">
+        <span class="tool-name">Squoosh</span>
+        <span class="tool-tag">Performance</span>
+      </div>
+      <div class="tool-url">squoosh.app</div>
+      <div class="tool-desc">Google's image compression tool. Converts to WebP and compresses without visible quality loss.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Every image before it goes into a client site. A 2MB PNG compressed to 80KB WebP is the difference between a 90 and 45 on Google PageSpeed. Directly affects SEO rankings.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://hyperframes.co" target="_blank" rel="noopener" data-category="video" data-name="hyperframes hypergen video animation programmatic">
+      <div class="tool-top">
+        <span class="tool-name">HyperFrames</span>
+        <span class="tool-tag">Video</span>
+      </div>
+      <div class="tool-url">hyperframes.co</div>
+      <div class="tool-desc">Programmatic video composition tool. Describe a scene, drop in brand colours and fonts, and render actual video content — no Premiere, no After Effects required.</div>
+      <div class="tool-tip"><strong>Where this fits for you specifically:</strong> Two immediate use cases —<br><br>
+        <strong>Pretty Absurd campaign videos</strong> — built for exactly this. Describe a scene, drop in your brand colours and fonts, render actual video content without touching Premiere or After Effects.<br><br>
+        <strong>White Space client deliverables</strong> — imagine offering a client a short animated brand intro or social clip as part of an onboarding package, generated programmatically from their brand guidelines. That's a serious differentiator for an SMB agency.
+      </div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+    <a class="tool-card" href="https://n8n.io" target="_blank" rel="noopener" data-category="automation" data-name="n8n workflow automation">
+      <div class="tool-top">
+        <span class="tool-name">n8n</span>
+        <span class="tool-tag">Automation</span>
+      </div>
+      <div class="tool-url">localhost:5678 (local)</div>
+      <div class="tool-desc">Your automation backbone. All 5 marketing agents run here. Self-hosted on your machine.</div>
+      <div class="tool-tip"><strong>WSD use:</strong> Keep it running in the background. Kill Ollama and ChatGPT before starting n8n to prevent RAM crashes (you learned this the hard way in June). Export workflows before deleting anything.</div>
+      <span class="tool-arrow">↗</span>
+    </a>
+
+  </div>
+
+  <!-- WORKFLOW GUIDANCE -->
+  <div class="section-header"><h2>Workflow Decisions</h2></div>
+  <div class="workflow-section">
+    <div class="workflow-card">
+      <h3>Site Building — Claude Code (me) vs Claude Artifacts</h3>
+      <p>Use <strong>Claude Code</strong> (this session) for all real client site builds. I write directly to your files, remember your project context, know your brand guidelines, and can run the server to test it live.<br><br>Claude Artifacts (claude.ai) is good for quick mockups and experimenting with layouts — but it can't save files, doesn't know your codebase, and loses context between sessions.</p>
+      <span class="verdict">✓ Use Claude Code for all client builds</span>
+    </div>
+    <div class="workflow-card">
+      <h3>Animations on Your Site Pages</h3>
+      <p>Yes — 100%. A static site in 2026 reads as unfinished, especially at your price point. Clients buying a R7,500 website expect premium presentation from the person selling it.<br><br>The right approach: <strong>GSAP ScrollTrigger</strong> on index.html. Service cards, stats, and process steps slide/fade in as you scroll. One script tag, no framework. Same library Stripe and Linear use. Takes about an hour to add properly.</p>
+      <span class="verdict">✓ Add GSAP ScrollTrigger to index.html — say the word</span>
+    </div>
+  </div>
+
+  <script>
+    let activeFilter = 'all';
+
+    function setFilter(cat, btn) {
+      activeFilter = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterTools();
+    }
+
+    function filterTools() {
+      const query = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.tool-card').forEach(card => {
+        const name = (card.dataset.name || '').toLowerCase();
+        const cat = card.dataset.category || '';
+        const matchesSearch = !query || name.includes(query);
+        const matchesFilter = activeFilter === 'all' || cat === activeFilter;
+        card.dataset.hidden = !(matchesSearch && matchesFilter);
+      });
+    }
+  </script>
+
+</body>
+</html>
