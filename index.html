@@ -118,9 +118,15 @@
 
     /* ─── Intro loader ───────────────────────────────────── */
     #intro-loader {
-      position: fixed; inset: 0; z-index: 99999;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      top: env(safe-area-inset-top, 0);
+      bottom: env(safe-area-inset-bottom, 0);
+      width: 100%; height: 100%;
+      height: 100dvh;
+      z-index: 99999;
       background: #000;
-      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
       transition: opacity 1.2s ease;
     }
     #intro-loader.fade-out { opacity: 0; pointer-events: none; }
@@ -132,8 +138,11 @@
       pointer-events: none; z-index: 1;
     }
     #intro-video {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
+      object-position: center center;
     }
     ::selection { background: rgba(255,59,48,.25); color: #fff; }
 
