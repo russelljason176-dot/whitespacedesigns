@@ -2391,12 +2391,14 @@ function cookieConsent(accepted) {
 (function(){
   var el = document.getElementById('dot-overlay');
   var vw = window.innerWidth, vh = window.innerHeight;
-  var cols = Math.ceil(vw / 68), rows = Math.ceil(vh / 68);
+  var gap = vw <= 768 ? 52 : 68;
+  var cols = Math.round(vw / gap), rows = Math.round(vh / gap);
+  var dx = vw / cols, dy = vh / rows;
   var html = '';
   for (var r = 0; r < rows; r++) {
     for (var c = 0; c < cols; c++) {
-      var x = c * 68 + 10 + (Math.random() * 20 - 10);
-      var y = r * 68 + 10 + (Math.random() * 20 - 10);
+      var x = c * dx + dx / 2;
+      var y = r * dy + dy / 2;
       html += '<span style="left:' + x.toFixed(1) + 'px;top:' + y.toFixed(1) + 'px"></span>';
     }
   }
