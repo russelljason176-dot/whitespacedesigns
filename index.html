@@ -911,72 +911,161 @@
     .agt-card h3 { font-size: .9rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -.01em; }
     .agt-card p { font-size: .78rem; color: var(--mt); line-height: 1.75; }
 
-    /* ─── WORK ────────────────────────────────────────────── */
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    /* ─── PAIN STRIP ─────────────────────────────────────── */
+    .pain-strip {
       border-top: 1px solid var(--bdr);
-      border-left: 1px solid var(--bdr);
-    }
-    .work-cell {
-      border-right: 1px solid var(--bdr);
       border-bottom: 1px solid var(--bdr);
-      overflow: hidden;
+      background: rgba(255,59,48,0.025);
+      padding: 48px 0;
     }
-    .work-visual {
-      height: 200px;
-      background: var(--sf);
+    .pain-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .pain-stat {
+      padding: 0 36px;
+      border-right: 1px solid var(--bdr);
+    }
+    .pain-stat:first-child { padding-left: 0; }
+    .pain-stat:last-child { border-right: none; padding-right: 0; }
+    .pain-n {
+      font-family: var(--mono);
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .pain-l { font-size: .82rem; color: var(--mt); line-height: 1.65; }
+
+    /* ─── WORK CAROUSEL ──────────────────────────────────── */
+    .wc-wrap {
+      width: 100%;
       position: relative;
-      overflow: hidden;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      height: 520px;
     }
-    .work-visual::before {
-      content: '';
+    .wc-inner {
+      --w: 240px;
+      --h: 330px;
+      --translateZ: 380px;
+      --rotateX: -10deg;
+      --perspective: 2000px;
+      --quantity: 3;
       position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,.12) 1px, transparent 1px);
-      background-size: 16px 16px;
+      width: var(--w);
+      height: var(--h);
+      top: 14%;
+      left: calc(50% - (var(--w) / 2));
+      z-index: 2;
+      transform-style: preserve-3d;
+      transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0deg);
+      animation: wc-rotate 28s linear infinite;
     }
-    .work-visual-accent {
+    @keyframes wc-rotate {
+      from { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0deg); }
+      to   { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(360deg); }
+    }
+    .wc-card {
       position: absolute;
+      border: 1px solid rgba(var(--color-card), 0.45);
+      border-radius: 12px;
+      overflow: hidden;
       inset: 0;
+      cursor: pointer;
+      transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ));
+      transition: box-shadow 0.3s;
     }
-    .wa-1 { background: linear-gradient(135deg, rgba(255,59,48,.15), transparent 60%); }
-    .wa-2 { background: linear-gradient(135deg, rgba(255,255,255,.08), transparent 60%); }
-    .wa-3 { background: linear-gradient(225deg, rgba(255,59,48,.12), transparent 60%); }
-    .work-visual-label {
-      position: relative;
-      z-index: 1;
-      font-family: var(--mono);
-      font-size: .6rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.3);
-      border: 1px solid rgba(255,255,255,.1);
-      padding: 6px 12px;
+    .wc-card:hover {
+      box-shadow: 0 0 0 1px rgba(var(--color-card), 0.8), 0 8px 40px rgba(var(--color-card), 0.15);
     }
-    .work-visual-img {
-      background: var(--sf2);
-      height: 220px;
-    }
-    .work-visual-img::before { display: none; }
-    .work-visual-img img {
+    .wc-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
       display: block;
-      transition: transform .4s ease;
     }
-    .work-cell:hover .work-visual-img img {
-      transform: scale(1.04);
+    .wc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px;
     }
-    .work-body { padding: 24px; }
-    .work-year { font-family: var(--mono); font-size: .62rem; color: var(--dim); letter-spacing: .1em; margin-bottom: 10px; }
-    .work-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
-    .work-body p { font-size: .83rem; color: var(--mt); line-height: 1.65; }
+    .wc-tag {
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(var(--color-card), 0.9);
+      margin-bottom: 5px;
+    }
+    .wc-title {
+      font-size: .94rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+    }
+    .wc-link {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.2s;
+    }
+    .wc-card:hover .wc-link { color: rgba(var(--color-card), 1); }
+    .wc-hint {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      margin-top: 18px;
+    }
+    @media (max-width: 768px) {
+      .pain-inner { grid-template-columns: 1fr 1fr; }
+      .pain-stat { border-right: none; border-bottom: 1px solid var(--bdr); padding: 24px 0; }
+      .pain-stat:nth-child(odd) { border-right: 1px solid var(--bdr); padding-right: 24px; }
+      .pain-stat:last-child { border-bottom: none; }
+      .pain-stat:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+      .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
+      .wc-inner {
+        animation: none !important;
+        position: relative;
+        top: auto; left: auto;
+        transform: none !important;
+        transform-style: flat;
+        width: 100%;
+        height: auto;
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+      }
+      .wc-inner::-webkit-scrollbar { display: none; }
+      .wc-card {
+        position: relative;
+        transform: none !important;
+        flex-shrink: 0;
+        width: 220px;
+        height: 290px;
+        inset: auto;
+      }
+      .wc-link { color: rgba(255,255,255,0.6); }
+    }
 
     /* ─── TESTIMONIALS ───────────────────────────────────── */
     .tst-grid {
@@ -1001,6 +1090,7 @@
       margin-bottom: 18px;
     }
     .tst-stars span { color: var(--red); font-size: .85rem; }
+    .tst-stars span.dim { color: rgba(255,59,48,0.2); }
     .tst-quote {
       font-size: .88rem;
       color: var(--mt);
@@ -1490,7 +1580,7 @@
     /* ─── Responsive ──────────────────────────────────────── */
     @media (max-width: 1024px) {
       .svc-row { grid-template-columns: 40px 1fr 1fr 100px; gap: 20px; }
-      .work-grid, .proc-grid { grid-template-columns: 1fr 1fr; }
+      .proc-grid { grid-template-columns: 1fr 1fr; }
       .agt-grid { grid-template-columns: repeat(3, 1fr); }
       .abt-grid { grid-template-columns: 1fr; gap: 48px; }
       .ft-main { grid-template-columns: 1fr 1fr; }
@@ -1510,7 +1600,7 @@
       .svc-tags { margin-top: 6px; }
       .svc-tag { font-size: .55rem; padding: 3px 8px; }
 
-      .work-grid, .proc-grid { grid-template-columns: 1fr; }
+      .proc-grid { grid-template-columns: 1fr; }
       .agt-grid { grid-template-columns: 1fr 1fr; }
       .proc-cell { padding: 28px 24px; }
       .agt-card { padding: 24px 20px; }
@@ -1548,7 +1638,6 @@
 
       .proc-cell { padding: 22px 18px; }
 
-      .work-body { padding: 18px; }
 
       .abt-card-top { padding: 22px 18px; }
       .abt-card-bottom { grid-template-columns: 1fr 1fr; }
@@ -1707,6 +1796,30 @@
   </div>
 </div>
 
+<!-- ══════════════ PAIN STRIP ══════════════════════════ -->
+<div class="pain-strip rv">
+  <div class="wrap">
+    <div class="pain-inner">
+      <div class="pain-stat">
+        <div class="pain-n">78%</div>
+        <p class="pain-l">of web leads never receive a follow-up. Your enquiry form is leaking revenue every day it sits unanswered.</p>
+      </div>
+      <div class="pain-stat">
+        <div class="pain-n">3.5hrs</div>
+        <p class="pain-l">a day the average business owner spends on admin a system could do for R200/month in running costs.</p>
+      </div>
+      <div class="pain-stat">
+        <div class="pain-n">4×</div>
+        <p class="pain-l">more enquiries from custom-built sites vs. templates. Your site either works as a salesperson or it doesn't.</p>
+      </div>
+      <div class="pain-stat">
+        <div class="pain-n">24hrs</div>
+        <p class="pain-l">is all it takes to change all three. One call, one proposal. Nothing between you and this but booking the meeting.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════ WHY CUSTOM ══════════════════════════ -->
 <section id="why-custom" style="background:var(--bg2);border-top:1px solid var(--bdr);">
   <div class="wrap">
@@ -1861,8 +1974,13 @@
 
     </div>
 
+    <!-- HORMOZI REFRAME -->
+    <div class="rv d2" style="margin-top:48px;padding:32px 36px;border:1px solid rgba(255,59,48,0.18);background:rgba(255,59,48,0.03);border-radius:12px;">
+      <p style="font-size:.95rem;line-height:1.85;color:var(--mt);max-width:760px;"><strong style="color:var(--txt);">Here's what most business owners don't calculate:</strong> If you spend 3 hours a day on admin, follow-up, and content creation, that's 780 hours a year. At even R300/hour, you're doing R234,000 worth of low-value work that a R6,000/month system handles automatically. The maths aren't close. The only question is how long you're willing to keep trading time for tasks a machine can do better.</p>
+    </div>
+
     <!-- HOW THE AUTOMATION SYSTEM WORKS -->
-    <div class="rv d2" style="margin-top:64px;border-top:1px solid var(--bdr);padding-top:56px;">
+    <div class="rv d3" style="margin-top:64px;border-top:1px solid var(--bdr);padding-top:56px;">
       <div class="s-head" style="margin-bottom:40px;">
         <div class="label">The Automation System</div>
         <h2 class="h2" style="font-size:clamp(1.4rem,3vw,2rem);">Five agents. One system.<br /><strong>Running 24/7.</strong></h2>
@@ -1913,6 +2031,7 @@
     <div class="s-head rv">
       <div class="label">How It Works</div>
       <h2 class="h2">Clear steps.<br /><strong>Proposal in 24 hours.</strong></h2>
+      <p class="lead" style="margin-top:12px;color:var(--mt);">Every week without a system is a week your best leads go unanswered. The call is free. The proposal costs nothing.</p>
     </div>
 
     <div class="proc-grid rv d1">
@@ -1948,40 +2067,39 @@
       <h2 class="h2">Projects we're<br /><strong>proud of.</strong></h2>
     </div>
 
-    <div class="work-grid rv d1">
-      <div class="work-cell">
-        <div class="work-visual work-visual-img">
-          <img src="lead-gen.png" alt="Lead Generation Site Branding" loading="lazy" decoding="async" />
-        </div>
-        <div class="work-body">
-          <div class="work-year">2024 — Branding / Web</div>
-          <h3>Lead Generation Site Branding</h3>
-          <p>Full brand identity and conversion-optimised landing page for a B2B services client.</p>
-        </div>
-      </div>
+    <div class="wc-wrap rv d1" id="wc-scene">
+      <div class="wc-inner" id="wc-inner">
 
-      <div class="work-cell">
-        <div class="work-visual work-visual-img">
-          <img src="h23.png" alt="H23 Branding" loading="lazy" decoding="async" />
+        <div class="wc-card" style="--index:0;--color-card:255,59,48;" data-href="#">
+          <img class="wc-img" src="lead-gen.png" alt="Lead Generation Site" loading="lazy" />
+          <div class="wc-overlay">
+            <div class="wc-tag">2024 · Branding / Web</div>
+            <h3 class="wc-title">Lead Generation Site</h3>
+            <span class="wc-link">View Project →</span>
+          </div>
         </div>
-        <div class="work-body">
-          <div class="work-year">2025 — Brand Identity</div>
-          <h3>H23 Branding</h3>
-          <p>Comprehensive brand identity system: logo, typography, colour palette, and full brand guidelines.</p>
-        </div>
-      </div>
 
-      <div class="work-cell">
-        <div class="work-visual work-visual-img">
-          <img src="bistro-cafe.png" alt="The Bistro Cafe" loading="lazy" decoding="async" />
+        <div class="wc-card" style="--index:1;--color-card:220,100,80;" data-href="#">
+          <img class="wc-img" src="h23.png" alt="H23 Branding" loading="lazy" />
+          <div class="wc-overlay">
+            <div class="wc-tag">2025 · Brand Identity</div>
+            <h3 class="wc-title">H23 Branding</h3>
+            <span class="wc-link">View Project →</span>
+          </div>
         </div>
-        <div class="work-body">
-          <div class="work-year">2026 — Web Design</div>
-          <h3>The Bistro Cafe</h3>
-          <p>End-to-end web design for a Centurion cafe: reservation system, menu, and full brand rollout.</p>
+
+        <div class="wc-card" style="--index:2;--color-card:180,55,45;" data-href="#">
+          <img class="wc-img" src="bistro-cafe.png" alt="The Bistro Cafe" loading="lazy" />
+          <div class="wc-overlay">
+            <div class="wc-tag">2026 · Web Design</div>
+            <h3 class="wc-title">The Bistro Cafe</h3>
+            <span class="wc-link">View Project →</span>
+          </div>
         </div>
+
       </div>
     </div>
+    <p class="wc-hint rv d2">Hover to pause · Click to visit project</p>
   </div>
 </section>
 
@@ -2020,7 +2138,7 @@
       </div>
 
       <div class="tst-card">
-        <div class="tst-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="tst-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="dim">★</span></div>
         <div class="tst-quote">Sharp eye, fast turnaround, and he actually listens instead of just doing whatever looks cool to him. Three rounds of feedback and the brand felt completely ours. That's rare.</div>
         <div class="tst-author">
           <div class="tst-avatar">M</div>
@@ -2056,7 +2174,7 @@
       </div>
 
       <div class="tst-card">
-        <div class="tst-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <div class="tst-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span class="dim">★</span></div>
         <div class="tst-quote">The N8N automation he built connects our CRM, invoicing, and client onboarding into one flow. What used to take 45 minutes per new client now runs automatically. Proper time saver.</div>
         <div class="tst-author">
           <div class="tst-avatar">R</div>
@@ -2078,6 +2196,7 @@
       <div class="label">Retainer Plans</div>
       <h2 class="h2">Monthly retainers.<br /><strong>Everything running, always.</strong></h2>
       <p class="lead" style="margin-top:16px;">One monthly plan covers hosting, updates, agents, and strategy. No scrambling for a freelancer every time something breaks or needs changing.</p>
+      <p class="lead" style="margin-top:12px;color:var(--mt);">The businesses pulling ahead right now aren't working harder. They have better systems and a website that closes clients while they sleep. This is how you get that.</p>
     </div>
 
     <div class="ret-grid rv d1">
@@ -2619,6 +2738,25 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   this.style.display = 'none';
   document.getElementById('fsuccess').style.display = 'block';
 });
+
+/* ── Work Carousel ──────────────────────────────────── */
+(function () {
+  const scene = document.getElementById('wc-scene');
+  const inner = document.getElementById('wc-inner');
+  if (!scene || !inner) return;
+
+  // Pause on hover, resume on leave
+  scene.addEventListener('mouseenter', () => { inner.style.animationPlayState = 'paused'; });
+  scene.addEventListener('mouseleave', () => { inner.style.animationPlayState = 'running'; });
+
+  // Navigate on click (skip if no real URL set yet)
+  document.querySelectorAll('.wc-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const url = card.dataset.href;
+      if (url && url !== '#') window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  });
+})();
 
 </script>
 
