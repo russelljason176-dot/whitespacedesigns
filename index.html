@@ -265,6 +265,72 @@
     }
     .btn-arrow:hover::after { transform: translateX(4px); }
 
+    /* ── Pill press button ── */
+    .pill-btn {
+      all: unset;
+      display: inline-block;
+      position: relative;
+      border-radius: 100em;
+      background-color: rgba(0,0,0,0.75);
+      box-shadow: -0.15em -0.15em 0.15em -0.075em rgba(5,5,5,0.25), 0.0375em 0.0375em 0.0675em 0 rgba(5,5,5,0.1);
+      text-decoration: none;
+    }
+    .pill-btn::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: calc(100% + 0.3em);
+      height: calc(100% + 0.3em);
+      top: -0.15em; left: -0.15em;
+      border-radius: inherit;
+      background: linear-gradient(-135deg, rgba(5,5,5,0.5), transparent 20%, transparent 100%);
+      filter: blur(0.0125em);
+      opacity: 0.25;
+      mix-blend-mode: multiply;
+    }
+    .pill-btn .button-outer {
+      position: relative; z-index: 1;
+      border-radius: inherit;
+      transition: box-shadow 300ms ease;
+      will-change: box-shadow;
+      box-shadow: 0 0.05em 0.05em -0.01em rgba(5,5,5,1), 0 0.01em 0.01em -0.01em rgba(5,5,5,0.5), 0.15em 0.3em 0.1em -0.01em rgba(5,5,5,0.25);
+    }
+    .pill-btn:hover .button-outer {
+      box-shadow: 0 0 0 0 rgba(5,5,5,1), 0 0 0 0 rgba(5,5,5,0.5), 0 0 0 0 rgba(5,5,5,0.25);
+    }
+    .pill-btn .button-inner {
+      position: relative; z-index: 1;
+      border-radius: inherit;
+      padding: .85em 1.6em;
+      background-image: linear-gradient(135deg, rgba(230,230,230,1), rgba(180,180,180,1));
+      transition: box-shadow 300ms ease, clip-path 250ms ease, transform 250ms ease;
+      will-change: box-shadow, clip-path, transform;
+      overflow: clip;
+      clip-path: inset(0 0 0 0 round 100em);
+      box-shadow: 0 0 0 0 inset rgba(5,5,5,0.1), -0.05em -0.05em 0.05em 0 inset rgba(5,5,5,0.25), 0 0 0 0 inset rgba(5,5,5,0.1), 0 0 0.05em 0.2em inset rgba(255,255,255,0.25), 0.025em 0.05em 0.1em 0 inset rgba(255,255,255,1), 0.12em 0.12em 0.12em inset rgba(255,255,255,0.25), -0.075em -0.25em 0.25em 0.1em inset rgba(5,5,5,0.25);
+    }
+    .pill-btn:hover .button-inner {
+      clip-path: inset(clamp(1px,0.0625em,2px) clamp(1px,0.0625em,2px) clamp(1px,0.0625em,2px) clamp(1px,0.0625em,2px) round 100em);
+      box-shadow: 0.1em 0.15em 0.05em 0 inset rgba(5,5,5,0.75), -0.025em -0.03em 0.05em 0.025em inset rgba(5,5,5,0.5), 0.25em 0.25em 0.2em 0 inset rgba(5,5,5,0.5), 0 0 0.05em 0.5em inset rgba(255,255,255,0.15), 0 0 0 0 inset rgba(255,255,255,1), 0.12em 0.12em 0.12em inset rgba(255,255,255,0.25), -0.075em -0.12em 0.2em 0.1em inset rgba(5,5,5,0.25);
+    }
+    .pill-btn .button-inner span {
+      position: relative; z-index: 4;
+      font-family: var(--fnt);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0);
+      background-image: linear-gradient(135deg, rgba(25,25,25,1), rgba(75,75,75,1));
+      -webkit-background-clip: text; background-clip: text;
+      transition: transform 250ms ease;
+      display: block;
+      will-change: transform;
+      -webkit-user-select: none; user-select: none;
+    }
+    .pill-btn:hover .button-inner span { transform: scale(0.975); }
+    .pill-btn:active .button-inner { transform: scale(0.975); }
+
     /* ── Animated CTA button ── */
     .animated-button {
       position: relative;
@@ -1466,7 +1532,7 @@
 
           <div class="hero-actions">
             <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
-            <a href="#services" class="btn btn-outline">View Services</a>
+            <a href="#services" class="pill-btn"><div class="button-outer"><div class="button-inner"><span>View Services</span></div></div></a>
           </div>
         </div>
 
