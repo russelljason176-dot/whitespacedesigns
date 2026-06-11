@@ -2442,8 +2442,9 @@ function cookieConsent(accepted) {
 (function(){
   var el = document.getElementById('dot-overlay');
   var vw = window.innerWidth, vh = window.innerHeight;
-  var gap = vw <= 768 ? 52 : 68;
-  var cols = Math.round(vw / gap), rows = Math.round(vh / gap);
+  var isMob = vw <= 768;
+  var cols = isMob ? 5 : Math.round(vw / 68);
+  var rows = Math.round(vh / (isMob ? vw / 5 : 68));
   var dx = vw / cols, dy = vh / rows;
   var html = '';
   for (var r = 0; r < rows; r++) {
