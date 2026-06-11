@@ -1175,16 +1175,16 @@
     .ret-card:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
     .ret-card-pop {
       background: rgba(255,255,255,0.035);
-      border-color: rgba(255,59,48,0.3);
-      box-shadow: 0 0 40px rgba(255,59,48,0.06), 0 0 0 1px rgba(255,59,48,0.12);
+      border-color: rgba(255,214,0,0.28);
+      box-shadow: 0 0 40px rgba(255,214,0,0.05), 0 0 0 1px rgba(255,214,0,0.1);
     }
-    .ret-card-pop:hover { background: rgba(255,255,255,0.055); border-color: rgba(255,59,48,0.5); }
+    .ret-card-pop:hover { background: rgba(255,255,255,0.055); border-color: rgba(255,214,0,0.48); }
     .ret-card-pop::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--red) 30%, var(--red) 70%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, #FFD600 30%, #FFD600 70%, transparent 100%);
     }
     .ret-badge {
       position: absolute;
@@ -1193,10 +1193,11 @@
       font-size: .54rem;
       letter-spacing: .16em;
       text-transform: uppercase;
-      color: var(--red);
-      border: 1px solid rgba(255,59,48,.35);
+      color: #FFD600;
+      border: 1px solid rgba(255,214,0,.32);
       padding: 4px 10px;
     }
+    .ret-card-pop .ret-item.in .ret-ic { color: #FFD600; }
     .ret-head {
       padding: 36px 32px 28px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
