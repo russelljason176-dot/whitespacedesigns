@@ -2412,7 +2412,11 @@ function cookieConsent(accepted) {
     setTimeout(function(){ loader.style.display = 'none'; }, 1300);
   }
   video.addEventListener('ended', dismiss);
-  setTimeout(dismiss, 7000);
+  var fallback = setTimeout(dismiss, 7000);
+  video.play().then(function(){
+    clearTimeout(fallback);
+    fallback = setTimeout(dismiss, 7000);
+  }).catch(function(){ dismiss(); });
 })();
 </script>
 
