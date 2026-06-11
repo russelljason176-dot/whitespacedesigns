@@ -113,7 +113,9 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    body, a, button, [role="button"] { cursor: none; }
     @media (max-width: 768px) {
+      body, a, button, [role="button"] { cursor: auto; }
       .cursor-dot, .cursor-ring { display: none; }
     }
     .cursor-dot {
