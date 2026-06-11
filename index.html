@@ -113,6 +113,34 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    @media (max-width: 768px) {
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+    .cursor-dot {
+      width: 7px; height: 7px; background: #fff; border-radius: 50%;
+      position: fixed; top: -100px; left: -100px;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%); will-change: left, top;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px; border-radius: 50%;
+      position: fixed; top: -100px; left: -100px;
+      pointer-events: none; z-index: 99998;
+      transform: translate(-50%, -50%);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.28);
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+      transition: width .22s ease, height .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+      will-change: left, top;
+    }
+    .cursor-ring.hover {
+      width: 54px; height: 54px;
+      background: rgba(255,59,48,.12);
+      border-color: rgba(255,59,48,.6);
+      box-shadow: 0 4px 20px rgba(255,59,48,.15);
+    }
+    .cursor-ring.click { width: 22px; height: 22px; background: rgba(255,255,255,.2); }
+
     .dot-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
     .dot-overlay span { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .12; }
 
@@ -2216,6 +2244,33 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu()
 /* ── Scroll top ─────────────────────────────────────── */
 stt.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 
+/* ── Custom cursor ── */
+(function(){
+  var curDot  = document.getElementById('cursor-dot');
+  var curRing = document.getElementById('cursor-ring');
+  if (!curDot || !curRing) return;
+  var mx = -200, my = -200, rx = -200, ry = -200, ready = false;
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    if (!ready) { rx = mx; ry = my; ready = true; }
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.20;
+    ry += (my - ry) * 0.20;
+    curDot.style.left  = mx + 'px';
+    curDot.style.top   = my + 'px';
+    curRing.style.left = rx.toFixed(2) + 'px';
+    curRing.style.top  = ry.toFixed(2) + 'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button, [role="button"]').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { curRing.classList.add('hover'); });
+    el.addEventListener('mouseleave', function() { curRing.classList.remove('hover'); });
+  });
+  document.addEventListener('mousedown', function() { curRing.classList.add('click'); });
+  document.addEventListener('mouseup',   function() { curRing.classList.remove('click'); });
+})();
+
 /* ── Reveal ─────────────────────────────────────────── */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
@@ -2435,6 +2490,9 @@ function cookieConsent(accepted) {
   }).catch(function(){ dismiss(); });
 })();
 </script>
+
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
 
 <!-- ─── Dot Overlay ─────────────────────────────────────── -->
 <div class="dot-overlay" id="dot-overlay" aria-hidden="true"></div>
