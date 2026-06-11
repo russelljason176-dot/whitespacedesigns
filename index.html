@@ -461,6 +461,21 @@
     }
     .nav-book:hover { opacity: .7; }
 
+    /* ── currency switcher ── */
+    .cur-switch {
+      display: flex; align-items: center; gap: 2px;
+      margin-right: 12px; position: relative; z-index: 1; flex-shrink: 0;
+    }
+    .cur-btn {
+      font-family: var(--mono); font-size: .58rem; font-weight: 700;
+      letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.32);
+      background: none; border: none; padding: 3px 6px; border-radius: 4px;
+      cursor: pointer; transition: color .15s, background .15s;
+    }
+    .cur-btn:hover { color: rgba(255,255,255,.65); }
+    .cur-btn.active { color: var(--txt); background: rgba(255,255,255,.1); }
+    @media (max-width: 640px) { .cur-switch { display: none; } }
+
     /* ─── NOTHING MENU OVERLAY ───────────────────────────── */
     .nmenu-overlay {
       position: fixed; inset: 0; z-index: 600;
@@ -1681,6 +1696,12 @@
     <span class="nav-dot"></span>
     White Space Designs
   </a>
+  <div class="cur-switch" id="cur-switch">
+    <button class="cur-btn active" data-cur="ZAR">ZAR</button>
+    <button class="cur-btn" data-cur="USD">USD</button>
+    <button class="cur-btn" data-cur="GBP">GBP</button>
+    <button class="cur-btn" data-cur="EUR">EUR</button>
+  </div>
   <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="nav-book">Book a Call</a>
 </nav>
 
@@ -1806,7 +1827,7 @@
       </div>
       <div class="pain-stat">
         <div class="pain-n">3.5hrs</div>
-        <p class="pain-l">a day the average business owner spends on admin a system could do for R200/month in running costs.</p>
+        <p class="pain-l">a day the average business owner spends on admin a system could do for <span class="pt" data-zar="200" data-sfx="/month">R200/month</span> in running costs.</p>
       </div>
       <div class="pain-stat">
         <div class="pain-n">4×</div>
@@ -1976,7 +1997,7 @@
 
     <!-- HORMOZI REFRAME -->
     <div class="rv d2" style="margin-top:48px;padding:32px 36px;border:1px solid rgba(255,59,48,0.18);background:rgba(255,59,48,0.03);border-radius:12px;">
-      <p style="font-size:.95rem;line-height:1.85;color:var(--mt);max-width:760px;"><strong style="color:var(--txt);">Here's what most business owners don't calculate:</strong> If you spend 3 hours a day on admin, follow-up, and content creation, that's 780 hours a year. At even R300/hour, you're doing R234,000 worth of low-value work that a R6,000/month system handles automatically. The maths aren't close. The only question is how long you're willing to keep trading time for tasks a machine can do better.</p>
+      <p style="font-size:.95rem;line-height:1.85;color:var(--mt);max-width:760px;"><strong style="color:var(--txt);">Here's what most business owners don't calculate:</strong> If you spend 3 hours a day on admin, follow-up, and content creation, that's 780 hours a year. At even <span class="pt" data-zar="300" data-sfx="/hr">R300/hr</span>, you're doing <span class="pt" data-zar="234000">R234,000</span> worth of low-value work that a <span class="pt" data-zar="6000" data-sfx="/month">R6,000/month</span> system handles automatically. The maths aren't close. The only question is how long you're willing to keep trading time for tasks a machine can do better.</p>
     </div>
 
     <!-- HOW THE AUTOMATION SYSTEM WORKS -->
@@ -2015,7 +2036,7 @@
       </div>
       <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
         <a href="#contact" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get This System</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
-        <span style="font-size:.72rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">From R6,000/month · setup in 2 weeks</span>
+        <span style="font-size:.72rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">From <span class="pt" data-zar="6000" data-sfx="/month">R6,000/month</span> · setup in 2 weeks</span>
       </div>
     </div>
 
@@ -2075,7 +2096,6 @@
           <div class="wc-overlay">
             <div class="wc-tag">2024 · Branding / Web</div>
             <h3 class="wc-title">Lead Generation Site</h3>
-            <span class="wc-link">View Project →</span>
           </div>
         </div>
 
@@ -2084,7 +2104,6 @@
           <div class="wc-overlay">
             <div class="wc-tag">2025 · Brand Identity</div>
             <h3 class="wc-title">H23 Branding</h3>
-            <span class="wc-link">View Project →</span>
           </div>
         </div>
 
@@ -2093,7 +2112,6 @@
           <div class="wc-overlay">
             <div class="wc-tag">2026 · Web Design</div>
             <h3 class="wc-title">The Bistro Cafe</h3>
-            <span class="wc-link">View Project →</span>
           </div>
         </div>
 
@@ -2205,7 +2223,7 @@
       <div class="ret-card">
         <div class="ret-head">
           <div class="ret-tier">Starter</div>
-          <div class="ret-enquire">From R1,500 / month</div>
+          <div class="ret-enquire">From <span class="pt" data-zar="1500" data-sfx=" / month">R1,500 / month</span></div>
           <div class="ret-tag">"I just need things maintained"</div>
         </div>
         <div class="ret-body">
@@ -2283,7 +2301,7 @@
 
     <!-- MAINTENANCE NOTE -->
     <div class="rv d2" style="margin-top:24px;padding:18px 24px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
-      <p style="font-size:.85rem;color:var(--mt);line-height:1.7;"><strong style="color:var(--txt);">Just need your site maintained?</strong> Website-only maintenance starts from <strong style="color:var(--txt);">R1,500/mo</strong> (Basic) · R2,500/mo (Standard) · R4,500/mo (Premium). No new builds, just keeping what you have running perfectly.</p>
+      <p style="font-size:.85rem;color:var(--mt);line-height:1.7;"><strong style="color:var(--txt);">Just need your site maintained?</strong> Website-only maintenance starts from <strong style="color:var(--txt);"><span class="pt" data-zar="1500" data-sfx="/mo">R1,500/mo</span></strong> (Basic) · <span class="pt" data-zar="2500" data-sfx="/mo">R2,500/mo</span> (Standard) · <span class="pt" data-zar="4500" data-sfx="/mo">R4,500/mo</span> (Premium). No new builds, just keeping what you have running perfectly.</p>
       <a href="pricing-policy.html#maintenance" style="font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mt);white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:2px;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--mt)'">See Plans →</a>
     </div>
 
@@ -2745,16 +2763,64 @@ document.getElementById('cform').addEventListener('submit', function (e) {
   const inner = document.getElementById('wc-inner');
   if (!scene || !inner) return;
 
-  // Pause on hover, resume on leave
   scene.addEventListener('mouseenter', () => { inner.style.animationPlayState = 'paused'; });
   scene.addEventListener('mouseleave', () => { inner.style.animationPlayState = 'running'; });
 
-  // Navigate on click (skip if no real URL set yet)
+  let touchTimer;
+  scene.addEventListener('touchstart', () => {
+    clearTimeout(touchTimer);
+    inner.style.animationPlayState = 'paused';
+  }, { passive: true });
+  scene.addEventListener('touchend', () => {
+    touchTimer = setTimeout(() => { inner.style.animationPlayState = 'running'; }, 4000);
+  }, { passive: true });
+
   document.querySelectorAll('.wc-card').forEach(card => {
     card.addEventListener('click', () => {
       const url = card.dataset.href;
       if (url && url !== '#') window.open(url, '_blank', 'noopener,noreferrer');
     });
+  });
+})();
+
+/* ── Currency Detection & Conversion ───────────────────── */
+(function () {
+  const RATES   = { ZAR: 1, USD: 1/18.5, GBP: 1/23.5, EUR: 1/20 };
+  const SYMBOLS = { ZAR: 'R', USD: '$', GBP: '£', EUR: '€' };
+
+  function detectCurrency() {
+    const lang = (navigator.language || 'en-ZA').toLowerCase();
+    if (/^(en-za|af|zu|xh|st|tn|ts|ss|nr|ve|nso)/.test(lang)) return 'ZAR';
+    if (/^en-gb/.test(lang)) return 'GBP';
+    if (/^(de|fr|es-es|it|nl|pl|pt-pt|sv|da|fi|nb|el|hu|cs|sk|ro|bg|hr|sl|et|lv|lt)/.test(lang)) return 'EUR';
+    return 'USD';
+  }
+
+  function updatePrices(cur) {
+    const rate = RATES[cur];
+    const sym  = SYMBOLS[cur];
+    document.querySelectorAll('.pt[data-zar]').forEach(el => {
+      const zarVal   = parseFloat(el.dataset.zar);
+      const pfx      = el.dataset.pfx || '';
+      const sfx      = el.dataset.sfx || '';
+      const converted = zarVal * rate;
+      const formatted = converted >= 100
+        ? Math.round(converted).toLocaleString()
+        : converted.toFixed(2);
+      el.textContent = pfx + sym + formatted + sfx;
+    });
+    document.querySelectorAll('.cur-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.cur === cur);
+    });
+    localStorage.setItem('wsd-cur', cur);
+  }
+
+  const saved    = localStorage.getItem('wsd-cur');
+  const detected = detectCurrency();
+  updatePrices(saved || detected);
+
+  document.querySelectorAll('.cur-btn').forEach(btn => {
+    btn.addEventListener('click', () => updatePrices(btn.dataset.cur));
   });
 })();
 
