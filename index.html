@@ -113,9 +113,10 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-    body, a, button, [role="button"] { cursor: none; }
+    @media (min-width: 769px) {
+      body, a, button, [role="button"] { cursor: none; }
+    }
     @media (max-width: 768px) {
-      body, a, button, [role="button"] { cursor: auto; }
       .cursor-dot, .cursor-ring { display: none; }
     }
     .cursor-dot {
@@ -2159,6 +2160,32 @@
 
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
+<script>
+(function(){
+  var curDot  = document.getElementById('cursor-dot');
+  var curRing = document.getElementById('cursor-ring');
+  var mx = -200, my = -200, rx = -200, ry = -200, ready = false;
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    if (!ready) { rx = mx; ry = my; ready = true; }
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.20;
+    ry += (my - ry) * 0.20;
+    curDot.style.left  = mx + 'px';
+    curDot.style.top   = my + 'px';
+    curRing.style.left = rx.toFixed(2) + 'px';
+    curRing.style.top  = ry.toFixed(2) + 'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button, [role="button"]').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { curRing.classList.add('hover'); });
+    el.addEventListener('mouseleave', function() { curRing.classList.remove('hover'); });
+  });
+  document.addEventListener('mousedown', function() { curRing.classList.add('click'); });
+  document.addEventListener('mouseup',   function() { curRing.classList.remove('click'); });
+})();
+</script>
 
 <!-- ══════════════ JS ════════════════════════════════════ -->
 <script>
@@ -2249,32 +2276,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNMenu()
 /* ── Scroll top ─────────────────────────────────────── */
 stt.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 
-/* ── Custom cursor ── */
-(function(){
-  var curDot  = document.getElementById('cursor-dot');
-  var curRing = document.getElementById('cursor-ring');
-  if (!curDot || !curRing) return;
-  var mx = -200, my = -200, rx = -200, ry = -200, ready = false;
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-    if (!ready) { rx = mx; ry = my; ready = true; }
-  });
-  (function loop() {
-    rx += (mx - rx) * 0.20;
-    ry += (my - ry) * 0.20;
-    curDot.style.left  = mx + 'px';
-    curDot.style.top   = my + 'px';
-    curRing.style.left = rx.toFixed(2) + 'px';
-    curRing.style.top  = ry.toFixed(2) + 'px';
-    requestAnimationFrame(loop);
-  })();
-  document.querySelectorAll('a, button, [role="button"]').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { curRing.classList.add('hover'); });
-    el.addEventListener('mouseleave', function() { curRing.classList.remove('hover'); });
-  });
-  document.addEventListener('mousedown', function() { curRing.classList.add('click'); });
-  document.addEventListener('mouseup',   function() { curRing.classList.remove('click'); });
-})();
 
 /* ── Reveal ─────────────────────────────────────────── */
 const obs = new IntersectionObserver(entries => {
