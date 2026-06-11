@@ -43,9 +43,10 @@
   <style>
     /* ── CUSTOM CURSOR — desktop only (≥769px) ── */
     @media (min-width: 769px) {
-      body, a, button, [role="button"], label, select, input, .btn, .cur-btn, .geo-close, .sc-btn { cursor: none; }
+      *, *::before, *::after { cursor: none !important; }
     }
     @media (max-width: 768px) {
+      * { cursor: auto !important; }
       .cursor-dot, .cursor-ring { display: none; }
     }
     .cursor-dot {
