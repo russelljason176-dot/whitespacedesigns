@@ -848,6 +848,20 @@
     }
     .why-item p { font-size: .875rem; color: var(--mt); line-height: 1.85; }
 
+    /* ── Why-item clip-path scroll reveal ── */
+    .why-item {
+      clip-path: inset(0 0 100% 0);
+      transform: translateY(24px);
+      transition: clip-path 0.8s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+    .why-item.in {
+      clip-path: inset(0 0 0% 0);
+      transform: translateY(0);
+    }
+    .why-item:nth-child(2) { transition-delay: 0.14s; }
+    .why-item:nth-child(3) { transition-delay: 0.28s; }
+
     /* ─── PROCESS ─────────────────────────────────────────── */
     .proc-grid {
       display: grid;
@@ -1741,9 +1755,7 @@
       .svc-quote:active { transform: scale(0.95); opacity: 0.7; transition: transform 0.1s, opacity 0.1s; }
       .sparkle-btn:active { transform: scale(0.95) !important; }
 
-      /* 5. Why cards — stagger reveal via JS observer */
-      .why-item { opacity: 0; transform: translateY(22px); transition: opacity 0.5s ease, transform 0.5s ease; }
-      .why-item.why-visible { opacity: 1; transform: translateY(0); }
+      /* 5. Why cards — clip-path reveal (see .why-item CSS + observer) */
 
       /* 6. Tighter section spacing */
       section { padding: 56px 0 !important; }
@@ -2045,7 +2057,7 @@
       <div class="label">The honest answer</div>
       <h2 class="h2">"Why not just use<br /><strong>Wix or an AI builder?"</strong></h2>
     </div>
-    <div class="why-grid rv d1">
+    <div class="why-grid">
       <div class="why-item">
         <div class="why-n">01 /</div>
         <h3>Your brand is a competitive asset, not a template slot</h3>
@@ -2937,6 +2949,7 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+document.querySelectorAll('.why-item').forEach(el => obs.observe(el));
 
 /* ── Active nav ─────────────────────────────────────── */
 const secs = document.querySelectorAll('section[id]');
@@ -3404,20 +3417,7 @@ function cookieConsent(accepted) {
     opt.addEventListener('click', function(){ setTimeout(closePicker, 350); });
   });
 
-  // ── Why-item stagger reveal (IntersectionObserver) ────
-  var seen = 0;
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        var delay = seen * 120;
-        seen++;
-        setTimeout(function(){ entry.target.classList.add('why-visible'); }, delay);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.why-item').forEach(function(el) { obs.observe(el); });
+  // ── Why-item scroll reveal handled by GSAP below ────
 })();
 </script>
 
