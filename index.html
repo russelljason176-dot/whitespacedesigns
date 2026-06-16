@@ -1050,7 +1050,7 @@
       margin-top: 18px;
     }
     @media (max-width: 768px) {
-      .pain-strip { padding: 16px 0 20px; }
+      .pain-strip { padding: 24px 0 8px; background: none; border: none; }
       .pain-strip .wrap { padding: 0; max-width: none; }
       .pain-inner {
         display: flex;
@@ -1062,18 +1062,25 @@
         width: 100%;
         animation: none;
         grid-template-columns: none;
+        padding: 4px 0 8px;
+        gap: 12px;
       }
       .pain-inner::-webkit-scrollbar { display: none; }
       .pain-stat {
-        min-width: 82vw;
+        min-width: 80vw;
         scroll-snap-align: center;
-        padding: 32px 28px;
-        border-right: 1px solid var(--bdr);
-        border-bottom: none;
         flex-shrink: 0;
+        padding: 28px 24px;
+        background: rgba(255,59,48,0.04);
+        border: 1px solid rgba(255,59,48,0.18);
+        border-radius: 14px;
+        border-right: 1px solid rgba(255,59,48,0.18);
+        border-bottom: 1px solid rgba(255,59,48,0.18);
       }
-      .pain-stat:first-child { padding-left: 24px; margin-left: 9vw; }
-      .pain-stat:last-child { border-right: none; padding-right: 24px; margin-right: 9vw; }
+      .pain-stat:first-child { margin-left: 10vw; padding-left: 24px; }
+      .pain-stat:last-child  { margin-right: 10vw; }
+      .pain-n { font-size: 2.8rem; }
+      .pain-l { font-size: .85rem; }
       .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
       .wc-inner {
         animation: none !important;
