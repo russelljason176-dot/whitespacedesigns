@@ -1051,34 +1051,31 @@
     }
     @media (max-width: 768px) {
       .pain-strip { padding: 24px 0 8px; background: none; border: none; }
-      .pain-strip .wrap { padding: 0; max-width: none; }
+      .pain-strip .wrap { padding: 0; max-width: none; overflow: hidden; }
       .pain-inner {
         display: flex;
         flex-direction: row;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
         width: 100%;
         animation: none;
         grid-template-columns: none;
-        padding: 4px 0 8px;
-        gap: 12px;
+        will-change: transform;
+        transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
       }
-      .pain-inner::-webkit-scrollbar { display: none; }
       .pain-stat {
-        min-width: 80vw;
-        scroll-snap-align: center;
+        min-width: 100vw;
+        box-sizing: border-box;
         flex-shrink: 0;
-        padding: 28px 24px;
-        background: rgba(255,59,48,0.04);
-        border: 1px solid rgba(255,59,48,0.18);
-        border-radius: 14px;
-        border-right: 1px solid rgba(255,59,48,0.18);
-        border-bottom: 1px solid rgba(255,59,48,0.18);
+        padding: 4px 20px;
+        border: none !important;
+        border-bottom: none !important;
+        border-right: none !important;
       }
-      .pain-stat:first-child { margin-left: 10vw; padding-left: 24px; }
-      .pain-stat:last-child  { margin-right: 10vw; }
+      .pain-card-inner {
+        background: rgba(255,59,48,0.04);
+        border: 1px solid rgba(255,59,48,0.2);
+        border-radius: 16px;
+        padding: 28px 24px;
+      }
       .pain-n { font-size: 2.8rem; }
       .pain-l { font-size: .85rem; }
       .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
@@ -3233,80 +3230,125 @@ function cookieConsent(accepted) {
 </script>
 
 <script>
-// Pain strip: carousel with prev/next buttons + dots (mobile only)
+// Pain strip: looping transform carousel (mobile only)
 (function(){
   if (window.innerWidth > 768) return;
   var inner = document.querySelector('.pain-inner');
   var strip = document.querySelector('.pain-strip');
   if (!inner || !strip) return;
+
   var cards = Array.from(inner.querySelectorAll('.pain-stat'));
-  if (cards.length < 2) return;
+  var n = cards.length;
+  if (n < 2) return;
 
-  var current = 0;
+  // Wrap each card's content in a visual card div
+  cards.forEach(function(card) {
+    var wrap = document.createElement('div');
+    wrap.className = 'pain-card-inner';
+    while (card.firstChild) wrap.appendChild(card.firstChild);
+    card.appendChild(wrap);
+  });
 
-  function goTo(idx) {
-    idx = ((idx % cards.length) + cards.length) % cards.length;
-    current = idx;
-    var card = cards[idx];
-    var target = card.offsetLeft - (inner.offsetWidth - card.offsetWidth) / 2;
-    inner.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
-    updateUI();
+  // Clone first + last for seamless loop: [last, 0,1,2,3, first]
+  var cloneFirst = cards[0].cloneNode(true);
+  var cloneLast  = cards[n-1].cloneNode(true);
+  cloneFirst.setAttribute('aria-hidden','true');
+  cloneLast.setAttribute('aria-hidden','true');
+  inner.appendChild(cloneFirst);
+  inner.insertBefore(cloneLast, cards[0]);
+
+  // All slots: [cloneLast, card0, card1, card2, card3, cloneFirst]
+  var slots = Array.from(inner.querySelectorAll('.pain-stat'));
+  var total = slots.length; // n + 2
+  var cur = 1; // start at real first card
+  var jumping = false;
+
+  function setPos(idx, animate) {
+    inner.style.transition = animate ? 'transform 0.38s cubic-bezier(0.4,0,0.2,1)' : 'none';
+    inner.style.transform  = 'translateX(-' + (idx * 100) + 'vw)';
   }
 
-  function updateUI() {
-    dotEls.forEach(function(d, i) {
-      d.style.background = i === current ? 'var(--red)' : 'rgba(255,255,255,0.18)';
-      d.style.transform  = i === current ? 'scale(1.3)' : 'scale(1)';
+  function realIdx() {
+    var r = cur - 1;
+    if (r < 0) r = n - 1;
+    if (r >= n) r = 0;
+    return r;
+  }
+
+  function updateDots() {
+    var r = realIdx();
+    dotEls.forEach(function(d, i){
+      d.style.background = i===r ? 'var(--red)' : 'rgba(255,255,255,.18)';
+      d.style.transform  = i===r ? 'scale(1.3)' : 'scale(1)';
     });
   }
 
-  // Controls row
-  var ctrl = document.createElement('div');
-  ctrl.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:16px;padding:14px 0 2px;';
+  function goTo(idx) {
+    if (jumping) return;
+    cur = idx;
+    setPos(cur, true);
+    updateDots();
+  }
 
-  function makeBtn(label) {
+  // After transition: if on a clone, silently jump to the real card
+  inner.addEventListener('transitionend', function(){
+    if (cur === 0) {
+      jumping = true;
+      cur = n;
+      setPos(cur, false);
+      setTimeout(function(){ jumping = false; }, 50);
+    } else if (cur === total - 1) {
+      jumping = true;
+      cur = 1;
+      setPos(cur, false);
+      setTimeout(function(){ jumping = false; }, 50);
+    }
+    updateDots();
+  });
+
+  // Buttons
+  function makeBtn(html) {
     var b = document.createElement('button');
-    b.innerHTML = label;
-    b.style.cssText = 'width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,border-color .15s;';
-    b.addEventListener('touchstart', function(){ this.style.background='rgba(255,59,48,.15)'; this.style.borderColor='rgba(255,59,48,.4)'; }, { passive:true });
-    b.addEventListener('touchend',   function(){ this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,.15)'; }, { passive:true });
+    b.innerHTML = html;
+    b.style.cssText = 'width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;flex-shrink:0;';
+    b.addEventListener('touchstart', function(){ this.style.background='rgba(255,59,48,.15)'; this.style.borderColor='rgba(255,59,48,.5)'; },{passive:true});
+    b.addEventListener('touchend',   function(){ this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,.15)'; },{passive:true});
     return b;
   }
 
-  var prevBtn = makeBtn('←');
-  var nextBtn = makeBtn('→');
+  var prevBtn = makeBtn('&#8592;');
+  var nextBtn = makeBtn('&#8594;');
+  prevBtn.addEventListener('click', function(){ goTo(cur - 1); });
+  nextBtn.addEventListener('click', function(){ goTo(cur + 1); });
 
   // Dots
   var dotsWrap = document.createElement('div');
-  dotsWrap.style.cssText = 'display:flex;gap:6px;align-items:center;';
-  for (var i = 0; i < cards.length; i++) {
+  dotsWrap.style.cssText = 'display:flex;gap:7px;align-items:center;';
+  for (var i = 0; i < n; i++) {
     var d = document.createElement('span');
-    d.style.cssText = 'width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.18);transition:background .2s,transform .2s;display:block;';
+    d.style.cssText = 'width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .2s,transform .2s;display:block;';
     dotsWrap.appendChild(d);
   }
   var dotEls = dotsWrap.querySelectorAll('span');
 
-  prevBtn.addEventListener('click', function(){ goTo(current - 1); });
-  nextBtn.addEventListener('click', function(){ goTo(current + 1); });
-
+  var ctrl = document.createElement('div');
+  ctrl.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:18px;padding:16px 0 4px;';
   ctrl.appendChild(prevBtn);
   ctrl.appendChild(dotsWrap);
   ctrl.appendChild(nextBtn);
   strip.appendChild(ctrl);
 
-  // Sync dots on manual swipe
-  inner.addEventListener('scroll', function(){
-    var idx = 0, minDist = Infinity;
-    cards.forEach(function(c, i){
-      var center = c.offsetLeft + c.offsetWidth / 2;
-      var dist = Math.abs(inner.scrollLeft + inner.offsetWidth / 2 - center);
-      if (dist < minDist) { minDist = dist; idx = i; }
-    });
-    current = idx;
-    updateUI();
-  }, { passive: true });
+  // Touch swipe
+  var tx0 = 0;
+  inner.addEventListener('touchstart', function(e){ tx0 = e.touches[0].clientX; }, {passive:true});
+  inner.addEventListener('touchend',   function(e){
+    var dx = tx0 - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) goTo(dx > 0 ? cur + 1 : cur - 1);
+  }, {passive:true});
 
-  updateUI();
+  // Init
+  setPos(cur, false);
+  updateDots();
 })();
 </script>
 
