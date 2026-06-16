@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Design Demos — White Space Designs</title>
+  <meta name="description" content="Web design showcase demos by White Space Designs — luxury landing pages for aesthetic clinics, law firms, and real estate agencies." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #0a0a0a;
+      --bg2:   #111111;
+      --fg:    #f0f0f0;
+      --dim:   #8e8e8e;
+      --accent:#e63329;
+      --bdr:   rgba(255,255,255,.13);
+      --mono:  'Space Mono', monospace;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--bdr);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-back {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--fg); }
+
+    /* HEADER */
+    .page-header {
+      text-align: center;
+      padding: 80px 40px 60px;
+    }
+    .page-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .page-title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      color: var(--fg);
+    }
+    .page-title strong { color: var(--accent); }
+    .page-sub {
+      margin-top: 16px;
+      font-size: .95rem;
+      color: var(--dim);
+      font-weight: 300;
+    }
+
+    /* CAROUSEL */
+    .wc-wrap {
+      width: 100%;
+      position: relative;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height: 540px;
+    }
+    .wc-inner {
+      --w: 240px;
+      --h: 330px;
+      --translateZ: 280px;
+      --rotateX: -10deg;
+      --perspective: 2000px;
+      --quantity: 4;
+      position: absolute;
+      width: var(--w);
+      height: var(--h);
+      top: 14%;
+      left: calc(50% - (var(--w) / 2));
+      z-index: 2;
+      transform-style: preserve-3d;
+      transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0deg);
+      animation: wc-rotate 28s linear infinite;
+    }
+    @keyframes wc-rotate {
+      from { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0deg); }
+      to   { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(360deg); }
+    }
+    .wc-card {
+      position: absolute;
+      border: 1px solid rgba(var(--color-card), 0.45);
+      border-radius: 12px;
+      overflow: hidden;
+      inset: 0;
+      cursor: pointer;
+      transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ));
+      transition: box-shadow 0.3s;
+    }
+    .wc-card:hover {
+      box-shadow: 0 0 0 1px rgba(var(--color-card), 0.8), 0 8px 40px rgba(var(--color-card), 0.15);
+    }
+    .wc-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px;
+    }
+    .wc-tag {
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(var(--color-card), 0.9);
+      margin-bottom: 5px;
+    }
+    .wc-title {
+      font-size: .94rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+    }
+    .wc-sub {
+      font-family: var(--mono);
+      font-size: .52rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .wc-link {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-top: 10px;
+      transition: color 0.2s;
+    }
+    .wc-card:hover .wc-link { color: rgba(var(--color-card), 1); }
+    .wc-hint {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+      margin-top: 18px;
+      padding-bottom: 60px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--bdr);
+      padding: 32px 40px;
+      text-align: center;
+    }
+    .footer-text {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer-text a { color: var(--accent); text-decoration: none; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .page-header { padding: 60px 24px 40px; }
+      .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
+      .wc-inner {
+        animation: none !important;
+        position: relative;
+        top: auto; left: auto;
+        transform: none !important;
+        transform-style: flat;
+        width: 100%;
+        height: auto;
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 0 24px 4px;
+      }
+      .wc-inner::-webkit-scrollbar { display: none; }
+      .wc-card {
+        position: relative;
+        transform: none !important;
+        flex-shrink: 0;
+        width: 220px;
+        height: 290px;
+        inset: auto;
+      }
+      .wc-link { color: rgba(255,255,255,0.6); }
+      .wc-hint { padding-bottom: 40px; }
+      footer { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="https://whitespacedesigns.co.za">White<span>Space</span></a>
+    <a class="nav-back" href="/">&#8592; Back to site</a>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-label">Demo Showcase</div>
+    <h1 class="page-title">Web Design<br /><strong>Demos</strong></h1>
+    <p class="page-sub">Four fictional brands. Four premium landing pages. Built to show what's possible.</p>
+  </header>
+
+  <div class="wc-wrap" id="wc-scene">
+    <div class="wc-inner" id="wc-inner">
+
+      <div class="wc-card" style="--index:0;--color-card:201,149,108;background:linear-gradient(135deg,#1a1008,#2d1f10);" data-href="/demos/web-design/lumina-aesthetics/">
+        <div class="wc-overlay">
+          <div class="wc-tag">Aesthetic Clinic</div>
+          <h3 class="wc-title">Lumina Aesthetics</h3>
+          <div class="wc-sub">Medical &amp; Beauty</div>
+          <div class="wc-link">View Demo &rarr;</div>
+        </div>
+      </div>
+
+      <div class="wc-card" style="--index:1;--color-card:184,151,46;background:linear-gradient(135deg,#0f0d04,#221c08);" data-href="/demos/web-design/meridian-law/">
+        <div class="wc-overlay">
+          <div class="wc-tag">Law Firm</div>
+          <h3 class="wc-title">Meridian Law</h3>
+          <div class="wc-sub">Commercial &amp; Property</div>
+          <div class="wc-link">View Demo &rarr;</div>
+        </div>
+      </div>
+
+      <div class="wc-card" style="--index:2;--color-card:74,127,232;background:linear-gradient(135deg,#080c14,#0d1628);" data-href="/demos/web-design/apex-property/">
+        <div class="wc-overlay">
+          <div class="wc-tag">Real Estate</div>
+          <h3 class="wc-title">Apex Property</h3>
+          <div class="wc-sub">Luxury Real Estate</div>
+          <div class="wc-link">View Demo &rarr;</div>
+        </div>
+      </div>
+
+      <div class="wc-card" style="--index:3;--color-card:140,80,200;background:linear-gradient(135deg,#0e0814,#1a0d2e);" data-href="/demos/web-design/verde-co/">
+        <div class="wc-overlay">
+          <div class="wc-tag">Lifestyle / Branding</div>
+          <h3 class="wc-title">Verde Co.</h3>
+          <div class="wc-sub">Cannabis Wellness</div>
+          <div class="wc-link">View Demo &rarr;</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <p class="wc-hint">Hover to pause &middot; Click to view demo</p>
+
+  <footer>
+    <p class="footer-text">&copy; 2026 <a href="https://whitespacedesigns.co.za">White Space Designs</a> &middot; All demos are fictional showcases</p>
+  </footer>
+
+  <script>
+    (function () {
+      const scene = document.getElementById('wc-scene');
+      const inner = document.getElementById('wc-inner');
+      if (!scene || !inner) return;
+
+      scene.addEventListener('mouseenter', () => { inner.style.animationPlayState = 'paused'; });
+      scene.addEventListener('mouseleave', () => { inner.style.animationPlayState = 'running'; });
+
+      let touchTimer;
+      scene.addEventListener('touchstart', () => {
+        clearTimeout(touchTimer);
+        inner.style.animationPlayState = 'paused';
+      }, { passive: true });
+      scene.addEventListener('touchend', () => {
+        touchTimer = setTimeout(() => { inner.style.animationPlayState = 'running'; }, 4000);
+      }, { passive: true });
+
+      document.querySelectorAll('.wc-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const url = card.dataset.href;
+          if (url && url !== '#') window.location.href = url;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

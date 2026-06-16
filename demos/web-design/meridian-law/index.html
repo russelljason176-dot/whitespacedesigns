@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Law — WSD Demo</title>
+  <meta name="description" content="Meridian Law boutique commercial law firm — a White Space Designs showcase. All content is fictional." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #0a0a0a;
+      --bg2:   #121212;
+      --bg3:   #1a1a1a;
+      --fg:    #f2edd8;
+      --ivory: #e8dfc0;
+      --dim:   #8c8472;
+      --gold:  #b8972e;
+      --gold2: #d4af45;
+      --bdr:   rgba(184,151,46,0.2);
+      --bdr2:  rgba(255,255,255,0.07);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'Inter', sans-serif;
+      --mono:  'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── WSD DEMO BANNER ── */
+    .wsd-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: #e63329;
+      color: #fff;
+      text-align: center;
+      padding: 8px 20px;
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+    .wsd-banner a { color: #fff; font-weight: 700; text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 33px;
+      left: 0; right: 0;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      height: 68px;
+      background: rgba(10,10,10,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--bdr);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--gold);
+    }
+    .nav-brand-text {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--fg);
+      letter-spacing: .04em;
+    }
+    .nav-brand-sub {
+      font-family: var(--mono);
+      font-size: .42rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-top: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 26px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold); color: #0a0a0a; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding-top: 101px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 80% 50%, rgba(184,151,46,0.07) 0%, transparent 60%),
+        linear-gradient(160deg, #0a0a0a 0%, #141008 50%, #0a0a0a 100%);
+    }
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .hero-lines::before,
+    .hero-lines::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(184,151,46,0.15), transparent);
+    }
+    .hero-lines::before { left: 30%; }
+    .hero-lines::after  { right: 30%; }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 56px;
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: .56rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -.01em;
+      color: var(--fg);
+      margin-bottom: 28px;
+    }
+    h1 em { font-style: italic; color: var(--gold); }
+    .hero-body {
+      font-size: .92rem;
+      color: var(--dim);
+      line-height: 1.85;
+      max-width: 500px;
+      margin-bottom: 44px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 32px;
+      background: var(--gold);
+      color: #0a0a0a;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 28px;
+      border: 1px solid rgba(184,151,46,0.5);
+      color: var(--fg);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--bdr);
+    }
+    .hero-info-cell {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--bdr);
+    }
+    .hero-info-cell:last-child { border-bottom: none; }
+    .info-label {
+      font-family: var(--mono);
+      font-size: .5rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 6px;
+    }
+    .info-val {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--fg);
+    }
+
+    /* ── PRACTICE AREAS ── */
+    #practice {
+      padding: 120px 56px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: .56rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+    h2 em { font-style: italic; color: var(--gold); }
+    .section-sub {
+      font-size: .9rem;
+      color: var(--dim);
+      max-width: 500px;
+      margin-bottom: 64px;
+      line-height: 1.8;
+    }
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--bdr);
+      border: 1px solid var(--bdr);
+    }
+    .practice-card {
+      background: var(--bg);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .practice-card:hover { background: var(--bg2); }
+    .practice-num {
+      font-family: var(--serif);
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(184,151,46,0.08);
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .practice-icon {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+    h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 12px;
+    }
+    .practice-body {
+      font-size: .84rem;
+      color: var(--dim);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .practice-link {
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .practice-link:hover { border-color: var(--gold); }
+
+    /* ── ABOUT / PROOF ── */
+    #about {
+      background: var(--bg2);
+      border-top: 1px solid var(--bdr2);
+      border-bottom: 1px solid var(--bdr2);
+      padding: 120px 56px;
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .about-quote {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      border-left: 2px solid var(--gold);
+      padding-left: 28px;
+    }
+    .about-attr {
+      font-family: var(--mono);
+      font-size: .54rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding-left: 28px;
+    }
+    .about-body {
+      font-size: .9rem;
+      color: var(--dim);
+      line-height: 1.85;
+      margin-top: 36px;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--bdr);
+      border: 1px solid var(--bdr);
+    }
+    .about-stat {
+      background: var(--bg);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .about-stat-num {
+      font-family: var(--serif);
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .about-stat-label {
+      font-family: var(--mono);
+      font-size: .5rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .about-partners {
+      margin-top: 32px;
+    }
+    .about-partners-label {
+      font-family: var(--mono);
+      font-size: .52rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 16px;
+    }
+    .partner-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .partner-badge {
+      padding: 8px 16px;
+      border: 1px solid var(--bdr);
+      font-family: var(--mono);
+      font-size: .52rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── PROCESS ── */
+    #process {
+      padding: 120px 56px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 64px;
+      border: 1px solid var(--bdr);
+    }
+    .process-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: start;
+      padding: 36px 40px;
+      border-bottom: 1px solid var(--bdr);
+      gap: 32px;
+      transition: background 0.2s;
+    }
+    .process-row:last-child { border-bottom: none; }
+    .process-row:hover { background: var(--bg2); }
+    .process-num-lg {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: rgba(184,151,46,0.25);
+      line-height: 1;
+    }
+    .process-content h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .process-content p {
+      font-size: .85rem;
+      color: var(--dim);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+    .process-tag {
+      font-family: var(--mono);
+      font-size: .5rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--bdr);
+      padding: 6px 12px;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* ── CTA ── */
+    #cta {
+      background: linear-gradient(160deg, #141008 0%, #0a0a0a 70%);
+      border-top: 1px solid var(--bdr);
+      padding: 120px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 70% at 50% 50%, rgba(184,151,46,0.06) 0%, transparent 70%);
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .cta-left h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      margin-bottom: 20px;
+    }
+    .cta-left .section-sub { margin-bottom: 36px; }
+    .cta-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border: 1px solid var(--bdr);
+      padding: 36px;
+    }
+    .cta-contact-row {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .cta-contact-label {
+      font-family: var(--mono);
+      font-size: .5rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      min-width: 80px;
+      padding-top: 2px;
+    }
+    .cta-contact-val {
+      font-size: .9rem;
+      color: var(--fg);
+    }
+    .cta-contact-val a { color: var(--fg); text-decoration: none; transition: color 0.2s; }
+    .cta-contact-val a:hover { color: var(--gold); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060606;
+      border-top: 1px solid var(--bdr2);
+      padding: 40px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-mark {
+      width: 28px; height: 28px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: .85rem;
+      color: var(--gold);
+    }
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: .95rem;
+      color: var(--fg);
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: .52rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer-wsd {
+      font-family: var(--mono);
+      font-size: .52rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer-wsd a { color: #e63329; text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.9s ease both; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.25s; }
+    .d3 { animation-delay: 0.4s; }
+    .d4 { animation-delay: 0.55s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+      .hero-right { display: none; }
+      h1 { font-size: 2.8rem; }
+      #practice { padding: 80px 24px; }
+      .practice-grid { grid-template-columns: 1fr; }
+      #about { padding: 80px 24px; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      #process { padding: 80px 24px; }
+      .process-row { grid-template-columns: 60px 1fr; }
+      .process-tag { display: none; }
+      #cta { padding: 80px 24px; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WSD Demo Banner -->
+  <div class="wsd-banner">
+    WSD Demo &mdash; This site is a design showcase by <a href="https://whitespacedesigns.co.za">White Space Designs</a>. All content is fictional.
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-brand" href="#">
+      <div class="nav-logo-mark">M</div>
+      <div>
+        <div class="nav-brand-text">Meridian Law</div>
+        <div class="nav-brand-sub">Attorneys &middot; Cape Town</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#practice">Practice Areas</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#process">Our Process</a></li>
+      <li><a href="#cta">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#cta">Speak to a Lawyer</a>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-content">
+      <div>
+        <div class="hero-eyebrow fade-up d1">Boutique Commercial Law &middot; Cape Town</div>
+        <h1 class="fade-up d2">Protecting what<br /><em>you've built.</em></h1>
+        <p class="hero-body fade-up d3">Meridian Law is a boutique commercial law firm advising entrepreneurs, property developers, and established businesses across South Africa. We combine senior-level expertise with the agility and attention of a specialist firm.</p>
+        <div class="hero-actions fade-up d4">
+          <a class="btn-primary" href="#cta">Schedule a Consultation</a>
+          <a class="btn-outline" href="#practice">Our Practice Areas</a>
+        </div>
+      </div>
+      <div class="hero-right fade-up d3">
+        <div class="hero-info-cell">
+          <div class="info-label">Established</div>
+          <div class="info-val">2009 &mdash; 17 years in practice</div>
+        </div>
+        <div class="hero-info-cell">
+          <div class="info-label">Location</div>
+          <div class="info-val">V&amp;A Waterfront, Cape Town</div>
+        </div>
+        <div class="hero-info-cell">
+          <div class="info-label">Specialisations</div>
+          <div class="info-val">Commercial, Property, Employment</div>
+        </div>
+        <div class="hero-info-cell">
+          <div class="info-label">Transactions advised</div>
+          <div class="info-val">R2.4 billion + (2020&ndash;2025)</div>
+        </div>
+        <div class="hero-info-cell">
+          <div class="info-label">Accreditation</div>
+          <div class="info-val">LSSA Member &middot; Fidelity Fund Cert.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practice Areas -->
+  <section id="practice">
+    <div class="section-label">What we do</div>
+    <h2>Our practice<br /><em>areas.</em></h2>
+    <p class="section-sub">We work at the intersection of commercial ambition and legal precision. Each practice area is led by a specialist partner with deep domain expertise.</p>
+    <div class="practice-grid">
+      <div class="practice-card">
+        <div class="practice-num">01</div>
+        <div class="practice-icon">&#9671;</div>
+        <h3>Commercial Law</h3>
+        <p class="practice-body">Shareholder agreements, company structuring, M&amp;A transactions, commercial contracts, and regulatory compliance. We advise businesses from Series A startups to established corporates with equal rigour.</p>
+        <a class="practice-link" href="#cta">Enquire &rarr;</a>
+      </div>
+      <div class="practice-card">
+        <div class="practice-num">02</div>
+        <div class="practice-icon">&#9654;</div>
+        <h3>Property Transfers</h3>
+        <p class="practice-body">Residential and commercial conveyancing, sectional title transfers, property development legal support, and Deeds Office filings. We handle every step with precision and transparency.</p>
+        <a class="practice-link" href="#cta">Enquire &rarr;</a>
+      </div>
+      <div class="practice-card">
+        <div class="practice-num">03</div>
+        <div class="practice-icon">&#9651;</div>
+        <h3>Employment Law</h3>
+        <p class="practice-body">Drafting contracts, retrenchment processes, CCMA representation, disciplinary hearings, and employment equity compliance. We protect both employer interests and fair labour standards.</p>
+        <a class="practice-link" href="#cta">Enquire &rarr;</a>
+      </div>
+      <div class="practice-card">
+        <div class="practice-num">04</div>
+        <div class="practice-icon">&#9670;</div>
+        <h3>Dispute Resolution</h3>
+        <p class="practice-body">Commercial litigation, arbitration, mediation, and negotiated settlements. We pursue the most cost-effective path to resolution, and we're relentless when the matter demands it.</p>
+        <a class="practice-link" href="#cta">Enquire &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About & Stats -->
+  <section id="about">
+    <div class="about-inner">
+      <div>
+        <div class="section-label">About the firm</div>
+        <h2>Senior counsel.<br /><em>Personal service.</em></h2>
+        <blockquote class="about-quote">
+          "We engaged Meridian Law on a complex commercial dispute and a simultaneous property transaction. Both were handled with exceptional clarity and speed. Their advice was worth ten times the fee."
+        </blockquote>
+        <p class="about-attr">D. Pretorius &mdash; CEO, Pretorius Developments (Pty) Ltd</p>
+        <p class="about-body">Founded in 2009, Meridian Law was built on a simple conviction: that sophisticated legal advice shouldn't require a massive firm. Our partners bring experience from Magic Circle and Big Four law environments, now applied with the focus and relationship depth that only a boutique can offer.</p>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-num">17</div>
+            <div class="about-stat-label">Years in practice</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">340+</div>
+            <div class="about-stat-label">Clients served</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">R2.4B</div>
+            <div class="about-stat-label">Transactions advised</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">94%</div>
+            <div class="about-stat-label">Client retention rate</div>
+          </div>
+        </div>
+        <div class="about-partners">
+          <div class="about-partners-label">Firm credentials</div>
+          <div class="partner-row">
+            <div class="partner-badge">LSSA Member</div>
+            <div class="partner-badge">Fidelity Fund Cert.</div>
+            <div class="partner-badge">Law Society WC</div>
+            <div class="partner-badge">BEE Level 2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process">
+    <div class="section-label">Our process</div>
+    <h2>How we<br /><em>work.</em></h2>
+    <p class="section-sub">We believe in complete transparency from the first call to the final invoice. No surprises. No jargon. Just clear, commercially astute advice.</p>
+    <div class="process-list">
+      <div class="process-row">
+        <div class="process-num-lg">01</div>
+        <div class="process-content">
+          <h3>Initial Consultation</h3>
+          <p>A free 30-minute call to understand your situation and determine how we can help. No obligation and no billing for this session.</p>
+        </div>
+        <div class="process-tag">Free &middot; 30 min</div>
+      </div>
+      <div class="process-row">
+        <div class="process-num-lg">02</div>
+        <div class="process-content">
+          <h3>Scope &amp; Proposal</h3>
+          <p>We send a written scope of work with clear pricing — either fixed fee or retainer depending on matter complexity. You approve before any billable work begins.</p>
+        </div>
+        <div class="process-tag">Fixed fee</div>
+      </div>
+      <div class="process-row">
+        <div class="process-num-lg">03</div>
+        <div class="process-content">
+          <h3>Matter Execution</h3>
+          <p>Your assigned partner leads the matter personally, with regular progress updates. We're reachable and responsive — not a firm you chase for callbacks.</p>
+        </div>
+        <div class="process-tag">Partner-led</div>
+      </div>
+      <div class="process-row">
+        <div class="process-num-lg">04</div>
+        <div class="process-content">
+          <h3>Resolution &amp; Debrief</h3>
+          <p>Once concluded, we debrief the matter and provide any documents, registered filings, or recommendations to reduce future legal exposure.</p>
+        </div>
+        <div class="process-tag">Documented</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <div class="section-label">Get in touch</div>
+        <h2>The right advice,<br /><em>at the right time.</em></h2>
+        <p class="section-sub">Whether you're structuring a deal, buying property, or navigating a dispute — early legal advice almost always saves money. Let's talk.</p>
+        <a class="btn-primary" href="tel:0214567890">Schedule a Free Call</a>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-contact-row">
+          <div class="cta-contact-label">Phone</div>
+          <div class="cta-contact-val"><a href="tel:0214567890">021 456 7890</a></div>
+        </div>
+        <div class="cta-contact-row">
+          <div class="cta-contact-label">Email</div>
+          <div class="cta-contact-val"><a href="mailto:contact@meridianlaw.co.za">contact@meridianlaw.co.za</a></div>
+        </div>
+        <div class="cta-contact-row">
+          <div class="cta-contact-label">Address</div>
+          <div class="cta-contact-val">Suite 14, Clock Tower Building<br />V&amp;A Waterfront, Cape Town, 8001</div>
+        </div>
+        <div class="cta-contact-row">
+          <div class="cta-contact-label">Hours</div>
+          <div class="cta-contact-val">Mon–Fri, 08:00–17:30<br />After-hours by appointment</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-mark">M</div>
+      <div class="footer-brand-name">Meridian Law</div>
+    </div>
+    <div class="footer-copy">&copy; 2026 Meridian Law Inc &middot; Reg. No. 2009/000000/21 &middot; Fictional demo only</div>
+    <div class="footer-wsd">Designed by <a href="https://whitespacedesigns.co.za">White Space Designs</a></div>
+  </footer>
+
+</body>
+</html>

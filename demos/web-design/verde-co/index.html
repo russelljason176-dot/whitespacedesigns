@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verde Co. — WSD Demo</title>
+  <meta name="description" content="Verde Co. premium lifestyle cannabis brand — a White Space Designs showcase. All content is fictional and for demonstration purposes only." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0e0814;
+      --bg2:     #160d20;
+      --green:   #2d6a4f;
+      --green2:  #52b788;
+      --gold:    #c9a84c;
+      --fg:      #f0ece8;
+      --dim:     #8a8080;
+      --bdr:     rgba(82,183,136,0.18);
+      --bdr2:    rgba(255,255,255,0.07);
+      --serif:   'Fraunces', Georgia, serif;
+      --sans:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── WSD DEMO BANNER ── */
+    .wsd-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: #e63329;
+      color: #fff;
+      text-align: center;
+      padding: 8px 20px;
+      font-family: var(--sans);
+      font-size: .62rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .wsd-banner a {
+      color: #fff;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    /* ── STICKY NAV ── */
+    nav {
+      position: fixed;
+      top: 33px;
+      left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(14,8,20,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--bdr2);
+    }
+    .nav-wordmark {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--fg);
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+    .nav-wordmark span {
+      color: var(--green2);
+    }
+    .nav-cta {
+      display: inline-block;
+      padding: 10px 22px;
+      border: 1px solid var(--green2);
+      border-radius: 4px;
+      color: var(--green2);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+    }
+    .nav-cta:hover {
+      background: var(--green2);
+      color: var(--bg);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 32px 100px;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 60%, #1a0d2e 0%, var(--bg) 70%);
+    }
+
+    /* Particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-up linear infinite;
+    }
+    @keyframes float-up {
+      0%   { transform: translateY(0) scale(1);   opacity: 0; }
+      10%  { opacity: var(--op); }
+      90%  { opacity: var(--op); }
+      100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+    }
+    /* 24 particles — varied positions, sizes, colours, durations */
+    .p1  { left:4%;   bottom:0; width:4px;  height:4px;  background:var(--green2); --op:.35; animation-duration:14s; animation-delay:0s; }
+    .p2  { left:9%;   bottom:0; width:3px;  height:3px;  background:var(--gold);   --op:.3;  animation-duration:18s; animation-delay:2s; }
+    .p3  { left:15%;  bottom:0; width:6px;  height:6px;  background:var(--green2); --op:.2;  animation-duration:11s; animation-delay:5s; }
+    .p4  { left:22%;  bottom:0; width:2px;  height:2px;  background:var(--fg);     --op:.15; animation-duration:16s; animation-delay:1s; }
+    .p5  { left:28%;  bottom:0; width:5px;  height:5px;  background:var(--gold);   --op:.25; animation-duration:13s; animation-delay:7s; }
+    .p6  { left:35%;  bottom:0; width:3px;  height:3px;  background:var(--green2); --op:.4;  animation-duration:20s; animation-delay:3s; }
+    .p7  { left:42%;  bottom:0; width:7px;  height:7px;  background:var(--green);  --op:.2;  animation-duration:9s;  animation-delay:0s; }
+    .p8  { left:48%;  bottom:0; width:2px;  height:2px;  background:var(--gold);   --op:.3;  animation-duration:15s; animation-delay:6s; }
+    .p9  { left:55%;  bottom:0; width:4px;  height:4px;  background:var(--green2); --op:.35; animation-duration:12s; animation-delay:2s; }
+    .p10 { left:61%;  bottom:0; width:3px;  height:3px;  background:var(--fg);     --op:.12; animation-duration:17s; animation-delay:4s; }
+    .p11 { left:67%;  bottom:0; width:6px;  height:6px;  background:var(--gold);   --op:.22; animation-duration:10s; animation-delay:8s; }
+    .p12 { left:73%;  bottom:0; width:2px;  height:2px;  background:var(--green2); --op:.4;  animation-duration:14s; animation-delay:1s; }
+    .p13 { left:79%;  bottom:0; width:5px;  height:5px;  background:var(--green);  --op:.18; animation-duration:19s; animation-delay:3s; }
+    .p14 { left:85%;  bottom:0; width:3px;  height:3px;  background:var(--gold);   --op:.28; animation-duration:11s; animation-delay:5s; }
+    .p15 { left:91%;  bottom:0; width:4px;  height:4px;  background:var(--green2); --op:.32; animation-duration:16s; animation-delay:0s; }
+    .p16 { left:96%;  bottom:0; width:2px;  height:2px;  background:var(--fg);     --op:.15; animation-duration:13s; animation-delay:7s; }
+    .p17 { left:7%;   bottom:0; width:8px;  height:8px;  background:var(--green2); --op:.1;  animation-duration:22s; animation-delay:9s; }
+    .p18 { left:31%;  bottom:0; width:2px;  height:2px;  background:var(--gold);   --op:.35; animation-duration:8s;  animation-delay:1s; }
+    .p19 { left:51%;  bottom:0; width:3px;  height:3px;  background:var(--green2); --op:.28; animation-duration:24s; animation-delay:6s; }
+    .p20 { left:64%;  bottom:0; width:5px;  height:5px;  background:var(--gold);   --op:.2;  animation-duration:10s; animation-delay:4s; }
+    .p21 { left:18%;  bottom:0; width:3px;  height:3px;  background:var(--green);  --op:.25; animation-duration:17s; animation-delay:11s; }
+    .p22 { left:44%;  bottom:0; width:4px;  height:4px;  background:var(--gold);   --op:.3;  animation-duration:21s; animation-delay:2s; }
+    .p23 { left:76%;  bottom:0; width:2px;  height:2px;  background:var(--green2); --op:.38; animation-duration:9s;  animation-delay:8s; }
+    .p24 { left:88%;  bottom:0; width:6px;  height:6px;  background:var(--green);  --op:.15; animation-duration:15s; animation-delay:3s; }
+
+    .hero-eyebrow {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--green2);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .hero-eyebrow.visible { opacity: 1; transform: none; }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 10vw, 8.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.03em;
+      color: var(--fg);
+      text-shadow:
+        0 0 40px rgba(82,183,136,0.45),
+        0 0 80px rgba(82,183,136,0.2),
+        0 0 120px rgba(201,168,76,0.15);
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease 0.15s, transform 1s ease 0.15s;
+    }
+    .hero-title.visible { opacity: 1; transform: none; }
+
+    .hero-tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      color: rgba(240,236,232,0.72);
+      margin-bottom: 48px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s;
+    }
+    .hero-tagline.visible { opacity: 1; transform: none; }
+
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green2), transparent);
+      margin: 0 auto 48px;
+      opacity: 0;
+      transition: opacity 0.8s ease 0.45s;
+    }
+    .hero-divider.visible { opacity: 1; }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
+    }
+    .hero-ctas.visible { opacity: 1; transform: none; }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 15px 36px;
+      background: var(--green2);
+      color: var(--bg);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid var(--green2);
+      transition: background 0.25s, color 0.25s, box-shadow 0.25s;
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--green2);
+      box-shadow: 0 0 24px rgba(82,183,136,0.3);
+    }
+    .btn-secondary {
+      display: inline-block;
+      padding: 15px 36px;
+      background: transparent;
+      color: var(--gold);
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid rgba(201,168,76,0.5);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 24px rgba(201,168,76,0.2);
+    }
+
+    /* ── SCROLL ANIMATION BASE ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 110px 48px;
+    }
+    .section-label {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--green2);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--fg);
+      margin-bottom: 56px;
+    }
+    .section-title .glow {
+      color: var(--green2);
+      text-shadow:
+        0 0 30px rgba(82,183,136,0.5),
+        0 0 60px rgba(82,183,136,0.2);
+    }
+
+    /* ── PRODUCTS SECTION ── */
+    .products {
+      background: var(--bg2);
+      text-align: center;
+    }
+    .products .section-title { margin-bottom: 56px; }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 48px 28px 40px;
+      cursor: default;
+      border: 1px solid rgba(82,183,136,0.15);
+      background: linear-gradient(150deg, #1a0d2e 0%, #0e0814 60%, #0a1a12 100%);
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    /* Shimmer gloss overlay */
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 100%
+      );
+      transform: skewX(-12deg);
+      transition: left 0.55s ease;
+    }
+    .product-card:hover::before {
+      left: 150%;
+    }
+    .product-card:hover {
+      border-color: rgba(82,183,136,0.45);
+      box-shadow: 0 8px 48px rgba(82,183,136,0.12), 0 0 0 1px rgba(82,183,136,0.2);
+      transform: translateY(-4px);
+    }
+
+    /* Product icons — CSS shapes */
+    .product-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    /* Flower icon — starburst */
+    .icon-flower {
+      position: relative;
+    }
+    .icon-flower .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--green);
+      border-radius: 50% 50% 50% 0;
+      top: 50%; left: 50%;
+      transform-origin: 0 0;
+    }
+    .icon-flower .petal:nth-child(1) { transform: rotate(0deg)    translate(-50%,-50%) rotate(-45deg); background:var(--green2); }
+    .icon-flower .petal:nth-child(2) { transform: rotate(60deg)   translate(-50%,-50%) rotate(-45deg); }
+    .icon-flower .petal:nth-child(3) { transform: rotate(120deg)  translate(-50%,-50%) rotate(-45deg); background:var(--green2); }
+    .icon-flower .petal:nth-child(4) { transform: rotate(180deg)  translate(-50%,-50%) rotate(-45deg); }
+    .icon-flower .petal:nth-child(5) { transform: rotate(240deg)  translate(-50%,-50%) rotate(-45deg); background:var(--green2); }
+    .icon-flower .petal:nth-child(6) { transform: rotate(300deg)  translate(-50%,-50%) rotate(-45deg); }
+    .icon-flower-center {
+      position: absolute;
+      width: 16px; height: 16px;
+      background: var(--gold);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    /* Dropper icon — SVG-like CSS */
+    .icon-dropper {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 56px;
+    }
+    .icon-dropper-body {
+      width: 14px;
+      height: 32px;
+      background: linear-gradient(180deg, var(--green2), var(--green));
+      border-radius: 7px 7px 2px 2px;
+      position: relative;
+    }
+    .icon-dropper-body::before {
+      content:'';
+      position:absolute;
+      bottom:-10px; left:50%;
+      transform:translateX(-50%);
+      width:0; height:0;
+      border-left:7px solid transparent;
+      border-right:7px solid transparent;
+      border-top:12px solid var(--green);
+    }
+    .icon-dropper-body::after {
+      content:'';
+      position:absolute;
+      top:-10px; left:50%;
+      transform:translateX(-50%);
+      width:18px; height:10px;
+      background: var(--green2);
+      border-radius:3px 3px 0 0;
+    }
+    .icon-dropper-drop {
+      position:absolute;
+      bottom:-20px; left:50%;
+      transform:translateX(-50%);
+      width:6px; height:8px;
+      background:var(--gold);
+      border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;
+      opacity:.7;
+    }
+
+    /* Leaf icon */
+    .icon-leaf {
+      width:56px; height:56px;
+      position:relative;
+    }
+    .icon-leaf-shape {
+      position:absolute;
+      top:50%; left:50%;
+      width:32px; height:40px;
+      background: linear-gradient(160deg, var(--green2), var(--green));
+      border-radius: 0% 100% 0% 100% / 0% 100% 0% 100%;
+      transform: translate(-50%,-60%) rotate(-20deg);
+    }
+    .icon-leaf-shape::after {
+      content:'';
+      position:absolute;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%) rotate(5deg);
+      width:1px; height:30px;
+      background: rgba(14,8,20,0.4);
+    }
+    .icon-leaf-stem {
+      position:absolute;
+      bottom:2px; left:50%;
+      transform:translateX(-50%) rotate(20deg);
+      width:2px; height:14px;
+      background: var(--green);
+      border-radius:2px;
+      transform-origin: bottom center;
+    }
+
+    .product-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 10px;
+      letter-spacing: -.01em;
+    }
+    .product-desc {
+      font-size: .82rem;
+      color: rgba(240,236,232,0.55);
+      line-height: 1.6;
+    }
+    .product-accent {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--green2);
+      opacity: .7;
+      transition: opacity 0.25s;
+    }
+    .product-card:hover .product-accent { opacity: 1; }
+
+    /* ── EXPERIENCE / STRAINS SECTION ── */
+    .experience {
+      background: var(--bg);
+      padding: 110px 0;
+      overflow: hidden;
+    }
+    .experience-header {
+      padding: 0 48px;
+      margin-bottom: 48px;
+    }
+
+    .strains-scroll-wrapper {
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(82,183,136,0.25) transparent;
+      padding: 8px 48px 24px;
+      cursor: grab;
+      user-select: none;
+    }
+    .strains-scroll-wrapper::-webkit-scrollbar {
+      height: 3px;
+    }
+    .strains-scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .strains-scroll-wrapper::-webkit-scrollbar-thumb {
+      background: rgba(82,183,136,0.3);
+      border-radius: 2px;
+    }
+    .strains-scroll-wrapper.grabbing { cursor: grabbing; }
+
+    .strains-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+    }
+
+    .strain-card {
+      width: 280px;
+      flex-shrink: 0;
+      background: linear-gradient(150deg, #1a0d2e, #0e0814);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 36px 30px 32px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .strain-card:hover {
+      border-color: rgba(var(--strain-rgb),0.45);
+      box-shadow: 0 8px 40px rgba(var(--strain-rgb),0.12);
+    }
+    .strain-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgb(var(--strain-rgb));
+      box-shadow: 0 0 16px rgba(var(--strain-rgb),0.7), 0 0 40px rgba(var(--strain-rgb),0.3);
+      margin-bottom: 20px;
+    }
+    .strain-type {
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgb(var(--strain-rgb));
+      margin-bottom: 8px;
+    }
+    .strain-name {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--fg);
+      letter-spacing: -.01em;
+      margin-bottom: 14px;
+    }
+    .strain-flavour {
+      font-size: .8rem;
+      color: rgba(240,236,232,0.5);
+      margin-bottom: 20px;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .strain-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .strain-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(var(--strain-rgb),0.3);
+      font-size: .6rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgb(var(--strain-rgb));
+      background: rgba(var(--strain-rgb),0.08);
+    }
+
+    /* ── OUR STORY SECTION ── */
+    .story {
+      background: var(--bg2);
+    }
+    .story-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .story-stat {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--green2);
+      text-shadow:
+        0 0 30px rgba(82,183,136,0.4),
+        0 0 70px rgba(82,183,136,0.15);
+      letter-spacing: -.02em;
+      border-left: 3px solid var(--green2);
+      padding-left: 28px;
+      margin-top: 48px;
+    }
+    .story-stat-label {
+      display: block;
+      font-family: var(--sans);
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(240,236,232,0.45);
+      margin-top: 12px;
+    }
+    .story-right .section-label { margin-top: 0; }
+    .story-right .section-title { margin-bottom: 24px; }
+    .story-body p {
+      font-size: .9rem;
+      color: rgba(240,236,232,0.65);
+      margin-bottom: 18px;
+      line-height: 1.8;
+    }
+
+    .testimonial {
+      margin-top: 48px;
+      padding: 28px 32px;
+      background: rgba(82,183,136,0.05);
+      border: 1px solid rgba(82,183,136,0.15);
+      border-radius: 10px;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .star {
+      width: 14px;
+      height: 14px;
+      background: var(--gold);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+    .testimonial-text {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: .95rem;
+      color: rgba(240,236,232,0.8);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .testimonial-author {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--green2);
+    }
+
+    /* ── CONSULTATION SECTION ── */
+    .consultation {
+      background: var(--bg);
+      text-align: center;
+    }
+    .consult-card {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 64px 56px;
+      border-radius: 16px;
+      border: 1px solid rgba(82,183,136,0.25);
+      background: linear-gradient(150deg, #160d20, #0e0814);
+      box-shadow:
+        0 0 0 1px rgba(82,183,136,0.08),
+        0 0 80px rgba(82,183,136,0.07),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      animation: glow-pulse 4s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(82,183,136,0.08), 0 0 60px rgba(82,183,136,0.07), inset 0 1px 0 rgba(255,255,255,0.04); }
+      50%       { box-shadow: 0 0 0 1px rgba(82,183,136,0.2),  0 0 100px rgba(82,183,136,0.14), inset 0 1px 0 rgba(255,255,255,0.04); }
+    }
+    .consult-card .section-label { margin-bottom: 12px; }
+    .consult-card .section-title {
+      margin-bottom: 12px;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    }
+    .consult-subtitle {
+      font-size: .9rem;
+      color: rgba(240,236,232,0.5);
+      margin-bottom: 40px;
+    }
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(82,183,136,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    /* Phone icon */
+    .ci-phone {
+      width: 12px; height: 12px;
+      border: 2px solid var(--green2);
+      border-radius: 2px;
+      position: relative;
+    }
+    .ci-phone::before {
+      content:'';
+      position:absolute;
+      top:-4px; left:50%;
+      transform:translateX(-50%);
+      width:6px; height:4px;
+      background:var(--bg);
+      border:2px solid var(--green2);
+      border-bottom:none;
+      border-radius:3px 3px 0 0;
+    }
+    /* Mail icon */
+    .ci-mail {
+      width: 14px; height: 10px;
+      border: 2px solid var(--green2);
+      border-radius: 2px;
+      position: relative;
+    }
+    .ci-mail::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0;
+      height:0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 6px solid var(--green2);
+    }
+    /* Pin icon */
+    .ci-pin {
+      width: 10px; height: 14px;
+      border: 2px solid var(--green2);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: relative;
+    }
+    .ci-pin::after {
+      content:'';
+      position:absolute;
+      bottom:-5px; left:50%;
+      transform:translateX(-50%);
+      width:0; height:0;
+      border-left:4px solid transparent;
+      border-right:4px solid transparent;
+      border-top:5px solid var(--green2);
+    }
+    .contact-text {
+      font-size: .82rem;
+      color: rgba(240,236,232,0.6);
+      text-align: left;
+    }
+    .contact-text strong {
+      display: block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(240,236,232,0.3);
+      margin-bottom: 2px;
+    }
+
+    /* Visual form */
+    .consult-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-label {
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(240,236,232,0.4);
+    }
+    .form-input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: var(--fg);
+      font-size: .85rem;
+      font-family: var(--sans);
+      pointer-events: none;
+      outline: none;
+    }
+    .form-input::placeholder { color: rgba(240,236,232,0.25); }
+    .form-submit {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, var(--green2), var(--green));
+      color: var(--bg);
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      cursor: default;
+      transition: box-shadow 0.3s;
+    }
+    .consult-card:hover .form-submit {
+      box-shadow: 0 4px 32px rgba(82,183,136,0.4);
+    }
+    .form-note {
+      font-size: .68rem;
+      color: rgba(240,236,232,0.3);
+      margin-top: 14px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--bdr2);
+      padding: 36px 48px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(240,236,232,0.45);
+      margin-bottom: 12px;
+    }
+    .footer-text {
+      font-size: .7rem;
+      color: rgba(240,236,232,0.3);
+      letter-spacing: .04em;
+    }
+    .footer-text a {
+      color: var(--green2);
+      text-decoration: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      section { padding: 80px 28px; }
+      .products .section-title { margin-bottom: 40px; }
+      .product-grid { grid-template-columns: 1fr; max-width: 380px; }
+      .story-inner { grid-template-columns: 1fr; gap: 40px; }
+      .story-stat { margin-top: 0; }
+      .consult-card { padding: 44px 28px; }
+      .consult-form { grid-template-columns: 1fr; }
+      .form-field.full { grid-column: 1; }
+      .experience-header { padding: 0 28px; }
+      .strains-scroll-wrapper { padding: 8px 28px 24px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 14px 24px; top: 40px; }
+      .wsd-banner { font-size: .55rem; padding: 10px 16px; }
+      .hero { padding: 160px 24px 80px; }
+      .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+      .contact-info { gap: 20px; flex-direction: column; align-items: center; }
+      footer { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WSD Demo Banner -->
+  <div class="wsd-banner">
+    WSD Demo &mdash; This is a design showcase by <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a>. All content is fictional and for demonstration purposes only. &middot; whitespacedesigns.co.za
+  </div>
+
+  <!-- Sticky Nav -->
+  <nav>
+    <a class="nav-wordmark" href="#hero">Verde <span>Co.</span></a>
+    <a class="nav-cta" href="#consultation">Book Consultation</a>
+  </nav>
+
+  <!-- 1. HERO -->
+  <section class="hero" id="hero">
+    <!-- Animated Particles -->
+    <div class="particles" aria-hidden="true">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+      <div class="particle p6"></div>
+      <div class="particle p7"></div>
+      <div class="particle p8"></div>
+      <div class="particle p9"></div>
+      <div class="particle p10"></div>
+      <div class="particle p11"></div>
+      <div class="particle p12"></div>
+      <div class="particle p13"></div>
+      <div class="particle p14"></div>
+      <div class="particle p15"></div>
+      <div class="particle p16"></div>
+      <div class="particle p17"></div>
+      <div class="particle p18"></div>
+      <div class="particle p19"></div>
+      <div class="particle p20"></div>
+      <div class="particle p21"></div>
+      <div class="particle p22"></div>
+      <div class="particle p23"></div>
+      <div class="particle p24"></div>
+    </div>
+
+    <div class="hero-eyebrow reveal">Premium Lifestyle Cannabis</div>
+    <h1 class="hero-title reveal reveal-delay-1">Verde Co.</h1>
+    <div class="hero-divider reveal reveal-delay-2"></div>
+    <p class="hero-tagline reveal reveal-delay-2">Grown with intention. Enjoyed with purpose.</p>
+    <div class="hero-ctas reveal reveal-delay-3">
+      <a class="btn-primary" href="#products">Explore Range</a>
+      <a class="btn-secondary" href="#consultation">Book Consultation</a>
+    </div>
+  </section>
+
+  <!-- 2. PRODUCTS -->
+  <section class="products" id="products">
+    <div class="section-label reveal">Our Offering</div>
+    <h2 class="section-title reveal reveal-delay-1">Our <span class="glow">Range</span></h2>
+
+    <div class="product-grid">
+
+      <!-- Card 1: Flower -->
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-icon">
+          <div class="icon-flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="icon-flower-center"></div>
+          </div>
+        </div>
+        <div class="product-name">Flower</div>
+        <div class="product-desc">Artisanally cultivated premium flower, hand-trimmed and slow-cured for full-spectrum expression.</div>
+        <div class="product-accent">Explore Strains &rarr;</div>
+      </div>
+
+      <!-- Card 2: Oils & Tinctures -->
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-icon">
+          <div class="icon-dropper">
+            <div class="icon-dropper-body">
+              <div class="icon-dropper-drop"></div>
+            </div>
+          </div>
+        </div>
+        <div class="product-name">Oils &amp; Tinctures</div>
+        <div class="product-desc">Precision-dosed full-plant extracts in MCT oil — designed for consistent, bioavailable relief.</div>
+        <div class="product-accent">View Collection &rarr;</div>
+      </div>
+
+      <!-- Card 3: Wellness Blends -->
+      <div class="product-card reveal reveal-delay-3">
+        <div class="product-icon">
+          <div class="icon-leaf">
+            <div class="icon-leaf-shape"></div>
+            <div class="icon-leaf-stem"></div>
+          </div>
+        </div>
+        <div class="product-name">Wellness Blends</div>
+        <div class="product-desc">Thoughtfully formulated blends combining cannabinoids with adaptogenic botanicals for whole-body balance.</div>
+        <div class="product-accent">Discover More &rarr;</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. THE EXPERIENCE — Horizontal Scroll Strains -->
+  <section class="experience" id="experience">
+    <div class="experience-header">
+      <div class="section-label reveal">The Experience</div>
+      <h2 class="section-title reveal reveal-delay-1">Select Your <span class="glow">Effect</span></h2>
+    </div>
+
+    <div class="strains-scroll-wrapper" id="strains-scroll">
+      <div class="strains-track">
+
+        <!-- Indica -->
+        <div class="strain-card" style="--strain-rgb:130,80,200;">
+          <div class="strain-dot"></div>
+          <div class="strain-type">Indica</div>
+          <div class="strain-name">Velvet Dusk</div>
+          <div class="strain-flavour">Dark cherry, sandalwood &amp; warm earth. A slow, enveloping finish.</div>
+          <div class="strain-tags">
+            <span class="strain-tag">Relaxing</span>
+            <span class="strain-tag">Sleep</span>
+            <span class="strain-tag">Deep Body</span>
+          </div>
+        </div>
+
+        <!-- Sativa -->
+        <div class="strain-card" style="--strain-rgb:82,183,136;">
+          <div class="strain-dot"></div>
+          <div class="strain-type">Sativa</div>
+          <div class="strain-name">Solar Thread</div>
+          <div class="strain-flavour">Bright citrus, green herb &amp; a crisp mineral finish. Clean and expansive.</div>
+          <div class="strain-tags">
+            <span class="strain-tag">Uplifting</span>
+            <span class="strain-tag">Creative</span>
+            <span class="strain-tag">Energising</span>
+          </div>
+        </div>
+
+        <!-- Hybrid -->
+        <div class="strain-card" style="--strain-rgb:201,168,76;">
+          <div class="strain-dot"></div>
+          <div class="strain-type">Hybrid</div>
+          <div class="strain-name">Amber Equinox</div>
+          <div class="strain-flavour">Stone fruit, vanilla &amp; pine resin. Balanced onset with a grounded landing.</div>
+          <div class="strain-tags">
+            <span class="strain-tag">Focused</span>
+            <span class="strain-tag">Balanced</span>
+            <span class="strain-tag">Social</span>
+          </div>
+        </div>
+
+        <!-- CBD -->
+        <div class="strain-card" style="--strain-rgb:180,210,200;">
+          <div class="strain-dot"></div>
+          <div class="strain-type">High CBD</div>
+          <div class="strain-name">Still Waters</div>
+          <div class="strain-flavour">Soft lavender, chamomile &amp; light cedar. Gentle, clear-headed and grounding.</div>
+          <div class="strain-tags">
+            <span class="strain-tag">Calming</span>
+            <span class="strain-tag">Non-Psychoactive</span>
+            <span class="strain-tag">Daily Use</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. OUR STORY -->
+  <section class="story" id="story">
+    <div class="story-inner">
+
+      <!-- Left: Stat -->
+      <div>
+        <div class="story-stat reveal">
+          "92% of our clients report improved sleep quality within the first two weeks."
+          <span class="story-stat-label">Verde Co. Client Wellness Survey, 2025 — 340 respondents</span>
+        </div>
+
+        <div class="testimonial reveal reveal-delay-2" style="margin-top:48px;">
+          <div class="testimonial-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <div class="testimonial-text">"Verde Co. changed how I think about wellness. The Still Waters blend is part of my nightly ritual now. Nothing else has worked this consistently."</div>
+          <div class="testimonial-author">Nadia V. &mdash; Johannesburg</div>
+        </div>
+      </div>
+
+      <!-- Right: Story copy -->
+      <div class="story-right">
+        <div class="section-label reveal">Our Philosophy</div>
+        <h2 class="section-title reveal reveal-delay-1">Crafted with <span class="glow">Purpose</span></h2>
+        <div class="story-body reveal reveal-delay-2">
+          <p>Verde Co. was founded on a simple belief: that plant medicine deserves the same care and intention as the finest food or wine. Every strain we carry is cultivated by small-scale, licensed growers who share our commitment to sustainable practices and full-spectrum quality.</p>
+          <p>We don't chase trends. We work with what the plant gives us — refining, testing, and curating until we are confident that what reaches you is exactly what we would give to someone we love. Wellness is not a product. It is a practice. We are here to help you build yours.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 5. BOOK A CONSULTATION -->
+  <section class="consultation" id="consultation">
+    <div class="consult-card reveal">
+      <div class="section-label">Expert Guidance</div>
+      <h2 class="section-title">Speak to a Wellness<br /><span class="glow">Consultant</span></h2>
+      <p class="consult-subtitle">Our team will help you find the right product and approach for your goals.</p>
+
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <div class="ci-phone"></div>
+          </div>
+          <div class="contact-text">
+            <strong>Call Us</strong>
+            010 345 6789
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <div class="ci-mail"></div>
+          </div>
+          <div class="contact-text">
+            <strong>Email</strong>
+            hello@verdeco.co.za
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <div class="ci-pin"></div>
+          </div>
+          <div class="contact-text">
+            <strong>Locations</strong>
+            Johannesburg &amp; Cape Town
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Form -->
+      <div class="consult-form">
+        <div class="form-field">
+          <label class="form-label">Full Name</label>
+          <div class="form-input" aria-hidden="true">Your name</div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Email Address</label>
+          <div class="form-input" aria-hidden="true">your@email.com</div>
+        </div>
+        <div class="form-field full">
+          <label class="form-label">Area of Interest</label>
+          <div class="form-input" aria-hidden="true">Sleep &middot; Anxiety &middot; Pain Management &middot; General Wellness</div>
+        </div>
+      </div>
+      <div class="form-submit">Request Consultation</div>
+      <p class="form-note">Visual form only &mdash; this is a design demonstration</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Verde Co.</div>
+    <p class="footer-text">
+      &copy; 2026 Verde Co. &mdash; WSD Demo by <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a> &middot; All content fictional
+    </p>
+  </footer>
+
+  <script>
+    (function () {
+      // Scroll animations via IntersectionObserver
+      const revealEls = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealEls.forEach(function (el) { observer.observe(el); });
+      } else {
+        // Fallback for older browsers
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+      }
+
+      // Trigger hero reveals immediately
+      setTimeout(function () {
+        document.querySelectorAll('.hero .reveal').forEach(function (el) {
+          el.classList.add('visible');
+        });
+      }, 100);
+
+      // Horizontal drag-to-scroll for strains
+      var scrollEl = document.getElementById('strains-scroll');
+      if (scrollEl) {
+        var isDragging = false;
+        var startX = 0;
+        var scrollLeft = 0;
+
+        scrollEl.addEventListener('mousedown', function (e) {
+          isDragging = true;
+          scrollEl.classList.add('grabbing');
+          startX = e.pageX - scrollEl.offsetLeft;
+          scrollLeft = scrollEl.scrollLeft;
+        });
+        document.addEventListener('mouseup', function () {
+          isDragging = false;
+          scrollEl.classList.remove('grabbing');
+        });
+        scrollEl.addEventListener('mousemove', function (e) {
+          if (!isDragging) return;
+          e.preventDefault();
+          var x = e.pageX - scrollEl.offsetLeft;
+          var walk = (x - startX) * 1.4;
+          scrollEl.scrollLeft = scrollLeft - walk;
+        });
+        scrollEl.addEventListener('mouseleave', function () {
+          isDragging = false;
+          scrollEl.classList.remove('grabbing');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
