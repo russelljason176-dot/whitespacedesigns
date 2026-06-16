@@ -1051,7 +1051,7 @@
     }
     @media (max-width: 768px) {
       .pain-strip { padding: 24px 0 8px; background: none; border: none; }
-      .pain-strip .wrap { padding: 0; max-width: none; overflow: hidden; }
+      .pain-strip .wrap { padding: 0; max-width: none; overflow-x: hidden; overflow-y: visible; }
       .pain-inner {
         display: flex;
         flex-direction: row;
@@ -1060,24 +1060,32 @@
         grid-template-columns: none;
         will-change: transform;
         transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+        align-items: stretch;
       }
       .pain-stat {
         min-width: 100vw;
+        width: 100vw;
         box-sizing: border-box;
         flex-shrink: 0;
-        padding: 4px 20px;
+        padding: 6px 20px;
         border: none !important;
         border-bottom: none !important;
         border-right: none !important;
+        display: flex;
+        align-items: stretch;
       }
       .pain-card-inner {
         background: rgba(255,59,48,0.04);
         border: 1px solid rgba(255,59,48,0.2);
         border-radius: 16px;
         padding: 28px 24px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        word-break: break-word;
       }
       .pain-n { font-size: 2.8rem; }
-      .pain-l { font-size: .85rem; }
+      .pain-l { font-size: .85rem; line-height: 1.6; }
       .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
       .wc-inner {
         animation: none !important;
