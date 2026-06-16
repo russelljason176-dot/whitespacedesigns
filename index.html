@@ -3352,15 +3352,25 @@ function cookieConsent(accepted) {
 
   // Touch swipe
   var tx0 = 0;
-  inner.addEventListener('touchstart', function(e){ tx0 = e.touches[0].clientX; }, {passive:true});
+  inner.addEventListener('touchstart', function(e){ tx0 = e.touches[0].clientX; resetAuto(); }, {passive:true});
   inner.addEventListener('touchend',   function(e){
     var dx = tx0 - e.changedTouches[0].clientX;
     if (Math.abs(dx) > 40) goTo(dx > 0 ? cur + 1 : cur - 1);
+    resetAuto();
   }, {passive:true});
+
+  // Auto-play
+  var autoTimer;
+  function startAuto() { autoTimer = setInterval(function(){ goTo(cur + 1); }, 3500); }
+  function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+  prevBtn.addEventListener('click', function(){ resetAuto(); });
+  nextBtn.addEventListener('click', function(){ resetAuto(); });
 
   // Init
   setPos(cur, false);
   updateDots();
+  startAuto();
 })();
 </script>
 
