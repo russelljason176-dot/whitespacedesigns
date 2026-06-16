@@ -1060,32 +1060,36 @@
         grid-template-columns: none;
         will-change: transform;
         transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
-        align-items: stretch;
       }
       .pain-stat {
         min-width: 100vw;
         width: 100vw;
         box-sizing: border-box;
         flex-shrink: 0;
-        padding: 6px 20px;
+        padding: 4px 20px;
         border: none !important;
         border-bottom: none !important;
         border-right: none !important;
-        display: flex;
-        align-items: stretch;
       }
       .pain-card-inner {
-        background: rgba(255,59,48,0.04);
-        border: 1px solid rgba(255,59,48,0.2);
-        border-radius: 16px;
-        padding: 28px 24px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--bdr);
+        border-radius: 12px;
+        padding: 32px 28px 36px;
+        position: relative;
+        overflow: hidden;
         width: 100%;
         box-sizing: border-box;
-        overflow: hidden;
-        word-break: break-word;
       }
-      .pain-n { font-size: 2.8rem; }
-      .pain-l { font-size: .85rem; line-height: 1.6; }
+      .pain-card-inner::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: var(--red);
+      }
+      .pain-n { font-size: 3.8rem; color: rgba(255,59,48,0.45); line-height: 1; margin-bottom: 16px; }
+      .pain-l { font-size: .88rem; color: var(--mt); line-height: 1.85; }
       .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
       .wc-inner {
         animation: none !important;
