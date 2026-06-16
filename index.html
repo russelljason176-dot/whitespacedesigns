@@ -1086,6 +1086,8 @@
         display: flex;
         gap: 14px;
         overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         padding-bottom: 4px;
       }
@@ -1094,9 +1096,10 @@
         position: relative;
         transform: none !important;
         flex-shrink: 0;
-        width: 220px;
-        height: 290px;
+        width: 75vw;
+        height: 300px;
         inset: auto;
+        scroll-snap-align: center;
       }
       .wc-link { color: rgba(255,255,255,0.6); }
     }
@@ -1629,9 +1632,9 @@
 
       .scroll-ind { display: none; }
 
-      .svc-row { grid-template-columns: 32px 1fr; gap: 8px 16px; padding: 20px 0; align-items: start; }
-      .svc-desc { display: none; }
-      .svc-quote { grid-column: 2; text-align: left; }
+      .svc-row { grid-template-columns: 32px 1fr; gap: 6px 16px; padding: 20px 0; align-items: start; }
+      .svc-desc { display: block; grid-column: 2; font-size: .82rem; margin-top: 10px; color: var(--mt); line-height: 1.65; }
+      .svc-quote { grid-column: 2; text-align: left; margin-top: 10px; }
       .svc-tags { margin-top: 6px; }
       .svc-tag { font-size: .55rem; padding: 3px 8px; }
 
@@ -1729,6 +1732,28 @@
       /* 6. Tighter section spacing */
       section { padding: 56px 0 !important; }
       .s-head { margin-bottom: 36px !important; }
+
+      /* 7. Hero buttons — full width + stacked */
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .animated-button { width: 100%; justify-content: center; text-align: center; }
+      .hero-actions .sparkle-btn { width: 100%; text-align: center; justify-content: center; }
+      .sparkle-btn .text_button { width: 100%; text-align: center; }
+
+      /* 8. Process — reduce step number spacing */
+      .proc-n { margin-bottom: 14px; }
+      .proc-cell h3 { font-size: .95rem; }
+
+      /* 9. About stats — 2-col grid on all mobile */
+      .abt-card-bottom { grid-template-columns: 1fr 1fr; }
+      .abt-stat:last-child { grid-column: 1 / -1; border-right: none; border-top: 1px solid var(--bdr); }
+
+      /* 10. Contact form — bigger touch targets */
+      .f-g input, .f-g textarea, .f-g select { padding: 16px; font-size: .95rem; }
+
+      /* 11. Footer social buttons — bigger tap area */
+      .ft-soc { padding: 12px 20px; }
+      .ft-links { gap: 16px; }
+      .ft-links a { font-size: .9rem; }
     }
 
     /* 7. Contact picker — bottom sheet (all screens, hides on desktop) */
@@ -3201,35 +3226,80 @@ function cookieConsent(accepted) {
 </script>
 
 <script>
-// Pain strip: swipe dots indicator on mobile
+// Pain strip: carousel with prev/next buttons + dots (mobile only)
 (function(){
   if (window.innerWidth > 768) return;
   var inner = document.querySelector('.pain-inner');
   var strip = document.querySelector('.pain-strip');
   if (!inner || !strip) return;
-  var cards = inner.querySelectorAll('.pain-stat');
+  var cards = Array.from(inner.querySelectorAll('.pain-stat'));
   if (cards.length < 2) return;
 
-  var dots = document.createElement('div');
-  dots.style.cssText = 'display:flex;justify-content:center;gap:6px;padding:10px 0 4px;';
+  var current = 0;
+
+  function goTo(idx) {
+    idx = ((idx % cards.length) + cards.length) % cards.length;
+    current = idx;
+    var card = cards[idx];
+    var target = card.offsetLeft - (inner.offsetWidth - card.offsetWidth) / 2;
+    inner.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+    updateUI();
+  }
+
+  function updateUI() {
+    dotEls.forEach(function(d, i) {
+      d.style.background = i === current ? 'var(--red)' : 'rgba(255,255,255,0.18)';
+      d.style.transform  = i === current ? 'scale(1.3)' : 'scale(1)';
+    });
+  }
+
+  // Controls row
+  var ctrl = document.createElement('div');
+  ctrl.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:16px;padding:14px 0 2px;';
+
+  function makeBtn(label) {
+    var b = document.createElement('button');
+    b.innerHTML = label;
+    b.style.cssText = 'width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background .15s,border-color .15s;';
+    b.addEventListener('touchstart', function(){ this.style.background='rgba(255,59,48,.15)'; this.style.borderColor='rgba(255,59,48,.4)'; }, { passive:true });
+    b.addEventListener('touchend',   function(){ this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,.15)'; }, { passive:true });
+    return b;
+  }
+
+  var prevBtn = makeBtn('←');
+  var nextBtn = makeBtn('→');
+
+  // Dots
+  var dotsWrap = document.createElement('div');
+  dotsWrap.style.cssText = 'display:flex;gap:6px;align-items:center;';
   for (var i = 0; i < cards.length; i++) {
     var d = document.createElement('span');
     d.style.cssText = 'width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.18);transition:background .2s,transform .2s;display:block;';
-    dots.appendChild(d);
+    dotsWrap.appendChild(d);
   }
-  strip.appendChild(dots);
+  var dotEls = dotsWrap.querySelectorAll('span');
 
-  var dotEls = dots.querySelectorAll('span');
-  dotEls[0].style.background = 'var(--red)';
-  dotEls[0].style.transform = 'scale(1.3)';
+  prevBtn.addEventListener('click', function(){ goTo(current - 1); });
+  nextBtn.addEventListener('click', function(){ goTo(current + 1); });
 
+  ctrl.appendChild(prevBtn);
+  ctrl.appendChild(dotsWrap);
+  ctrl.appendChild(nextBtn);
+  strip.appendChild(ctrl);
+
+  // Sync dots on manual swipe
   inner.addEventListener('scroll', function(){
-    var idx = Math.round(inner.scrollLeft / (cards[0].offsetWidth + 12));
-    dotEls.forEach(function(d,i){
-      d.style.background = i===idx ? 'var(--red)' : 'rgba(255,255,255,0.18)';
-      d.style.transform = i===idx ? 'scale(1.3)' : 'scale(1)';
+    var idx = 0, minDist = Infinity;
+    cards.forEach(function(c, i){
+      var center = c.offsetLeft + c.offsetWidth / 2;
+      var dist = Math.abs(inner.scrollLeft + inner.offsetWidth / 2 - center);
+      if (dist < minDist) { minDist = dist; idx = i; }
     });
+    current = idx;
+    updateUI();
   }, { passive: true });
+
+  updateUI();
 })();
 </script>
 
