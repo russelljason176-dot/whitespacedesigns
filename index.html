@@ -3242,87 +3242,75 @@ function cookieConsent(accepted) {
 </script>
 
 <script>
-// Pain strip: looping transform carousel (mobile only)
+// Pain strip: continuous scrolling loop, stops on button/swipe (mobile only)
 (function(){
   if (window.innerWidth > 768) return;
   var inner = document.querySelector('.pain-inner');
   var strip = document.querySelector('.pain-strip');
   if (!inner || !strip) return;
 
-  var cards = Array.from(inner.querySelectorAll('.pain-stat'));
-  var n = cards.length;
+  var origCards = Array.from(inner.querySelectorAll('.pain-stat'));
+  var n = origCards.length;
   if (n < 2) return;
 
   // Wrap each card's content in a visual card div
-  cards.forEach(function(card) {
+  origCards.forEach(function(card) {
     var wrap = document.createElement('div');
     wrap.className = 'pain-card-inner';
     while (card.firstChild) wrap.appendChild(card.firstChild);
     card.appendChild(wrap);
   });
 
-  // Clone first + last for seamless loop: [last, 0,1,2,3, first]
-  var cloneFirst = cards[0].cloneNode(true);
-  var cloneLast  = cards[n-1].cloneNode(true);
-  cloneFirst.setAttribute('aria-hidden','true');
-  cloneLast.setAttribute('aria-hidden','true');
-  inner.appendChild(cloneFirst);
-  inner.insertBefore(cloneLast, cards[0]);
+  // Clone all cards and append for seamless loop
+  origCards.forEach(function(card) {
+    var clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden','true');
+    inner.appendChild(clone);
+  });
 
-  // All slots: [cloneLast, card0, card1, card2, card3, cloneFirst]
-  var slots = Array.from(inner.querySelectorAll('.pain-stat'));
-  var total = slots.length; // n + 2
-  var cur = 1; // start at real first card
-  var jumping = false;
+  var cardW  = window.innerWidth;
+  var totalW = n * cardW;
+  var pos    = 0;
+  var paused = false;
+  var cur    = 0;
 
-  function setPos(idx, animate) {
-    inner.style.transition = animate ? 'transform 0.38s cubic-bezier(0.4,0,0.2,1)' : 'none';
-    inner.style.transform  = 'translateX(-' + (idx * 100) + 'vw)';
+  inner.style.transition = 'none';
+
+  function tick() {
+    if (!paused) {
+      pos += 1.2;
+      if (pos >= totalW) pos -= totalW;
+      inner.style.transform = 'translateX(-' + pos + 'px)';
+    }
+    requestAnimationFrame(tick);
   }
 
-  function realIdx() {
-    var r = cur - 1;
-    if (r < 0) r = n - 1;
-    if (r >= n) r = 0;
-    return r;
+  function nearestCard() {
+    return Math.round(pos / cardW) % n;
+  }
+
+  function snapTo(idx) {
+    paused = true;
+    cur = ((idx % n) + n) % n;
+    pos = cur * cardW;
+    inner.style.transition = 'transform 0.4s cubic-bezier(0.4,0,0.2,1)';
+    inner.style.transform  = 'translateX(-' + pos + 'px)';
+    setTimeout(function(){ inner.style.transition = 'none'; }, 420);
+    updateDots();
   }
 
   function updateDots() {
-    var r = realIdx();
     dotEls.forEach(function(d, i){
-      d.style.background = i===r ? 'var(--red)' : 'rgba(255,255,255,.18)';
-      d.style.transform  = i===r ? 'scale(1.3)' : 'scale(1)';
+      var on = paused && i === cur;
+      d.style.background = on ? 'var(--red)' : 'rgba(255,255,255,.18)';
+      d.style.transform  = on ? 'scale(1.3)' : 'scale(1)';
     });
   }
 
-  function goTo(idx) {
-    if (jumping) return;
-    cur = idx;
-    setPos(cur, true);
-    updateDots();
-  }
-
-  // After transition: if on a clone, silently jump to the real card
-  inner.addEventListener('transitionend', function(){
-    if (cur === 0) {
-      jumping = true;
-      cur = n;
-      setPos(cur, false);
-      setTimeout(function(){ jumping = false; }, 50);
-    } else if (cur === total - 1) {
-      jumping = true;
-      cur = 1;
-      setPos(cur, false);
-      setTimeout(function(){ jumping = false; }, 50);
-    }
-    updateDots();
-  });
-
-  // Buttons
   function makeBtn(html) {
     var b = document.createElement('button');
     b.innerHTML = html;
-    b.style.cssText = 'width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;flex-shrink:0;';
+    b.style.cssText = 'width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;flex-shrink:0;';
     b.addEventListener('touchstart', function(){ this.style.background='rgba(255,59,48,.15)'; this.style.borderColor='rgba(255,59,48,.5)'; },{passive:true});
     b.addEventListener('touchend',   function(){ this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,.15)'; },{passive:true});
     return b;
@@ -3330,8 +3318,9 @@ function cookieConsent(accepted) {
 
   var prevBtn = makeBtn('&#8592;');
   var nextBtn = makeBtn('&#8594;');
-  prevBtn.addEventListener('click', function(){ goTo(cur - 1); });
-  nextBtn.addEventListener('click', function(){ goTo(cur + 1); });
+
+  prevBtn.addEventListener('click', function(){ snapTo(paused ? cur - 1 : nearestCard() - 1); });
+  nextBtn.addEventListener('click', function(){ snapTo(paused ? cur + 1 : nearestCard() + 1); });
 
   // Dots
   var dotsWrap = document.createElement('div');
@@ -3350,27 +3339,16 @@ function cookieConsent(accepted) {
   ctrl.appendChild(nextBtn);
   strip.appendChild(ctrl);
 
-  // Touch swipe
+  // Touch swipe also stops + navigates
   var tx0 = 0;
-  inner.addEventListener('touchstart', function(e){ tx0 = e.touches[0].clientX; resetAuto(); }, {passive:true});
-  inner.addEventListener('touchend',   function(e){
+  inner.addEventListener('touchstart', function(e){ tx0 = e.touches[0].clientX; },{passive:true});
+  inner.addEventListener('touchend', function(e){
     var dx = tx0 - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 40) goTo(dx > 0 ? cur + 1 : cur - 1);
-    resetAuto();
-  }, {passive:true});
+    if (Math.abs(dx) > 40) snapTo(paused ? cur + (dx>0?1:-1) : nearestCard() + (dx>0?1:-1));
+  },{passive:true});
 
-  // Auto-play
-  var autoTimer;
-  function startAuto() { autoTimer = setInterval(function(){ goTo(cur + 1); }, 3500); }
-  function resetAuto() { clearInterval(autoTimer); startAuto(); }
-
-  prevBtn.addEventListener('click', function(){ resetAuto(); });
-  nextBtn.addEventListener('click', function(){ resetAuto(); });
-
-  // Init
-  setPos(cur, false);
   updateDots();
-  startAuto();
+  tick();
 })();
 </script>
 
