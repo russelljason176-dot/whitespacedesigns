@@ -1763,10 +1763,12 @@
     .cpicker-cal:active { background: rgba(255,59,48,0.08); }
     @media (min-width: 769px) { .cpicker-overlay, .cpicker-sheet { display: none !important; } }
 
-    /* ── Vibrate — Book a Free Call ── */
+    /* ── Vibrate — Book a Free Call (mobile only) ── */
+    @media (max-width: 768px) {
     .hero-actions .animated-button {
       -webkit-animation: vibrate-1 0.3s linear infinite both;
               animation: vibrate-1 0.3s linear infinite both;
+    }
     }
     @-webkit-keyframes vibrate-1 {
       0%  { -webkit-transform: translate(0);        transform: translate(0); }
