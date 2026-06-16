@@ -1050,11 +1050,25 @@
       margin-top: 18px;
     }
     @media (max-width: 768px) {
-      .pain-inner { grid-template-columns: 1fr 1fr; }
-      .pain-stat { border-right: none; border-bottom: 1px solid var(--bdr); padding: 24px 0; }
-      .pain-stat:nth-child(odd) { border-right: 1px solid var(--bdr); padding-right: 24px; }
-      .pain-stat:last-child { border-bottom: none; }
-      .pain-stat:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+      .pain-strip { padding: 0; }
+      .pain-strip .wrap { padding: 0; max-width: none; overflow: hidden; }
+      .pain-inner {
+        display: flex;
+        flex-direction: row;
+        width: max-content;
+        animation: pain-mq 22s linear infinite;
+        grid-template-columns: none;
+      }
+      .pain-inner:hover { animation-play-state: paused; }
+      .pain-stat {
+        width: 72vw;
+        padding: 32px 28px;
+        border-right: 1px solid var(--bdr);
+        border-bottom: none;
+        flex-shrink: 0;
+      }
+      .pain-stat:last-child { border-right: 1px solid var(--bdr); }
+      @keyframes pain-mq { to { transform: translateX(-50%); } }
       .wc-wrap { height: auto; overflow: visible; padding-bottom: 16px; }
       .wc-inner {
         animation: none !important;
@@ -3043,6 +3057,17 @@ function cookieConsent(accepted) {
   }
   el.innerHTML = html;
 })();
+</script>
+
+<script>
+// Mobile pain strip marquee — clone cards for seamless loop
+if (window.innerWidth <= 768) {
+  var painInner = document.querySelector('.pain-inner');
+  if (painInner) {
+    var stats = Array.from(painInner.querySelectorAll('.pain-stat'));
+    stats.forEach(function(s) { painInner.appendChild(s.cloneNode(true)); });
+  }
+}
 </script>
 
 </body>
