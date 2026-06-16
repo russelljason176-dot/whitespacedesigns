@@ -900,26 +900,54 @@
     .proc-cta { margin-top: 48px; }
 
     /* ─── AGENT CARDS ─────────────────────────────────────── */
+    .agt-3d-wrap { display: none; }
     .agt-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
     .agt-card {
-      background: rgba(255,255,255,0.025);
+      position: relative;
+      background: rgba(255,255,255,0.02);
       border: 1px solid var(--bdr);
-      border-radius: 10px;
-      padding: 28px 22px;
-      transition: background 0.2s, border-color 0.2s;
+      border-radius: 14px;
+      padding: 28px 22px 24px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s;
     }
-    .agt-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+    .agt-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0.3);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .agt-card:hover { border-color: rgba(255,59,48,0.22); background: rgba(255,59,48,0.025); }
+    .agt-card:hover::before { transform: scaleX(1); }
+    .agt-bg-num {
+      position: absolute;
+      bottom: -0.15em; right: -0.05em;
+      font-size: 7.5rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.035);
+      line-height: 1;
+      letter-spacing: -.05em;
+      user-select: none;
+      pointer-events: none;
+    }
     .agt-n {
       font-family: var(--mono);
-      font-size: .58rem;
+      font-size: .55rem;
       color: var(--red);
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -937,8 +965,29 @@
       0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(255,59,48,0.6); }
       50% { opacity: 0.6; box-shadow: 0 0 12px rgba(255,59,48,1); }
     }
-    .agt-card h3 { font-size: .9rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -.01em; }
-    .agt-card p { font-size: .78rem; color: var(--mt); line-height: 1.75; }
+    .agt-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -.02em; line-height: 1.2; }
+    .agt-card p { font-size: .76rem; color: var(--mt); line-height: 1.82; flex: 1; }
+    .agt-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: .5rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--bdr);
+    }
+    .agt-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #34d058;
+      box-shadow: 0 0 6px rgba(52,208,88,0.7);
+      flex-shrink: 0;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
 
     /* ─── PAIN STRIP ─────────────────────────────────────── */
     .pain-strip {
@@ -1730,24 +1779,78 @@
       /* 2. Dot overlay — bigger + brighter */
       .dot-overlay span { width: 3px !important; height: 3px !important; opacity: .24 !important; }
 
-      /* 3. Agent cards — horizontal scroll snap */
-      .agt-grid {
-        display: flex !important;
-        grid-template-columns: none !important;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 12px;
-        padding: 4px 0 20px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+      /* 3. Agent cards — 3D spinning carousel (replaces grid on mobile) */
+      .agt-grid { display: none !important; }
+      .agt-3d-wrap {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 520px;
+        overflow: hidden;
+        perspective: 900px;
       }
-      .agt-grid::-webkit-scrollbar { display: none; }
-      .agt-card {
-        min-width: 82vw !important;
-        scroll-snap-align: start;
-        flex-shrink: 0;
+      .agt-3d-list {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        transform-style: preserve-3d;
+        animation: agt-spin 30s linear infinite;
       }
-      .agt-card:last-child { margin-right: 4px; }
+      .agt-3d-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .agt-3d-item:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg)   translateY(-200px) rotateX(90deg); }
+      .agt-3d-item:nth-child(2) { transform: translate(-50%, -50%) rotate(72deg)  translateY(-200px) rotateX(90deg); }
+      .agt-3d-item:nth-child(3) { transform: translate(-50%, -50%) rotate(144deg) translateY(-200px) rotateX(90deg); }
+      .agt-3d-item:nth-child(4) { transform: translate(-50%, -50%) rotate(216deg) translateY(-200px) rotateX(90deg); }
+      .agt-3d-item:nth-child(5) { transform: translate(-50%, -50%) rotate(288deg) translateY(-200px) rotateX(90deg); }
+      .agt-3d-card {
+        width: 164px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--bdr);
+        border-radius: 12px;
+        padding: 20px 16px 22px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      }
+      .agt-3d-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+        background: var(--red);
+      }
+      .agt-3d-n {
+        font-family: var(--mono);
+        font-size: .52rem;
+        color: var(--red);
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .agt-3d-card h3 {
+        font-size: .88rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        letter-spacing: -.01em;
+        color: var(--wt);
+      }
+      .agt-3d-card p {
+        font-size: .72rem;
+        color: var(--mt);
+        line-height: 1.65;
+        margin: 0;
+      }
+      @keyframes agt-spin {
+        0%   { transform: rotateX(-100deg) rotate(0); }
+        100% { transform: rotateX(-100deg) rotate(-360deg); }
+      }
 
       /* 4. Button tap feedback */
       .btn, .svc-quote, .sparkle-btn { -webkit-tap-highlight-color: rgba(255,59,48,0.1); }
@@ -1784,37 +1887,62 @@
       .ft-links a { font-size: .9rem; }
     }
 
-    /* 7. Contact picker — bottom sheet (all screens, hides on desktop) */
-    .cpicker-overlay {
+    /* ── Social Picker popup ── */
+    .spick-backdrop {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.65); z-index: 9998;
+      background: rgba(0,0,0,0.55); z-index: 9998;
       backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
     }
-    .cpicker-overlay.open { display: block; }
-    .cpicker-sheet {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #111; border-top: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px 20px 0 0; padding: 12px 20px 44px;
-      z-index: 9999;
-      transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    .spick-backdrop.open { display: block; }
+    .spick-wrap {
+      display: none; position: fixed; z-index: 9999;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
     }
-    .cpicker-sheet.open { transform: translateY(0); }
-    .cpicker-handle { width: 36px; height: 4px; background: rgba(255,255,255,0.18); border-radius: 2px; margin: 0 auto 20px; }
-    .cpicker-title { font-family: var(--mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.38); text-align: center; margin-bottom: 16px; }
-    .cpicker-opt {
-      display: flex; align-items: center; gap: 14px;
-      padding: 15px 16px; border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 10px; margin-bottom: 10px; color: #fff;
-      text-decoration: none; font-size: .9rem; font-weight: 500; letter-spacing: -.01em;
-      transition: background 0.15s, border-color 0.15s;
-      -webkit-tap-highlight-color: transparent;
+    .spick-wrap.open { display: block; }
+    .main { display: flex; flex-direction: column; gap: 0.5em; }
+    .up   { display: flex; flex-direction: row; gap: 0.5em; }
+    .down { display: flex; flex-direction: row; gap: 0.5em; }
+    .card1 {
+      width: 90px; height: 90px; outline: none; border: none; background: white;
+      border-radius: 90px 5px 5px 5px;
+      box-shadow: rgba(50,50,93,.25) 0 2px 5px -1px, rgba(0,0,0,.3) 0 1px 3px -1px;
+      transition: .2s ease-in-out; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
     }
-    .cpicker-opt:active { background: rgba(255,255,255,0.06); transform: scale(0.98); }
-    .cpicker-ic { font-size: 1.15rem; width: 26px; text-align: center; }
-    .cpicker-cal { border-color: rgba(255,59,48,0.3); }
-    .cpicker-cal:active { background: rgba(255,59,48,0.08); }
-    @media (min-width: 769px) { .cpicker-overlay, .cpicker-sheet { display: none !important; } }
+    .card2 {
+      width: 90px; height: 90px; outline: none; border: none; background: white;
+      border-radius: 5px 90px 5px 5px;
+      box-shadow: rgba(50,50,93,.25) 0 2px 5px -1px, rgba(0,0,0,.3) 0 1px 3px -1px;
+      transition: .2s ease-in-out; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card3 {
+      width: 90px; height: 90px; outline: none; border: none; background: white;
+      border-radius: 5px 5px 5px 90px;
+      box-shadow: rgba(50,50,93,.25) 0 2px 5px -1px, rgba(0,0,0,.3) 0 1px 3px -1px;
+      transition: .2s ease-in-out; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card4 {
+      width: 90px; height: 90px; outline: none; border: none; background: white;
+      border-radius: 5px 5px 90px 5px;
+      box-shadow: rgba(50,50,93,.25) 0 2px 5px -1px, rgba(0,0,0,.3) 0 1px 3px -1px;
+      transition: .2s ease-in-out; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .instagram { fill: #cc39a4; }
+    .whatsapp  { fill: #25D366; }
+    .emailicon { fill: #EA4335; }
+    .calicon   { fill: #006BFF; }
+    .card1:hover { scale: 1.1; background-color: #cc39a4; }
+    .card1:hover .instagram { fill: white; }
+    .card2:hover { scale: 1.1; background-color: #25D366; }
+    .card2:hover .whatsapp  { fill: white; }
+    .card3:hover { scale: 1.1; background-color: #EA4335; }
+    .card3:hover .emailicon { fill: white; }
+    .card4:hover { scale: 1.1; background-color: #006BFF; }
+    .card4:hover .calicon   { fill: white; }
 
     /* ── Flicker — Let's Talk About Your Project (mobile only) ── */
     @media (max-width: 768px) {
@@ -1876,6 +2004,52 @@
       60% { transform: translate(2px,2px); }
       80% { transform: translate(2px,-2px); }
       100%{ transform: translate(0); }
+    }
+
+    /* ── Shake-bottom — Discuss Your Project (mobile only) ── */
+    @media (max-width: 768px) {
+    #btn-discuss {
+      -webkit-animation: shake-bottom 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
+              animation: shake-bottom 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
+    }
+    }
+    @-webkit-keyframes shake-bottom {
+      0%,100% { -webkit-transform:rotate(0deg); transform:rotate(0deg); -webkit-transform-origin:50% 100%; transform-origin:50% 100%; }
+      10%     { -webkit-transform:rotate(2deg);  transform:rotate(2deg); }
+      20%,40%,60% { -webkit-transform:rotate(-4deg); transform:rotate(-4deg); }
+      30%,50%,70% { -webkit-transform:rotate(4deg);  transform:rotate(4deg); }
+      80%     { -webkit-transform:rotate(-2deg); transform:rotate(-2deg); }
+      90%     { -webkit-transform:rotate(2deg);  transform:rotate(2deg); }
+    }
+    @keyframes shake-bottom {
+      0%,100% { transform:rotate(0deg); transform-origin:50% 100%; }
+      10%     { transform:rotate(2deg); }
+      20%,40%,60% { transform:rotate(-4deg); }
+      30%,50%,70% { transform:rotate(4deg); }
+      80%     { transform:rotate(-2deg); }
+      90%     { transform:rotate(2deg); }
+    }
+
+    /* ── Heartbeat — Get This System (mobile only) ── */
+    @media (max-width: 768px) {
+    #btn-get-system {
+      -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+              animation: heartbeat 1.5s ease-in-out infinite both;
+    }
+    }
+    @-webkit-keyframes heartbeat {
+      from { -webkit-transform:scale(1); transform:scale(1); -webkit-transform-origin:center center; transform-origin:center center; -webkit-animation-timing-function:ease-out; animation-timing-function:ease-out; }
+      10%  { -webkit-transform:scale(0.91); transform:scale(0.91); -webkit-animation-timing-function:ease-in; animation-timing-function:ease-in; }
+      17%  { -webkit-transform:scale(0.98); transform:scale(0.98); -webkit-animation-timing-function:ease-out; animation-timing-function:ease-out; }
+      33%  { -webkit-transform:scale(0.87); transform:scale(0.87); -webkit-animation-timing-function:ease-in; animation-timing-function:ease-in; }
+      45%  { -webkit-transform:scale(1); transform:scale(1); -webkit-animation-timing-function:ease-out; animation-timing-function:ease-out; }
+    }
+    @keyframes heartbeat {
+      from { transform:scale(1); transform-origin:center center; animation-timing-function:ease-out; }
+      10%  { transform:scale(0.91); animation-timing-function:ease-in; }
+      17%  { transform:scale(0.98); animation-timing-function:ease-out; }
+      33%  { transform:scale(0.87); animation-timing-function:ease-in; }
+      45%  { transform:scale(1);    animation-timing-function:ease-out; }
     }
 
   </style>
@@ -1970,7 +2144,7 @@
           </p>
 
           <div class="hero-actions">
-            <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
+            <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button" data-nopick><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
             <a href="#services" class="sparkle-btn">
               <div class="dots_border"></div>
               <span class="text_button">View Services</span>
@@ -2075,7 +2249,7 @@
       </div>
     </div>
     <div style="margin-top:48px;" class="rv d2">
-      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Let's Talk About Your Project</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button" data-pick><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Let's Talk About Your Project</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
     </div>
   </div>
 </section>
@@ -2218,39 +2392,90 @@
       </div>
       <div class="agt-grid">
         <div class="agt-card">
+          <div class="agt-bg-num">01</div>
           <div class="agt-n">Agent / 01</div>
           <h3>Lead Scraper</h3>
           <p>Finds qualified prospects in your target industry and location via Google Maps. Scores each lead by relevance. Delivers to a live Google Sheet.</p>
+          <div class="agt-status"><span class="agt-dot"></span>Active · 24/7</div>
         </div>
         <div class="agt-card">
+          <div class="agt-bg-num">02</div>
           <div class="agt-n">Agent / 02</div>
           <h3>Email Campaign</h3>
           <p>Sends AI-personalised outreach to your lead list. Follows up automatically after 3 days. Tracks opens and stops on reply.</p>
+          <div class="agt-status"><span class="agt-dot"></span>Active · 24/7</div>
         </div>
         <div class="agt-card">
+          <div class="agt-bg-num">03</div>
           <div class="agt-n">Agent / 03</div>
           <h3>Social Media</h3>
-          <p>Creates and publishes content to Instagram, Twitter/X, Facebook, and LinkedIn on a set schedule. Copy and images generated automatically.</p>
+          <p>Creates and publishes content to Instagram, X, Facebook, and LinkedIn on a set schedule. Copy and images generated automatically.</p>
+          <div class="agt-status"><span class="agt-dot"></span>Active · 24/7</div>
         </div>
         <div class="agt-card">
+          <div class="agt-bg-num">04</div>
           <div class="agt-n">Agent / 04</div>
           <h3>Content Creation</h3>
           <p>Generates on-brand copy and translates it for your audience. Feeds the social and email agents so nothing runs dry.</p>
+          <div class="agt-status"><span class="agt-dot"></span>Active · 24/7</div>
         </div>
         <div class="agt-card">
+          <div class="agt-bg-num">05</div>
           <div class="agt-n">Agent / 05</div>
           <h3>SEO Reporting</h3>
-          <p>Pulls live Google Search Console data and emails you a performance report. You know exactly where you rank without logging in.</p>
+          <p>Pulls live Google Search Console data and emails you a weekly performance report. You know exactly where you rank without logging in.</p>
+          <div class="agt-status"><span class="agt-dot"></span>Active · 24/7</div>
         </div>
       </div>
+
+      <!-- 3D rotating carousel — mobile only -->
+      <div class="agt-3d-wrap">
+        <ul class="agt-3d-list">
+          <li class="agt-3d-item">
+            <div class="agt-3d-card">
+              <div class="agt-3d-n">Agent / 01</div>
+              <h3>Lead Scraper</h3>
+              <p>Finds qualified prospects via Google Maps. Scores leads by relevance.</p>
+            </div>
+          </li>
+          <li class="agt-3d-item">
+            <div class="agt-3d-card">
+              <div class="agt-3d-n">Agent / 02</div>
+              <h3>Email Campaign</h3>
+              <p>AI-personalised outreach. Auto follow-ups. Stops on reply.</p>
+            </div>
+          </li>
+          <li class="agt-3d-item">
+            <div class="agt-3d-card">
+              <div class="agt-3d-n">Agent / 03</div>
+              <h3>Social Media</h3>
+              <p>Posts to Instagram, X, Facebook & LinkedIn on auto-schedule.</p>
+            </div>
+          </li>
+          <li class="agt-3d-item">
+            <div class="agt-3d-card">
+              <div class="agt-3d-n">Agent / 04</div>
+              <h3>Content Creation</h3>
+              <p>Generates on-brand copy. Feeds the social and email agents.</p>
+            </div>
+          </li>
+          <li class="agt-3d-item">
+            <div class="agt-3d-card">
+              <div class="agt-3d-n">Agent / 05</div>
+              <h3>SEO Reporting</h3>
+              <p>Pulls Search Console data. Emails you a weekly rank report.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
       <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-        <a href="#contact" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get This System</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
+        <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button" id="btn-get-system" data-nopick><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Get This System</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
         <span style="font-size:.72rem;font-family:var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;">From <span class="pt" data-zar="6000" data-sfx="/month">R6,000/month</span> · setup in 2 weeks</span>
       </div>
     </div>
 
     <div style="margin-top:48px;" class="rv d3">
-      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Discuss Your Project</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
+      <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button" id="btn-discuss" data-pick><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Discuss Your Project</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
     </div>
   </div>
 </section>
@@ -2608,7 +2833,7 @@
         </ul>
 
         <div class="abt-links">
-          <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button"><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
+          <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener" class="animated-button" data-nopick><svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg><span class="text">Book a Free Call</span><span class="circle"></span><svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg></a>
           <a href="https://www.instagram.com/whitespacedesign_za/" target="_blank" rel="noopener" class="btn btn-outline">Instagram</a>
         </div>
       </div>
@@ -3416,59 +3641,52 @@ function cookieConsent(accepted) {
 })();
 </script>
 
-<!-- Contact Picker Bottom Sheet -->
-<div class="cpicker-overlay" id="cpicker-overlay"></div>
-<div class="cpicker-sheet" id="cpicker-sheet" role="dialog" aria-modal="true" aria-label="Contact options">
-  <div class="cpicker-handle"></div>
-  <p class="cpicker-title">How would you like to connect?</p>
-  <a href="https://calendly.com/contact-whitespacedesigns/new-meeting" class="cpicker-opt cpicker-cal" target="_blank" rel="noopener">
-    <span class="cpicker-ic">📅</span><span>Book a Call — Calendly</span>
-  </a>
-  <a href="mailto:contact.whitespacedesign@gmail.com" class="cpicker-opt">
-    <span class="cpicker-ic">✉️</span><span>Send an Email</span>
-  </a>
-  <a href="https://www.instagram.com/whitespacedesign_za/" class="cpicker-opt" target="_blank" rel="noopener">
-    <span class="cpicker-ic">📸</span><span>Instagram DM</span>
-  </a>
-  <a href="tel:+27" class="cpicker-opt">
-    <span class="cpicker-ic">📞</span><span>Phone Call</span>
-  </a>
+<!-- Social Picker popup -->
+<div class="spick-backdrop" id="spick-backdrop"></div>
+<div class="spick-wrap" id="spick-popup" role="dialog" aria-modal="true" aria-label="Get in touch">
+  <div class="main">
+    <div class="up">
+      <button class="card1" onclick="window.open('https://www.instagram.com/whitespacedesign_za/','_blank')" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0,0,256,256" width="30px" height="30px" fill-rule="nonzero" class="instagram"><g fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(8,8)"><path d="M11.46875,5c-3.55078,0 -6.46875,2.91406 -6.46875,6.46875v9.0625c0,3.55078 2.91406,6.46875 6.46875,6.46875h9.0625c3.55078,0 6.46875,-2.91406 6.46875,-6.46875v-9.0625c0,-3.55078 -2.91406,-6.46875 -6.46875,-6.46875zM11.46875,7h9.0625c2.47266,0 4.46875,1.99609 4.46875,4.46875v9.0625c0,2.47266 -1.99609,4.46875 -4.46875,4.46875h-9.0625c-2.47266,0 -4.46875,-1.99609 -4.46875,-4.46875v-9.0625c0,-2.47266 1.99609,-4.46875 4.46875,-4.46875zM21.90625,9.1875c-0.50391,0 -0.90625,0.40234 -0.90625,0.90625c0,0.50391 0.40234,0.90625 0.90625,0.90625c0.50391,0 0.90625,-0.40234 0.90625,-0.90625c0,-0.50391 -0.40234,-0.90625 -0.90625,-0.90625zM16,10c-3.30078,0 -6,2.69922 -6,6c0,3.30078 2.69922,6 6,6c3.30078,0 6,-2.69922 6,-6c0,-3.30078 -2.69922,-6 -6,-6zM16,12c2.22266,0 4,1.77734 4,4c0,2.22266 -1.77734,4 -4,4c-2.22266,0 -4,-1.77734 -4,-4c0,-2.22266 1.77734,-4 4,-4z"></path></g></g></svg>
+      </button>
+      <button class="card2" onclick="window.open('https://wa.me/27743357752','_blank')" aria-label="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30px" height="30px" class="whatsapp"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </button>
+    </div>
+    <div class="down">
+      <button class="card3" onclick="window.location.href='mailto:studio@whitespacedesigns.co.za'" aria-label="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30px" height="30px" class="emailicon"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </button>
+      <button class="card4" onclick="window.open('https://calendly.com/contact-whitespacedesigns/new-meeting','_blank')" aria-label="Book a Call">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30px" height="30px" class="calicon"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zm0-12H5V5h14v2z"/></svg>
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
 (function() {
-  // ── Contact Picker (mobile only) ──────────────────────
-  if (window.innerWidth > 768) return;
-
-  var overlay = document.getElementById('cpicker-overlay');
-  var sheet   = document.getElementById('cpicker-sheet');
+  var backdrop = document.getElementById('spick-backdrop');
+  var popup    = document.getElementById('spick-popup');
 
   function openPicker(e) {
-    e.preventDefault();
-    overlay.classList.add('open');
-    sheet.classList.add('open');
+    if (e) e.preventDefault();
+    backdrop.classList.add('open');
+    popup.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
+
   function closePicker() {
-    overlay.classList.remove('open');
-    sheet.classList.remove('open');
+    backdrop.classList.remove('open');
+    popup.classList.remove('open');
     document.body.style.overflow = '';
   }
 
-  document.querySelectorAll('.svc-quote').forEach(function(el) {
+  document.querySelectorAll('.svc-quote, [data-pick]').forEach(function(el) {
     el.addEventListener('click', openPicker);
   });
-  overlay.addEventListener('click', closePicker);
 
-  var _sy = 0;
-  sheet.addEventListener('touchstart', function(e){ _sy = e.touches[0].clientY; }, { passive: true });
-  sheet.addEventListener('touchend',   function(e){ if (e.changedTouches[0].clientY - _sy > 60) closePicker(); }, { passive: true });
-
-  sheet.querySelectorAll('.cpicker-opt').forEach(function(opt) {
-    opt.addEventListener('click', function(){ setTimeout(closePicker, 350); });
-  });
-
-  // ── Why-item scroll reveal handled by GSAP below ────
+  backdrop.addEventListener('click', closePicker);
 })();
 </script>
 
