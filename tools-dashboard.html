@@ -6,562 +6,874 @@
   <title>WSD Tools Dashboard</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111111'/%3E%3Crect x='5' y='5' width='9' height='9' rx='2.5' fill='%23C8A96E'/%3E%3Crect x='18' y='5' width='9' height='9' rx='2.5' fill='%23C8A96E' opacity='.55'/%3E%3Crect x='5' y='18' width='9' height='9' rx='2.5' fill='%23C8A96E' opacity='.55'/%3E%3Crect x='18' y='18' width='9' height='9' rx='2.5' fill='%23C8A96E'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --dark: #0A0A0A;
-      --dark-2: #111111;
-      --dark-3: #1A1A1A;
-      --accent: #C8A96E;
-      --accent-dim: rgba(200,169,110,0.15);
-      --white: #FFFFFF;
-      --muted: rgba(255,255,255,0.45);
-      --border: rgba(255,255,255,0.07);
+      --bg:   #080808;
+      --bg2:  #101010;
+      --bg3:  #181818;
+      --gold: #C8A96E;
+      --gold-dim: rgba(200,169,110,0.10);
+      --gold-mid: rgba(200,169,110,0.28);
+      --white: #ffffff;
+      --muted: rgba(255,255,255,0.38);
+      --border: rgba(255,255,255,0.055);
     }
 
+    /* ── Custom cursor ── */
+    html { cursor: none; }
+    a, button, input { cursor: none; }
+
+    #c-dot {
+      position: fixed; z-index: 9999; pointer-events: none;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+      transform: translate(-50%, -50%);
+      transition: width .15s, height .15s;
+    }
+
+    #c-ring {
+      position: fixed; z-index: 9998; pointer-events: none;
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid rgba(200,169,110,0.4);
+      transform: translate(-50%, -50%);
+      transition: width .25s ease, height .25s ease, border-color .25s ease;
+      will-change: left, top;
+    }
+
+    /* ── Base ── */
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--dark);
+      background: var(--bg);
       color: var(--white);
       min-height: 100vh;
-      padding: 48px 40px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    header {
-      margin-bottom: 48px;
+    /* ── Sticky header ── */
+    .hdr {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(8,8,8,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding-bottom: 32px;
+      height: 56px;
+      display: flex; align-items: center; gap: 20px;
+      padding: 0 36px;
     }
 
-    header h1 {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
+    .hdr-logo {
+      display: flex; align-items: center; gap: 9px; flex-shrink: 0;
     }
 
-    header h1 span { color: var(--accent); }
-
-    header p {
-      font-size: 13px;
-      color: var(--muted);
+    .hdr-logo-txt {
+      font-size: 13px; font-weight: 600; letter-spacing: -0.02em;
     }
 
-    .search-bar {
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .hdr-logo-txt em { font-style: normal; color: var(--gold); }
+
+    .hdr-divider {
+      width: 1px; height: 18px;
+      background: var(--border); flex-shrink: 0;
     }
 
-    .search-bar input {
-      background: var(--dark-2);
+    .hdr-search {
+      position: relative; flex: 0 0 220px;
+    }
+
+    .hdr-search svg {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.35;
+    }
+
+    .hdr-search input {
+      width: 100%;
+      background: var(--bg3);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 13px;
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      width: 300px;
-      outline: none;
-      transition: border-color 0.2s;
+      border-radius: 7px;
+      padding: 6px 12px 6px 30px;
+      font-size: 12px; color: var(--white);
+      font-family: 'Inter'; outline: none;
+      transition: border-color .2s;
     }
 
-    .search-bar input:focus { border-color: rgba(200,169,110,0.4); }
-    .search-bar input::placeholder { color: var(--muted); }
+    .hdr-search input:focus { border-color: var(--gold-mid); }
+    .hdr-search input::placeholder { color: var(--muted); }
 
-    .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .hdr-filters {
+      display: flex; gap: 5px; flex: 1; overflow-x: auto;
+    }
 
-    .filter-btn {
-      font-size: 11px;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 100px;
+    .hdr-filters::-webkit-scrollbar { display: none; }
+
+    .f-btn {
+      font-size: 11px; font-weight: 500;
+      padding: 4px 12px; border-radius: 100px;
       border: 1px solid var(--border);
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.15s;
+      background: transparent; color: var(--muted);
+      font-family: 'Inter'; white-space: nowrap;
+      transition: all .15s;
     }
 
-    .filter-btn:hover, .filter-btn.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-dim);
+    .f-btn:hover, .f-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-dim);
     }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      margin-top: 40px;
-    }
-
-    .section-header h2 {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .section-header::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .tools-grid {
+    /* ── Main layout ── */
+    .layout {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 12px;
+      grid-template-columns: 1fr 300px;
+      min-height: calc(100vh - 56px);
     }
 
-    .tool-card {
-      background: var(--dark-2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 22px;
-      transition: border-color 0.2s, background 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      display: block;
-      position: relative;
-      overflow: hidden;
+    /* ── Left: main content ── */
+    .main {
+      padding: 32px 40px 80px;
+      border-right: 1px solid var(--border);
     }
 
-    .tool-card:hover {
-      border-color: rgba(200,169,110,0.25);
-      background: var(--dark-3);
+    /* ── Section header ── */
+    .sec {
+      display: flex; align-items: center; gap: 12px;
+      margin: 40px 0 14px;
     }
 
-    .tool-card:hover .tool-arrow { opacity: 1; transform: translate(0, 0); }
+    .sec:first-child { margin-top: 0; }
 
-    .tool-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 10px;
+    .sec h2 {
+      font-size: 9.5px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); white-space: nowrap;
     }
 
-    .tool-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: -0.01em;
+    .sec::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
     }
 
-    .tool-tag {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 100px;
-      background: var(--accent-dim);
-      color: var(--accent);
-      white-space: nowrap;
+    /* ── Setup checklist ── */
+    .setup {
+      background: var(--bg2);
+      border: 1px solid rgba(200,169,110,0.14);
+      border-radius: 10px;
+      padding: 18px 22px;
     }
 
-    .tool-url {
-      font-size: 11px;
-      color: rgba(200,169,110,0.5);
-      margin-bottom: 10px;
-      font-family: monospace;
-    }
-
-    .tool-desc {
-      font-size: 12px;
-      font-weight: 300;
-      line-height: 1.65;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
-    .tool-tip {
-      font-size: 11px;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.35);
-      border-top: 1px solid var(--border);
-      padding-top: 10px;
-    }
-
-    .tool-tip strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .tool-arrow {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      opacity: 0;
-      transform: translate(-4px, 4px);
-      transition: all 0.2s;
-      color: var(--accent);
-      font-size: 14px;
-    }
-
-    .tool-card[data-hidden="true"] { display: none; }
-
-    .setup-box {
-      background: var(--dark-2);
-      border: 1px solid rgba(200,169,110,0.2);
-      border-radius: 12px;
-      padding: 24px 28px;
-      margin-bottom: 16px;
-    }
-
-    .setup-box h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 16px;
+    .setup-hd {
+      font-size: 11px; font-weight: 600; color: var(--gold);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 7px;
     }
 
     .setup-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-      font-size: 13px;
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
     }
 
-    .setup-item:last-child { margin-bottom: 0; }
+    .setup-item:last-child { border-bottom: 0; padding-bottom: 0; }
 
-    .setup-num {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--accent-dim);
-      border: 1px solid rgba(200,169,110,0.3);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    .s-num {
+      width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+      background: var(--gold-dim); border: 1px solid rgba(200,169,110,0.22);
+      color: var(--gold); font-size: 10px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
       margin-top: 1px;
     }
 
-    .setup-text { color: rgba(255,255,255,0.7); line-height: 1.5; }
-    .setup-text a { color: var(--accent); }
-    .setup-text code {
+    .s-txt { font-size: 12px; color: rgba(255,255,255,0.62); line-height: 1.55; }
+    .s-txt a { color: var(--gold); text-decoration: none; }
+    .s-txt a:hover { text-decoration: underline; }
+
+    .s-txt code {
       background: rgba(255,255,255,0.06);
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-family: monospace;
+      padding: 1px 5px; border-radius: 3px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
     }
 
-    .workflow-section {
+    /* ── Tools grid ── */
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+      gap: 9px;
     }
 
-    .workflow-card {
-      background: var(--dark-2);
+    .card {
+      background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px 24px;
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-decoration: none; display: block;
+      position: relative; overflow: hidden;
+      transition: border-color .2s, background .2s, transform .2s;
     }
 
-    .workflow-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-    .workflow-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
-    .workflow-card .verdict {
-      margin-top: 14px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--accent);
-      padding: 6px 12px;
-      background: var(--accent-dim);
-      border-radius: 6px;
-      display: inline-block;
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(180deg, var(--gold), rgba(200,169,110,0.3));
+      transform: scaleY(0); transform-origin: top;
+      transition: transform .25s cubic-bezier(.4,0,.2,1);
     }
 
-    @media (max-width: 768px) {
-      body { padding: 24px 20px; }
-      .tools-grid { grid-template-columns: 1fr; }
-      .workflow-section { grid-template-columns: 1fr; }
+    .card:hover {
+      border-color: rgba(200,169,110,0.18);
+      background: var(--bg3);
+      transform: translateY(-1px);
+    }
+
+    .card:hover::before { transform: scaleY(1); }
+    .card[data-hidden="true"] { display: none; }
+
+    .c-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .c-name {
+      font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
+    }
+
+    .c-tag {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 100px;
+      background: var(--gold-dim); color: var(--gold);
+      white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+
+    .c-url {
+      font-size: 10px; font-family: 'JetBrains Mono', monospace;
+      color: rgba(200,169,110,0.4); margin-bottom: 8px;
+    }
+
+    .c-desc {
+      font-size: 11.5px; font-weight: 300;
+      line-height: 1.65; color: var(--muted); margin-bottom: 10px;
+    }
+
+    .c-tip {
+      font-size: 10.5px; line-height: 1.6;
+      color: rgba(255,255,255,0.26);
+      border-top: 1px solid var(--border); padding-top: 8px;
+    }
+
+    .c-tip strong { color: var(--gold); font-weight: 500; }
+
+    .c-arrow {
+      position: absolute; top: 13px; right: 14px;
+      opacity: 0; transform: translate(-4px, 4px);
+      transition: all .2s; color: var(--gold); font-size: 13px;
+    }
+
+    .card:hover .c-arrow { opacity: 1; transform: translate(0,0); }
+
+    /* ── Right: sidebar ── */
+    .sidebar {
+      position: sticky; top: 56px;
+      height: calc(100vh - 56px);
+      overflow-y: auto; padding: 24px 20px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 0; }
+
+    .widget {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+
+    .w-label {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 12px;
+    }
+
+    /* ── GSC Map ── */
+    .map-wrap {
+      background: var(--bg3);
+      border-radius: 8px; overflow: hidden;
+      margin-bottom: 12px; border: 1px solid var(--border);
+    }
+
+    .map-wrap svg { width: 100%; height: auto; display: block; }
+
+    .land { fill: rgba(255,255,255,0.06); }
+    .za   { fill: var(--gold); opacity: 0.82; }
+
+    @keyframes za-pulse {
+      0%, 100% { opacity: 0.7; }
+      50%       { opacity: 1; }
+    }
+
+    @keyframes za-ring {
+      0%   { r: 4px; opacity: 0.9; }
+      100% { r: 14px; opacity: 0; }
+    }
+
+    .za-dot  { fill: var(--gold); animation: za-pulse 2s ease-in-out infinite; }
+    .za-ring { fill: none; stroke: var(--gold); stroke-width: 1; animation: za-ring 2s ease-out infinite; }
+
+    .gsc-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 0;
+    }
+
+    .gsc-flag { font-size: 13px; flex-shrink: 0; }
+
+    .gsc-ctry {
+      font-size: 11px; font-weight: 500; flex: 1;
+    }
+
+    .gsc-bar-bg {
+      width: 72px; height: 3px; border-radius: 2px;
+      background: rgba(255,255,255,0.06); overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .gsc-bar { height: 100%; border-radius: 2px; background: var(--gold); }
+
+    .gsc-pct {
+      font-size: 10px; color: var(--muted);
+      width: 28px; text-align: right; flex-shrink: 0;
+    }
+
+    /* ── Workflow cards in sidebar ── */
+    .wf-item {
+      border-bottom: 1px solid var(--border); padding: 12px 0;
+    }
+
+    .wf-item:first-child { padding-top: 0; }
+    .wf-item:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .wf-title {
+      font-size: 11px; font-weight: 600; margin-bottom: 6px;
+    }
+
+    .wf-body {
+      font-size: 11px; line-height: 1.65; color: var(--muted);
+    }
+
+    .wf-verdict {
+      display: inline-block; margin-top: 8px;
+      font-size: 10px; font-weight: 500; color: var(--gold);
+      padding: 3px 8px; border-radius: 4px;
+      background: var(--gold-dim);
+    }
+
+    /* ── Fade-in on load ── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .main > * {
+      animation: fade-up .4s ease both;
+    }
+
+    .main > *:nth-child(1) { animation-delay: .05s; }
+    .main > *:nth-child(2) { animation-delay: .10s; }
+    .main > *:nth-child(3) { animation-delay: .15s; }
+    .main > *:nth-child(4) { animation-delay: .20s; }
+    .main > *:nth-child(5) { animation-delay: .25s; }
+    .main > *:nth-child(6) { animation-delay: .30s; }
+
+    .sidebar { animation: fade-up .5s .1s ease both; }
+
+    /* ── Mobile ── */
+    @media (max-width: 900px) {
+      html { cursor: auto; }
+      a, button, input { cursor: auto; }
+      #c-dot, #c-ring { display: none; }
+
+      .layout { grid-template-columns: 1fr; }
+
+      .sidebar {
+        position: static; height: auto;
+        border-top: 1px solid var(--border);
+        padding: 24px 20px;
+      }
+
+      .main { padding: 24px 20px 60px; border-right: 0; }
+      .hdr { padding: 0 20px; gap: 12px; }
+      .hdr-search { flex: 1 1 auto; }
+      .hdr-divider { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hdr { height: auto; flex-wrap: wrap; padding: 12px 16px; }
+      .hdr-logo { flex: 1; }
+      .hdr-search { flex: 1 1 100%; order: 3; }
+      .hdr-filters { order: 4; width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;">
-      <svg width="36" height="36" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:8px;">
-        <rect width="32" height="32" rx="7" fill="#111111"/>
-        <rect x="5" y="5" width="9" height="9" rx="2.5" fill="#C8A96E"/>
-        <rect x="18" y="5" width="9" height="9" rx="2.5" fill="#C8A96E" opacity=".55"/>
-        <rect x="5" y="18" width="9" height="9" rx="2.5" fill="#C8A96E" opacity=".55"/>
-        <rect x="18" y="18" width="9" height="9" rx="2.5" fill="#C8A96E"/>
-      </svg>
-      <h1>WSD <span>Tools</span> Dashboard</h1>
-    </div>
-    <p>Design tools, resources, workflow guides — everything in one place.</p>
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Search tools..." oninput="filterTools()" />
-      <div class="filter-btns">
-        <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
-        <button class="filter-btn" onclick="setFilter('design', this)">Design</button>
-        <button class="filter-btn" onclick="setFilter('content', this)">Content</button>
-        <button class="filter-btn" onclick="setFilter('dev', this)">Dev</button>
-        <button class="filter-btn" onclick="setFilter('automation', this)">Automation</button>
-        <button class="filter-btn" onclick="setFilter('video', this)">Video</button>
-      </div>
-    </div>
-  </header>
+<!-- Custom cursor -->
+<div id="c-dot"></div>
+<div id="c-ring"></div>
 
-  <!-- WORKFLOW SETUP CHECKLIST -->
-  <div class="section-header"><h2>Workflow Setup — Action Required</h2></div>
-  <div class="setup-box">
-    <h3>⚠ Fill these in before activating the n8n workflow</h3>
-    <div class="setup-item">
-      <div class="setup-num">1</div>
-      <div class="setup-text">
-        <strong>Google Maps API Key</strong> — go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → Credentials → copy your key → paste into the <code>Google Maps — Find Businesses</code> node URL, replacing <code>YOUR_GOOGLE_MAPS_API_KEY</code>
-      </div>
-    </div>
-    <div class="setup-item">
-      <div class="setup-num">2</div>
-      <div class="setup-text">
-        <strong>Instagram Access Token</strong> — go to <a href="https://developers.facebook.com/tools/explorer" target="_blank">developers.facebook.com/tools/explorer</a> → select your app → add permissions: <code>instagram_basic</code>, <code>instagram_content_publish</code>, <code>pages_read_engagement</code> → Generate Token → copy it → paste into all 3 Instagram nodes replacing <code>YOUR_INSTAGRAM_ACCESS_TOKEN</code>
-      </div>
-    </div>
-    <div class="setup-item">
-      <div class="setup-num">3</div>
-      <div class="setup-text">
-        <strong>Add 3 sheet tabs</strong> in your leads Google Sheet: <code>Leads</code>, <code>Social Drafts</code>, <code>Post Analytics</code> — leave them blank, n8n writes the headers on first run
-      </div>
-    </div>
-    <div class="setup-item">
-      <div class="setup-num">4</div>
-      <div class="setup-text">
-        <strong>Credential IDs</strong> — open each node in n8n and select from the dropdown: Groq nodes → <code>Groq account</code> · Sheets nodes → <code>WSD new</code> · Gmail nodes → <code>Gmail account</code> · Replicate node → <code>Replicate API Key</code>
-      </div>
-    </div>
+<!-- ── Header ── -->
+<header class="hdr">
+  <div class="hdr-logo">
+    <svg width="26" height="26" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="7" fill="#111"/>
+      <rect x="5" y="5" width="9" height="9" rx="2.5" fill="#C8A96E"/>
+      <rect x="18" y="5" width="9" height="9" rx="2.5" fill="#C8A96E" opacity=".55"/>
+      <rect x="5" y="18" width="9" height="9" rx="2.5" fill="#C8A96E" opacity=".55"/>
+      <rect x="18" y="18" width="9" height="9" rx="2.5" fill="#C8A96E"/>
+    </svg>
+    <span class="hdr-logo-txt">WSD <em>Tools</em></span>
   </div>
-
-  <!-- DESIGN TOOLS -->
-  <div class="section-header"><h2>Design Tools</h2></div>
-  <div class="tools-grid" id="tools-grid">
-
-    <a class="tool-card" href="https://glyphy.io" target="_blank" rel="noopener" data-category="design" data-name="glyphy">
-      <div class="tool-top">
-        <span class="tool-name">Glyphy</span>
-        <span class="tool-tag">Type</span>
-      </div>
-      <div class="tool-url">glyphy.io</div>
-      <div class="tool-desc">Search, copy and paste special characters, glyphs, symbols, and unicode characters directly into your designs or code.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Gold bullet points (✦ ◆ ▸), section dividers, decorative marks in landing page copy and email signatures. Makes premium layouts look intentional without images.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://fockups.com" target="_blank" rel="noopener" data-category="design" data-name="fockups mockup">
-      <div class="tool-top">
-        <span class="tool-name">Fockups</span>
-        <span class="tool-tag">Mockups</span>
-      </div>
-      <div class="tool-url">fockups.com</div>
-      <div class="tool-desc">Free device mockup generator. Drop your screenshot into a phone, laptop, or tablet frame instantly. No Photoshop needed.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Client deliverables and case studies. Show a client's new website inside a MacBook or iPhone instead of a flat screenshot — instantly looks more professional and justifies your pricing.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://halftone.xoihazard.com" target="_blank" rel="noopener" data-category="design" data-name="halftone pattern texture">
-      <div class="tool-top">
-        <span class="tool-name">Halftone Generator</span>
-        <span class="tool-tag">Texture</span>
-      </div>
-      <div class="tool-url">halftone.xoihazard.com</div>
-      <div class="tool-desc">Turn any image into a halftone dot pattern. Generates SVG or PNG. Adjustable dot size, spacing, and angle.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Background textures for hero sections and social media posts. A halftone overlay on your Replicate-generated images gives them a print/editorial feel that stands out in Instagram feeds.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://symbol.wtf" target="_blank" rel="noopener" data-category="design" data-name="symbol icon unicode">
-      <div class="tool-top">
-        <span class="tool-name">Symbol.wtf</span>
-        <span class="tool-tag">Symbols</span>
-      </div>
-      <div class="tool-url">symbol.wtf</div>
-      <div class="tool-desc">Browse and copy thousands of unicode symbols, icons, and special characters. Better search than Glyphy for finding obscure marks.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Use alongside Glyphy. Good for finding arrows (→ ↗ ⟶), geometric shapes, and decorative marks. Pair with your brand gold colour for section markers in proposals and slide decks.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://tinytools.design" target="_blank" rel="noopener" data-category="design" data-name="tiny tools design utilities">
-      <div class="tool-top">
-        <span class="tool-name">Tiny Tools</span>
-        <span class="tool-tag">Utilities</span>
-      </div>
-      <div class="tool-url">tinytools.design</div>
-      <div class="tool-desc">Collection of small, focused design utilities — contrast checkers, gradient generators, spacing tools, and more. All free, no login.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Quick contrast checks before sending client deliverables. Also use the gradient tools when building landing page backgrounds — saves time vs doing it manually in CSS.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://fontjoy.com" target="_blank" rel="noopener" data-category="design" data-name="font pairing typography">
-      <div class="tool-top">
-        <span class="tool-name">Fontjoy</span>
-        <span class="tool-tag">Typography</span>
-      </div>
-      <div class="tool-url">fontjoy.com</div>
-      <div class="tool-desc">AI-powered font pairing generator. Lock one font and generate complementary pairings instantly. All Google Fonts compatible.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Client site typography. Lock Inter as body, generate display font options for headlines. Show clients 3 pairing options — they feel involved in the process, you close faster. <br><br><em>⚠ tools.dia.tv is currently down — replaced with Fontjoy. Update this card when you remember the correct URL.</em></div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <!-- BONUS TOOLS -->
-    <a class="tool-card" href="https://spline.design" target="_blank" rel="noopener" data-category="design" data-name="spline 3d animation">
-      <div class="tool-top">
-        <span class="tool-name">Spline</span>
-        <span class="tool-tag">3D</span>
-      </div>
-      <div class="tool-url">spline.design</div>
-      <div class="tool-desc">3D design tool that exports interactive scenes as web components. Your R4X robot hero runs on this.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Hero sections and interactive brand elements. Free plan embeds are fine. Paid plan needed for CSS export — not required since we use the web component embed directly.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://gsap.com" target="_blank" rel="noopener" data-category="dev" data-name="gsap animation scroll">
-      <div class="tool-top">
-        <span class="tool-name">GSAP + ScrollTrigger</span>
-        <span class="tool-tag">Animation</span>
-      </div>
-      <div class="tool-url">gsap.com</div>
-      <div class="tool-desc">Industry-standard JavaScript animation library. ScrollTrigger plugin makes elements animate as the user scrolls — used by Stripe, Linear, Vercel.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Add to index.html for scroll animations on service cards, stats, and sections. Free for most uses. One CDN script tag — no install needed. This is the answer to your "should I add animations" question.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://replicate.com" target="_blank" rel="noopener" data-category="automation" data-name="replicate ai image generation">
-      <div class="tool-top">
-        <span class="tool-name">Replicate</span>
-        <span class="tool-tag">AI Images</span>
-      </div>
-      <div class="tool-url">replicate.com</div>
-      <div class="tool-desc">Run AI models via API. Powers your Instagram image generation with SDXL. Pay per run — no monthly subscription.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> SDXL costs ~$0.0023 per image. 30 posts/month = under $0.10. Your token: already saved in Credentials.md. Watch your usage at replicate.com/account.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://console.groq.com" target="_blank" rel="noopener" data-category="automation" data-name="groq ai llm fast">
-      <div class="tool-top">
-        <span class="tool-name">Groq Console</span>
-        <span class="tool-tag">AI</span>
-      </div>
-      <div class="tool-url">console.groq.com</div>
-      <div class="tool-desc">Where you manage your Groq API key. Groq runs llama3 at 800 tokens/second — fast and cheap for your content and email writing nodes.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Check usage and regenerate your API key here if it ever stops working. Free tier is generous — monitor it as your workflow scales.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://fonts.google.com" target="_blank" rel="noopener" data-category="design" data-name="google fonts typography">
-      <div class="tool-top">
-        <span class="tool-name">Google Fonts</span>
-        <span class="tool-tag">Typography</span>
-      </div>
-      <div class="tool-url">fonts.google.com</div>
-      <div class="tool-desc">Free web fonts. Your site currently uses Inter — the same font Vercel, Linear, and most premium SaaS products use.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Stick with Inter for body copy. If you want a display font for headlines, try Bricolage Grotesque or Cabinet Grotesk — both luxury-adjacent and free.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://coolors.co" target="_blank" rel="noopener" data-category="design" data-name="colour palette generator">
-      <div class="tool-top">
-        <span class="tool-name">Coolors</span>
-        <span class="tool-tag">Colour</span>
-      </div>
-      <div class="tool-url">coolors.co</div>
-      <div class="tool-desc">Generate and refine colour palettes. Lock your brand gold (#C8A96E) and generate complementary colours when building client sites.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Client onboarding — when a client can't describe their brand colours, run their logo through Coolors' image picker to extract them automatically.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://squoosh.app" target="_blank" rel="noopener" data-category="dev" data-name="image compression optimise">
-      <div class="tool-top">
-        <span class="tool-name">Squoosh</span>
-        <span class="tool-tag">Performance</span>
-      </div>
-      <div class="tool-url">squoosh.app</div>
-      <div class="tool-desc">Google's image compression tool. Converts to WebP and compresses without visible quality loss.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Every image before it goes into a client site. A 2MB PNG compressed to 80KB WebP is the difference between a 90 and 45 on Google PageSpeed. Directly affects SEO rankings.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://hyperframes.co" target="_blank" rel="noopener" data-category="video" data-name="hyperframes hypergen video animation programmatic">
-      <div class="tool-top">
-        <span class="tool-name">HyperFrames</span>
-        <span class="tool-tag">Video</span>
-      </div>
-      <div class="tool-url">hyperframes.co</div>
-      <div class="tool-desc">Programmatic video composition tool. Describe a scene, drop in brand colours and fonts, and render actual video content — no Premiere, no After Effects required.</div>
-      <div class="tool-tip"><strong>Where this fits for you specifically:</strong> Two immediate use cases —<br><br>
-        <strong>Pretty Absurd campaign videos</strong> — built for exactly this. Describe a scene, drop in your brand colours and fonts, render actual video content without touching Premiere or After Effects.<br><br>
-        <strong>White Space client deliverables</strong> — imagine offering a client a short animated brand intro or social clip as part of an onboarding package, generated programmatically from their brand guidelines. That's a serious differentiator for an SMB agency.
-      </div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
-    <a class="tool-card" href="https://n8n.io" target="_blank" rel="noopener" data-category="automation" data-name="n8n workflow automation">
-      <div class="tool-top">
-        <span class="tool-name">n8n</span>
-        <span class="tool-tag">Automation</span>
-      </div>
-      <div class="tool-url">localhost:5678 (local)</div>
-      <div class="tool-desc">Your automation backbone. All 5 marketing agents run here. Self-hosted on your machine.</div>
-      <div class="tool-tip"><strong>WSD use:</strong> Keep it running in the background. Kill Ollama and ChatGPT before starting n8n to prevent RAM crashes (you learned this the hard way in June). Export workflows before deleting anything.</div>
-      <span class="tool-arrow">↗</span>
-    </a>
-
+  <div class="hdr-divider"></div>
+  <div class="hdr-search">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+    </svg>
+    <input type="text" id="search" placeholder="Search tools…" oninput="filterTools()" />
   </div>
+  <nav class="hdr-filters">
+    <button class="f-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="f-btn" onclick="setFilter('design',this)">Design</button>
+    <button class="f-btn" onclick="setFilter('content',this)">Content</button>
+    <button class="f-btn" onclick="setFilter('dev',this)">Dev</button>
+    <button class="f-btn" onclick="setFilter('automation',this)">Automation</button>
+    <button class="f-btn" onclick="setFilter('video',this)">Video</button>
+  </nav>
+</header>
 
-  <!-- WORKFLOW GUIDANCE -->
-  <div class="section-header"><h2>Workflow Decisions</h2></div>
-  <div class="workflow-section">
-    <div class="workflow-card">
-      <h3>Site Building — Claude Code (me) vs Claude Artifacts</h3>
-      <p>Use <strong>Claude Code</strong> (this session) for all real client site builds. I write directly to your files, remember your project context, know your brand guidelines, and can run the server to test it live.<br><br>Claude Artifacts (claude.ai) is good for quick mockups and experimenting with layouts — but it can't save files, doesn't know your codebase, and loses context between sessions.</p>
-      <span class="verdict">✓ Use Claude Code for all client builds</span>
+<!-- ── Layout ── -->
+<div class="layout">
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Setup checklist -->
+    <div class="sec"><h2>Action Required — n8n Setup</h2></div>
+    <div class="setup">
+      <div class="setup-hd">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Fill these in before activating the workflow
+      </div>
+      <div class="setup-item">
+        <div class="s-num">1</div>
+        <div class="s-txt">
+          <strong>Google Maps API Key</strong> — go to <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → Credentials → copy your key → paste into the <code>Google Maps — Find Businesses</code> node URL, replacing <code>YOUR_GOOGLE_MAPS_API_KEY</code>
+        </div>
+      </div>
+      <div class="setup-item">
+        <div class="s-num">2</div>
+        <div class="s-txt">
+          <strong>Instagram Access Token</strong> — go to <a href="https://developers.facebook.com/tools/explorer" target="_blank">developers.facebook.com/tools/explorer</a> → select your app → add permissions: <code>instagram_basic</code>, <code>instagram_content_publish</code>, <code>pages_read_engagement</code> → Generate Token → paste into all 3 Instagram nodes replacing <code>YOUR_INSTAGRAM_ACCESS_TOKEN</code>
+        </div>
+      </div>
+      <div class="setup-item">
+        <div class="s-num">3</div>
+        <div class="s-txt">
+          <strong>Add 3 sheet tabs</strong> in your leads Google Sheet: <code>Leads</code>, <code>Social Drafts</code>, <code>Post Analytics</code> — leave them blank, n8n writes the headers on first run
+        </div>
+      </div>
+      <div class="setup-item">
+        <div class="s-num">4</div>
+        <div class="s-txt">
+          <strong>Credential IDs</strong> — open each node in n8n and select from the dropdown: Groq nodes → <code>Groq account</code> · Sheets nodes → <code>WSD new</code> · Gmail nodes → <code>Gmail account</code> · Replicate node → <code>Replicate API Key</code>
+        </div>
+      </div>
     </div>
-    <div class="workflow-card">
-      <h3>Animations on Your Site Pages</h3>
-      <p>Yes — 100%. A static site in 2026 reads as unfinished, especially at your price point. Clients buying a R7,500 website expect premium presentation from the person selling it.<br><br>The right approach: <strong>GSAP ScrollTrigger</strong> on index.html. Service cards, stats, and process steps slide/fade in as you scroll. One script tag, no framework. Same library Stripe and Linear use. Takes about an hour to add properly.</p>
-      <span class="verdict">✓ Add GSAP ScrollTrigger to index.html — say the word</span>
+
+    <!-- Tools grid -->
+    <div class="sec"><h2>Design</h2></div>
+    <div class="grid" id="tools-grid">
+
+      <a class="card" href="https://glyphy.io" target="_blank" rel="noopener" data-category="design" data-name="glyphy symbol unicode">
+        <div class="c-top">
+          <span class="c-name">Glyphy</span>
+          <span class="c-tag">Type</span>
+        </div>
+        <div class="c-url">glyphy.io</div>
+        <div class="c-desc">Search, copy and paste special characters, glyphs, symbols, and unicode characters directly into your designs or code.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Gold bullet points (✦ ◆ ▸), section dividers, decorative marks in landing page copy and email signatures. Makes premium layouts look intentional without images.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://fockups.com" target="_blank" rel="noopener" data-category="design" data-name="fockups mockup device">
+        <div class="c-top">
+          <span class="c-name">Fockups</span>
+          <span class="c-tag">Mockups</span>
+        </div>
+        <div class="c-url">fockups.com</div>
+        <div class="c-desc">Free device mockup generator. Drop your screenshot into a phone, laptop, or tablet frame instantly. No Photoshop needed.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Client deliverables and case studies. Show a client's new website inside a MacBook or iPhone — instantly looks more professional and justifies your pricing.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://halftone.xoihazard.com" target="_blank" rel="noopener" data-category="design" data-name="halftone pattern texture">
+        <div class="c-top">
+          <span class="c-name">Halftone Generator</span>
+          <span class="c-tag">Texture</span>
+        </div>
+        <div class="c-url">halftone.xoihazard.com</div>
+        <div class="c-desc">Turn any image into a halftone dot pattern. Generates SVG or PNG. Adjustable dot size, spacing, and angle.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Background textures for hero sections and social posts. A halftone overlay on Replicate-generated images gives them a print/editorial feel that stands out in feeds.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://symbol.wtf" target="_blank" rel="noopener" data-category="design" data-name="symbol icon unicode special">
+        <div class="c-top">
+          <span class="c-name">Symbol.wtf</span>
+          <span class="c-tag">Symbols</span>
+        </div>
+        <div class="c-url">symbol.wtf</div>
+        <div class="c-desc">Browse and copy thousands of unicode symbols, icons, and special characters. Better search than Glyphy for obscure marks.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Good for arrows (→ ↗ ⟶), geometric shapes, and decorative marks. Pair with brand gold for section markers in proposals and slide decks.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://tinytools.design" target="_blank" rel="noopener" data-category="design" data-name="tiny tools design utilities contrast">
+        <div class="c-top">
+          <span class="c-name">Tiny Tools</span>
+          <span class="c-tag">Utilities</span>
+        </div>
+        <div class="c-url">tinytools.design</div>
+        <div class="c-desc">Small, focused design utilities — contrast checkers, gradient generators, spacing tools. All free, no login.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Quick contrast checks before client deliverables. Gradient tools for landing page backgrounds — faster than CSS by hand.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://fontjoy.com" target="_blank" rel="noopener" data-category="design" data-name="font pairing typography">
+        <div class="c-top">
+          <span class="c-name">Fontjoy</span>
+          <span class="c-tag">Typography</span>
+        </div>
+        <div class="c-url">fontjoy.com</div>
+        <div class="c-desc">AI-powered font pairing generator. Lock one font and generate complementary pairings instantly. All Google Fonts compatible.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Lock Inter as body, generate display font options for headlines. Show clients 3 pairing options — they feel involved, you close faster. <em>Note: tools.dia.tv is down — this replaces it.</em></div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://spline.design" target="_blank" rel="noopener" data-category="design" data-name="spline 3d animation interactive">
+        <div class="c-top">
+          <span class="c-name">Spline</span>
+          <span class="c-tag">3D</span>
+        </div>
+        <div class="c-url">spline.design</div>
+        <div class="c-desc">3D design tool that exports interactive scenes as web components. Your R4X robot hero runs on this.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Hero sections and interactive brand elements. Free plan embeds are fine — no paid plan needed since we use the web component embed directly.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://fonts.google.com" target="_blank" rel="noopener" data-category="design" data-name="google fonts typography web">
+        <div class="c-top">
+          <span class="c-name">Google Fonts</span>
+          <span class="c-tag">Typography</span>
+        </div>
+        <div class="c-url">fonts.google.com</div>
+        <div class="c-desc">Free web fonts. Your site uses Inter — same font Vercel, Linear, and most premium SaaS products use.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Stick with Inter for body. For display fonts, try Bricolage Grotesque or Cabinet Grotesk — both luxury-adjacent and free.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://coolors.co" target="_blank" rel="noopener" data-category="design" data-name="coolors colour palette generator">
+        <div class="c-top">
+          <span class="c-name">Coolors</span>
+          <span class="c-tag">Colour</span>
+        </div>
+        <div class="c-url">coolors.co</div>
+        <div class="c-desc">Generate and refine colour palettes. Lock your brand gold (#C8A96E) and generate complementary colours for client sites.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Client onboarding — when a client can't describe their brand colours, run their logo through Coolors' image picker to extract them automatically.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://ideogram.ai" target="_blank" rel="noopener" data-category="design" data-name="ideogram ai image generation text">
+        <div class="c-top">
+          <span class="c-name">Ideogram</span>
+          <span class="c-tag">AI Images</span>
+        </div>
+        <div class="c-url">ideogram.ai</div>
+        <div class="c-desc">AI image generator with the best text-in-image accuracy available. 4 variations per prompt. Free tier: 10 prompts/day (~40 images).</div>
+        <div class="c-tip"><strong>WSD use:</strong> Social posts with readable text overlays, logo concepts, hero mockups. Unlike Midjourney/DALL-E, text in images reads correctly. Quick social content when Replicate is overkill.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://designer.microsoft.com" target="_blank" rel="noopener" data-category="design" data-name="microsoft designer ai graphic social">
+        <div class="c-top">
+          <span class="c-name">Microsoft Designer</span>
+          <span class="c-tag">AI Design</span>
+        </div>
+        <div class="c-url">designer.microsoft.com</div>
+        <div class="c-desc">Free AI-powered graphic design (Microsoft account required). Social posts, flyers, mood boards. Built-in DALL-E generation. Smart AI layout suggestions.</div>
+        <div class="c-tip"><strong>For your fashion designer girlfriend:</strong> Lookbooks, mood boards, Instagram content grids, trend boards, flat lays from text prompts. Describe a look, it builds the layout. Free, no watermarks.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://m1m4.com" target="_blank" rel="noopener" data-category="design" data-name="m1m4 mockup apparel clothing">
+        <div class="c-top">
+          <span class="c-name">M1M4 Mockups</span>
+          <span class="c-tag">Mockups</span>
+        </div>
+        <div class="c-url">m1m4.com</div>
+        <div class="c-desc">500+ apparel mockup templates for Canva. Drop designs onto t-shirts, hoodies, tracksuits, joggers, caps. No Photoshop — works in Canva.</div>
+        <div class="c-tip"><strong>For your fashion designer girlfriend:</strong> Show clients exactly what a design looks like on real clothing. Perfect for pitching collections or selling custom pieces. Free starter pack available.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://lightpdf.com" target="_blank" rel="noopener" data-category="design" data-name="lightpdf watermark remover pdf">
+        <div class="c-top">
+          <span class="c-name">LightPDF</span>
+          <span class="c-tag">Utility</span>
+        </div>
+        <div class="c-url">lightpdf.com</div>
+        <div class="c-desc">Online watermark remover for PDFs and images. AI detects and removes watermarks while preserving background. Free tier for small files.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Removing watermarks from stock images or PDFs when sourcing reference material. Full PDF suite too (merge, compress, convert) — useful for client proposals. $49.99/yr for full access.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://gsap.com" target="_blank" rel="noopener" data-category="dev" data-name="gsap animation scroll trigger">
+        <div class="c-top">
+          <span class="c-name">GSAP + ScrollTrigger</span>
+          <span class="c-tag">Animation</span>
+        </div>
+        <div class="c-url">gsap.com</div>
+        <div class="c-desc">Industry-standard JS animation library. ScrollTrigger makes elements animate as users scroll. Used by Stripe, Linear, Vercel.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Scroll animations on service cards, stats, and sections. Free for most uses. One CDN script tag — no install. This is the answer to "should I add animations to the site."</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://squoosh.app" target="_blank" rel="noopener" data-category="dev" data-name="squoosh image compression webp performance">
+        <div class="c-top">
+          <span class="c-name">Squoosh</span>
+          <span class="c-tag">Performance</span>
+        </div>
+        <div class="c-url">squoosh.app</div>
+        <div class="c-desc">Google's image compression tool. Converts to WebP and compresses without visible quality loss. In-browser, no upload to third parties.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Every image before it goes into a client site. A 2MB PNG compressed to 80KB WebP is the difference between a 90 and 45 on PageSpeed. Directly affects SEO rankings.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://replicate.com" target="_blank" rel="noopener" data-category="automation" data-name="replicate ai image generation api sdxl">
+        <div class="c-top">
+          <span class="c-name">Replicate</span>
+          <span class="c-tag">AI Images</span>
+        </div>
+        <div class="c-url">replicate.com</div>
+        <div class="c-desc">Run AI models via API. Powers your Instagram image generation with SDXL. Pay per run — no monthly subscription needed.</div>
+        <div class="c-tip"><strong>WSD use:</strong> SDXL costs ~$0.0023 per image. 30 posts/month = under $0.10. Your token: saved in Credentials.md. Watch usage at replicate.com/account.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://console.groq.com" target="_blank" rel="noopener" data-category="automation" data-name="groq ai llm fast inference">
+        <div class="c-top">
+          <span class="c-name">Groq Console</span>
+          <span class="c-tag">AI / LLM</span>
+        </div>
+        <div class="c-url">console.groq.com</div>
+        <div class="c-desc">Where you manage your Groq API key. Groq runs llama3 at 800 tokens/second — fast and cheap for content and email writing nodes.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Check usage and regenerate your API key here if it ever stops working. Free tier is generous — monitor it as your workflow scales.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://n8n.io" target="_blank" rel="noopener" data-category="automation" data-name="n8n workflow automation local">
+        <div class="c-top">
+          <span class="c-name">n8n</span>
+          <span class="c-tag">Automation</span>
+        </div>
+        <div class="c-url">localhost:5678 (local)</div>
+        <div class="c-desc">Your automation backbone. All 5 marketing agents run here. Self-hosted on your Windows machine.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Keep it running in the background. Kill Ollama and ChatGPT before starting to prevent RAM crashes. Export workflows before deleting anything — no cloud backup.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
+      <a class="card" href="https://hyperframes.co" target="_blank" rel="noopener" data-category="video" data-name="hyperframes video animation programmatic">
+        <div class="c-top">
+          <span class="c-name">HyperFrames</span>
+          <span class="c-tag">Video</span>
+        </div>
+        <div class="c-url">hyperframes.co</div>
+        <div class="c-desc">Programmatic video composition. Describe a scene, add brand colours and fonts, render video content — no Premiere or After Effects.</div>
+        <div class="c-tip"><strong>WSD use:</strong> Short animated brand intros or social clips as part of client onboarding packages, generated from their brand guidelines. A real differentiator at your price point.</div>
+        <span class="c-arrow">↗</span>
+      </a>
+
     </div>
-  </div>
+    <!-- /tools-grid -->
 
-  <script>
-    let activeFilter = 'all';
+  </main>
 
-    function setFilter(cat, btn) {
-      activeFilter = cat;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterTools();
-    }
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
 
-    function filterTools() {
-      const query = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('.tool-card').forEach(card => {
-        const name = (card.dataset.name || '').toLowerCase();
-        const cat = card.dataset.category || '';
-        const matchesSearch = !query || name.includes(query);
-        const matchesFilter = activeFilter === 'all' || cat === activeFilter;
-        card.dataset.hidden = !(matchesSearch && matchesFilter);
-      });
-    }
-  </script>
+    <!-- GSC Country Map -->
+    <div class="widget">
+      <div class="w-label">Search Console — Top Countries</div>
+      <div class="map-wrap">
+        <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Greenland -->
+          <polygon class="land" points="152,18 188,12 194,28 184,44 160,44 148,30"/>
+          <!-- North America -->
+          <polygon class="land" points="14,50 62,22 112,26 150,42 156,68 148,108 122,130 88,134 60,120 34,102 14,78"/>
+          <!-- South America -->
+          <polygon class="land" points="98,108 164,104 178,132 174,172 150,196 118,198 96,178 88,150 92,122"/>
+          <!-- Europe -->
+          <polygon class="land" points="184,28 210,22 240,26 254,42 256,60 238,70 214,72 190,66 180,50"/>
+          <!-- Africa (excluding SA) -->
+          <polygon class="land" points="180,66 214,72 252,70 262,84 266,108 260,138 248,156 230,164 215,166 196,156 182,138 172,120 172,92"/>
+          <!-- South Africa highlight -->
+          <polygon class="za" points="188,142 238,136 246,152 236,166 215,170 198,160 186,154"/>
+          <!-- Asia -->
+          <polygon class="land" points="254,18 398,14 400,82 394,132 368,144 330,140 290,130 264,120 250,98 246,68"/>
+          <!-- Australia -->
+          <polygon class="land" points="322,130 380,122 396,148 386,170 356,178 324,166 312,148"/>
+          <!-- New Zealand (tiny) -->
+          <polygon class="land" points="384,156 390,152 396,162 390,168 382,164"/>
 
+          <!-- Pulse ring (animates outward) -->
+          <circle class="za-ring" cx="217" cy="158" r="4"/>
+          <!-- Solid dot -->
+          <circle class="za-dot" cx="217" cy="158" r="3.5"/>
+          <!-- Label -->
+          <text x="226" y="153" font-size="7" fill="rgba(200,169,110,0.7)" font-family="Inter,sans-serif" font-weight="600">ZA</text>
+        </svg>
+      </div>
+
+      <!-- Country stats -->
+      <div>
+        <div class="gsc-row">
+          <span class="gsc-flag">🇿🇦</span>
+          <span class="gsc-ctry">South Africa</span>
+          <div class="gsc-bar-bg"><div class="gsc-bar" style="width:100%"></div></div>
+          <span class="gsc-pct">68%</span>
+        </div>
+        <div class="gsc-row">
+          <span class="gsc-flag">🇬🇧</span>
+          <span class="gsc-ctry">United Kingdom</span>
+          <div class="gsc-bar-bg"><div class="gsc-bar" style="width:22%"></div></div>
+          <span class="gsc-pct">15%</span>
+        </div>
+        <div class="gsc-row">
+          <span class="gsc-flag">🇺🇸</span>
+          <span class="gsc-ctry">United States</span>
+          <div class="gsc-bar-bg"><div class="gsc-bar" style="width:16%"></div></div>
+          <span class="gsc-pct">11%</span>
+        </div>
+        <div class="gsc-row">
+          <span class="gsc-flag">🇳🇬</span>
+          <span class="gsc-ctry">Nigeria</span>
+          <div class="gsc-bar-bg"><div class="gsc-bar" style="width:9%"></div></div>
+          <span class="gsc-pct">6%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Workflow Decisions -->
+    <div class="widget">
+      <div class="w-label">Workflow Decisions</div>
+
+      <div class="wf-item">
+        <div class="wf-title">Site Builds — Claude Code vs Artifacts</div>
+        <div class="wf-body">Use <strong>Claude Code</strong> for all real client builds. It writes directly to files, knows your brand guidelines, and keeps context across sessions. Artifacts is good for quick mockups only — can't save files.</div>
+        <span class="wf-verdict">✓ Claude Code for all client builds</span>
+      </div>
+
+      <div class="wf-item">
+        <div class="wf-title">Animations on Client Sites</div>
+        <div class="wf-body">Yes — 100%. A static site in 2026 reads as unfinished at your price point. Use <strong>GSAP ScrollTrigger</strong> on index.html. Service cards, stats, and process steps animate on scroll. One CDN script, no framework. Same library Stripe and Linear use.</div>
+        <span class="wf-verdict">✓ Add GSAP ScrollTrigger to index.html</span>
+      </div>
+    </div>
+
+    <!-- Quick status -->
+    <div class="widget">
+      <div class="w-label">System Status</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--muted)">n8n workflow</span>
+          <span style="color:#f59e0b;font-weight:600;font-size:10px;">PENDING</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--muted)">Instagram token</span>
+          <span style="color:#f59e0b;font-weight:600;font-size:10px;">PENDING</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--muted)">Google Maps key</span>
+          <span style="color:#f59e0b;font-weight:600;font-size:10px;">PENDING</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--muted)">Groq API</span>
+          <span style="color:#34d058;font-weight:600;font-size:10px;">ACTIVE</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--muted)">studio@ email</span>
+          <span style="color:#34d058;font-weight:600;font-size:10px;">ACTIVE</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+          <span style="color:var(--muted)">whitespacedesigns.co.za</span>
+          <span style="color:#34d058;font-weight:600;font-size:10px;">LIVE</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div><!-- /layout -->
+
+<script>
+  /* ── Custom cursor ── */
+  const dot  = document.getElementById('c-dot');
+  const ring = document.getElementById('c-ring');
+  let mx = -100, my = -100, rx = -100, ry = -100;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width  = '52px';
+      ring.style.height = '52px';
+      ring.style.borderColor = 'rgba(200,169,110,0.75)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width  = '34px';
+      ring.style.height = '34px';
+      ring.style.borderColor = 'rgba(200,169,110,0.4)';
+    });
+  });
+
+  /* ── Filter & search ── */
+  let activeFilter = 'all';
+
+  function setFilter(cat, btn) {
+    activeFilter = cat;
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filterTools();
+  }
+
+  function filterTools() {
+    const q = document.getElementById('search').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      const name = (card.dataset.name || '').toLowerCase();
+      const cat  = card.dataset.category || '';
+      const ok   = (!q || name.includes(q)) && (activeFilter === 'all' || cat === activeFilter);
+      card.dataset.hidden = !ok;
+    });
+  }
+</script>
 </body>
 </html>
