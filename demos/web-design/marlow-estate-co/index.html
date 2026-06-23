@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marlow Estate Co. — WSD Demo</title>
+  <meta name="description" content="Marlow Estate Co., premium residential and commercial property in Centurion &amp; surrounds — a White Space Designs showcase. All content is fictional." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* === TOKENS === */
+    :root {
+      --bg:        #11181F;
+      --bg2:       #1A232C;
+      --cream:     #F2EDE2;
+      --gold:      #C9A227;
+      --gold-lt:   #E3CD8E;
+      --green:     #4A6B57;
+      --border:    #2B3540;
+      --serif:     'Fraunces', Georgia, serif;
+      --sans:      'Inter', system-ui, sans-serif;
+      --banner-h:  28px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* Anchor offset for fixed WSD banner */
+    [id] { scroll-margin-top: calc(var(--banner-h) + 1.5rem); }
+
+    /* ─── WSD DEMO BANNER ─────────────────────────────────────── */
+    .wsd-banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      height: var(--banner-h);
+      background: rgba(17, 24, 31, 0.55);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(242, 237, 226, 0.15);
+      color: var(--gold-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      font-family: var(--sans);
+      font-size: .56rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: opacity 0.6s ease;
+    }
+    .wsd-banner.dismissed { opacity: 0; pointer-events: none; }
+    .wsd-banner.collapsed  { height: 0; border: none; transition: height 0.35s ease, border 0.35s ease; }
+    .wsd-banner a { color: var(--gold-lt); font-weight: 700; text-decoration: underline; }
+
+    /* ─── HERO ────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: calc(100vh - var(--banner-h));
+      margin-top: var(--banner-h);
+      overflow: hidden;
+      transition: margin-top 0.35s ease, height 0.35s ease;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #2A2018;
+      background-image: url('assets/hero.jpg');
+      background-size: cover;
+      background-position: center 30%;
+    }
+
+    /* Overlay — left side lighter (colonnade already dark), right pulls sunset brightness down */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(10, 15, 20, 0.35) 0%,
+        rgba(10, 15, 20, 0.45) 100%
+      );
+    }
+
+    /* ── Fixed "Book a viewing" CTA — top-right, all scroll depths ── */
+    .cta-fixed {
+      position: fixed;
+      top: calc(var(--banner-h) + 2.5rem);
+      right: 3.5rem;
+      z-index: 200;
+      transition: top 0.35s ease; /* follows banner-h collapse */
+    }
+    .cta-fixed a {
+      font-family: var(--sans);
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .75;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.55);
+      transition: opacity .2s;
+    }
+    .cta-fixed a:hover { opacity: 1; }
+    .cta-fixed .arrow { font-size: .8rem; }
+
+    /* ── Hero nav — mobile horizontal links only (desktop uses side-nav + cta-fixed) ── */
+    .hero-nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2.5rem 3.5rem;
+    }
+
+    .hero-nav-left {
+      display: none; /* hidden on desktop — side-nav handles it; shown on mobile via media query */
+      gap: 2.75rem;
+    }
+
+    /* ── Left side nav (desktop only) ── */
+    .side-nav {
+      position: fixed;
+      left: 3rem;
+      top: 28vh;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-nav-label {
+      font-family: var(--sans);
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: .38;
+      margin-bottom: 1.25rem;
+      transition: opacity .2s;
+      user-select: none;
+    }
+
+    /* Collapsed state — label becomes the clickable trigger */
+    .side-nav.collapsed .side-nav-label {
+      cursor: pointer;
+      opacity: .65;
+    }
+    .side-nav.collapsed .side-nav-label:hover { opacity: 1; }
+    .side-nav.collapsed .side-nav-label::after {
+      content: ' +';
+      font-size: .45rem;
+      letter-spacing: 0;
+      opacity: .5;
+    }
+    .side-nav.collapsed.expanded .side-nav-label::after { content: ' −'; }
+
+    /* Link list — animated collapse/expand */
+    .side-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow: hidden;
+      max-height: 300px;
+      opacity: 1;
+      transition: max-height 0.35s ease, opacity 0.28s ease;
+    }
+
+    .side-nav.collapsed .side-nav-links {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Manual expand while collapsed */
+    .side-nav.collapsed.expanded .side-nav-links {
+      max-height: 300px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .side-nav-links a {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .62;
+      display: inline-flex;
+      align-items: baseline;
+      gap: .5rem;
+      transition: opacity .2s;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+    }
+    .side-nav-links a:hover { opacity: 1; }
+
+    .nav-bracket {
+      font-size: .62rem;
+      font-weight: 300;
+      opacity: .4;
+      letter-spacing: 0;
+    }
+
+    .hero-nav-left a {
+      font-family: var(--sans);
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .75;
+      transition: opacity .2s;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+    .hero-nav-left a:hover { opacity: 1; }
+
+    /* ── Hero headline (centered, ~42% from top) ── */
+    .hero-headline {
+      position: absolute;
+      top: 42%;
+      left: 0; right: 0;
+      transform: translateY(-50%);
+      text-align: center;
+      padding: 0 2.5rem;
+      z-index: 10;
+    }
+
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: .58rem;
+      font-weight: 500;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-headline h1 {
+      font-family: var(--serif);
+      color: var(--cream);
+      line-height: 1.05;
+    }
+
+    /* Brand name — leads, weight 400 (lighter) reads as the primary identity */
+    .h1-brand {
+      display: block;
+      font-size: clamp(2.5rem, 7vw, 6.5rem);
+      font-weight: 400;
+      letter-spacing: -.01em;
+    }
+
+    /* Tagline — follows, slightly smaller, bolder for contrast against the brand line */
+    .h1-tagline {
+      display: block;
+      font-size: clamp(1.75rem, 5vw, 4.75rem);
+      font-weight: 500;
+      letter-spacing: -.02em;
+      margin-top: .18em;
+    }
+
+    .hero-headline h1 em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* ── Bottom-center logomark (icon only, no wordmark) ── */
+    .hero-logomark {
+      position: absolute;
+      bottom: 2.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      color: var(--cream);
+      opacity: .5;
+      /* REPLACE: swap this SVG for the final Marlow Estate Co. arch mark export */
+    }
+
+    /* ── Services panel (bottom-right, over the photo) ── */
+    .hero-services {
+      position: absolute;
+      bottom: 0; right: 0;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.62);
+      padding: 2rem 2.5rem 2.25rem;
+      min-width: 260px;
+    }
+
+    .services-label {
+      font-family: var(--sans);
+      font-size: .52rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: .45;
+      margin-bottom: 1.5rem;
+    }
+
+    .services-list { list-style: none; }
+
+    .services-list li + li { margin-top: .7rem; }
+
+    .services-list a {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .55rem;
+      font-family: var(--sans);
+      font-size: .82rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--cream);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .services-list a:hover { color: var(--gold-lt); }
+
+    .svc-arrow {
+      font-size: .72rem;
+      opacity: .55;
+    }
+
+    /* ─── SHARED UTILITIES ────────────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+    }
+
+    section { padding: 6.5rem 0; }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--cream);
+      letter-spacing: -.01em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── ABOUT STRIP ─────────────────────────────────────────── */
+    #about { background: var(--bg2); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-body p {
+      font-size: .95rem;
+      line-height: 1.8;
+      color: var(--cream);
+      opacity: .8;
+    }
+    .about-body p + p { margin-top: 1rem; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .stat-number {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 500;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: .5rem;
+    }
+
+    .stat-label {
+      font-family: var(--sans);
+      font-size: .6rem;
+      font-weight: 400;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: .5;
+    }
+
+    /* ─── LISTINGS ────────────────────────────────────────────── */
+    #listings { background: var(--bg); }
+
+    .listings-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      gap: 2rem;
+    }
+
+    .listings-header > div { margin-bottom: 0; }
+    .listings-header .section-title { margin-bottom: 0; }
+
+    .view-all-link {
+      flex-shrink: 0;
+      font-family: var(--sans);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      white-space: nowrap;
+      transition: color .2s;
+      padding-bottom: .2rem;
+    }
+    .view-all-link:hover { color: var(--gold); }
+
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .listing-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Image placeholder — replace with <img> once assets available */
+    .listing-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #20292F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: .52rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(242, 237, 226, .25);
+      flex-shrink: 0;
+      /* REPLACE: swap this div for an <img> tag with the property photograph */
+    }
+
+    .listing-body { padding: 1.5rem 1.5rem 1.75rem; }
+
+    .listing-tag {
+      font-family: var(--sans);
+      font-size: .52rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: .7rem;
+    }
+
+    .listing-address {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: .45rem;
+      line-height: 1.25;
+    }
+
+    .listing-price {
+      font-family: var(--sans);
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .listing-meta {
+      display: flex;
+      gap: 1.25rem;
+      font-family: var(--sans);
+      font-size: .65rem;
+      letter-spacing: .05em;
+      color: var(--cream);
+      opacity: .45;
+    }
+
+    /* ─── SERVICES SECTION ────────────────────────────────────── */
+    #services { background: var(--bg2); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border: 1px solid var(--border);
+    }
+
+    .service-item {
+      padding: 2.75rem 2rem 2.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .service-item:last-child { border-right: none; }
+
+    .service-num {
+      font-family: var(--sans);
+      font-size: .5rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      color: var(--gold-lt);
+      opacity: .5;
+      margin-bottom: 1.75rem;
+    }
+
+    .service-name {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: .8rem;
+    }
+
+    .service-desc {
+      font-family: var(--sans);
+      font-size: .75rem;
+      line-height: 1.7;
+      color: var(--cream);
+      opacity: .55;
+    }
+
+    /* ─── CONTACT ─────────────────────────────────────────────── */
+    #contact { background: var(--bg); }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+
+    .form-group label {
+      font-family: var(--sans);
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: .45;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: .9rem;
+      font-weight: 400;
+      padding: .85rem 1rem;
+      outline: none;
+      transition: border-color .2s;
+      resize: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(242, 237, 226, .2); }
+
+    .btn-submit {
+      background: var(--gold);
+      color: #0d1117;
+      font-family: var(--sans);
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      border: none;
+      padding: 1rem 2.5rem;
+      cursor: pointer;
+      align-self: flex-start;
+      margin-top: .25rem;
+      transition: background .2s;
+    }
+    .btn-submit:hover { background: var(--gold-lt); }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2.25rem;
+      padding-top: .25rem;
+    }
+
+    .detail-label {
+      font-family: var(--sans);
+      font-size: .52rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: .45rem;
+    }
+
+    .contact-details p,
+    .contact-details a {
+      font-family: var(--sans);
+      font-size: .9rem;
+      line-height: 1.6;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .75;
+    }
+    .contact-details a:hover { opacity: 1; }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2.75rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      font-family: var(--serif);
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .75;
+      transition: opacity .2s;
+    }
+    .footer-logo:hover { opacity: 1; }
+
+    .footer-nav {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .footer-nav a {
+      font-family: var(--sans);
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .4;
+      transition: opacity .2s;
+    }
+    .footer-nav a:hover { opacity: .8; }
+
+    .footer-copy {
+      font-family: var(--sans);
+      font-size: .55rem;
+      letter-spacing: .06em;
+      color: var(--cream);
+      opacity: .3;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .side-nav { display: none; }
+      .hero-nav { padding: 2rem 2.5rem; justify-content: flex-start; }
+      .hero-nav-left { display: flex; }
+      .cta-fixed { top: calc(var(--banner-h) + 2rem); right: 2.5rem; }
+      .hero-services { min-width: 220px; padding: 1.75rem 2rem 2rem; }
+      .container { padding: 0 2.5rem; }
+      .about-inner { gap: 4rem; }
+      .contact-inner { gap: 3.5rem; }
+      .services-grid { grid-template-columns: repeat(3, 1fr); }
+      .service-item:nth-child(3) { border-right: none; }
+      .service-item { border-bottom: 1px solid var(--border); }
+      .service-item:nth-child(4),
+      .service-item:nth-child(5) { border-bottom: none; }
+    }
+
+    @media (max-width: 900px) {
+      .listings-grid { grid-template-columns: repeat(2, 1fr); }
+      .listings-grid .listing-card:last-child { display: none; } /* show 2 on tablet */
+    }
+
+    @media (max-width: 800px) {
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 1.5rem; }
+      section { padding: 4.5rem 0; }
+
+      .hero-nav { padding: 1.5rem; }
+      .hero-nav-left { display: flex; gap: 1.5rem; }
+      .cta-fixed { top: calc(var(--banner-h) + 1.5rem); right: 1.5rem; }
+
+      .hero-headline { top: 40%; padding: 0 1.5rem; }
+      .eyebrow { margin-bottom: 1.25rem; }
+
+      /* Logomark hidden on mobile — the panel takes its place */
+      .hero-logomark { display: none; }
+
+      /* Services panel — horizontal strip at bottom of hero on mobile */
+      .hero-services {
+        left: 0;
+        right: 0;
+        padding: 1.25rem 1.5rem;
+        min-width: unset;
+        display: flex;
+        flex-direction: column;
+        gap: .75rem;
+      }
+      .services-label { margin-bottom: 0; }
+      .services-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .35rem .9rem;
+      }
+      .services-list li + li { margin-top: 0; }
+      .services-list a {
+        font-size: .72rem;
+        justify-content: flex-start;
+      }
+
+      .stats-row { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+      .listings-grid { grid-template-columns: 1fr; }
+      .listings-grid .listing-card:last-child { display: flex; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem 1.75rem; }
+      .service-item:last-child { border-bottom: none; }
+      .service-item:nth-child(3),
+      .service-item:nth-child(4),
+      .service-item:nth-child(5) { border-bottom: 1px solid var(--border); }
+      .service-item:last-child { border-bottom: none; }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-nav { flex-wrap: wrap; justify-content: center; gap: 1.25rem 1.75rem; }
+
+      .listings-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .listings-header .section-title { margin-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WSD Demo Banner -->
+  <div class="wsd-banner" role="banner">
+    Demo — all content is fictional &nbsp;·&nbsp; Built by <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a>
+  </div>
+
+
+  <!-- Fixed top-right CTA — stays visible at all scroll depths -->
+  <div class="cta-fixed">
+    <a href="#contact">Book a viewing <span class="arrow" aria-hidden="true">↗</span></a>
+  </div>
+
+  <!-- Fixed left side nav — desktop only -->
+  <nav class="side-nav" aria-label="Site navigation">
+    <p class="side-nav-label">Navigation</p>
+    <ul class="side-nav-links">
+      <li><a href="#listings"><span class="nav-bracket">[1]</span> Listings</a></li>
+      <li><a href="#about"><span class="nav-bracket">[2]</span> About</a></li>
+      <li><a href="#contact"><span class="nav-bracket">[3]</span> Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <section class="hero" aria-label="Hero — Marlow Estate Co.">
+
+    <div class="hero-bg" role="img" aria-label="Villa terrace at dusk — stone colonnade, infinity pool overlooking the ocean at sunset"></div>
+
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Mobile-only top nav (desktop uses fixed side-nav) -->
+    <nav class="hero-nav" aria-label="Main navigation">
+      <div class="hero-nav-left">
+        <a href="#listings">Listings</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Headline — vertically centered, spans most of hero width -->
+    <div class="hero-headline">
+      <p class="eyebrow">Centurion &amp; Surrounds</p>
+      <h1>
+        <span class="h1-brand">Marlow Estate Co.</span>
+        <span class="h1-tagline">Find your place in the <em>city</em> you love</span>
+      </h1>
+    </div>
+
+    <!-- Bottom-center: arch logomark (icon only — no wordmark in hero) -->
+    <div class="hero-logomark" aria-hidden="true">
+      <!-- REPLACE: swap this placeholder SVG for the final Marlow Estate Co. arch mark export (icon only, cream/white) -->
+      <svg width="42" height="34" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <!-- Bottom-right: services panel — floating over the photo -->
+    <aside class="hero-services" aria-label="Services summary">
+      <p class="services-label">Full-cycle real estate services</p>
+      <ul class="services-list">
+        <li><a href="#services">Buy <span class="svc-arrow" aria-hidden="true">↗</span></a></li>
+        <li><a href="#services">Sell <span class="svc-arrow" aria-hidden="true">↗</span></a></li>
+        <li><a href="#services">Rent <span class="svc-arrow" aria-hidden="true">↗</span></a></li>
+        <li><a href="#services">Invest <span class="svc-arrow" aria-hidden="true">↗</span></a></li>
+        <li><a href="#services">Relocate <span class="svc-arrow" aria-hidden="true">↗</span></a></li>
+      </ul>
+    </aside>
+
+  </section><!-- /hero -->
+
+  <hr class="divider" />
+
+
+  <!-- ════════════════════════════ ABOUT STRIP ════════════════════════════ -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-inner">
+
+        <div class="about-body">
+          <p class="section-label">About Marlow Estate Co.</p>
+          <h2 id="about-title" class="section-title">Twenty years of considered<br>property advice</h2>
+          <!-- REPLACE: final agency description (2–3 sentences) -->
+          <p>Marlow Estate Co. brings two decades of combined experience to residential and commercial property across Centurion, Midrand and the greater Tshwane corridor. We guide clients through every step — from the first viewing to the final signature — with discretion, deep market knowledge and a genuine interest in the right outcome.</p>
+          <p>This is not a transaction business. It is a referral business, built on results that speak for themselves.</p>
+        </div>
+
+        <div>
+          <div class="stats-row">
+            <!-- REPLACE: replace placeholder figures with verified client statistics -->
+            <div class="stat">
+              <span class="stat-number">20+</span>
+              <span class="stat-label">Years combined experience</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">R180m+</span>
+              <span class="stat-label">In property sold</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">340+</span>
+              <span class="stat-label">Clients served</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+
+  <!-- ═══════════════════════ FEATURED LISTINGS ═══════════════════════════ -->
+  <section id="listings" aria-labelledby="listings-title">
+    <div class="container">
+
+      <div class="listings-header">
+        <div>
+          <p class="section-label">Featured Properties</p>
+          <h2 id="listings-title" class="section-title">Current listings</h2>
+        </div>
+        <!-- REPLACE: link to full listings page once Listings page is built -->
+        <a href="#" class="view-all-link">View all listings ↗</a>
+      </div>
+
+      <div class="listings-grid">
+
+        <!-- Listing 1 -->
+        <article class="listing-card">
+          <!-- REPLACE: <img src="assets/listing-1.jpg" alt="Front facade, 14 Aloe Ridge Drive, Centurion"> -->
+          <div class="listing-img" role="img" aria-label="Property photograph placeholder — 14 Aloe Ridge Drive">
+            Photo placeholder
+          </div>
+          <div class="listing-body">
+            <p class="listing-tag">For Sale &nbsp;·&nbsp; Centurion</p>
+            <h3 class="listing-address">14 Aloe Ridge Drive</h3>
+            <!-- REPLACE: verified asking price -->
+            <p class="listing-price">R 4,850,000</p>
+            <div class="listing-meta">
+              <span>4 bed</span>
+              <span>3 bath</span>
+              <span>2 garage</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Listing 2 -->
+        <article class="listing-card">
+          <!-- REPLACE: <img src="assets/listing-2.jpg" alt="Garden view, 8 Watercrest Estate, Midrand"> -->
+          <div class="listing-img" role="img" aria-label="Property photograph placeholder — 8 Watercrest Estate">
+            Photo placeholder
+          </div>
+          <div class="listing-body">
+            <p class="listing-tag">For Rent &nbsp;·&nbsp; Midrand</p>
+            <h3 class="listing-address">8 Watercrest Estate</h3>
+            <!-- REPLACE: verified monthly rental -->
+            <p class="listing-price">R 28,500 / month</p>
+            <div class="listing-meta">
+              <span>3 bed</span>
+              <span>2 bath</span>
+              <span>1 garage</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Listing 3 -->
+        <article class="listing-card">
+          <!-- REPLACE: <img src="assets/listing-3.jpg" alt="Exterior, 22 The Willows, Pretoria East"> -->
+          <div class="listing-img" role="img" aria-label="Property photograph placeholder — 22 The Willows">
+            Photo placeholder
+          </div>
+          <div class="listing-body">
+            <p class="listing-tag">For Sale &nbsp;·&nbsp; Pretoria East</p>
+            <h3 class="listing-address">22 The Willows</h3>
+            <!-- REPLACE: verified asking price -->
+            <p class="listing-price">R 6,200,000</p>
+            <div class="listing-meta">
+              <span>5 bed</span>
+              <span>4 bath</span>
+              <span>3 garage</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+
+  <!-- ════════════════════════ SERVICES SECTION ════════════════════════════ -->
+  <section id="services" aria-labelledby="services-title">
+    <div class="container">
+      <p class="section-label">What We Do</p>
+      <h2 id="services-title" class="section-title">Full-cycle real estate services</h2>
+
+      <div class="services-grid">
+
+        <div class="service-item">
+          <p class="service-num">01</p>
+          <h3 class="service-name">Buy</h3>
+          <!-- REPLACE: final service descriptions -->
+          <p class="service-desc">We match buyers with properties that fit both the brief and the life — not just the price bracket.</p>
+        </div>
+
+        <div class="service-item">
+          <p class="service-num">02</p>
+          <h3 class="service-name">Sell</h3>
+          <p class="service-desc">Strategic pricing, professional presentation and a buyer network built over two decades.</p>
+        </div>
+
+        <div class="service-item">
+          <p class="service-num">03</p>
+          <h3 class="service-name">Rent</h3>
+          <p class="service-desc">Tenant sourcing, lease management and rental advisory for private landlords and portfolio holders.</p>
+        </div>
+
+        <div class="service-item">
+          <p class="service-num">04</p>
+          <h3 class="service-name">Invest</h3>
+          <p class="service-desc">Yield analysis, area intelligence and acquisition support for property investors at every scale.</p>
+        </div>
+
+        <div class="service-item">
+          <p class="service-num">05</p>
+          <h3 class="service-name">Relocate</h3>
+          <p class="service-desc">Specialist relocation support for individuals and families moving into the Tshwane corridor.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+
+  <!-- ═════════════════════════════ CONTACT ════════════════════════════════ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-inner">
+
+        <div>
+          <p class="section-label">Get in Touch</p>
+          <h2 id="contact-title" class="section-title">Book a viewing or request<br>more information</h2>
+
+          <form class="contact-form" onsubmit="return false;" novalidate aria-label="Contact form">
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+27 XX XXX XXXX" autocomplete="tel" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell us about what you're looking for…"></textarea>
+            </div>
+            <!-- REPLACE: wire form to backend / Netlify Forms / n8n webhook before going live -->
+            <button type="submit" class="btn-submit">Send enquiry</button>
+          </form>
+        </div>
+
+        <div class="contact-details">
+          <!-- REPLACE: replace all placeholder contact details below with verified client information -->
+          <div>
+            <p class="detail-label">Office</p>
+            <p>The Boardwalk Office Park<br>Eros Street, Centurion, 0157</p>
+          </div>
+          <div>
+            <p class="detail-label">Phone</p>
+            <a href="tel:+27120000000">+27 12 000 0000</a>
+          </div>
+          <div>
+            <p class="detail-label">Email</p>
+            <a href="mailto:hello@marlowco.co.za">hello@marlowco.co.za</a>
+          </div>
+          <div>
+            <p class="detail-label">Office Hours</p>
+            <p>Monday – Friday: 08:00 – 17:00<br>Saturday: 09:00 – 13:00</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════ FOOTER ════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <a href="#" class="footer-logo" aria-label="Marlow Estate Co. — back to top">
+          <!-- REPLACE: swap for final arch SVG mark (cream), same as hero logomark -->
+          <svg width="22" height="18" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Marlow Estate Co.
+        </a>
+
+        <nav aria-label="Footer navigation">
+          <ul class="footer-nav">
+            <li><a href="#listings">Listings</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- REPLACE: confirm year, registered agent number, and correct legal entity name -->
+        <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent &nbsp;·&nbsp; All rights reserved</p>
+
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* ── 1. Banner auto-dismiss (5 s fade + collapse) ──────────────────── */
+      const banner = document.querySelector('.wsd-banner');
+      if (banner) {
+        setTimeout(() => {
+          banner.classList.add('dismissed');
+          setTimeout(() => {
+            banner.classList.add('collapsed');
+            document.documentElement.style.setProperty('--banner-h', '0px');
+          }, 650);
+        }, 5000);
+      }
+
+      /* ── 2. Side-nav collapse / expand ─────────────────────────────────── *
+       *
+       * Single source of truth: heroHasScrolledOut() + userExpanded boolean.
+       * No IntersectionObserver — scroll event + offsetTop is more reliable.
+       *
+       * Collapse rule:  hero's bottom edge has scrolled above the viewport.
+       * Click rule:     label click while collapsed toggles userExpanded.
+       * Auto-expand:    returning to top clears userExpanded and expands.
+       *
+       * Both triggers call applyNavState() which reads both pieces of state
+       * and applies exactly one set of classes — no race conditions.
+       */
+      const sideNav  = document.querySelector('.side-nav');
+      const hero     = document.querySelector('.hero');
+      const navLabel = sideNav && sideNav.querySelector('.side-nav-label');
+
+      if (sideNav && hero) {
+        let userExpanded = false;
+
+        function heroScrolledOut() {
+          /* True when the hero's bottom edge has passed above the viewport top */
+          return window.scrollY >= (hero.offsetTop + hero.offsetHeight);
+        }
+
+        function applyNavState() {
+          if (heroScrolledOut()) {
+            sideNav.classList.add('collapsed');
+            sideNav.classList.toggle('expanded', userExpanded);
+          } else {
+            /* Back at top — always show full nav; clear any manual toggle */
+            userExpanded = false;
+            sideNav.classList.remove('collapsed');
+            sideNav.classList.remove('expanded');
+          }
+        }
+
+        /* Label click: toggle manual expand only while collapsed */
+        if (navLabel) {
+          navLabel.addEventListener('click', e => {
+            e.stopPropagation(); /* prevent document handler firing same tick */
+            if (sideNav.classList.contains('collapsed')) {
+              userExpanded = !userExpanded;
+              applyNavState();
+            }
+          });
+        }
+
+        /* Click anywhere outside: close manual expand */
+        document.addEventListener('click', e => {
+          if (userExpanded && !sideNav.contains(e.target)) {
+            userExpanded = false;
+            applyNavState();
+          }
+        });
+
+        window.addEventListener('scroll', applyNavState, { passive: true });
+        applyNavState(); /* set correct state on first paint */
+      }
+
+      /* ── 3. Services panel: translateY parallax exit on scroll ─────────── */
+      const services = document.querySelector('.hero-services');
+
+      if (hero && services) {
+        const TRAVEL = 700; /* total downward travel (px) — tune to taste */
+        let rafPending = false;
+
+        function updateServicesTransform() {
+          const heroRect = hero.getBoundingClientRect();
+          const heroH    = hero.offsetHeight;
+          /* progress: 0 at top of page → 1 when hero fully scrolled out */
+          const progress = Math.min(1, Math.max(0, -heroRect.top / heroH));
+          const ty = progress * TRAVEL;
+          services.style.transform     = `translateY(${ty}px)`;
+          services.style.pointerEvents = ty >= heroH ? 'none' : '';
+          rafPending = false;
+        }
+
+        window.addEventListener('scroll', () => {
+          if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(updateServicesTransform);
+          }
+        }, { passive: true });
+
+        updateServicesTransform(); /* initialise */
+      }
+
+    });
+  </script>
+
+</body>
+</html>
