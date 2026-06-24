@@ -39,7 +39,7 @@
       font-family: var(--body);
       font-weight: 400;
       line-height: 1.65;
-      overflow-x: hidden;
+      overflow-x: clip; /* hidden breaks GSAP ScrollTrigger's scroll container detection */
     }
 
     /* Anchor offset for fixed WSD banner */
@@ -370,16 +370,13 @@
       overflow: hidden;
     }
 
-    /* Nested frames — hunter green ramp (progressively lighter) */
+    /* Nested frames — property photos */
     .center-image {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 40vw; height: 50vh;
-      background: #2D4A38;
-      display: flex; align-items: center; justify-content: center;
-      color: #F4EFE6; font-size: 13px;
-      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      background: #2D4A38 url('assets/listing-1.jpg') center/cover no-repeat;
       opacity: 0;
       z-index: 6;
     }
@@ -388,10 +385,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 45vw; height: 45vh;
-      background: #3A5E48;
-      display: flex; align-items: center; justify-content: center;
-      color: #F4EFE6; font-size: 13px;
-      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      background: #3A5E48 url('assets/listing-2.jpg') center/cover no-repeat;
       opacity: 0;
       z-index: 7;
     }
@@ -400,10 +394,7 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       width: 45vw; height: 45vh;
-      background: #4A7359;
-      display: flex; align-items: center; justify-content: center;
-      color: #F4EFE6; font-size: 13px;
-      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      background: #4A7359 url('assets/listing-3.jpg') center/cover no-repeat;
       opacity: 0;
       z-index: 8;
     }
@@ -1026,9 +1017,9 @@
 
     <!-- ── Scroll reveal elements (GSAP-driven, do not reorder) ── -->
     <div class="reveal-line" id="revealLine"></div>
-    <div class="center-image"   id="centerImage">[ image 1 ]</div>
-    <div class="center-image-2" id="centerImage2">[ image 2 ]</div>
-    <div class="center-image-3" id="centerImage3">[ image 3 ]</div>
+    <div class="center-image"   id="centerImage"></div>
+    <div class="center-image-2" id="centerImage2"></div>
+    <div class="center-image-3" id="centerImage3"></div>
     <div class="about-reveal"   id="aboutReveal">About</div>
     <div class="gap-reveal"     id="gapReveal">[ revealed content ]</div>
     <div class="gap-text"       id="gapText">Marlow Estate Co.</div>
