@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sold Properties — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; transition: opacity .2s, color .2s; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; cursor: pointer; opacity: .6; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding-top: calc(var(--header-h) + 4.5rem); padding-bottom: 4rem; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .page-header-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; }
+    .page-eyebrow { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .75rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 4rem); font-weight: 400; line-height: 1.05; color: var(--cream); margin-bottom: 1.75rem; }
+    .page-intro { font-family: var(--body); font-size: 1rem; line-height: 1.85; color: var(--cream); opacity: .65; max-width: 52ch; margin-bottom: 3.5rem; }
+
+    /* ── TRACK RECORD STATS ── */
+    .track-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border); }
+    .track-stat { padding: 1.75rem 2rem; border-right: 1px solid var(--border); }
+    .track-stat:last-child { border-right: none; }
+    .track-num { display: block; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; color: var(--gold); line-height: 1; margin-bottom: .4rem; }
+    .track-label { font-family: var(--sans); font-size: .55rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); opacity: .42; }
+
+    /* ── SOLD GRID ── */
+    .sold-main { max-width: 1300px; margin: 0 auto; padding: 4rem 3.5rem 6rem; }
+    .section-label { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 2rem; }
+    .sold-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+
+    .sold-card { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; }
+    .sold-img {
+      width: 100%; aspect-ratio: 4/3;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--sans); font-size: .48rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,239,230,.15);
+    }
+    .sold-img:nth-child(1) { background: #2D4A38; }
+    .sold-ribbon {
+      position: absolute; top: 1rem; left: 1rem;
+      font-family: var(--sans); font-size: .48rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      padding: .3rem .65rem;
+      background: rgba(27,42,35,.75);
+      color: var(--taupe);
+      border: 1px solid rgba(168,154,130,.3);
+    }
+    .sold-date { position: absolute; bottom: .7rem; right: .8rem; font-family: var(--sans); font-size: .46rem; letter-spacing: .08em; color: rgba(244,239,230,.3); }
+    .sold-body { padding: 1.5rem 1.6rem 1.9rem; }
+    .sold-location { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .45rem; }
+    .sold-address { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--cream); margin-bottom: .35rem; }
+    .sold-price-row { display: flex; align-items: baseline; gap: .65rem; margin-bottom: 1.1rem; }
+    .sold-price { font-family: var(--sans); font-size: .85rem; font-weight: 500; color: var(--cream); opacity: .65; text-decoration: line-through; }
+    .sold-achieved { font-family: var(--sans); font-size: .75rem; font-weight: 600; color: var(--gold); }
+    .sold-achieved-label { font-family: var(--sans); font-size: .46rem; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); opacity: .3; }
+    .sold-meta { display: flex; gap: 1.25rem; font-family: var(--sans); font-size: .6rem; letter-spacing: .04em; color: var(--cream); opacity: .4; border-top: 1px solid var(--border); padding-top: .9rem; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; }
+
+    @media (max-width: 1100px) { .sold-grid { grid-template-columns: repeat(2, 1fr); } .track-stats { grid-template-columns: repeat(2, 1fr); } .track-stat:nth-child(2) { border-right: none; } .track-stat:nth-child(3), .track-stat:nth-child(4) { border-top: 1px solid var(--border); } }
+    @media (max-width: 900px) { .header-inner, .page-header-inner, .sold-main, .footer-inner { padding-left: 2rem; padding-right: 2rem; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .sold-grid { grid-template-columns: 1fr; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html" class="active">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a><a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a><a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a><a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="page-eyebrow">Track record &nbsp;·&nbsp; Centurion &amp; Surrounds</p>
+      <h1 class="page-title">Properties Sold</h1>
+      <p class="page-intro">Two decades of successful transactions across Centurion, Midrand, Irene and Pretoria East. Our sold portfolio is the most accurate measure of what we deliver — market-leading prices, shorter time on market, and buyers who are properly qualified from the first viewing.</p>
+      <div class="track-stats" role="list" aria-label="Sales statistics">
+        <div class="track-stat" role="listitem">
+          <span class="track-num">R180m+</span>
+          <span class="track-label">Total value sold</span>
+        </div>
+        <div class="track-stat" role="listitem">
+          <span class="track-num">340+</span>
+          <span class="track-label">Properties transacted</span>
+        </div>
+        <div class="track-stat" role="listitem">
+          <span class="track-num">97%</span>
+          <span class="track-label">List-to-sale price ratio</span>
+        </div>
+        <div class="track-stat" role="listitem">
+          <span class="track-num">18</span>
+          <span class="track-label">Avg. days to sale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="sold-main">
+    <p class="section-label">Recent sales — 2023 / 2024</p>
+    <div class="sold-grid">
+
+      <article class="sold-card">
+        <div class="sold-img" style="background:#2D4A38" role="img" aria-label="7 Copperleaf Ridge — sold property photo placeholder">
+          <span class="sold-ribbon">Sold</span>
+          Photo placeholder
+          <span class="sold-date">March 2024</span>
+        </div>
+        <div class="sold-body">
+          <p class="sold-location">Centurion</p>
+          <h2 class="sold-address">7 Copperleaf Ridge</h2>
+          <div class="sold-price-row">
+            <span class="sold-price">Asking R 4,200,000</span>
+            <span class="sold-achieved">Achieved R 4,350,000</span>
+          </div>
+          <p class="sold-achieved-label">Sold above asking</p>
+          <div class="sold-meta"><span>4 bed</span><span>3 bath</span><span>2 garage</span><span>460 m²</span></div>
+        </div>
+      </article>
+
+      <article class="sold-card">
+        <div class="sold-img" style="background:#3A5E48" role="img" aria-label="3 Langarm Ave, Irene — sold property photo placeholder">
+          <span class="sold-ribbon">Sold</span>
+          Photo placeholder
+          <span class="sold-date">January 2024</span>
+        </div>
+        <div class="sold-body">
+          <p class="sold-location">Irene</p>
+          <h2 class="sold-address">3 Langarm Avenue</h2>
+          <div class="sold-price-row">
+            <span class="sold-price">Asking R 3,100,000</span>
+            <span class="sold-achieved">Achieved R 2,950,000</span>
+          </div>
+          <p class="sold-achieved-label">Sold within 12 days</p>
+          <div class="sold-meta"><span>3 bed</span><span>2 bath</span><span>2 garage</span><span>295 m²</span></div>
+        </div>
+      </article>
+
+      <article class="sold-card">
+        <div class="sold-img" style="background:#4A7359" role="img" aria-label="45 Midstream Estate — sold property photo placeholder">
+          <span class="sold-ribbon">Sold</span>
+          Photo placeholder
+          <span class="sold-date">November 2023</span>
+        </div>
+        <div class="sold-body">
+          <p class="sold-location">Midrand</p>
+          <h2 class="sold-address">45 Midstream Estate</h2>
+          <div class="sold-price-row">
+            <span class="sold-price">Asking R 6,500,000</span>
+            <span class="sold-achieved">Achieved R 6,800,000</span>
+          </div>
+          <p class="sold-achieved-label">Sold above asking</p>
+          <div class="sold-meta"><span>5 bed</span><span>4 bath</span><span>3 garage</span><span>710 m²</span></div>
+        </div>
+      </article>
+
+      <article class="sold-card">
+        <div class="sold-img" style="background:#2D4A38" role="img" aria-label="12 Centurion Golf Estate — sold property photo placeholder">
+          <span class="sold-ribbon">Sold</span>
+          Photo placeholder
+          <span class="sold-date">September 2023</span>
+        </div>
+        <div class="sold-body">
+          <p class="sold-location">Centurion</p>
+          <h2 class="sold-address">12 Centurion Golf Estate</h2>
+          <div class="sold-price-row">
+            <span class="sold-price">Asking R 5,400,000</span>
+            <span class="sold-achieved">Achieved R 5,200,000</span>
+          </div>
+          <p class="sold-achieved-label">Sold in 24 days</p>
+          <div class="sold-meta"><span>4 bed</span><span>3 bath</span><span>2 garage</span><span>510 m²</span></div>
+        </div>
+      </article>
+
+      <article class="sold-card">
+        <div class="sold-img" style="background:#3A5E48" role="img" aria-label="88 Woodlands Drive — sold property photo placeholder">
+          <span class="sold-ribbon">Sold</span>
+          Photo placeholder
+          <span class="sold-date">July 2023</span>
+        </div>
+        <div class="sold-body">
+          <p class="sold-location">Pretoria East</p>
+          <h2 class="sold-address">88 Woodlands Drive</h2>
+          <div class="sold-price-row">
+            <span class="sold-price">Asking R 3,800,000</span>
+            <span class="sold-achieved">Achieved R 3,650,000</span>
+          </div>
+          <p class="sold-achieved-label">Sold within 9 days</p>
+          <div class="sold-meta"><span>3 bed</span><span>2 bath</span><span>2 garage</span><span>340 m²</span></div>
+        </div>
+      </article>
+
+      <article class="sold-card">
+        <div class="sold-img" style="background:#4A7359" role="img" aria-label="2 The Peak, Midrand — sold property photo placeholder">
+          <span class="sold-ribbon">Sold</span>
+          Photo placeholder
+          <span class="sold-date">April 2023</span>
+        </div>
+        <div class="sold-body">
+          <p class="sold-location">Midrand</p>
+          <h2 class="sold-address">2 The Peak</h2>
+          <div class="sold-price-row">
+            <span class="sold-price">Asking R 8,900,000</span>
+            <span class="sold-achieved">Achieved R 9,400,000</span>
+          </div>
+          <p class="sold-achieved-label">Sold above asking — multiple offers</p>
+          <div class="sold-meta"><span>6 bed</span><span>5 bath</span><span>4 garage</span><span>1,050 m²</span></div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navClose');
+    toggle.addEventListener('click', () => overlay.classList.add('open'));
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  </script>
+</body>
+</html>

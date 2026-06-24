@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; cursor: pointer; opacity: .6; }
+
+    /* ── PLACEHOLDER NOTICE ── */
+    .placeholder-notice { background: rgba(92,42,42,0.35); border: 1px solid rgba(92,42,42,.6); padding: 1.1rem 1.5rem; max-width: 860px; margin: 0 auto; display: flex; align-items: flex-start; gap: .75rem; }
+    .notice-icon { font-size: 1rem; flex-shrink: 0; color: var(--gold-lt); margin-top: .1rem; }
+    .notice-text { font-family: var(--sans); font-size: .58rem; line-height: 1.7; color: var(--cream); opacity: .75; }
+
+    /* ── PAGE LAYOUT ── */
+    .legal-wrap { max-width: 1300px; margin: 0 auto; padding: calc(var(--header-h) + 4rem) 3.5rem 6rem; display: grid; grid-template-columns: 200px 1fr; gap: 5.5rem; align-items: start; }
+
+    /* TOC sidebar */
+    .toc { position: sticky; top: calc(var(--header-h) + 2rem); }
+    .toc-label { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 1.1rem; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .toc-list a { font-family: var(--sans); font-size: .6rem; letter-spacing: .04em; color: var(--cream); opacity: .45; text-decoration: none; transition: opacity .2s, color .2s; }
+    .toc-list a:hover { opacity: 1; color: var(--gold-lt); }
+
+    /* Legal content */
+    .legal-content > .placeholder-notice { margin: 0 0 3.5rem 0; }
+    .legal-section { margin-bottom: 4.5rem; padding-top: 1.5rem; }
+    .legal-section:first-of-type { padding-top: 0; }
+    .legal-eyebrow { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .6rem; }
+    .legal-heading { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--cream); margin-bottom: 1.5rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border); }
+    .legal-content h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--cream); margin-bottom: .6rem; margin-top: 2rem; }
+    .legal-content p { font-family: var(--body); font-size: .95rem; line-height: 1.85; color: var(--cream); opacity: .68; margin-bottom: 1rem; }
+    .legal-content ul { padding-left: 1.25rem; margin-bottom: 1rem; }
+    .legal-content ul li { font-family: var(--body); font-size: .95rem; line-height: 1.75; color: var(--cream); opacity: .65; margin-bottom: .4rem; }
+    .legal-content a { color: var(--gold-lt); }
+    .last-updated { font-family: var(--sans); font-size: .52rem; letter-spacing: .06em; color: var(--cream); opacity: .3; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+
+    /* Cookie banner */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(27,42,35,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      z-index: 900;
+      padding: 1.25rem 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .cookie-banner.hidden { display: none; }
+    .cookie-text { font-family: var(--sans); font-size: .55rem; letter-spacing: .04em; line-height: 1.7; color: var(--cream); opacity: .65; }
+    .cookie-text a { color: var(--gold-lt); }
+    .cookie-buttons { display: flex; gap: .75rem; flex-shrink: 0; }
+    .cookie-accept { background: var(--gold); color: #1B2A23; font-family: var(--sans); font-size: .55rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: none; padding: .6rem 1.2rem; cursor: pointer; transition: background .2s; }
+    .cookie-accept:hover { background: var(--gold-lt); }
+    .cookie-decline { background: none; border: 1px solid rgba(244,239,230,.3); color: var(--cream); font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; padding: .6rem 1.2rem; cursor: pointer; opacity: .55; transition: opacity .2s; }
+    .cookie-decline:hover { opacity: 1; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; }
+
+    @media (max-width: 1100px) { .legal-wrap { grid-template-columns: 1fr; gap: 0; } .toc { position: static; margin-bottom: 3rem; } }
+    @media (max-width: 900px) { .header-inner, .legal-wrap, .footer-inner { padding-left: 2rem; padding-right: 2rem; } .cookie-banner { padding-left: 2rem; padding-right: 2rem; flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a><a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a><a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a><a href="contact.html">Contact</a>
+  </div>
+
+  <div class="legal-wrap">
+
+    <!-- TOC -->
+    <nav class="toc" aria-label="Contents">
+      <p class="toc-label">On this page</p>
+      <ul class="toc-list">
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#terms">Terms of Service</a></li>
+        <li><a href="#fair-housing">Fair Housing</a></li>
+        <li><a href="#cookies">Cookie Policy</a></li>
+      </ul>
+    </nav>
+
+    <!-- Legal content -->
+    <div class="legal-content">
+
+      <div class="placeholder-notice">
+        <span class="notice-icon" aria-hidden="true">!</span>
+        <p class="notice-text"><strong>Placeholder legal text.</strong> The content below is standard boilerplate and has NOT been reviewed by a South African attorney. It must be replaced with properly drafted legal text, reviewed by a qualified legal professional, before this site goes live. This applies to all sections: Privacy Policy, Terms of Service, Fair Housing Statement, and Cookie Policy.</p>
+      </div>
+
+      <!-- PRIVACY POLICY -->
+      <section class="legal-section" id="privacy">
+        <p class="legal-eyebrow">Data protection</p>
+        <h1 class="legal-heading">Privacy Policy</h1>
+        <p>Marlow Estate Co. (Pty) Ltd ("we", "us", "our") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose and safeguard your information when you use our website and services, in accordance with the Protection of Personal Information Act 4 of 2013 (POPIA).</p>
+
+        <h3>What information we collect</h3>
+        <p>We may collect personal information including your name, email address, phone number, property address, and any details you provide through our contact, valuation request, or newsletter forms. We also collect technical data such as your IP address, browser type, and pages visited, via standard web analytics tools.</p>
+
+        <h3>How we use your information</h3>
+        <ul>
+          <li>To respond to enquiries and provide the services you have requested</li>
+          <li>To schedule and conduct property viewings and valuations</li>
+          <li>To send you our market newsletter, if you have subscribed</li>
+          <li>To improve our website and services through analytics</li>
+          <li>To comply with legal and regulatory obligations</li>
+        </ul>
+
+        <h3>How we protect your information</h3>
+        <p>We implement reasonable technical and organisational measures to protect your personal information against unauthorised access, alteration, disclosure or destruction. However, no method of transmission over the internet is completely secure.</p>
+
+        <h3>Sharing your information</h3>
+        <p>We do not sell or rent your personal information to third parties. We may share it with trusted service providers who assist us in operating our website and conducting our business, subject to confidentiality agreements. We may disclose information where required by law or regulatory authority.</p>
+
+        <h3>Your rights under POPIA</h3>
+        <p>You have the right to access, correct or request deletion of your personal information held by us. To exercise these rights, contact us at <a href="mailto:privacy@marlowco.co.za">privacy@marlowco.co.za</a>. You also have the right to object to the processing of your personal information and to lodge a complaint with the Information Regulator of South Africa.</p>
+
+        <h3>Retention</h3>
+        <p>We retain your personal information for as long as necessary to fulfil the purposes described in this policy, or as required by applicable law. Contact information related to completed transactions is retained for seven years in accordance with financial record-keeping requirements.</p>
+      </section>
+
+      <!-- TERMS OF SERVICE -->
+      <section class="legal-section" id="terms">
+        <p class="legal-eyebrow">Website use</p>
+        <h2 class="legal-heading">Terms of Service</h2>
+        <p>By accessing this website, you agree to be bound by these Terms of Service. If you do not agree, please discontinue use of the website immediately.</p>
+
+        <h3>Intellectual property</h3>
+        <p>All content on this website — including text, images, graphics, and code — is the property of Marlow Estate Co. (Pty) Ltd or its content suppliers and is protected by applicable intellectual property laws. You may not reproduce, distribute or transmit any content without our prior written consent.</p>
+
+        <h3>Property information accuracy</h3>
+        <p>Property listings, prices, specifications and other information on this website are provided for general information purposes only. While we endeavour to ensure accuracy, information may change without notice. This website does not constitute an offer to sell or let any property. Formal offers and agreements must be concluded through written documentation reviewed by the parties' legal representatives.</p>
+
+        <h3>Limitation of liability</h3>
+        <p>Marlow Estate Co. accepts no liability for loss or damage arising from reliance on information on this website, for errors or omissions in listing information, or for interruptions to service. Use of this website is at your own risk.</p>
+
+        <h3>Third-party links</h3>
+        <p>This website may contain links to third-party websites. We are not responsible for the content, accuracy or privacy practices of any linked sites.</p>
+
+        <h3>Governing law</h3>
+        <p>These Terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the courts of South Africa.</p>
+      </section>
+
+      <!-- FAIR HOUSING -->
+      <section class="legal-section" id="fair-housing">
+        <p class="legal-eyebrow">Equal opportunity</p>
+        <h2 class="legal-heading">Fair Housing &amp; Equal Opportunity Statement</h2>
+        <p>Marlow Estate Co. is committed to the principles of equal opportunity in property transactions. We do not discriminate against any person on the grounds of race, colour, ethnicity, religion, sex, age, disability, sexual orientation, gender identity, marital status, national or social origin, or any other grounds prohibited by the Constitution of the Republic of South Africa (Act 108 of 1996) and applicable legislation including the Promotion of Equality and Prevention of Unfair Discrimination Act 4 of 2000 (PEPUDA).</p>
+
+        <p>All properties marketed by Marlow Estate Co. are available to any qualified buyer, seller, landlord or tenant regardless of the protected characteristics listed above. Our agents are trained to apply consistent standards when advising clients and presenting properties.</p>
+
+        <p>If you believe you have experienced discrimination in connection with a property marketed or managed by Marlow Estate Co., please contact us at <a href="mailto:compliance@marlowco.co.za">compliance@marlowco.co.za</a> or approach the Equality Court in your jurisdiction.</p>
+      </section>
+
+      <!-- COOKIES -->
+      <section class="legal-section" id="cookies">
+        <p class="legal-eyebrow">Website cookies</p>
+        <h2 class="legal-heading">Cookie Policy</h2>
+        <p>This website uses cookies — small text files stored on your device — to improve your browsing experience and help us understand how the site is used.</p>
+
+        <h3>Types of cookies we use</h3>
+        <ul>
+          <li><strong>Essential cookies:</strong> Required for the website to function. These cannot be disabled.</li>
+          <li><strong>Analytics cookies:</strong> Help us understand visitor behaviour using aggregated, anonymised data (e.g. Google Analytics). You may decline these.</li>
+          <li><strong>Preference cookies:</strong> Remember settings such as whether you have dismissed the cookie banner. You may decline these.</li>
+        </ul>
+
+        <p>We do not use advertising or tracking cookies that follow you across third-party websites.</p>
+
+        <h3>Managing cookies</h3>
+        <p>You may decline non-essential cookies via the banner shown on your first visit. You can also control cookies through your browser settings. Note that disabling certain cookies may affect site functionality.</p>
+      </section>
+
+      <p class="last-updated">Last updated: October 2024 &nbsp;·&nbsp; Placeholder text — not legally reviewed &nbsp;·&nbsp; <a href="mailto:privacy@marlowco.co.za" style="color:var(--gold-lt)">privacy@marlowco.co.za</a></p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <p class="cookie-text">We use essential and analytics cookies to improve your experience. See our <a href="#cookies">Cookie Policy</a> for details. You can decline non-essential cookies below.</p>
+    <div class="cookie-buttons">
+      <button class="cookie-decline" id="cookieDecline">Decline</button>
+      <button class="cookie-accept" id="cookieAccept">Accept all</button>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navClose');
+    toggle.addEventListener('click', () => overlay.classList.add('open'));
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+    /* Cookie banner */
+    const banner = document.getElementById('cookieBanner');
+    const stored = localStorage.getItem('mec_cookie_consent');
+    if (stored) banner.classList.add('hidden');
+    document.getElementById('cookieAccept').addEventListener('click', () => { localStorage.setItem('mec_cookie_consent', 'accepted'); banner.classList.add('hidden'); });
+    document.getElementById('cookieDecline').addEventListener('click', () => { localStorage.setItem('mec_cookie_consent', 'declined'); banner.classList.add('hidden'); });
+  </script>
+</body>
+</html>

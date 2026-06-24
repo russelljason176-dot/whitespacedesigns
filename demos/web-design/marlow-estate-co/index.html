@@ -7,22 +7,27 @@
   <meta name="description" content="Marlow Estate Co., premium residential and commercial property in Centurion &amp; surrounds — a White Space Designs showcase. All content is fictional." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     /* === RESET === */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* === TOKENS === */
     :root {
-      --bg:        #11181F;
-      --bg2:       #1A232C;
-      --cream:     #F2EDE2;
-      --gold:      #C9A227;
-      --gold-lt:   #E3CD8E;
-      --green:     #4A6B57;
-      --border:    #2B3540;
-      --serif:     'Fraunces', Georgia, serif;
-      --sans:      'Inter', system-ui, sans-serif;
+      --bg:        #1B2A23;   /* hunter green — dominant anchor */
+      --bg2:       #243530;   /* hunter green tint — alternating sections */
+      --cream:     #F4EFE6;   /* warm ivory — text on dark / surfaces */
+      --gold:      #B08D57;   /* aged brass — primary accent */
+      --gold-lt:   #C9A063;   /* soft brass — muted accent / hover */
+      --oxblood:   #5C2A2A;   /* signature — primary CTA only */
+      --taupe:     #A89A82;   /* warm taupe — borders / neutrals */
+      --espresso:  #2B211B;   /* text on light surfaces */
+      --charcoal:  #21201D;   /* alt deep dark */
+      --green:     #3A5E48;   /* mid hunter green — tint / accent */
+      --border:    rgba(168, 154, 130, 0.28);  /* warm taupe at low opacity */
+      --serif:     'Cormorant Garamond', Georgia, serif;
+      --body:      'EB Garamond', Georgia, serif;
+      --sans:      'Work Sans', system-ui, sans-serif;
       --banner-h:  28px;
     }
 
@@ -31,7 +36,7 @@
     body {
       background: var(--bg);
       color: var(--cream);
-      font-family: var(--sans);
+      font-family: var(--body);
       font-weight: 400;
       line-height: 1.65;
       overflow-x: hidden;
@@ -46,10 +51,10 @@
       top: 0; left: 0; right: 0;
       z-index: 9999;
       height: var(--banner-h);
-      background: rgba(17, 24, 31, 0.55);
+      background: rgba(27, 42, 35, 0.65);
       -webkit-backdrop-filter: blur(16px);
       backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(242, 237, 226, 0.15);
+      border-bottom: 1px solid rgba(168, 154, 130, 0.2);
       color: var(--gold-lt);
       display: flex;
       align-items: center;
@@ -70,39 +75,36 @@
     /* ─── HERO ────────────────────────────────────────────────── */
     .hero {
       position: relative;
-      height: calc(100vh - var(--banner-h));
-      margin-top: var(--banner-h);
+      height: 100vh;
       overflow: hidden;
-      transition: margin-top 0.35s ease, height 0.35s ease;
     }
 
     .hero-bg {
       position: absolute;
       inset: 0;
-      background-color: #2A2018;
-      background-image: url('assets/hero.jpg');
+      background-color: #1B2A23;
+      background-image: url('assets/villa-hero.webp');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center;
     }
 
-    /* Overlay — left side lighter (colonnade already dark), right pulls sunset brightness down */
     .hero-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
         to right,
-        rgba(10, 15, 20, 0.35) 0%,
-        rgba(10, 15, 20, 0.45) 100%
+        rgba(27, 42, 35, 0.3) 0%,
+        rgba(27, 42, 35, 0.48) 100%
       );
     }
 
-    /* ── Fixed "Book a viewing" CTA — top-right, all scroll depths ── */
+    /* ── Fixed "Book a viewing" CTA ── */
     .cta-fixed {
       position: fixed;
       top: calc(var(--banner-h) + 2.5rem);
       right: 3.5rem;
       z-index: 200;
-      transition: top 0.35s ease; /* follows banner-h collapse */
+      transition: top 0.35s ease;
     }
     .cta-fixed a {
       font-family: var(--sans);
@@ -122,11 +124,11 @@
     .cta-fixed a:hover { opacity: 1; }
     .cta-fixed .arrow { font-size: .8rem; }
 
-    /* ── Hero nav — mobile horizontal links only (desktop uses side-nav + cta-fixed) ── */
+    /* ── Hero nav — mobile only ── */
     .hero-nav {
       position: absolute;
       top: 0; left: 0; right: 0;
-      z-index: 10;
+      z-index: 20;
       display: flex;
       align-items: center;
       justify-content: flex-start;
@@ -134,7 +136,7 @@
     }
 
     .hero-nav-left {
-      display: none; /* hidden on desktop — side-nav handles it; shown on mobile via media query */
+      display: none;
       gap: 2.75rem;
     }
 
@@ -161,7 +163,6 @@
       user-select: none;
     }
 
-    /* Collapsed state — label becomes the clickable trigger */
     .side-nav.collapsed .side-nav-label {
       cursor: pointer;
       opacity: .65;
@@ -175,7 +176,6 @@
     }
     .side-nav.collapsed.expanded .side-nav-label::after { content: ' −'; }
 
-    /* Link list — animated collapse/expand */
     .side-nav-links {
       list-style: none;
       display: flex;
@@ -191,9 +191,9 @@
       max-height: 0;
       opacity: 0;
       pointer-events: none;
+      transition: none;
     }
 
-    /* Manual expand while collapsed */
     .side-nav.collapsed.expanded .side-nav-links {
       max-height: 300px;
       opacity: 1;
@@ -202,7 +202,7 @@
 
     .side-nav-links a {
       font-family: var(--sans);
-      font-size: 1rem;
+      font-size: .9rem;
       font-weight: 400;
       letter-spacing: .08em;
       text-transform: uppercase;
@@ -215,7 +215,7 @@
       transition: opacity .2s;
       text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
     }
-    .side-nav-links a:hover { opacity: 1; }
+    .side-nav-links a:hover { opacity: 1; color: var(--gold-lt); }
 
     .nav-bracket {
       font-size: .62rem;
@@ -238,7 +238,7 @@
     }
     .hero-nav-left a:hover { opacity: 1; }
 
-    /* ── Hero headline (centered, ~42% from top) ── */
+    /* ── Hero headline ── */
     .hero-headline {
       position: absolute;
       top: 42%;
@@ -246,7 +246,7 @@
       transform: translateY(-50%);
       text-align: center;
       padding: 0 2.5rem;
-      z-index: 10;
+      z-index: 2;
     }
 
     .eyebrow {
@@ -265,7 +265,6 @@
       line-height: 1.05;
     }
 
-    /* Brand name — leads, weight 400 (lighter) reads as the primary identity */
     .h1-brand {
       display: block;
       font-size: clamp(2.5rem, 7vw, 6.5rem);
@@ -273,38 +272,52 @@
       letter-spacing: -.01em;
     }
 
-    /* Tagline — follows, slightly smaller, bolder for contrast against the brand line */
     .h1-tagline {
       display: block;
       font-size: clamp(1.75rem, 5vw, 4.75rem);
-      font-weight: 500;
-      letter-spacing: -.02em;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: -.01em;
       margin-top: .18em;
+    }
+
+    /* Word rotator — italic in gold-lt, no bold needed (Cormorant italic IS the emphasis) */
+    .rotator {
+      display: inline-block;
+      overflow: hidden;
+      height: 1.2em;
+      vertical-align: bottom;
+      min-width: 220px;
+      text-align: left;
+    }
+    #rot-word {
+      display: inline-block;
+      font-style: italic;
+      color: var(--gold-lt);
     }
 
     .hero-headline h1 em {
       font-style: italic;
-      font-weight: 400;
+      font-weight: 300;
     }
 
-    /* ── Bottom-center logomark (icon only, no wordmark) ── */
+    /* ── Logomark ── */
     .hero-logomark {
       position: absolute;
       bottom: 2.75rem;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10;
+      z-index: 2;
       color: var(--cream);
-      opacity: .5;
-      /* REPLACE: swap this SVG for the final Marlow Estate Co. arch mark export */
+      opacity: .45;
     }
 
-    /* ── Services panel (bottom-right, over the photo) ── */
+    /* ── Services panel ── */
     .hero-services {
       position: absolute;
       bottom: 0; right: 0;
-      z-index: 10;
-      background: rgba(0, 0, 0, 0.62);
+      z-index: 15;
+      background: rgba(27, 42, 35, 0.82);
       padding: 2rem 2.5rem 2.25rem;
       min-width: 260px;
     }
@@ -321,7 +334,6 @@
     }
 
     .services-list { list-style: none; }
-
     .services-list li + li { margin-top: .7rem; }
 
     .services-list a {
@@ -330,9 +342,9 @@
       justify-content: flex-end;
       gap: .55rem;
       font-family: var(--sans);
-      font-size: .82rem;
+      font-size: .8rem;
       font-weight: 400;
-      letter-spacing: .04em;
+      letter-spacing: .06em;
       color: var(--cream);
       text-decoration: none;
       transition: color .2s;
@@ -342,6 +354,111 @@
     .svc-arrow {
       font-size: .72rem;
       opacity: .55;
+    }
+
+    /* ─── SCROLL REVEAL ELEMENTS ──────────────────────────────── */
+    /* Reveal line — warm ivory instead of clinical white */
+    .reveal-line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 0;
+      background: #F4EFE6;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    /* Nested frames — hunter green ramp (progressively lighter) */
+    .center-image {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40vw; height: 50vh;
+      background: #2D4A38;
+      display: flex; align-items: center; justify-content: center;
+      color: #F4EFE6; font-size: 13px;
+      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      opacity: 0;
+      z-index: 6;
+    }
+    .center-image-2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45vw; height: 45vh;
+      background: #3A5E48;
+      display: flex; align-items: center; justify-content: center;
+      color: #F4EFE6; font-size: 13px;
+      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      opacity: 0;
+      z-index: 7;
+    }
+    .center-image-3 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45vw; height: 45vh;
+      background: #4A7359;
+      display: flex; align-items: center; justify-content: center;
+      color: #F4EFE6; font-size: 13px;
+      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      opacity: 0;
+      z-index: 8;
+    }
+
+    /* About reveal — warm ivory surface */
+    .about-reveal {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45vw; height: 45vh;
+      background: #F4EFE6;
+      display: flex; align-items: center; justify-content: center;
+      color: #2B211B; font-size: 13px;
+      font-family: var(--sans); letter-spacing: .1em; text-transform: uppercase;
+      opacity: 0;
+      z-index: 9;
+    }
+
+    /* Gap reveal — warm taupe backdrop behind the split doors */
+    .gap-reveal {
+      position: absolute;
+      inset: 0;
+      background: #EBE5D8;
+      z-index: 9;
+      opacity: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #2B211B; font-size: 14px;
+      font-family: var(--sans); letter-spacing: .08em;
+    }
+
+    /* Split doors — warm ivory, not clinical white */
+    .split-door {
+      position: absolute;
+      top: 0;
+      height: 100vh;
+      background: #F4EFE6;
+      z-index: 10;
+      opacity: 0;
+    }
+    .split-door-left  { left: 0;  width: 50vw; }
+    .split-door-right { right: 0; width: 50vw; }
+
+    /* Brand name rising through the gap — espresso on ivory/taupe bg */
+    .gap-text {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      letter-spacing: .12em;
+      color: #1B2A23;
+      white-space: nowrap;
+      z-index: 9;
     }
 
     /* ─── SHARED UTILITIES ────────────────────────────────────── */
@@ -371,7 +488,7 @@
     .section-title {
       font-family: var(--serif);
       font-size: clamp(1.8rem, 3vw, 3rem);
-      font-weight: 500;
+      font-weight: 400;
       line-height: 1.1;
       color: var(--cream);
       letter-spacing: -.01em;
@@ -389,10 +506,11 @@
     }
 
     .about-body p {
-      font-size: .95rem;
-      line-height: 1.8;
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.85;
       color: var(--cream);
-      opacity: .8;
+      opacity: .82;
     }
     .about-body p + p { margin-top: 1rem; }
 
@@ -406,7 +524,7 @@
       display: block;
       font-family: var(--serif);
       font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 500;
+      font-weight: 400;
       color: var(--gold);
       line-height: 1;
       margin-bottom: .5rem;
@@ -468,21 +586,14 @@
       flex-direction: column;
     }
 
-    /* Image placeholder — replace with <img> once assets available */
+    /* Placeholder shifted to hunter green ramp */
     .listing-img {
       width: 100%;
       aspect-ratio: 4/3;
-      background: #20292F;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--sans);
-      font-size: .52rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(242, 237, 226, .25);
+      object-fit: cover;
+      display: block;
       flex-shrink: 0;
-      /* REPLACE: swap this div for an <img> tag with the property photograph */
+      background: #243530;
     }
 
     .listing-body { padding: 1.5rem 1.5rem 1.75rem; }
@@ -499,8 +610,8 @@
 
     .listing-address {
       font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 500;
+      font-size: 1.15rem;
+      font-weight: 400;
       color: var(--cream);
       margin-bottom: .45rem;
       line-height: 1.25;
@@ -551,18 +662,18 @@
 
     .service-name {
       font-family: var(--serif);
-      font-size: 1.3rem;
-      font-weight: 500;
+      font-size: 1.35rem;
+      font-weight: 400;
       color: var(--cream);
       margin-bottom: .8rem;
     }
 
     .service-desc {
-      font-family: var(--sans);
-      font-size: .75rem;
-      line-height: 1.7;
+      font-family: var(--body);
+      font-size: .9rem;
+      line-height: 1.75;
       color: var(--cream);
-      opacity: .55;
+      opacity: .58;
     }
 
     /* ─── CONTACT ─────────────────────────────────────────────── */
@@ -601,8 +712,8 @@
       background: var(--bg2);
       border: 1px solid var(--border);
       color: var(--cream);
-      font-family: var(--sans);
-      font-size: .9rem;
+      font-family: var(--body);
+      font-size: 1rem;
       font-weight: 400;
       padding: .85rem 1rem;
       outline: none;
@@ -613,11 +724,12 @@
     .form-group input:focus,
     .form-group textarea:focus { border-color: var(--gold); }
     .form-group input::placeholder,
-    .form-group textarea::placeholder { color: rgba(242, 237, 226, .2); }
+    .form-group textarea::placeholder { color: rgba(244, 239, 230, .22); }
 
+    /* Oxblood reserved for this one CTA — submit button */
     .btn-submit {
-      background: var(--gold);
-      color: #0d1117;
+      background: var(--oxblood);
+      color: var(--cream);
       font-family: var(--sans);
       font-size: .62rem;
       font-weight: 600;
@@ -630,7 +742,7 @@
       margin-top: .25rem;
       transition: background .2s;
     }
-    .btn-submit:hover { background: var(--gold-lt); }
+    .btn-submit:hover { background: #7A3A3A; }
 
     .contact-details {
       display: flex;
@@ -651,14 +763,64 @@
 
     .contact-details p,
     .contact-details a {
-      font-family: var(--sans);
-      font-size: .9rem;
-      line-height: 1.6;
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.7;
       color: var(--cream);
       text-decoration: none;
       opacity: .75;
     }
     .contact-details a:hover { opacity: 1; }
+
+    /* ─── TESTIMONIALS ───────────────────────────────────────── */
+    #testimonials { background: var(--bg2); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+
+    .testimonial {
+      padding: 2.5rem 2.25rem 2.75rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .testimonial:last-child { border-right: none; }
+
+    .testimonial-quote {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.8;
+      color: var(--cream);
+      opacity: .82;
+      flex: 1;
+    }
+    .testimonial-quote::before { content: '\201C'; }
+    .testimonial-quote::after  { content: '\201D'; }
+
+    .testimonial-footer { display: flex; flex-direction: column; gap: .25rem; }
+
+    .testimonial-name {
+      font-family: var(--sans);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      color: var(--cream);
+    }
+
+    .testimonial-context {
+      font-family: var(--sans);
+      font-size: .52rem;
+      letter-spacing: .07em;
+      color: var(--gold-lt);
+      opacity: .7;
+    }
 
     /* ─── FOOTER ──────────────────────────────────────────────── */
     footer {
@@ -679,8 +841,8 @@
       align-items: center;
       gap: .7rem;
       font-family: var(--serif);
-      font-size: .95rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 400;
       color: var(--cream);
       text-decoration: none;
       opacity: .75;
@@ -732,7 +894,7 @@
 
     @media (max-width: 900px) {
       .listings-grid { grid-template-columns: repeat(2, 1fr); }
-      .listings-grid .listing-card:last-child { display: none; } /* show 2 on tablet */
+      .listings-grid .listing-card:last-child { display: none; }
     }
 
     @media (max-width: 800px) {
@@ -751,13 +913,10 @@
       .hero-headline { top: 40%; padding: 0 1.5rem; }
       .eyebrow { margin-bottom: 1.25rem; }
 
-      /* Logomark hidden on mobile — the panel takes its place */
       .hero-logomark { display: none; }
 
-      /* Services panel — horizontal strip at bottom of hero on mobile */
       .hero-services {
-        left: 0;
-        right: 0;
+        left: 0; right: 0;
         padding: 1.25rem 1.5rem;
         min-width: unset;
         display: flex;
@@ -771,10 +930,7 @@
         gap: .35rem .9rem;
       }
       .services-list li + li { margin-top: 0; }
-      .services-list a {
-        font-size: .72rem;
-        justify-content: flex-start;
-      }
+      .services-list a { font-size: .72rem; justify-content: flex-start; }
 
       .stats-row { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
@@ -794,6 +950,9 @@
 
       .listings-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .listings-header .section-title { margin-bottom: 0; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial { border-right: none; border-bottom: 1px solid var(--border); }
+      .testimonial:last-child { border-bottom: none; }
     }
   </style>
 </head>
@@ -804,8 +963,7 @@
     Demo — all content is fictional &nbsp;·&nbsp; Built by <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a>
   </div>
 
-
-  <!-- Fixed top-right CTA — stays visible at all scroll depths -->
+  <!-- Fixed top-right CTA -->
   <div class="cta-fixed">
     <a href="#contact">Book a viewing <span class="arrow" aria-hidden="true">↗</span></a>
   </div>
@@ -823,11 +981,10 @@
   <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
   <section class="hero" aria-label="Hero — Marlow Estate Co.">
 
-    <div class="hero-bg" role="img" aria-label="Villa terrace at dusk — stone colonnade, infinity pool overlooking the ocean at sunset"></div>
-
+    <div class="hero-bg" role="img" aria-label="Villa hero background"></div>
     <div class="hero-overlay" aria-hidden="true"></div>
 
-    <!-- Mobile-only top nav (desktop uses fixed side-nav) -->
+    <!-- Mobile-only top nav -->
     <nav class="hero-nav" aria-label="Main navigation">
       <div class="hero-nav-left">
         <a href="#listings">Listings</a>
@@ -836,18 +993,18 @@
       </div>
     </nav>
 
-    <!-- Headline — vertically centered, spans most of hero width -->
+    <!-- Headline — z-index 2 so reveal line grows over it -->
     <div class="hero-headline">
       <p class="eyebrow">Centurion &amp; Surrounds</p>
       <h1>
         <span class="h1-brand">Marlow Estate Co.</span>
-        <span class="h1-tagline">Find your place in the <em>city</em> you love</span>
+        <span class="h1-tagline">Find your place in the city you'll always <span class="rotator"><span id="rot-word">love</span></span></span>
       </h1>
     </div>
 
-    <!-- Bottom-center: arch logomark (icon only — no wordmark in hero) -->
+    <!-- Arch logomark — z-index 2, sits behind reveal -->
     <div class="hero-logomark" aria-hidden="true">
-      <!-- REPLACE: swap this placeholder SVG for the final Marlow Estate Co. arch mark export (icon only, cream/white) -->
+      <!-- REPLACE: swap for final Marlow Estate Co. arch mark export -->
       <svg width="42" height="34" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
         <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>
@@ -855,7 +1012,7 @@
       </svg>
     </div>
 
-    <!-- Bottom-right: services panel — floating over the photo -->
+    <!-- Services panel — GSAP slides this down in Phase 1 -->
     <aside class="hero-services" aria-label="Services summary">
       <p class="services-label">Full-cycle real estate services</p>
       <ul class="services-list">
@@ -867,12 +1024,23 @@
       </ul>
     </aside>
 
+    <!-- ── Scroll reveal elements (GSAP-driven, do not reorder) ── -->
+    <div class="reveal-line" id="revealLine"></div>
+    <div class="center-image"   id="centerImage">[ image 1 ]</div>
+    <div class="center-image-2" id="centerImage2">[ image 2 ]</div>
+    <div class="center-image-3" id="centerImage3">[ image 3 ]</div>
+    <div class="about-reveal"   id="aboutReveal">About</div>
+    <div class="gap-reveal"     id="gapReveal">[ revealed content ]</div>
+    <div class="gap-text"       id="gapText">Marlow Estate Co.</div>
+    <div class="split-door split-door-left"  id="doorLeft"></div>
+    <div class="split-door split-door-right" id="doorRight"></div>
+
   </section><!-- /hero -->
 
   <hr class="divider" />
 
 
-  <!-- ════════════════════════════ ABOUT STRIP ════════════════════════════ -->
+  <!-- ════════════════════════ ABOUT STRIP ════════════════════════════════ -->
   <section id="about" aria-labelledby="about-title">
     <div class="container">
       <div class="about-inner">
@@ -880,14 +1048,14 @@
         <div class="about-body">
           <p class="section-label">About Marlow Estate Co.</p>
           <h2 id="about-title" class="section-title">Twenty years of considered<br>property advice</h2>
-          <!-- REPLACE: final agency description (2–3 sentences) -->
+          <!-- REPLACE: final agency description -->
           <p>Marlow Estate Co. brings two decades of combined experience to residential and commercial property across Centurion, Midrand and the greater Tshwane corridor. We guide clients through every step — from the first viewing to the final signature — with discretion, deep market knowledge and a genuine interest in the right outcome.</p>
           <p>This is not a transaction business. It is a referral business, built on results that speak for themselves.</p>
         </div>
 
         <div>
           <div class="stats-row">
-            <!-- REPLACE: replace placeholder figures with verified client statistics -->
+            <!-- REPLACE: verified client statistics -->
             <div class="stat">
               <span class="stat-number">20+</span>
               <span class="stat-label">Years combined experience</span>
@@ -919,65 +1087,44 @@
           <p class="section-label">Featured Properties</p>
           <h2 id="listings-title" class="section-title">Current listings</h2>
         </div>
-        <!-- REPLACE: link to full listings page once Listings page is built -->
+        <!-- REPLACE: link to full listings page -->
         <a href="#" class="view-all-link">View all listings ↗</a>
       </div>
 
       <div class="listings-grid">
 
-        <!-- Listing 1 -->
         <article class="listing-card">
-          <!-- REPLACE: <img src="assets/listing-1.jpg" alt="Front facade, 14 Aloe Ridge Drive, Centurion"> -->
-          <div class="listing-img" role="img" aria-label="Property photograph placeholder — 14 Aloe Ridge Drive">
-            Photo placeholder
-          </div>
+          <img src="assets/listing-1.jpg" alt="14 Aloe Ridge Drive, Centurion" class="listing-img" />
           <div class="listing-body">
             <p class="listing-tag">For Sale &nbsp;·&nbsp; Centurion</p>
             <h3 class="listing-address">14 Aloe Ridge Drive</h3>
-            <!-- REPLACE: verified asking price -->
             <p class="listing-price">R 4,850,000</p>
             <div class="listing-meta">
-              <span>4 bed</span>
-              <span>3 bath</span>
-              <span>2 garage</span>
+              <span>4 bed</span><span>3 bath</span><span>2 garage</span>
             </div>
           </div>
         </article>
 
-        <!-- Listing 2 -->
         <article class="listing-card">
-          <!-- REPLACE: <img src="assets/listing-2.jpg" alt="Garden view, 8 Watercrest Estate, Midrand"> -->
-          <div class="listing-img" role="img" aria-label="Property photograph placeholder — 8 Watercrest Estate">
-            Photo placeholder
-          </div>
+          <img src="assets/listing-2.jpg" alt="8 Watercrest Estate, Midrand" class="listing-img" />
           <div class="listing-body">
             <p class="listing-tag">For Rent &nbsp;·&nbsp; Midrand</p>
             <h3 class="listing-address">8 Watercrest Estate</h3>
-            <!-- REPLACE: verified monthly rental -->
             <p class="listing-price">R 28,500 / month</p>
             <div class="listing-meta">
-              <span>3 bed</span>
-              <span>2 bath</span>
-              <span>1 garage</span>
+              <span>3 bed</span><span>2 bath</span><span>1 garage</span>
             </div>
           </div>
         </article>
 
-        <!-- Listing 3 -->
         <article class="listing-card">
-          <!-- REPLACE: <img src="assets/listing-3.jpg" alt="Exterior, 22 The Willows, Pretoria East"> -->
-          <div class="listing-img" role="img" aria-label="Property photograph placeholder — 22 The Willows">
-            Photo placeholder
-          </div>
+          <img src="assets/listing-3.jpg" alt="22 The Willows, Pretoria East" class="listing-img" />
           <div class="listing-body">
             <p class="listing-tag">For Sale &nbsp;·&nbsp; Pretoria East</p>
             <h3 class="listing-address">22 The Willows</h3>
-            <!-- REPLACE: verified asking price -->
             <p class="listing-price">R 6,200,000</p>
             <div class="listing-meta">
-              <span>5 bed</span>
-              <span>4 bath</span>
-              <span>3 garage</span>
+              <span>5 bed</span><span>4 bath</span><span>3 garage</span>
             </div>
           </div>
         </article>
@@ -1035,6 +1182,44 @@
   <hr class="divider" />
 
 
+  <!-- ══════════════════════════ TESTIMONIALS ══════════════════════════════ -->
+  <section id="testimonials" aria-labelledby="testimonials-title">
+    <div class="container">
+      <p class="section-label">Client Testimonials</p>
+      <h2 id="testimonials-title" class="section-title">What our clients say</h2>
+      <div class="testimonials-grid">
+
+        <blockquote class="testimonial">
+          <p class="testimonial-quote">"Catherine sold our Copperleaf home in eleven days at above asking price. What impressed us most was not the result — it was the honesty along the way. She told us things our previous agent hadn't, and every one of them turned out to be right."</p>
+          <footer class="testimonial-footer">
+            <span class="testimonial-name">David &amp; Annika Breytenbach</span>
+            <span class="testimonial-context">Sellers · Centurion Golf Estate, 2024</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="testimonial">
+          <p class="testimonial-quote">"We relocated from Cape Town and had six weeks to find a home. James knew the Centurion market in a way that no online search could replicate. He showed us three properties and the third was the right one. That kind of efficiency is only possible because he actually knows the stock."</p>
+          <footer class="testimonial-footer">
+            <span class="testimonial-name">Themba &amp; Naledi Khumalo</span>
+            <span class="testimonial-context">Buyers · Midstream Estate, 2023</span>
+          </footer>
+        </blockquote>
+
+        <blockquote class="testimonial">
+          <p class="testimonial-quote">"Priya managed our rental portfolio for two years before we decided to sell. When the time came, the transition was seamless — she already knew the properties inside out. We achieved 4% above the valuations we'd had done independently. I wouldn't use anyone else in this market."</p>
+          <footer class="testimonial-footer">
+            <span class="testimonial-name">Roelof van der Berg</span>
+            <span class="testimonial-context">Landlord &amp; Seller · Irene, 2024</span>
+          </footer>
+        </blockquote>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+
   <!-- ═════════════════════════════ CONTACT ════════════════════════════════ -->
   <section id="contact" aria-labelledby="contact-title">
     <div class="container">
@@ -1057,13 +1242,13 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" placeholder="Tell us about what you're looking for…"></textarea>
             </div>
-            <!-- REPLACE: wire form to backend / Netlify Forms / n8n webhook before going live -->
+            <!-- REPLACE: wire to backend / Netlify Forms / n8n webhook -->
             <button type="submit" class="btn-submit">Send enquiry</button>
           </form>
         </div>
 
         <div class="contact-details">
-          <!-- REPLACE: replace all placeholder contact details below with verified client information -->
+          <!-- REPLACE: verified contact details -->
           <div>
             <p class="detail-label">Office</p>
             <p>The Boardwalk Office Park<br>Eros Street, Centurion, 0157</p>
@@ -1093,7 +1278,7 @@
       <div class="footer-inner">
 
         <a href="#" class="footer-logo" aria-label="Marlow Estate Co. — back to top">
-          <!-- REPLACE: swap for final arch SVG mark (cream), same as hero logomark -->
+          <!-- REPLACE: final arch SVG mark (cream) -->
           <svg width="22" height="18" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
             <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
@@ -1104,24 +1289,28 @@
 
         <nav aria-label="Footer navigation">
           <ul class="footer-nav">
-            <li><a href="#listings">Listings</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="listings.html">All listings</a></li>
+            <li><a href="sold.html">Sold</a></li>
+            <li><a href="team.html">Our Team</a></li>
+            <li><a href="blog.html">Insights</a></li>
+            <li><a href="valuation.html">Valuation</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="legal.html">Legal</a></li>
           </ul>
         </nav>
 
-        <!-- REPLACE: confirm year, registered agent number, and correct legal entity name -->
+        <!-- REPLACE: confirm year and legal entity name -->
         <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent &nbsp;·&nbsp; All rights reserved</p>
 
       </div>
     </div>
   </footer>
 
+  <!-- ── Banner auto-dismiss + word rotator + side-nav click handlers ── -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      /* ── 1. Banner auto-dismiss (5 s fade + collapse) ──────────────────── */
+      /* 1. Banner auto-dismiss */
       const banner = document.querySelector('.wsd-banner');
       if (banner) {
         setTimeout(() => {
@@ -1133,94 +1322,151 @@
         }, 5000);
       }
 
-      /* ── 2. Side-nav collapse / expand ─────────────────────────────────── *
-       *
-       * Single source of truth: heroHasScrolledOut() + userExpanded boolean.
-       * No IntersectionObserver — scroll event + offsetTop is more reliable.
-       *
-       * Collapse rule:  hero's bottom edge has scrolled above the viewport.
-       * Click rule:     label click while collapsed toggles userExpanded.
-       * Auto-expand:    returning to top clears userExpanded and expands.
-       *
-       * Both triggers call applyNavState() which reads both pieces of state
-       * and applies exactly one set of classes — no race conditions.
-       */
-      const sideNav  = document.querySelector('.side-nav');
-      const hero     = document.querySelector('.hero');
-      const navLabel = sideNav && sideNav.querySelector('.side-nav-label');
+      /* 2. Side-nav click expand/collapse
+         Collapse state is driven by ScrollTrigger onUpdate (t >= 2.5).
+         These handlers only manage the manual expand toggle. */
+      const sideNavEl  = document.querySelector('.side-nav');
+      const navLabelEl = sideNavEl && sideNavEl.querySelector('.side-nav-label');
+      let userExpanded = false;
 
-      if (sideNav && hero) {
-        let userExpanded = false;
-
-        function heroScrolledOut() {
-          /* True when the hero's bottom edge has passed above the viewport top */
-          return window.scrollY >= (hero.offsetTop + hero.offsetHeight);
-        }
-
-        function applyNavState() {
-          if (heroScrolledOut()) {
-            sideNav.classList.add('collapsed');
-            sideNav.classList.toggle('expanded', userExpanded);
-          } else {
-            /* Back at top — always show full nav; clear any manual toggle */
-            userExpanded = false;
-            sideNav.classList.remove('collapsed');
-            sideNav.classList.remove('expanded');
-          }
-        }
-
-        /* Label click: toggle manual expand only while collapsed */
-        if (navLabel) {
-          navLabel.addEventListener('click', e => {
-            e.stopPropagation(); /* prevent document handler firing same tick */
-            if (sideNav.classList.contains('collapsed')) {
-              userExpanded = !userExpanded;
-              applyNavState();
-            }
-          });
-        }
-
-        /* Click anywhere outside: close manual expand */
-        document.addEventListener('click', e => {
-          if (userExpanded && !sideNav.contains(e.target)) {
-            userExpanded = false;
-            applyNavState();
+      if (sideNavEl && navLabelEl) {
+        navLabelEl.addEventListener('click', e => {
+          e.stopPropagation();
+          if (sideNavEl.classList.contains('collapsed')) {
+            userExpanded = !userExpanded;
+            sideNavEl.classList.toggle('expanded', userExpanded);
           }
         });
 
-        window.addEventListener('scroll', applyNavState, { passive: true });
-        applyNavState(); /* set correct state on first paint */
+        document.addEventListener('click', e => {
+          if (userExpanded && !sideNavEl.contains(e.target)) {
+            userExpanded = false;
+            sideNavEl.classList.remove('expanded');
+          }
+        });
       }
 
-      /* ── 3. Services panel: translateY parallax exit on scroll ─────────── */
-      const services = document.querySelector('.hero-services');
-
-      if (hero && services) {
-        const TRAVEL = 700; /* total downward travel (px) — tune to taste */
-        let rafPending = false;
-
-        function updateServicesTransform() {
-          const heroRect = hero.getBoundingClientRect();
-          const heroH    = hero.offsetHeight;
-          /* progress: 0 at top of page → 1 when hero fully scrolled out */
-          const progress = Math.min(1, Math.max(0, -heroRect.top / heroH));
-          const ty = progress * TRAVEL;
-          services.style.transform     = `translateY(${ty}px)`;
-          services.style.pointerEvents = ty >= heroH ? 'none' : '';
-          rafPending = false;
-        }
-
-        window.addEventListener('scroll', () => {
-          if (!rafPending) {
-            rafPending = true;
-            requestAnimationFrame(updateServicesTransform);
-          }
-        }, { passive: true });
-
-        updateServicesTransform(); /* initialise */
+      /* 3. Word rotator */
+      const rotWord = document.getElementById('rot-word');
+      if (rotWord) {
+        const words = ['love', 'enjoy', 'call home', 'cherish', 'belong in'];
+        let rotIndex = 0;
+        setInterval(() => {
+          rotIndex = (rotIndex + 1) % words.length;
+          rotWord.style.transition = 'transform 0.4s cubic-bezier(0.19,1,0.22,1), opacity 0.4s ease';
+          rotWord.style.transform  = 'translateY(-110%)';
+          rotWord.style.opacity    = '0';
+          setTimeout(() => {
+            rotWord.textContent      = words[rotIndex];
+            rotWord.style.transition = 'none';
+            rotWord.style.transform  = 'translateY(110%)';
+            rotWord.style.opacity    = '0';
+            requestAnimationFrame(() => {
+              rotWord.style.transition = 'transform 0.4s cubic-bezier(0.19,1,0.22,1), opacity 0.4s ease';
+              rotWord.style.transform  = 'translateY(0)';
+              rotWord.style.opacity    = '1';
+            });
+          }, 420);
+        }, 2400);
       }
 
     });
+  </script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Scroll reveal timeline — animation logic unchanged from reference -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const sideNav      = document.querySelector('.side-nav');
+    const revealLine   = document.getElementById('revealLine');
+    const centerImage  = document.getElementById('centerImage');
+    const centerImage2 = document.getElementById('centerImage2');
+    const centerImage3 = document.getElementById('centerImage3');
+    const aboutReveal  = document.getElementById('aboutReveal');
+    const gapReveal    = document.getElementById('gapReveal');
+    const gapText      = document.getElementById('gapText');
+    const doorLeft     = document.getElementById('doorLeft');
+    const doorRight    = document.getElementById('doorRight');
+
+    const HEIGHT_PHASE_END = 4;
+    const TOTAL = 23.2;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: '+=1715%',
+        pin: true,
+        scrub: true,
+        onUpdate: self => {
+          const t = self.progress * TOTAL;
+          if (sideNav) {
+            if (t >= 2.5) {
+              sideNav.classList.add('collapsed');
+            } else {
+              sideNav.classList.remove('collapsed');
+              sideNav.classList.remove('expanded');
+            }
+          }
+        }
+      }
+    });
+
+    tl
+      // PHASE 1: line height grows 0 → 35vh → 80vh → 100vh; services panel exits
+      .fromTo(revealLine,      { height: '0vh' },   { height: '35vh',  duration: 1 }, 0)
+      .to(revealLine,          { height: '80vh',  duration: 1 }, 1.5)
+      .to(revealLine,          { height: '100vh', duration: 1 }, 3)
+      .fromTo('.hero-services', { yPercent: 0 }, { yPercent: 120, duration: HEIGHT_PHASE_END }, 0)
+
+      // PHASE 2: line width grows 6px → 35vw → 75vw → 80vw; image 1 fades in
+      .fromTo(revealLine,      { width: '6px' },  { width: '35vw', duration: 1 }, 4)
+      .to(revealLine,          { width: '75vw', duration: 1 }, 5.5)
+      .to(revealLine,          { width: '80vw', duration: 1 }, 7)
+      .to(centerImage,         { opacity: 1,    duration: 1 }, 8)
+
+      // PHASE 3a: line → 100vw; image 1 → 75%; image 2 nests at 45%
+      .to(revealLine,          { width: '100vw', duration: 1 }, 9)
+      .to(centerImage,         { width: '75vw', height: '75vh', duration: 1 }, 10)
+      .fromTo(centerImage2,    { opacity: 0 }, { opacity: 1, duration: 1 }, 11.2)
+
+      // PHASE 3b: image 1 → 90%; image 2 → 75%; image 3 nests at 45%
+      .to(centerImage,         { width: '90vw', height: '90vh', duration: 1 }, 12.2)
+      .to(centerImage2,        { width: '75vw', height: '75vh', duration: 1 }, 12.2)
+      .fromTo(centerImage3,    { opacity: 0 }, { opacity: 1, duration: 1 }, 13.4)
+
+      // PHASE 4a: image 2 → 80%; image 3 → 60%; About nests at 45%
+      .to(centerImage2,        { width: '80vw', height: '80vh', duration: 1 }, 14.4)
+      .to(centerImage3,        { width: '60vw', height: '60vh', duration: 1 }, 14.4)
+      .fromTo(aboutReveal,     { opacity: 0 }, { opacity: 1, duration: 1 }, 15.6)
+
+      // PHASE 4b: About grows to fill viewport
+      .to(aboutReveal,         { width: '75vw',  height: '75vh',  duration: 1 }, 16.8)
+      .to(aboutReveal,         { width: '100vw', height: '100vh', duration: 1 }, 18.0)
+
+      // PHASE 5: doors + backdrop appear; doors shrink to open 30vw gap
+      .set([doorLeft, doorRight, gapReveal], { opacity: 1 }, 19)
+      .to(doorLeft,            { width: '35vw', duration: 1 }, 19.2)
+      .to(doorRight,           { width: '35vw', duration: 1 }, 19.2)
+
+      // PHASE 6: gap → 50vw; text rises partially
+      .to(doorLeft,            { width: '25vw', duration: 1 }, 20.2)
+      .to(doorRight,           { width: '25vw', duration: 1 }, 20.2)
+      .fromTo(gapText,         { yPercent: 100 }, { yPercent: 40, duration: 1 }, 20.2)
+
+      // PHASE 7: gap → 80vw; text rises further
+      .to(doorLeft,            { width: '10vw', duration: 1 }, 21.2)
+      .to(doorRight,           { width: '10vw', duration: 1 }, 21.2)
+      .to(gapText,             { yPercent: 15,  duration: 1 }, 21.2)
+
+      // PHASE 8: doors gone; gap = 100vw; text fully visible
+      .to(doorLeft,            { width: '0vw',  duration: 1 }, 22.2)
+      .to(doorRight,           { width: '0vw',  duration: 1 }, 22.2)
+      .to(gapText,             { yPercent: 0,   duration: 1 }, 22.2);
   </script>
 
 </body>

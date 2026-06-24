@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Properties — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #1B2A23;
+      --bg2:      #243530;
+      --cream:    #F4EFE6;
+      --gold:     #B08D57;
+      --gold-lt:  #C9A063;
+      --oxblood:  #5C2A2A;
+      --taupe:    #A89A82;
+      --espresso: #2B211B;
+      --border:   rgba(168,154,130,0.28);
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --body:     'EB Garamond', Georgia, serif;
+      --sans:     'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    /* ── HEADER ── */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: rgba(27,42,35,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+    }
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--cream);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .header-logo svg { flex-shrink: 0; }
+    .main-nav {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+      flex: 1;
+    }
+    .main-nav a {
+      font-family: var(--sans);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .55;
+      transition: opacity .2s, color .2s;
+    }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta {
+      font-family: var(--sans);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      border: 1px solid rgba(244,239,230,.35);
+      padding: .55rem 1.2rem;
+      transition: border-color .2s, color .2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding-top: calc(var(--header-h) + 4rem);
+      padding-bottom: 3.5rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .page-eyebrow {
+      font-family: var(--sans);
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: .75rem;
+    }
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--cream);
+    }
+    .result-count {
+      font-family: var(--sans);
+      font-size: .6rem;
+      letter-spacing: .08em;
+      color: var(--cream);
+      opacity: .4;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 0;
+      position: sticky;
+      top: var(--header-h);
+      z-index: 100;
+    }
+    .filter-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: var(--sans);
+      font-size: .52rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: .4;
+      white-space: nowrap;
+      margin-right: .5rem;
+    }
+    .filter-select {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: .62rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      padding: .5rem .9rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A89A82' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .7rem center;
+      padding-right: 2rem;
+    }
+    .filter-select:focus { border-color: var(--gold); }
+    .filter-select option { background: #1B2A23; color: #F4EFE6; }
+    .filter-divider { width: 1px; height: 1.25rem; background: var(--border); margin: 0 .25rem; }
+    .view-toggle {
+      margin-left: auto;
+      display: flex;
+      gap: .35rem;
+    }
+    .view-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: .55rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .5rem .9rem;
+      cursor: pointer;
+      opacity: .5;
+      transition: opacity .2s, border-color .2s;
+    }
+    .view-btn.active { opacity: 1; border-color: var(--gold); color: var(--gold-lt); }
+    .btn-clear {
+      background: none;
+      border: none;
+      color: var(--taupe);
+      font-family: var(--sans);
+      font-size: .58rem;
+      letter-spacing: .08em;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: .5rem 0;
+      transition: color .2s;
+    }
+    .btn-clear:hover { color: var(--cream); }
+
+    /* ── MAIN CONTENT ── */
+    .listings-main {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 3.5rem 3.5rem 6rem;
+    }
+
+    /* ── GRID VIEW ── */
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+
+    .listing-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .25s;
+      cursor: pointer;
+    }
+    .listing-card:hover { border-color: rgba(168,154,130,.6); }
+    .listing-card a { text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; }
+
+    .listing-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #243530;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sans);
+      font-size: .5rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.18);
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .listing-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-family: var(--sans);
+      font-size: .48rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .3rem .65rem;
+    }
+    .badge-sale { background: var(--gold); color: #1B2A23; }
+    .badge-rent { background: #1B2A23; color: var(--gold-lt); border: 1px solid rgba(201,160,99,.4); }
+
+    .listing-body { padding: 1.5rem 1.6rem 1.9rem; flex: 1; display: flex; flex-direction: column; }
+    .listing-location {
+      font-family: var(--sans);
+      font-size: .5rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: .55rem;
+    }
+    .listing-address {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.25;
+      margin-bottom: .5rem;
+    }
+    .listing-teaser {
+      font-family: var(--body);
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--cream);
+      opacity: .55;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+    .listing-price {
+      font-family: var(--sans);
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: .9rem;
+    }
+    .listing-meta {
+      display: flex;
+      gap: 1.25rem;
+      font-family: var(--sans);
+      font-size: .6rem;
+      letter-spacing: .04em;
+      color: var(--cream);
+      opacity: .42;
+      border-top: 1px solid var(--border);
+      padding-top: .9rem;
+      margin-top: auto;
+    }
+
+    /* ── MAP VIEW ── */
+    .map-view { display: none; }
+    .map-placeholder {
+      width: 100%;
+      height: 65vh;
+      background: #243530;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .map-placeholder p {
+      font-family: var(--sans);
+      font-size: .58rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(244,239,230,.3);
+    }
+    .map-pins {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .map-pin {
+      font-family: var(--sans);
+      font-size: .55rem;
+      letter-spacing: .08em;
+      color: var(--gold-lt);
+      border: 1px solid rgba(201,160,99,.3);
+      padding: .4rem .8rem;
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 0;
+    }
+    .no-results p {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--cream);
+      opacity: .45;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2.75rem 0;
+    }
+    .footer-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      font-family: var(--serif);
+      font-size: .95rem;
+      font-weight: 400;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .7;
+    }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav-list a {
+      font-family: var(--sans);
+      font-size: .58rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .38;
+      transition: opacity .2s;
+    }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) { .listings-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) {
+      .header-inner { padding: 0 2rem; gap: 1.5rem; }
+      .main-nav { gap: 1.5rem; }
+      .page-header-inner, .filter-inner, .listings-main, .footer-inner { padding-left: 2rem; padding-right: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .main-nav { display: none; }
+      .header-cta { display: none; }
+      .nav-toggle { display: block; margin-left: auto; }
+      .listings-grid { grid-template-columns: 1fr; }
+      .filter-inner { gap: .75rem; }
+      .view-toggle { margin-left: 0; width: 100%; }
+    }
+
+    /* ── MOBILE NAV OVERLAY ── */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(27,42,35,0.98);
+      z-index: 1000;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: .8;
+      transition: opacity .2s, color .2s;
+    }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      background: none;
+      border: none;
+      color: var(--cream);
+      font-size: 1.8rem;
+      cursor: pointer;
+      opacity: .6;
+    }
+    .nav-overlay-close:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html" class="active">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" aria-label="Open menu" id="navToggle">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="nav-overlay" id="navOverlay" aria-modal="true" role="dialog">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a>
+    <a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a>
+    <a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <p class="page-eyebrow">Centurion &amp; Surrounds</p>
+        <h1 class="page-title">Properties</h1>
+      </div>
+      <p class="result-count" id="resultCount">Showing 6 properties</p>
+    </div>
+  </div>
+
+  <!-- ── FILTER BAR ── -->
+  <div class="filter-bar" role="search" aria-label="Property filters">
+    <div class="filter-inner">
+      <span class="filter-label">Filter</span>
+
+      <select class="filter-select" id="filterType" aria-label="Listing type">
+        <option value="">All Types</option>
+        <option value="sale">For Sale</option>
+        <option value="rent">For Rent</option>
+      </select>
+
+      <select class="filter-select" id="filterLocation" aria-label="Location">
+        <option value="">All Areas</option>
+        <option value="centurion">Centurion</option>
+        <option value="midrand">Midrand</option>
+        <option value="pretoria-east">Pretoria East</option>
+        <option value="irene">Irene</option>
+      </select>
+
+      <select class="filter-select" id="filterBeds" aria-label="Minimum bedrooms">
+        <option value="">Any Beds</option>
+        <option value="3">3+ Beds</option>
+        <option value="4">4+ Beds</option>
+        <option value="5">5+ Beds</option>
+      </select>
+
+      <div class="filter-divider" aria-hidden="true"></div>
+
+      <button class="btn-clear" id="btnClear">Clear filters</button>
+
+      <div class="view-toggle" role="group" aria-label="View mode">
+        <button class="view-btn active" id="btnGrid" aria-pressed="true">⊞ Grid</button>
+        <button class="view-btn" id="btnMap" aria-pressed="false">⊙ Map</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LISTINGS ── -->
+  <main class="listings-main">
+
+    <!-- Grid view -->
+    <div class="listings-grid" id="listingsGrid">
+
+      <!-- Listing 1 -->
+      <article class="listing-card" data-type="sale" data-location="centurion" data-beds="4">
+        <a href="property-detail.html">
+          <div class="listing-img" role="img" aria-label="14 Aloe Ridge Drive, Centurion">
+            <span class="listing-badge badge-sale">For Sale</span>
+            <img src="assets/listing-1.jpg" alt="14 Aloe Ridge Drive, Centurion" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          </div>
+          <div class="listing-body">
+            <p class="listing-location">Centurion</p>
+            <h2 class="listing-address">14 Aloe Ridge Drive</h2>
+            <p class="listing-teaser">Elegant double-storey residence on a sought-after security estate. Wraparound veranda, bespoke kitchen, landscaped garden with heated pool.</p>
+            <p class="listing-price">R 4,850,000</p>
+            <div class="listing-meta">
+              <span>4 bed</span><span>3 bath</span><span>2 garage</span><span>485 m²</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Listing 2 -->
+      <article class="listing-card" data-type="rent" data-location="midrand" data-beds="3">
+        <a href="property-detail.html">
+          <div class="listing-img" role="img" aria-label="8 Watercrest Estate, Midrand">
+            <span class="listing-badge badge-rent">For Rent</span>
+            <img src="assets/listing-2.jpg" alt="8 Watercrest Estate, Midrand" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          </div>
+          <div class="listing-body">
+            <p class="listing-location">Midrand</p>
+            <h2 class="listing-address">8 Watercrest Estate</h2>
+            <p class="listing-teaser">Light-filled contemporary home within a fully walled estate. Open-plan living, modern fitted kitchen, private garden with covered patio.</p>
+            <p class="listing-price">R 28,500 / month</p>
+            <div class="listing-meta">
+              <span>3 bed</span><span>2 bath</span><span>1 garage</span><span>320 m²</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Listing 3 -->
+      <article class="listing-card" data-type="sale" data-location="pretoria-east" data-beds="5">
+        <a href="property-detail.html">
+          <div class="listing-img" role="img" aria-label="22 The Willows, Pretoria East">
+            <span class="listing-badge badge-sale">For Sale</span>
+            <img src="assets/listing-3.jpg" alt="22 The Willows, Pretoria East" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          </div>
+          <div class="listing-body">
+            <p class="listing-location">Pretoria East</p>
+            <h2 class="listing-address">22 The Willows</h2>
+            <p class="listing-teaser">Grand family estate with established grounds, wine cellar, and separate guest suite. An exceptional opportunity in one of Pretoria East's premier addresses.</p>
+            <p class="listing-price">R 6,200,000</p>
+            <div class="listing-meta">
+              <span>5 bed</span><span>4 bath</span><span>3 garage</span><span>720 m²</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Listing 4 -->
+      <article class="listing-card" data-type="sale" data-location="irene" data-beds="3">
+        <a href="property-detail.html">
+          <div class="listing-img" role="img" aria-label="6 Silverbrook Lane — photo placeholder">
+            <span class="listing-badge badge-sale">For Sale</span>
+            Photo placeholder
+          </div>
+          <div class="listing-body">
+            <p class="listing-location">Irene</p>
+            <h2 class="listing-address">6 Silverbrook Lane</h2>
+            <p class="listing-teaser">Charming Irene cottage with original pressed-steel ceilings and a north-facing stoep. Recently renovated kitchen and bathrooms. Walking distance to Irene Village Mall.</p>
+            <p class="listing-price">R 3,750,000</p>
+            <div class="listing-meta">
+              <span>3 bed</span><span>2 bath</span><span>2 garage</span><span>295 m²</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Listing 5 -->
+      <article class="listing-card" data-type="rent" data-location="centurion" data-beds="4">
+        <a href="property-detail.html">
+          <div class="listing-img" role="img" aria-label="19 Falcon Ridge — photo placeholder">
+            <span class="listing-badge badge-rent">For Rent</span>
+            Photo placeholder
+          </div>
+          <div class="listing-body">
+            <p class="listing-location">Centurion</p>
+            <h2 class="listing-address">19 Falcon Ridge</h2>
+            <p class="listing-teaser">Spacious executive home in an access-controlled estate with 24-hour guard. Study, separate scullery, triple garage and covered braai area overlooking the garden.</p>
+            <p class="listing-price">R 42,000 / month</p>
+            <div class="listing-meta">
+              <span>4 bed</span><span>3 bath</span><span>3 garage</span><span>560 m²</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Listing 6 -->
+      <article class="listing-card" data-type="sale" data-location="midrand" data-beds="6">
+        <a href="property-detail.html">
+          <div class="listing-img" role="img" aria-label="31 Heritage Estate — photo placeholder">
+            <span class="listing-badge badge-sale">For Sale</span>
+            Photo placeholder
+          </div>
+          <div class="listing-body">
+            <p class="listing-location">Midrand</p>
+            <h2 class="listing-address">31 Heritage Estate</h2>
+            <p class="listing-teaser">Landmark residence across two full erven. Private tennis court, staff quarters, 12-seater dining room, and a master suite with panoramic Highveld views.</p>
+            <p class="listing-price">R 8,200,000</p>
+            <div class="listing-meta">
+              <span>6 bed</span><span>5 bath</span><span>4 garage</span><span>1,100 m²</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- No results message -->
+      <div class="no-results" id="noResults" aria-live="polite">
+        <p>No properties match your current filters.</p>
+      </div>
+
+    </div><!-- /grid -->
+
+    <!-- Map view -->
+    <div class="map-view" id="mapView">
+      <div class="map-placeholder" role="img" aria-label="Property map placeholder">
+        <p>Map view — replace with Google Maps embed or Mapbox</p>
+        <div class="map-pins">
+          <span class="map-pin">14 Aloe Ridge · R4.85m</span>
+          <span class="map-pin">8 Watercrest · R28,500/mo</span>
+          <span class="map-pin">22 The Willows · R6.2m</span>
+          <span class="map-pin">6 Silverbrook · R3.75m</span>
+          <span class="map-pin">19 Falcon Ridge · R42k/mo</span>
+          <span class="map-pin">31 Heritage · R8.2m</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation">
+        <ul class="footer-nav-list">
+          <li><a href="listings.html">Listings</a></li>
+          <li><a href="sold.html">Sold</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Insights</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="legal.html">Legal</a></li>
+        </ul>
+      </nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent &nbsp;·&nbsp; All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    /* Mobile nav */
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const close = document.getElementById('navClose');
+    toggle.addEventListener('click', () => overlay.classList.add('open'));
+    close.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+    /* Filter logic */
+    const cards = document.querySelectorAll('.listing-card');
+    const noResults = document.getElementById('noResults');
+    const resultCount = document.getElementById('resultCount');
+    const filterType = document.getElementById('filterType');
+    const filterLocation = document.getElementById('filterLocation');
+    const filterBeds = document.getElementById('filterBeds');
+
+    function applyFilters() {
+      const type = filterType.value;
+      const loc  = filterLocation.value;
+      const beds = parseInt(filterBeds.value) || 0;
+      let visible = 0;
+
+      cards.forEach(card => {
+        const matchType = !type || card.dataset.type === type;
+        const matchLoc  = !loc  || card.dataset.location === loc;
+        const matchBeds = !beds || parseInt(card.dataset.beds) >= beds;
+        const show = matchType && matchLoc && matchBeds;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+      resultCount.textContent = visible === 1
+        ? 'Showing 1 property'
+        : `Showing ${visible} properties`;
+    }
+
+    [filterType, filterLocation, filterBeds].forEach(el => el.addEventListener('change', applyFilters));
+
+    document.getElementById('btnClear').addEventListener('click', () => {
+      filterType.value = '';
+      filterLocation.value = '';
+      filterBeds.value = '';
+      applyFilters();
+    });
+
+    /* Grid / Map toggle */
+    const grid    = document.getElementById('listingsGrid');
+    const mapView = document.getElementById('mapView');
+    const btnGrid = document.getElementById('btnGrid');
+    const btnMap  = document.getElementById('btnMap');
+
+    btnGrid.addEventListener('click', () => {
+      grid.style.display = '';
+      mapView.style.display = 'none';
+      btnGrid.classList.add('active');
+      btnGrid.setAttribute('aria-pressed', 'true');
+      btnMap.classList.remove('active');
+      btnMap.setAttribute('aria-pressed', 'false');
+    });
+
+    btnMap.addEventListener('click', () => {
+      grid.style.display = 'none';
+      mapView.style.display = 'block';
+      btnMap.classList.add('active');
+      btnMap.setAttribute('aria-pressed', 'true');
+      btnGrid.classList.remove('active');
+      btnGrid.setAttribute('aria-pressed', 'false');
+    });
+  </script>
+</body>
+</html>

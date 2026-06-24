@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centurion's R3m–R6m Corridor — Marlow Estate Co. Insights</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; cursor: pointer; opacity: .6; }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero { padding-top: calc(var(--header-h) + 5rem); padding-bottom: 5rem; background: var(--bg2); border-bottom: 1px solid var(--border); }
+    .article-hero-inner { max-width: 860px; margin: 0 auto; padding: 0 3.5rem; }
+    .breadcrumb { display: flex; align-items: center; gap: .5rem; margin-bottom: 3rem; }
+    .breadcrumb a, .breadcrumb span { font-family: var(--sans); font-size: .52rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); opacity: .35; text-decoration: none; transition: opacity .2s; }
+    .breadcrumb a:hover { opacity: .7; }
+    .breadcrumb .sep { opacity: .2; }
+    .article-tag { font-family: var(--sans); font-size: .52rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .9rem; }
+    .article-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.08; color: var(--cream); margin-bottom: 1.5rem; }
+    .article-byline { display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 4rem; }
+    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: #2D4A38; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: .6rem; font-weight: 500; color: rgba(244,239,230,.45); flex-shrink: 0; }
+    .author-info { flex: 1; }
+    .author-name { font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); }
+    .author-meta { font-family: var(--sans); font-size: .5rem; letter-spacing: .07em; color: var(--cream); opacity: .38; margin-top: .15rem; }
+    .article-share { display: flex; gap: .65rem; }
+    .share-btn { font-family: var(--sans); font-size: .5rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); opacity: .35; border: 1px solid rgba(244,239,230,.2); padding: .35rem .7rem; background: none; cursor: pointer; transition: opacity .2s; }
+    .share-btn:hover { opacity: .75; }
+
+    /* ── ARTICLE BODY ── */
+    .article-layout { max-width: 1300px; margin: 0 auto; padding: 5rem 3.5rem 6.5rem; display: grid; grid-template-columns: 1fr 300px; gap: 5.5rem; align-items: start; }
+    .article-body { max-width: 72ch; }
+
+    .article-body p { font-family: var(--body); font-size: 1.06rem; line-height: 1.9; color: var(--cream); opacity: .8; margin-bottom: 1.5rem; }
+    .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--cream); margin-bottom: .9rem; margin-top: 3rem; }
+    .article-body h3 { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; font-style: italic; color: var(--cream); margin-bottom: .75rem; margin-top: 2.25rem; }
+    .article-body blockquote { border-left: 3px solid var(--gold); padding: 1.25rem 1.5rem; margin: 2.5rem 0; background: rgba(176,141,87,.06); }
+    .article-body blockquote p { font-family: var(--serif); font-size: 1.2rem; font-style: italic; font-weight: 300; opacity: .85; margin-bottom: 0; line-height: 1.7; }
+    .article-body blockquote cite { display: block; font-family: var(--sans); font-size: .52rem; letter-spacing: .1em; color: var(--gold-lt); margin-top: .75rem; font-style: normal; opacity: .7; }
+    .article-body .data-note { background: rgba(27,42,35,.6); border: 1px solid var(--border); padding: 1.5rem; margin: 2.25rem 0; font-family: var(--sans); font-size: .62rem; line-height: 1.7; color: var(--cream); opacity: .5; }
+    .article-body hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    /* Cover image inside article */
+    .article-cover { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #2D4A38 0%, #1B2A23 100%); display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: .48rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,239,230,.15); margin-bottom: 3rem; }
+
+    /* Sidebar */
+    .article-sidebar { position: sticky; top: calc(var(--header-h) + 2rem); display: flex; flex-direction: column; gap: 1.75rem; }
+    .sidebar-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.6rem; }
+    .sidebar-card-label { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 1.1rem; }
+    .sidebar-card p { font-family: var(--body); font-size: .88rem; line-height: 1.7; color: var(--cream); opacity: .6; margin-bottom: 1rem; }
+    .sidebar-link { display: inline-block; font-family: var(--sans); font-size: .55rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); text-decoration: none; transition: color .2s; }
+    .sidebar-link:hover { color: var(--gold); }
+    .related-title { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--cream); margin-bottom: .35rem; line-height: 1.25; }
+    .related-title a { color: inherit; text-decoration: none; transition: color .2s; }
+    .related-title a:hover { color: var(--gold-lt); }
+    .related-meta { font-family: var(--sans); font-size: .48rem; letter-spacing: .07em; color: var(--cream); opacity: .32; margin-bottom: 1.1rem; }
+    .sidebar-agent-name { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--cream); margin-bottom: .15rem; }
+    .sidebar-agent-title { font-family: var(--sans); font-size: .5rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .7rem; }
+    .sidebar-agent-phone { font-family: var(--body); font-size: .88rem; color: var(--cream); opacity: .6; text-decoration: none; display: block; margin-bottom: .35rem; transition: opacity .2s; }
+    .sidebar-agent-phone:hover { opacity: 1; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; }
+
+    @media (max-width: 1100px) { .article-layout { grid-template-columns: 1fr; gap: 3rem; } .article-sidebar { position: static; } }
+    @media (max-width: 900px) { .header-inner, .article-hero-inner, .article-layout, .footer-inner { padding-left: 2rem; padding-right: 2rem; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .article-body p { font-size: 1rem; } .article-body h2 { font-size: 1.4rem; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html" class="active">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a><a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a><a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a><a href="contact.html">Contact</a>
+  </div>
+
+  <!-- ARTICLE HERO -->
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="blog.html">Insights</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span>Market Analysis</span>
+      </nav>
+      <p class="article-tag">Market Analysis</p>
+      <h1 class="article-title">Centurion's R3m–R6m corridor: why the middle market is outperforming luxury right now</h1>
+      <div class="article-byline">
+        <div class="author-avatar" aria-hidden="true">CM</div>
+        <div class="author-info">
+          <p class="author-name">Catherine Marlow</p>
+          <p class="author-meta">Principal &amp; Founder &nbsp;·&nbsp; October 2024 &nbsp;·&nbsp; 8 min read</p>
+        </div>
+        <div class="article-share" aria-label="Share this article">
+          <button class="share-btn">Share</button>
+          <button class="share-btn">Copy link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY + SIDEBAR -->
+  <div class="article-layout">
+    <article class="article-body">
+      <div class="article-cover" role="img" aria-label="Article cover image placeholder">Cover image placeholder</div>
+
+      <p>The narrative around Centurion property tends to focus on the extremes — the sub-R2m entry market, where first-time buyers are fighting for stock that barely exists, or the R8m-plus estate bracket, which generates the glamour shots and the press releases. But for the past eighteen months, the most consistent price growth and the fastest time-to-sale figures have been happening in the band few commentators are watching: the R3m to R6m middle market.</p>
+
+      <p>This is not an accident. It is the predictable result of three intersecting forces: a squeezed top, a frustrated bottom, and a quality inventory gap in the middle that patient, well-positioned sellers have been quietly exploiting.</p>
+
+      <h2>The squeeze on luxury</h2>
+
+      <p>Properties above R7m in the Centurion-Midrand corridor have faced a genuine affordability ceiling for the past two years. Interest rate increases between 2022 and 2024 added between R8,000 and R14,000 per month to the cost of a bond at this price point — a number that eliminated roughly 30% of the qualifying buyer pool without shifting the asking price by a rand. The result has been longer time-to-sale, more frequent price reductions, and a creeping willingness among sellers to take less than they would have in 2021.</p>
+
+      <blockquote>
+        <p>"The R5m buyer today is often the person who was going to spend R7m in 2022. They've adjusted their expectations — but not their requirements."</p>
+        <cite>— Catherine Marlow, in conversation with the Centurion Property Digest, September 2024</cite>
+      </blockquote>
+
+      <p>This displacement effect has concentrated well-resourced, genuinely motivated buyers precisely in the R3m to R6m range — buyers with equity from previous sales, who need properties of a certain size and specification, and who are not going to wait indefinitely for rates to drop.</p>
+
+      <h2>Why the entry market doesn't absorb the excess</h2>
+
+      <p>Logic would suggest that, if luxury stalls, buyers simply trade down further. In practice, they largely do not — at least not to the sub-R2.5m bracket. The buyers displaced from the R6m-R9m range are typically households with children in private schools, equity locked in an existing home, and requirements (home office, double garage, certain estate security profile) that the entry market cannot meet at any price.</p>
+
+      <div class="data-note">
+        <strong>Placeholder data:</strong> The following figures are illustrative. Replace with verified deeds office data before publication. Source: Lightstone / Propstats / FNB Property Barometer.
+      </div>
+
+      <p>Median days-to-sale in the R3m–R6m bracket in Centurion dropped from 34 days in Q3 2022 to 18 days in Q3 2024. Over the same period, the R7m-plus bracket moved in the opposite direction, extending from 41 days to 67 days on average. The middle market is absorbing demand from both sides.</p>
+
+      <h2>What this means for sellers in the R3m–R6m range</h2>
+
+      <p>If you own a well-maintained, correctly positioned property in this band, you are sitting in the best seller's market Centurion has offered since 2019. But "well-maintained and correctly positioned" is doing heavy lifting in that sentence. The buyers are discerning — they have looked at a lot of properties, they know what R4.5m buys in an estate versus a freestanding home, and they will not pay a premium for a property that has been neglected or overestimated.</p>
+
+      <p>The properties selling fastest and closest to asking price share three characteristics: honest condition (or a realistic price adjustment for deferred maintenance), strong presentation (professionally photographed, staged where appropriate), and pricing based on recent comparable evidence rather than a seller's expectation of what the market should bear.</p>
+
+      <h2>What buyers should know</h2>
+
+      <p>If you are looking in this bracket, act faster than you think you need to. Well-priced properties in sought-after Centurion estates — Aloe Ridge, Copperleaf, Golf Estate North — are receiving multiple offers within the first fortnight of coming to market. Conditional offers are being overlooked in favour of buyers who have pre-qualification letters from their banks. Get yours before you start viewing.</p>
+
+      <p>The market will remain favourable for sellers in this band for as long as rates stay elevated. If rates come down meaningfully in 2025, expect the R7m-plus market to reabsorb some of this demand, and the middle-market advantage to narrow. Buyers who want value and motivated sellers would do well to act in the current window.</p>
+
+      <hr />
+
+      <p><em>Catherine Marlow is the Principal and Founder of Marlow Estate Co. She has transacted in the Centurion and Tshwane property market for more than twenty years. For a private discussion about pricing or market timing in your specific area, contact her directly at <a href="tel:+27120011001" style="color:var(--gold-lt)">+27 12 001 1001</a>.</em></p>
+    </article>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">About the author</p>
+        <p class="sidebar-agent-name">Catherine Marlow</p>
+        <p class="sidebar-agent-title">Principal &amp; Founder</p>
+        <p style="font-family:var(--body); font-size:.88rem; color:var(--cream); opacity:.55; line-height:1.7; margin-bottom:1rem;">20+ years in Centurion residential and commercial property. Personally manages every mandate above R4 million.</p>
+        <a href="tel:+27120011001" class="sidebar-agent-phone">+27 12 001 1001</a>
+        <a href="agent.html" class="sidebar-link">View full profile ↗</a>
+      </div>
+
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Thinking of selling?</p>
+        <p>If this article has prompted a conversation about your own property's timing and value, we offer a free, no-obligation valuation.</p>
+        <a href="valuation.html" class="sidebar-link">Request a valuation ↗</a>
+      </div>
+
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Related articles</p>
+        <div>
+          <p class="related-title"><a href="article.html">Why overpriced listings hurt sellers more than the market does</a></p>
+          <p class="related-meta">Catherine Marlow &nbsp;·&nbsp; August 2024</p>
+        </div>
+        <div>
+          <p class="related-title"><a href="article.html">Ten questions every buyer should ask before signing an OTP</a></p>
+          <p class="related-meta">James Olivier &nbsp;·&nbsp; September 2024</p>
+        </div>
+        <a href="blog.html" class="sidebar-link">All articles ↗</a>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="blog.html">Insights</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navClose');
+    toggle.addEventListener('click', () => overlay.classList.add('open'));
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+
+    document.querySelectorAll('.share-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (navigator.clipboard && btn.textContent.includes('Copy')) {
+          navigator.clipboard.writeText(window.location.href);
+          btn.textContent = 'Copied!';
+          setTimeout(() => btn.textContent = 'Copy link', 2000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

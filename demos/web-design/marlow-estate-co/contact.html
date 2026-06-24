@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; cursor: pointer; opacity: .6; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: calc(var(--header-h) + 5rem) 0 5rem; }
+    .page-header-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; }
+    .page-eyebrow { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .75rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 4rem); font-weight: 400; line-height: 1.02; color: var(--cream); }
+
+    /* ── CONTENT ── */
+    .contact-wrap { max-width: 1300px; margin: 0 auto; padding: 5.5rem 3.5rem 6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    /* Form */
+    .contact-form h2 { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--cream); margin-bottom: 1.75rem; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; margin-bottom: .9rem; }
+    .form-group label { font-family: var(--sans); font-size: .52rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); opacity: .4; }
+    .form-group input, .form-group textarea, .form-group select { background: var(--bg2); border: 1px solid var(--border); color: var(--cream); font-family: var(--body); font-size: .95rem; padding: .8rem 1rem; outline: none; transition: border-color .2s; resize: none; -webkit-appearance: none; }
+    .form-group select { background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A89A82' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .7rem center; padding-right: 2rem; }
+    .form-group select option { background: #1B2A23; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(244,239,230,.2); }
+    .btn-submit { background: var(--oxblood); color: var(--cream); font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; border: none; padding: 1rem 2.5rem; cursor: pointer; margin-top: .5rem; transition: background .2s; }
+    .btn-submit:hover { background: #7A3A3A; }
+
+    /* Contact details */
+    .contact-details { display: flex; flex-direction: column; gap: 3rem; }
+    .contact-details h2 { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--cream); margin-bottom: 1.75rem; }
+    .detail-group { }
+    .detail-label { font-family: var(--sans); font-size: .52rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .55rem; }
+    .detail-text { font-family: var(--body); font-size: 1rem; line-height: 1.75; color: var(--cream); opacity: .7; }
+    .detail-link { font-family: var(--body); font-size: 1rem; color: var(--cream); text-decoration: none; opacity: .7; display: block; transition: opacity .2s; }
+    .detail-link:hover { opacity: 1; }
+    .hours-grid { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1.5rem; margin-top: .25rem; }
+    .hours-day { font-family: var(--sans); font-size: .6rem; letter-spacing: .06em; color: var(--cream); opacity: .55; }
+    .hours-time { font-family: var(--body); font-size: .9rem; color: var(--cream); opacity: .65; }
+
+    /* Map placeholder */
+    .map-section { background: var(--bg2); border-top: 1px solid var(--border); }
+    .map-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; }
+    .map-box {
+      width: 100%;
+      height: 380px;
+      background: #243530;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      margin: 3rem 0;
+    }
+    .map-box p { font-family: var(--sans); font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,239,230,.28); }
+    .map-address { font-family: var(--serif); font-size: 1.1rem; color: var(--cream); opacity: .55; }
+
+    /* Agent quick-cards */
+    .agents-section { max-width: 1300px; margin: 0 auto; padding: 4rem 3.5rem 5.5rem; }
+    .section-label { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 2rem; }
+    .agents-quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .agent-quick-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 1.6rem; display: flex; align-items: center; gap: 1.1rem; }
+    .quick-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: .65rem; font-weight: 500; color: rgba(244,239,230,.45); flex-shrink: 0; }
+    .quick-avatar.cm { background: #2D4A38; }
+    .quick-avatar.jo { background: #3A5E48; }
+    .quick-avatar.pn { background: #4A7359; }
+    .quick-info { flex: 1; }
+    .quick-name { font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--cream); margin-bottom: .15rem; }
+    .quick-title { font-family: var(--sans); font-size: .5rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .5rem; }
+    .quick-phone { font-family: var(--body); font-size: .82rem; color: var(--cream); opacity: .55; text-decoration: none; transition: opacity .2s; }
+    .quick-phone:hover { opacity: 1; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; }
+
+    @media (max-width: 1100px) { .agents-quick-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) { .header-inner, .page-header-inner, .contact-wrap, .map-inner, .agents-section, .footer-inner { padding-left: 2rem; padding-right: 2rem; } .contact-wrap { grid-template-columns: 1fr; gap: 3.5rem; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .agents-quick-grid { grid-template-columns: 1fr; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a><a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a><a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a><a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="page-eyebrow">Get in touch</p>
+      <h1 class="page-title">Contact Marlow Estate Co.</h1>
+    </div>
+  </div>
+
+  <main>
+    <div class="contact-wrap">
+      <div class="contact-form">
+        <h2>Send us a message</h2>
+        <form onsubmit="return false;" novalidate aria-label="Contact form">
+          <div class="form-group">
+            <label for="c-name">Full name</label>
+            <input type="text" id="c-name" name="name" placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="c-phone">Phone number</label>
+            <input type="tel" id="c-phone" name="phone" placeholder="+27 XX XXX XXXX" autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email address</label>
+            <input type="email" id="c-email" name="email" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="c-reason">Reason for contact</label>
+            <select id="c-reason" name="reason">
+              <option value="">Select…</option>
+              <option>Buying a property</option>
+              <option>Selling my property</option>
+              <option>Renting a property</option>
+              <option>Letting my property</option>
+              <option>Property valuation</option>
+              <option>Investment advice</option>
+              <option>General enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="c-msg">Message</label>
+            <textarea id="c-msg" name="message" rows="5" placeholder="Tell us what you're looking for…"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send message</button>
+        </form>
+      </div>
+
+      <div class="contact-details">
+        <div>
+          <h2>Office &amp; contact details</h2>
+        </div>
+        <div class="detail-group">
+          <p class="detail-label">Office address</p>
+          <p class="detail-text">The Boardwalk Office Park<br>Eros Street, Centurion<br>Gauteng, 0157</p>
+        </div>
+        <div class="detail-group">
+          <p class="detail-label">Phone</p>
+          <a href="tel:+27120000000" class="detail-link">+27 12 000 0000</a>
+        </div>
+        <div class="detail-group">
+          <p class="detail-label">Email</p>
+          <a href="mailto:hello@marlowco.co.za" class="detail-link">hello@marlowco.co.za</a>
+        </div>
+        <div class="detail-group">
+          <p class="detail-label">Office hours</p>
+          <div class="hours-grid">
+            <span class="hours-day">Monday – Friday</span><span class="hours-time">08:00 – 17:00</span>
+            <span class="hours-day">Saturday</span><span class="hours-time">09:00 – 13:00</span>
+            <span class="hours-day">Sunday &amp; Public Holidays</span><span class="hours-time">Closed</span>
+          </div>
+        </div>
+        <div class="detail-group">
+          <p class="detail-label">PPRA Registration</p>
+          <p class="detail-text" style="font-size:.88rem; opacity:.5;">Marlow Estate Co. (Pty) Ltd &nbsp;·&nbsp; FFC 2024/00312<br>Registered Estate Agent &nbsp;·&nbsp; PPRA Compliant</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Map placeholder -->
+  <div class="map-section">
+    <div class="map-inner">
+      <div class="map-box" role="img" aria-label="Office location map — replace with Google Maps embed">
+        <p>Map — replace with Google Maps embed</p>
+        <p class="map-address">The Boardwalk Office Park, Eros Street, Centurion</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick agent contacts -->
+  <div class="agents-section">
+    <p class="section-label">Speak directly with our agents</p>
+    <div class="agents-quick-grid">
+      <div class="agent-quick-card">
+        <div class="quick-avatar cm" aria-hidden="true">CM</div>
+        <div class="quick-info">
+          <p class="quick-name">Catherine Marlow</p>
+          <p class="quick-title">Principal &amp; Founder</p>
+          <a href="tel:+27120011001" class="quick-phone">+27 12 001 1001</a>
+        </div>
+      </div>
+      <div class="agent-quick-card">
+        <div class="quick-avatar jo" aria-hidden="true">JO</div>
+        <div class="quick-info">
+          <p class="quick-name">James Olivier</p>
+          <p class="quick-title">Senior Agent</p>
+          <a href="tel:+27120011002" class="quick-phone">+27 12 001 1002</a>
+        </div>
+      </div>
+      <div class="agent-quick-card">
+        <div class="quick-avatar pn" aria-hidden="true">PN</div>
+        <div class="quick-info">
+          <p class="quick-name">Priya Naidoo</p>
+          <p class="quick-title">Residential Specialist</p>
+          <a href="tel:+27120011003" class="quick-phone">+27 12 001 1003</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navClose');
+    toggle.addEventListener('click', () => overlay.classList.add('open'));
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  </script>
+</body>
+</html>

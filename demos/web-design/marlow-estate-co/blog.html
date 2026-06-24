@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Insights — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; cursor: pointer; opacity: .6; }
+
+    /* ── PAGE HEADER ── */
+    .page-header { background: var(--bg2); border-bottom: 1px solid var(--border); padding: calc(var(--header-h) + 5rem) 0 4.5rem; }
+    .page-header-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: end; }
+    .page-eyebrow { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .75rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.02; color: var(--cream); }
+    .page-intro { font-family: var(--body); font-size: 1rem; line-height: 1.85; color: var(--cream); opacity: .6; }
+
+    /* ── FEATURED ARTICLE ── */
+    .featured-section { max-width: 1300px; margin: 0 auto; padding: 4.5rem 3.5rem 0; }
+    .featured-article { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; border: 1px solid var(--border); overflow: hidden; }
+    .featured-img { aspect-ratio: 4/3; background: linear-gradient(135deg, #2D4A38 0%, #1B2A23 100%); display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: .48rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(244,239,230,.15); }
+    .featured-body { padding: 3rem 3rem 3rem 0; }
+    .article-tag { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .65rem; }
+    .article-title { font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 400; line-height: 1.15; color: var(--cream); margin-bottom: .85rem; }
+    .article-title a { color: inherit; text-decoration: none; transition: color .2s; }
+    .article-title a:hover { color: var(--gold-lt); }
+    .article-excerpt { font-family: var(--body); font-size: .95rem; line-height: 1.8; color: var(--cream); opacity: .58; margin-bottom: 1.5rem; }
+    .article-meta { display: flex; align-items: center; gap: 1rem; font-family: var(--sans); font-size: .52rem; letter-spacing: .07em; color: var(--cream); opacity: .38; }
+    .article-meta-sep { opacity: .4; }
+    .read-more { font-family: var(--sans); font-size: .58rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; transition: color .2s; }
+    .read-more:hover { color: var(--gold); }
+
+    /* ── ARTICLE GRID ── */
+    .articles-section { max-width: 1300px; margin: 0 auto; padding: 4rem 3.5rem 6rem; }
+    .section-label { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 2rem; }
+    .articles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+
+    .article-card { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; transition: border-color .25s; }
+    .article-card:hover { border-color: rgba(168,154,130,.55); }
+    .article-card a { display: block; text-decoration: none; color: inherit; height: 100%; }
+    .card-img { aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: .46rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,239,230,.15); }
+    .card-img.a1 { background: #3A5E48; }
+    .card-img.a2 { background: #2D4A38; }
+    .card-img.a3 { background: #4A7359; }
+    .card-body { padding: 1.5rem 1.6rem 1.9rem; }
+    .card-tag { font-family: var(--sans); font-size: .48rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .5rem; }
+    .card-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; line-height: 1.25; color: var(--cream); margin-bottom: .65rem; }
+    .card-excerpt { font-family: var(--body); font-size: .88rem; line-height: 1.75; color: var(--cream); opacity: .55; margin-bottom: 1.25rem; }
+    .card-meta { font-family: var(--sans); font-size: .5rem; letter-spacing: .07em; color: var(--cream); opacity: .3; }
+
+    /* ── NEWSLETTER ── */
+    .newsletter-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 4.5rem 0; }
+    .newsletter-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .newsletter-copy h2 { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--cream); margin-bottom: .75rem; }
+    .newsletter-copy p { font-family: var(--body); font-size: .95rem; line-height: 1.75; color: var(--cream); opacity: .6; }
+    .newsletter-form { display: flex; gap: 0; }
+    .newsletter-form input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-right: none; color: var(--cream); font-family: var(--body); font-size: .95rem; padding: .9rem 1.1rem; outline: none; transition: border-color .2s; -webkit-appearance: none; }
+    .newsletter-form input:focus { border-color: var(--gold); }
+    .newsletter-form input::placeholder { color: rgba(244,239,230,.22); }
+    .newsletter-form button { background: var(--gold); color: #1B2A23; font-family: var(--sans); font-size: .58rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border: none; padding: .9rem 1.5rem; cursor: pointer; white-space: nowrap; transition: background .2s; }
+    .newsletter-form button:hover { background: var(--gold-lt); }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; }
+
+    @media (max-width: 1100px) { .featured-article { grid-template-columns: 1fr; } .featured-body { padding: 2.5rem; } .featured-img { aspect-ratio: 16/9; } .articles-grid { grid-template-columns: repeat(2, 1fr); } .newsletter-inner { grid-template-columns: 1fr; gap: 2.5rem; } .newsletter-form { flex-direction: column; } .newsletter-form input { border-right: 1px solid var(--border); } }
+    @media (max-width: 900px) { .header-inner, .page-header-inner, .featured-section, .articles-section, .newsletter-inner, .footer-inner { padding-left: 2rem; padding-right: 2rem; } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .articles-grid { grid-template-columns: 1fr; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html" class="active">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a><a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a><a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a><a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div>
+        <p class="page-eyebrow">Market intelligence &amp; property news</p>
+        <h1 class="page-title">Insights</h1>
+      </div>
+      <p class="page-intro">Clear thinking on the Centurion and Highveld property market — written by our agents, for buyers, sellers and investors who prefer substance over syndicated press releases.</p>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="featured-section">
+    <article class="featured-article">
+      <div class="featured-img" role="img" aria-label="Featured article image placeholder">Featured image placeholder</div>
+      <div class="featured-body">
+        <p class="article-tag">Market Analysis &nbsp;·&nbsp; Featured</p>
+        <h2 class="article-title"><a href="article.html">Centurion's R3m–R6m corridor: why the middle market is outperforming luxury right now</a></h2>
+        <p class="article-excerpt">The narrative around Centurion property tends to focus on the extremes — the sub-R2m entry market or the R8m+ estate bracket. But for eighteen months, the most consistent price growth and fastest time-to-sale has been happening in the band few commentators are watching.</p>
+        <div class="article-meta">
+          <span>Catherine Marlow</span>
+          <span class="article-meta-sep">&middot;</span>
+          <span>October 2024</span>
+          <span class="article-meta-sep">&middot;</span>
+          <span>8 min read</span>
+        </div>
+        <br>
+        <a href="article.html" class="read-more">Read article ↗</a>
+      </div>
+    </article>
+  </div>
+
+  <!-- ARTICLE GRID -->
+  <div class="articles-section">
+    <p class="section-label">Recent articles</p>
+    <div class="articles-grid">
+
+      <article class="article-card">
+        <a href="article.html">
+          <div class="card-img a1" role="img" aria-label="Article image placeholder">Image placeholder</div>
+          <div class="card-body">
+            <p class="card-tag">Buying Guide</p>
+            <h2 class="card-title">Ten questions every buyer should ask before signing an offer to purchase</h2>
+            <p class="card-excerpt">An offer to purchase is a binding legal document. Most buyers sign in a rush and regret it. Here is what our agents ask on your behalf — and what you should ask too.</p>
+            <p class="card-meta">James Olivier &nbsp;·&nbsp; September 2024 &nbsp;·&nbsp; 6 min</p>
+          </div>
+        </a>
+      </article>
+
+      <article class="article-card">
+        <a href="article.html">
+          <div class="card-img a2" role="img" aria-label="Article image placeholder">Image placeholder</div>
+          <div class="card-body">
+            <p class="card-tag">Selling</p>
+            <h2 class="card-title">Why overpriced listings hurt sellers more than the market does</h2>
+            <p class="card-excerpt">A property that sits is a property that loses value. We explain the psychology of stale listings and why the right price from day one almost always achieves a better outcome than a high ask that drops.</p>
+            <p class="card-meta">Catherine Marlow &nbsp;·&nbsp; August 2024 &nbsp;·&nbsp; 5 min</p>
+          </div>
+        </a>
+      </article>
+
+      <article class="article-card">
+        <a href="article.html">
+          <div class="card-img a3" role="img" aria-label="Article image placeholder">Image placeholder</div>
+          <div class="card-body">
+            <p class="card-tag">Rentals &amp; Investment</p>
+            <h2 class="card-title">Buy-to-let in Centurion in 2024: yields, vacancy rates and what to avoid</h2>
+            <p class="card-excerpt">Rental demand in Centurion remains strong, but not uniformly. Priya Naidoo breaks down which property types and estate profiles are producing consistent returns — and which are delivering headaches instead.</p>
+            <p class="card-meta">Priya Naidoo &nbsp;·&nbsp; July 2024 &nbsp;·&nbsp; 7 min</p>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-section">
+    <div class="newsletter-inner">
+      <div class="newsletter-copy">
+        <h2>The Marlow Market Letter</h2>
+        <p>A monthly note on the Centurion and Highveld property market — no sponsored content, no syndicated data. Written in-house, sent on the first Monday of every month.</p>
+      </div>
+      <div>
+        <form class="newsletter-form" onsubmit="return false;" novalidate aria-label="Newsletter subscription">
+          <input type="email" name="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" />
+          <button type="submit">Subscribe ↗</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const overlay = document.getElementById('navOverlay');
+    const closeBtn = document.getElementById('navClose');
+    toggle.addEventListener('click', () => overlay.classList.add('open'));
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  </script>
+</body>
+</html>
