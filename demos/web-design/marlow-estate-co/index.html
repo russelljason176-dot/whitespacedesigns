@@ -399,19 +399,16 @@
       z-index: 8;
     }
 
-    /* About reveal — oxblood panel */
+    /* About reveal — full-coverage slogan panel */
     .about-reveal {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 45vw; height: 45vh;
+      inset: 0;
       background: #7A0C07;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 4vw 6vw;
       text-align: center;
       opacity: 0;
       z-index: 9;
-      overflow: hidden;
     }
     .ar-eyebrow {
       font-family: var(--sans);
@@ -442,11 +439,11 @@
       max-width: 36ch;
     }
 
-    /* Gap reveal — dark green matches the site sections below the hero */
+    /* Gap reveal — matches the actual #about section bg (--bg2) so the gap previews it */
     .gap-reveal {
       position: absolute;
       inset: 0;
-      background: #1B2A23;
+      background: #243530;
       z-index: 9;
       opacity: 0;
     }
@@ -990,7 +987,7 @@
     <p class="side-nav-label">Navigation</p>
     <ul class="side-nav-links">
       <li><a href="#listings"><span class="nav-bracket">[1]</span> Listings</a></li>
-      <li><a href="#about"><span class="nav-bracket">[2]</span> Slogan Review</a></li>
+      <li><a href="#about"><span class="nav-bracket">[2]</span> About</a></li>
       <li><a href="#contact"><span class="nav-bracket">[3]</span> Contact</a></li>
     </ul>
   </nav>
@@ -1005,7 +1002,7 @@
     <nav class="hero-nav" aria-label="Main navigation">
       <div class="hero-nav-left">
         <a href="#listings">Listings</a>
-        <a href="#about">Slogan Review</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
@@ -1049,8 +1046,8 @@
     <div class="about-reveal" id="aboutReveal">
       <h2 class="ar-headline">We sell real estate that evokes emotions. We give a new sense of self</h2>
     </div>
-    <div class="gap-reveal"     id="gapReveal">[ revealed content ]</div>
-    <div class="gap-text"       id="gapText">Marlow Estate Co.</div>
+    <div class="gap-reveal" id="gapReveal"></div>
+    <div class="gap-text"  id="gapText"></div>
     <div class="split-door split-door-left"  id="doorLeft"></div>
     <div class="split-door split-door-right" id="doorRight"></div>
 
@@ -1421,34 +1418,29 @@
       .to(centerImage2,        { width: '75vw', height: '75vh', duration: 1 }, 12.2)
       .fromTo(centerImage3,    { opacity: 0 }, { opacity: 1, duration: 1 }, 13.4)
 
-      // PHASE 4a: image 2 → 80%; image 3 → 60%; About nests at 45%
+      // PHASE 4a: image 2 → 80%; image 3 → 60%; red slogan fades in ALREADY fullscreen (inset:0)
       .to(centerImage2,        { width: '80vw', height: '80vh', duration: 1 }, 14.4)
       .to(centerImage3,        { width: '60vw', height: '60vh', duration: 1 }, 14.4)
       .fromTo(aboutReveal,     { opacity: 0 }, { opacity: 1, duration: 1 }, 15.6)
 
-      // PHASE 4b: About grows to fill viewport
-      .to(aboutReveal,         { width: '75vw',  height: '75vh',  duration: 1 }, 16.8)
-      .to(aboutReveal,         { width: '100vw', height: '100vh', duration: 1 }, 18.0)
+      // PHASE 4b: slogan holds solid fullscreen for a beat (t=16.6 → 19)
 
-      // PHASE 5: slogan holds fullscreen; doors + backdrop appear; doors shrink to open 30vw gap
-      .set([doorLeft, doorRight, gapReveal], { opacity: 1 }, 19)
-      .to(doorLeft,            { width: '35vw', duration: 1 }, 19.2)
-      .to(doorRight,           { width: '35vw', duration: 1 }, 19.2)
+      // PHASE 5: gap bg fades in simultaneously with doors; doors appear already narrowed (no cream flash)
+      .fromTo(gapReveal,       { opacity: 0 }, { opacity: 1, duration: 0.8 }, 19)
+      .fromTo(doorLeft,        { width: '50vw', opacity: 0 }, { opacity: 1, width: '35vw', duration: 0.8 }, 19)
+      .fromTo(doorRight,       { width: '50vw', opacity: 0 }, { opacity: 1, width: '35vw', duration: 0.8 }, 19)
 
-      // PHASE 6: gap → 50vw; text rises partially
+      // PHASE 6: gap → 50vw
       .to(doorLeft,            { width: '25vw', duration: 1 }, 20.2)
       .to(doorRight,           { width: '25vw', duration: 1 }, 20.2)
-      .fromTo(gapText,         { yPercent: 100 }, { yPercent: 40, duration: 1 }, 20.2)
 
-      // PHASE 7: gap → 80vw; text rises further
+      // PHASE 7: gap → 80vw
       .to(doorLeft,            { width: '10vw', duration: 1 }, 21.2)
       .to(doorRight,           { width: '10vw', duration: 1 }, 21.2)
-      .to(gapText,             { yPercent: 15,  duration: 1 }, 21.2)
 
-      // PHASE 8: doors gone; gap = 100vw; text fully visible
+      // PHASE 8: doors gone; gap = 100vw; dark green about section fills screen
       .to(doorLeft,            { width: '0vw',  duration: 1 }, 22.2)
-      .to(doorRight,           { width: '0vw',  duration: 1 }, 22.2)
-      .to(gapText,             { yPercent: 0,   duration: 1 }, 22.2);
+      .to(doorRight,           { width: '0vw',  duration: 1 }, 22.2);
   </script>
 
 </body>
