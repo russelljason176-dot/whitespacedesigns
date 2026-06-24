@@ -448,12 +448,12 @@
       opacity: 0;
     }
 
-    /* Split doors — warm ivory, not clinical white */
+    /* Split doors — same red as slogan so they blend; gap reveals section behind */
     .split-door {
       position: absolute;
       top: 0;
       height: 100vh;
-      background: #F4EFE6;
+      background: #7A0C07;
       z-index: 10;
       opacity: 0;
     }
@@ -1425,10 +1425,11 @@
 
       // PHASE 4b: slogan holds solid fullscreen for a beat (t=16.6 → 19)
 
-      // PHASE 5: gap bg fades in simultaneously with doors; doors appear already narrowed (no cream flash)
-      .fromTo(gapReveal,       { opacity: 0 }, { opacity: 1, duration: 0.8 }, 19)
-      .fromTo(doorLeft,        { width: '50vw', opacity: 0 }, { opacity: 1, width: '35vw', duration: 0.8 }, 19)
-      .fromTo(doorRight,       { width: '50vw', opacity: 0 }, { opacity: 1, width: '35vw', duration: 0.8 }, 19)
+      // PHASE 5: dark green bg + red doors all appear at once at full width
+      // (doors are same color as slogan — no visible change until they start splitting)
+      .set([gapReveal, doorLeft, doorRight], { opacity: 1 }, 19)
+      .to(doorLeft,            { width: '35vw', duration: 1 }, 19.2)
+      .to(doorRight,           { width: '35vw', duration: 1 }, 19.2)
 
       // PHASE 6: gap → 50vw
       .to(doorLeft,            { width: '25vw', duration: 1 }, 20.2)
