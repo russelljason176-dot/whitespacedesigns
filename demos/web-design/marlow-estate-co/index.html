@@ -428,7 +428,7 @@
       font-weight: 300;
       font-style: italic;
       line-height: 1.25;
-      color: #000000;
+      color: #F4EFE6;
       margin-bottom: 1.5rem;
     }
     .ar-caption {
@@ -1430,26 +1430,25 @@
       .to(aboutReveal,         { width: '75vw',  height: '75vh',  duration: 1 }, 16.8)
       .to(aboutReveal,         { width: '100vw', height: '100vh', duration: 1 }, 18.0)
 
-      // PHASE 5: slogan fades; doors + backdrop appear simultaneously; doors shrink to open 30vw gap
-      .to(aboutReveal,         { opacity: 0,    duration: 0.5 }, 18.0)
-      .set([doorLeft, doorRight, gapReveal], { opacity: 1 }, 18.0)
-      .to(doorLeft,            { width: '35vw', duration: 1 }, 18.2)
-      .to(doorRight,           { width: '35vw', duration: 1 }, 18.2)
+      // PHASE 5: slogan holds fullscreen; doors + backdrop appear; doors shrink to open 30vw gap
+      .set([doorLeft, doorRight, gapReveal], { opacity: 1 }, 19)
+      .to(doorLeft,            { width: '35vw', duration: 1 }, 19.2)
+      .to(doorRight,           { width: '35vw', duration: 1 }, 19.2)
 
       // PHASE 6: gap → 50vw; text rises partially
-      .to(doorLeft,            { width: '25vw', duration: 1 }, 19.2)
-      .to(doorRight,           { width: '25vw', duration: 1 }, 19.2)
-      .fromTo(gapText,         { yPercent: 100 }, { yPercent: 40, duration: 1 }, 19.2)
+      .to(doorLeft,            { width: '25vw', duration: 1 }, 20.2)
+      .to(doorRight,           { width: '25vw', duration: 1 }, 20.2)
+      .fromTo(gapText,         { yPercent: 100 }, { yPercent: 40, duration: 1 }, 20.2)
 
       // PHASE 7: gap → 80vw; text rises further
-      .to(doorLeft,            { width: '10vw', duration: 1 }, 20.2)
-      .to(doorRight,           { width: '10vw', duration: 1 }, 20.2)
-      .to(gapText,             { yPercent: 15,  duration: 1 }, 20.2)
+      .to(doorLeft,            { width: '10vw', duration: 1 }, 21.2)
+      .to(doorRight,           { width: '10vw', duration: 1 }, 21.2)
+      .to(gapText,             { yPercent: 15,  duration: 1 }, 21.2)
 
       // PHASE 8: doors gone; gap = 100vw; text fully visible
-      .to(doorLeft,            { width: '0vw',  duration: 1 }, 21.2)
-      .to(doorRight,           { width: '0vw',  duration: 1 }, 21.2)
-      .to(gapText,             { yPercent: 0,   duration: 1 }, 21.2);
+      .to(doorLeft,            { width: '0vw',  duration: 1 }, 22.2)
+      .to(doorRight,           { width: '0vw',  duration: 1 }, 22.2)
+      .to(gapText,             { yPercent: 0,   duration: 1 }, 22.2);
   </script>
 
 </body>
