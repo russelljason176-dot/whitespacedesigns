@@ -71,6 +71,11 @@
     .wsd-banner.dismissed { opacity: 0; pointer-events: none; }
     .wsd-banner.collapsed  { height: 0; border: none; transition: height 0.35s ease, border 0.35s ease; }
     .wsd-banner a { color: var(--gold-lt); font-weight: 700; text-decoration: underline; }
+    .banner-short { display: none; }
+    @media (max-width: 600px) {
+      .banner-full { display: none; }
+      .banner-short { display: inline; }
+    }
 
     /* ─── HERO ────────────────────────────────────────────────── */
     .hero {
@@ -991,7 +996,8 @@
 
   <!-- WSD Demo Banner -->
   <div class="wsd-banner" role="banner">
-    Demo — all content is fictional &nbsp;·&nbsp; Built by <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a>
+    <span class="banner-full">Demo — all content is fictional &nbsp;·&nbsp; Built by <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a></span>
+    <span class="banner-short">Demo site &nbsp;·&nbsp; <a href="https://whitespacedesigns.co.za" target="_blank" rel="noopener">White Space Designs</a></span>
   </div>
 
   <!-- Fixed top-right CTA -->
