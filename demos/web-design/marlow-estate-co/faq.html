@@ -1,0 +1,503 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: auto; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    /* ── CURSOR ── */
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor-dot { position: fixed; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+      .cursor-ring { position: fixed; width: 30px; height: 30px; border: 1.2px solid rgba(176,141,87,.65); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s ease, height .3s ease, border-color .3s; }
+      .cursor-ring.is-hovering { width: 50px; height: 50px; border-color: rgba(201,160,99,.5); }
+      .cursor-ring.is-clicking { width: 22px; height: 22px; border-color: var(--gold); }
+    }
+
+    /* ── HEADER ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; transition: opacity .2s, color .2s; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; opacity: .6; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap { max-width: 1300px; margin: 0 auto; padding: calc(var(--header-h) + 5.5rem) 3.5rem 7rem; display: grid; grid-template-columns: 220px 1fr; gap: 6rem; align-items: start; }
+
+    /* ── TOC / SECTION NAV ── */
+    .faq-toc { position: sticky; top: calc(var(--header-h) + 2.5rem); }
+    .toc-eyebrow { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 1.5rem; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); }
+    .toc-list a { display: block; font-family: var(--sans); font-size: .62rem; font-weight: 400; letter-spacing: .06em; color: var(--cream); opacity: .42; text-decoration: none; padding: .9rem 1.1rem; border-bottom: 1px solid var(--border); transition: opacity .2s, color .2s, background .2s; }
+    .toc-list li:last-child a { border-bottom: none; }
+    .toc-list a:hover, .toc-list a.active { opacity: 1; color: var(--gold-lt); background: rgba(176,141,87,.06); }
+
+    .toc-cta { margin-top: 2rem; }
+    .toc-cta-label { font-family: var(--sans); font-size: .5rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); opacity: .3; display: block; margin-bottom: .85rem; }
+    .toc-cta a { display: block; font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); text-decoration: none; margin-bottom: .5rem; transition: color .2s; }
+    .toc-cta a:hover { color: var(--gold); }
+
+    /* ── FAQ CONTENT ── */
+    .faq-content { min-width: 0; }
+
+    .faq-section { margin-bottom: 5rem; scroll-margin-top: calc(var(--header-h) + 2rem); }
+    .faq-section:last-child { margin-bottom: 0; }
+
+    .section-eyebrow { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .7rem; }
+    .section-heading { font-family: var(--serif); font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 400; color: var(--cream); margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+
+    /* Accordion */
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 1.35rem 0; display: flex; justify-content: space-between; align-items: center; gap: 2rem; }
+    .faq-question-text { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; color: var(--cream); line-height: 1.3; }
+    .faq-icon { width: 20px; height: 20px; flex-shrink: 0; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: .8rem; color: var(--gold); transition: transform .3s, background .2s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: rgba(176,141,87,.12); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s ease; }
+    .faq-answer-inner { padding-bottom: 1.5rem; }
+    .faq-answer-inner p { font-family: var(--body); font-size: .95rem; line-height: 1.85; color: var(--cream); opacity: .62; margin-bottom: .85rem; }
+    .faq-answer-inner p:last-child { margin-bottom: 0; }
+    .faq-answer-inner a { color: var(--gold-lt); text-decoration: none; }
+    .faq-answer-inner a:hover { color: var(--gold); }
+    .faq-item.open .faq-answer { max-height: 800px; }
+
+    /* ── STILL HAVE QUESTIONS ── */
+    .still-q { background: var(--bg2); border: 1px solid var(--border); padding: 2.5rem; margin-top: 5rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+    .still-q h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--cream); margin-bottom: .5rem; }
+    .still-q p { font-family: var(--body); font-size: .9rem; color: var(--cream); opacity: .55; }
+    .btn-contact { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--sans); font-size: .58rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; background: var(--oxblood); padding: .85rem 1.6rem; border: none; transition: background .2s; white-space: nowrap; }
+    .btn-contact:hover { background: #7A3A3A; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; white-space: nowrap; }
+
+    /* WhatsApp */
+    .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+
+    @media (max-width: 1100px) { .page-wrap { grid-template-columns: 1fr; gap: 0; } .faq-toc { position: static; margin-bottom: 3.5rem; } .still-q { grid-template-columns: 1fr; gap: 1.5rem; } }
+    @media (max-width: 900px) { .header-inner, .page-wrap, .footer-inner { padding-left: 2rem; padding-right: 2rem; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a>
+    <a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a>
+    <a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a>
+    <a href="contact.html">Contact</a>
+    <a href="areas.html">Areas</a>
+    <a href="faq.html">FAQ</a>
+    <a href="bond-calculator.html">Calculator</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- SIDEBAR TOC -->
+    <nav class="faq-toc" aria-label="FAQ sections">
+      <p class="toc-eyebrow">On this page</p>
+      <ul class="toc-list">
+        <li><a href="#buying" class="active">Buying</a></li>
+        <li><a href="#selling">Selling</a></li>
+        <li><a href="#renting">Renting</a></li>
+        <li><a href="#about">About Marlow</a></li>
+      </ul>
+      <div class="toc-cta">
+        <span class="toc-cta-label">Quick links</span>
+        <a href="listings.html">View listings ↗</a>
+        <a href="valuation.html">Get a valuation ↗</a>
+        <a href="bond-calculator.html">Bond calculator ↗</a>
+        <a href="contact.html">Contact an agent ↗</a>
+      </div>
+    </nav>
+
+    <!-- FAQ CONTENT -->
+    <div class="faq-content">
+
+      <!-- BUYING -->
+      <section class="faq-section" id="buying">
+        <p class="section-eyebrow">For buyers</p>
+        <h2 class="section-heading">Buying</h2>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">How do I know what I can afford to buy?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>The clearest starting point is a pre-qualification from a bank or registered bond originator such as ooba or BetterBond. This gives you a realistic picture of your borrowing capacity based on your income, existing debt, and credit score — before you start viewing.</p>
+              <p>As a general guide, most banks will approve a bond where the monthly repayment does not exceed 30% of your gross monthly income. Our <a href="bond-calculator.html">bond calculator</a> gives you a quick indicative figure, but the bank's assessment is definitive. We can refer you to a bond originator who will apply to multiple banks simultaneously at no cost to you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What costs must I budget for beyond the purchase price?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Transfer duty is the most significant additional cost. Calculated by SARS on a sliding scale, it applies to properties above R1,100,000 — and ranges from 3% on values just above that threshold to 13% on amounts above R12.1 million. Our <a href="bond-calculator.html">bond calculator</a> estimates your transfer duty automatically.</p>
+              <p>You should also budget for bond registration costs (typically R15,000–R35,000 depending on the purchase price), conveyancing fees for the property transfer, occupational rental if you occupy the property before registration, and a homeowner's inspection if you choose to commission one.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">How does an Offer to Purchase (OTP) work?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>An Offer to Purchase is a legally binding contract once signed by both buyer and seller. It contains the purchase price, deposit amount, bond conditions (if applicable), occupation date, and any special conditions — such as a suspensive condition tied to bond approval.</p>
+              <p>The buyer typically has 3–5 business days to secure bond approval after the OTP is signed. If bond is declined, the suspensive condition fails and the OTP lapses — the deposit is returned. If bond is approved, the transaction proceeds to registration, typically taking 6–10 weeks. Read every clause carefully before signing, and ask your agent to explain anything unclear.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Can I make an offer subject to selling my own home first?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Yes — this is known as a 72-hour clause (or suspensive condition linked to the sale of your current home). The seller accepts your offer but retains the right to keep marketing the property. If another buyer makes an unconditional offer, you receive a 72-hour notice period to either remove the suspensive condition (i.e., proceed without needing to sell your current home) or allow the first offer to lapse.</p>
+              <p>In a fast-moving market like Centurion's R3m–R6m band, offers with 72-hour clauses are often overlooked in favour of unconditional buyers. Speak to us about your specific situation — there may be a sequencing strategy that works for you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What is a sectional title versus a freehold property?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>A freehold (full-title) property gives you ownership of both the structure and the land it stands on. A sectional title property gives you ownership of a defined unit within a larger development — a townhouse or apartment — along with an undivided share of the common property (gardens, driveways, parking). Sectional title properties are governed by a body corporate that charges monthly levies for the maintenance of common areas.</p>
+              <p>When comparing prices, sectional title properties typically carry monthly levy obligations of R1,500–R5,000 depending on the estate. Always request the latest levy statement and body corporate financials before making an offer.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SELLING -->
+      <section class="faq-section" id="selling">
+        <p class="section-eyebrow">For sellers</p>
+        <h2 class="section-heading">Selling</h2>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">How do I determine the right asking price?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Price is set by the market — specifically by what comparable properties in your immediate micro-market have sold for in the past 90 days. Our agents will provide you with a Comparative Market Analysis (CMA) drawing on deeds office data, Lightstone records, and our own transaction history in your area.</p>
+              <p>Overpricing is the single most common mistake sellers make. Properties that enter the market above fair value tend to sit — and a property that has been on the market for 60+ days signals to buyers that something is wrong, even when the only issue is the asking price. A correctly priced property sells faster, generates more offers, and typically achieves a higher net result than an overpriced one that eventually needs to reduce. <a href="valuation.html">Request a free valuation</a> to start the conversation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What agent commission applies in South Africa?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>There is no legislated commission rate in South Africa — it is negotiated between seller and agent. Industry norms generally sit between 5% and 7.5% (plus VAT) of the selling price, though this varies by agency and transaction size.</p>
+              <p>Commission is earned on successful registration of transfer — not on signing the OTP. If the transaction does not proceed to registration, no commission is due. Our mandate terms are discussed transparently before we list any property. Commission is not payable by the buyer under normal circumstances.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Should I do repairs and staging before listing?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>In most cases: yes, selectively. Buyers in the R3m–R6m range are discerning — they have often viewed dozens of properties and they price deferred maintenance into their offers. Visible issues (leaking taps, peeling paint, broken fixtures) create negotiating leverage for buyers and reduce perceived value even in buyers who don't explicitly raise them.</p>
+              <p>The return on targeted pre-listing improvements — a fresh coat of paint, repaired fixtures, professional cleaning — is almost always higher than the cost. Major structural renovations are a different calculation and we'll advise you honestly about what makes sense given your timeline and expected sale price.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">How long does the transfer process take after an accepted offer?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Transfer typically takes 6–10 weeks from the date the OTP is accepted and signed by both parties, assuming no complications. The timeline depends on the speed of bond approval (if applicable), both parties' responsiveness to attorney requests for documents and signatures, the Deeds Office workload in Pretoria, and whether the property is sectional title (which adds the step of obtaining a clearance certificate from the body corporate).</p>
+              <p>Our agents coordinate closely with the conveyancing attorneys throughout the process and will keep you updated at every stage. Delays are common and rarely indicate a problem — most transactions experience at least one administrative delay before registration.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RENTING -->
+      <section class="faq-section" id="renting">
+        <p class="section-eyebrow">For tenants</p>
+        <h2 class="section-heading">Renting</h2>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What documents do I need to apply for a rental?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Landlords in South Africa typically require: a certified copy of your South African ID or passport, the last three months' bank statements, the last three months' payslips (or proof of income if self-employed), a recent credit bureau report (TPN or TransUnion), and two contactable references — ideally a previous landlord and an employer.</p>
+              <p>Foreign nationals will additionally need a valid work or business visa. Having these documents ready before you apply significantly speeds up the approval process in competitive markets like Centurion's estate sector, where multiple applicants often compete for desirable rentals.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">How much deposit is typically required?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Standard rental deposits in South Africa are typically one to two months' rent. The deposit is held in a trust account by the agent or landlord and accrues interest for the tenant's benefit under the Rental Housing Act. The deposit may only be used to cover unpaid rent or documented damage beyond fair wear and tear.</p>
+              <p>Upon vacating, you are entitled to a joint inspection with the landlord. Deductions must be itemised and supported by documentation. Any undisputed balance must be returned within 14 days of the lease end (or 21 days if there are deductions). A prior ingoing inspection report signed by both parties is essential to protect both sides.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Can I terminate my lease early?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Under the Consumer Protection Act, residential tenants have the right to cancel a fixed-term lease early, provided they give 20 business days' written notice to the landlord. The landlord may, however, charge a reasonable cancellation penalty — typically the equivalent of one to three months' rent, depending on how early in the lease term the cancellation occurs.</p>
+              <p>Some leases specify the penalty in advance. If yours does not, the landlord must demonstrate actual loss — such as lost rent during the period the property is vacant and being remarketed. The penalty cannot exceed what is reasonable in the circumstances. Contact us for guidance if you are in this situation.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What are my rights if the landlord wants to sell the property I rent?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Your lease continues to bind the new owner if the property is sold during your tenancy — the principle of "huur gaat voor koop" (rental precedes sale) applies in South African law. The new owner takes ownership subject to your existing lease and cannot simply evict you because they now own the property.</p>
+              <p>You are entitled to remain in the property until your lease expires, subject to the existing terms. The new owner becomes your landlord for all purposes. Ensure you receive written notification of the change in ownership and updated banking details for rental payments.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT MARLOW -->
+      <section class="faq-section" id="about">
+        <p class="section-eyebrow">Working with us</p>
+        <h2 class="section-heading">About Marlow</h2>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What areas do you specialise in?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Marlow Estate Co. focuses exclusively on the Centurion, Midrand, Irene, and Pretoria East residential markets. We do not operate nationally — by design. Our value is in depth of local knowledge, not breadth of geographic coverage. Every agent on our team has transacted within these areas for a minimum of five years and lives in the communities they serve.</p>
+              <p>Our <a href="areas.html">area guides</a> give an overview of what distinguishes each market. If you are looking in a micro-area not covered there, contact us — we may still be able to assist or refer you to a specialist if we cannot.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">Are you registered with the PPRA?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Yes. Marlow Estate Co. and all agents acting under our mandate are registered with the Property Practitioners Regulatory Authority (PPRA) in terms of the Property Practitioners Act 22 of 2019. You can verify any agent's registration status on the PPRA's public register at ppra.org.za.</p>
+              <p>Our Fidelity Fund Certificate number is available on request. Under the Act, you are entitled to request this certificate from any property practitioner before engaging their services — and you should. An unregistered practitioner cannot legally earn commission on a transaction.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span class="faq-question-text">What makes Marlow different from a larger national agency?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" role="region">
+            <div class="faq-answer-inner">
+              <p>Scale is a feature in some industries. In residential property, it is often a liability. Large national agencies manage their agents' caseloads, not your transaction. At Marlow, each agent carries a limited number of active mandates at any given time, ensuring that your property receives full attention rather than a share of it.</p>
+              <p>We also do not franchise — which means the agent you meet at the valuation is the agent who markets your property, conducts every viewing, and negotiates your offer. There is no handoff, no junior team managing your listing while the senior partner collects the mandate. What you see is what you get, from start to registration.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Still have questions -->
+        <div class="still-q">
+          <div>
+            <h3>Didn't find what you were looking for?</h3>
+            <p>Our agents are available Monday to Friday, 08:00–18:00, and most Saturdays by appointment. No automated responses, no offshore call centres.</p>
+          </div>
+          <a href="contact.html" class="btn-contact">Speak to an agent ↗</a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="blog.html">Insights</a></li>
+        <li><a href="areas.html">Areas</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="bond-calculator.html">Calculator</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/27743357752" class="wa-float" aria-label="WhatsApp Marlow Estate Co." target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navOverlay').classList.add('open'));
+    document.getElementById('navClose').addEventListener('click', () => document.getElementById('navOverlay').classList.remove('open'));
+
+    if (typeof Lenis !== 'undefined') {
+      const lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 1.4 });
+      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+    }
+
+    if (matchMedia('(pointer: fine)').matches) {
+      const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+      document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
+      document.addEventListener('mouseup', () => ring.classList.remove('is-clicking'));
+      document.querySelectorAll('a,button,input,[role="button"]').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+      });
+      (function animRing() { rx += (mx-rx)*.1; ry += (my-ry)*.1; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); })();
+    }
+
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    /* TOC active state on scroll */
+    const sections = document.querySelectorAll('.faq-section');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector('.toc-list a[href="#' + entry.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>

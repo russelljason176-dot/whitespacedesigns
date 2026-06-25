@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bond Calculator — Marlow Estate Co.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #1B2A23; --bg2: #243530;
+      --cream: #F4EFE6; --gold: #B08D57; --gold-lt: #C9A063;
+      --oxblood: #5C2A2A; --taupe: #A89A82; --espresso: #2B211B;
+      --border: rgba(168,154,130,0.28);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --body: 'EB Garamond', Georgia, serif;
+      --sans: 'Work Sans', system-ui, sans-serif;
+      --header-h: 72px;
+    }
+    html { scroll-behavior: auto; }
+    body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
+
+    /* ── CURSOR ── */
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor-dot { position: fixed; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s, opacity .2s; }
+      .cursor-ring { position: fixed; width: 30px; height: 30px; border: 1.2px solid rgba(176,141,87,.65); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s ease, height .3s ease, border-color .3s; }
+      .cursor-ring.is-hovering { width: 50px; height: 50px; border-color: rgba(201,160,99,.5); }
+      .cursor-ring.is-clicking { width: 22px; height: 22px; border-color: var(--gold); }
+    }
+
+    /* ── HEADER ── */
+    .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
+    .header-inner { max-width: 1300px; margin: 0 auto; width: 100%; padding: 0 3.5rem; display: flex; align-items: center; gap: 3rem; }
+    .header-logo { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--cream); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+    .main-nav { display: flex; gap: 2.25rem; list-style: none; flex: 1; }
+    .main-nav a { font-family: var(--sans); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .55; transition: opacity .2s, color .2s; }
+    .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
+    .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
+    .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
+    .nav-overlay.open { display: flex; }
+    .nav-overlay a { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .8; transition: opacity .2s, color .2s; }
+    .nav-overlay a:hover { opacity: 1; color: var(--gold-lt); }
+    .nav-overlay-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 1.8rem; opacity: .6; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap { max-width: 1300px; margin: 0 auto; padding: calc(var(--header-h) + 5.5rem) 3.5rem 6rem; display: grid; grid-template-columns: 1fr 480px; gap: 6rem; align-items: start; }
+
+    .page-eyebrow { font-family: var(--sans); font-size: .55rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .75rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 400; line-height: 1.05; color: var(--cream); margin-bottom: 1.5rem; }
+    .page-intro { font-family: var(--body); font-size: 1rem; line-height: 1.85; color: var(--cream); opacity: .65; max-width: 50ch; margin-bottom: 3.5rem; }
+
+    /* Rate info strip */
+    .rate-strip { border: 1px solid var(--border); margin-bottom: 3.5rem; }
+    .rate-strip-inner { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .rate-cell { padding: 1.4rem 1.6rem; border-right: 1px solid var(--border); }
+    .rate-cell:last-child { border-right: none; }
+    .rate-val { display: block; font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--gold); line-height: 1; margin-bottom: .35rem; }
+    .rate-lbl { font-family: var(--sans); font-size: .52rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); opacity: .38; }
+
+    /* Explainer list */
+    .calc-notes { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+    .calc-notes li { font-family: var(--body); font-size: .9rem; line-height: 1.7; color: var(--cream); opacity: .58; display: flex; gap: .65rem; }
+    .calc-notes li::before { content: '—'; color: var(--gold); opacity: .6; flex-shrink: 0; margin-top: .05em; }
+
+    /* ── CALCULATOR CARD ── */
+    .calc-card { background: var(--bg2); border: 1px solid var(--border); padding: 2.5rem; position: sticky; top: calc(var(--header-h) + 2rem); }
+    .calc-card-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--cream); margin-bottom: .4rem; }
+    .calc-card-sub { font-family: var(--sans); font-size: .54rem; letter-spacing: .06em; color: var(--cream); opacity: .35; margin-bottom: 2rem; }
+
+    .form-section-label { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); display: block; margin-bottom: .85rem; margin-top: 1.6rem; }
+    .form-section-label:first-of-type { margin-top: 0; }
+
+    .form-group { display: flex; flex-direction: column; gap: .35rem; margin-bottom: .85rem; }
+    .form-group label { font-family: var(--sans); font-size: .52rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); opacity: .4; }
+    .form-group input, .form-group select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      font-family: var(--body);
+      font-size: 1rem;
+      padding: .8rem 1rem;
+      outline: none;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+    .form-group select { background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A89A82' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; padding-right: 2.25rem; }
+    .form-group select option { background: #1B2A23; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group input::placeholder { color: rgba(244,239,230,.2); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+
+    /* Range slider */
+    .range-group { margin-bottom: 1rem; }
+    .range-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .5rem; }
+    .range-header label { font-family: var(--sans); font-size: .52rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--cream); opacity: .4; }
+    .range-val { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--gold-lt); }
+    input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--border); outline: none; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); }
+    input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--gold); border: none; }
+
+    .btn-calc { width: 100%; background: var(--oxblood); color: var(--cream); font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; border: none; padding: 1.05rem; margin-top: .75rem; transition: background .2s; }
+    .btn-calc:hover { background: #7A3A3A; }
+
+    /* ── RESULTS PANEL ── */
+    .results { display: none; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+    .results.visible { display: block; }
+    .results-label { font-family: var(--sans); font-size: .5rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: 1.25rem; }
+    .result-main { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); margin-bottom: 1.25rem; }
+    .result-cell { padding: 1.25rem 1.4rem; border-right: 1px solid var(--border); }
+    .result-cell:last-child { border-right: none; }
+    .result-val { display: block; font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--cream); line-height: 1; margin-bottom: .3rem; }
+    .result-val.highlight { color: var(--gold); }
+    .result-lbl { font-family: var(--sans); font-size: .5rem; letter-spacing: .08em; text-transform: uppercase; color: var(--cream); opacity: .38; }
+    .result-breakdown { display: flex; flex-direction: column; gap: .5rem; }
+    .result-row { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--sans); font-size: .58rem; letter-spacing: .04em; color: var(--cream); }
+    .result-row span:first-child { opacity: .45; }
+    .result-row span:last-child { color: var(--gold-lt); }
+    .result-divider { border: none; border-top: 1px solid var(--border); margin: .5rem 0; }
+    .result-cta { margin-top: 1.5rem; font-family: var(--sans); font-size: .58rem; line-height: 1.65; color: var(--cream); opacity: .5; }
+    .result-cta a { color: var(--gold-lt); text-decoration: none; }
+
+    /* Transfer duty note */
+    .duty-note { margin-top: 1rem; background: rgba(176,141,87,.07); border: 1px solid rgba(176,141,87,.2); padding: 1rem 1.15rem; }
+    .duty-note p { font-family: var(--sans); font-size: .56rem; letter-spacing: .04em; line-height: 1.7; color: var(--cream); opacity: .55; }
+    .duty-note .duty-amount { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--gold-lt); display: block; margin-bottom: .25rem; }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.75rem 0; }
+    .footer-inner { max-width: 1300px; margin: 0 auto; padding: 0 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-logo { display: inline-flex; align-items: center; gap: .7rem; font-family: var(--serif); font-size: .95rem; font-weight: 400; color: var(--cream); text-decoration: none; opacity: .7; }
+    .footer-nav-list { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+    .footer-nav-list a { font-family: var(--sans); font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .38; transition: opacity .2s; }
+    .footer-nav-list a:hover { opacity: .8; }
+    .footer-copy { font-family: var(--sans); font-size: .52rem; letter-spacing: .05em; color: var(--cream); opacity: .28; white-space: nowrap; }
+
+    /* WhatsApp */
+    .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+
+    @media (max-width: 1100px) { .page-wrap { grid-template-columns: 1fr; gap: 3rem; } .calc-card { position: static; } }
+    @media (max-width: 900px) { .header-inner, .page-wrap, .footer-inner { padding-left: 2rem; padding-right: 2rem; } .rate-strip-inner { grid-template-columns: 1fr; } .rate-cell { border-right: none; border-bottom: 1px solid var(--border); } .rate-cell:last-child { border-bottom: none; } }
+    @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .form-row { grid-template-columns: 1fr; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { justify-content: center; gap: 1rem 1.75rem; } }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg width="22" height="18" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="listings.html">Listings</a>
+        <a href="sold.html">Sold</a>
+        <a href="team.html">Our Team</a>
+        <a href="blog.html">Insights</a>
+        <a href="valuation.html">Valuation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="header-cta">Book a viewing ↗</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-overlay-close" id="navClose" aria-label="Close menu">✕</button>
+    <a href="listings.html">Listings</a>
+    <a href="sold.html">Sold</a>
+    <a href="team.html">Our Team</a>
+    <a href="blog.html">Insights</a>
+    <a href="valuation.html">Valuation</a>
+    <a href="contact.html">Contact</a>
+    <a href="areas.html">Areas</a>
+    <a href="faq.html">FAQ</a>
+    <a href="bond-calculator.html">Calculator</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <main>
+      <p class="page-eyebrow">Financial planning</p>
+      <h1 class="page-title">Bond &amp; affordability<br>calculator</h1>
+      <p class="page-intro">Estimate your monthly bond repayment, total cost of purchase, and transfer duty — all in one place. Figures are indicative and based on current South African interest rate benchmarks.</p>
+
+      <div class="rate-strip" aria-label="Current rate benchmarks">
+        <div class="rate-strip-inner">
+          <div class="rate-cell">
+            <span class="rate-val">11.75%</span>
+            <span class="rate-lbl">Current prime lending rate</span>
+          </div>
+          <div class="rate-cell">
+            <span class="rate-val">P + 0–2%</span>
+            <span class="rate-lbl">Typical bank bond rate</span>
+          </div>
+          <div class="rate-cell">
+            <span class="rate-val">20 yrs</span>
+            <span class="rate-lbl">Standard bond term</span>
+          </div>
+        </div>
+      </div>
+
+      <ul class="calc-notes" aria-label="Calculator notes">
+        <li>Bond repayments are based on a flat amortising structure — principal plus interest, no balloon payments.</li>
+        <li>Transfer duty is calculated at the current SARS 2024 rates. Properties under R1,100,000 are exempt.</li>
+        <li>Bond registration and conveyancing costs are not included in this estimate — budget an additional R15,000–R35,000 depending on purchase price.</li>
+        <li>Your actual interest rate will depend on your credit profile, employment status, and the bank's assessment of the property. Bond origination through an approved bond originator (e.g. ooba, BetterBond) typically results in better rates than applying directly.</li>
+        <li>These figures are illustrative only and do not constitute financial advice. Speak to a qualified bond originator before committing to any purchase.</li>
+      </ul>
+    </main>
+
+    <aside>
+      <div class="calc-card">
+        <h2 class="calc-card-title">Calculate my bond</h2>
+        <p class="calc-card-sub">Indicative figures only &nbsp;·&nbsp; Not financial advice</p>
+
+        <form id="calcForm" novalidate>
+          <span class="form-section-label">Purchase details</span>
+          <div class="form-group">
+            <label for="purchasePrice">Purchase price (R)</label>
+            <input type="number" id="purchasePrice" placeholder="e.g. 4850000" min="100000" max="50000000" value="4850000" />
+          </div>
+          <div class="range-group">
+            <div class="range-header">
+              <label for="depositPct">Deposit</label>
+              <span class="range-val" id="depositDisplay">10%</span>
+            </div>
+            <input type="range" id="depositPct" min="0" max="50" value="10" step="1" aria-label="Deposit percentage" />
+          </div>
+
+          <span class="form-section-label">Bond details</span>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="interestRate">Interest rate (%)</label>
+              <input type="number" id="interestRate" placeholder="e.g. 11.75" step="0.25" min="5" max="25" value="11.75" />
+            </div>
+            <div class="form-group">
+              <label for="term">Bond term</label>
+              <select id="term">
+                <option value="20" selected>20 years</option>
+                <option value="25">25 years</option>
+                <option value="30">30 years</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-calc">Calculate repayment</button>
+        </form>
+
+        <div class="results" id="results">
+          <p class="results-label">Estimated repayment</p>
+          <div class="result-main">
+            <div class="result-cell">
+              <span class="result-val highlight" id="monthlyRepayment">—</span>
+              <span class="result-lbl">Monthly repayment</span>
+            </div>
+            <div class="result-cell">
+              <span class="result-val" id="loanAmount">—</span>
+              <span class="result-lbl">Loan amount</span>
+            </div>
+          </div>
+          <div class="result-breakdown">
+            <div class="result-row"><span>Purchase price</span><span id="r-price">—</span></div>
+            <div class="result-row"><span>Deposit</span><span id="r-deposit">—</span></div>
+            <div class="result-row"><span>Interest rate</span><span id="r-rate">—</span></div>
+            <div class="result-row"><span>Term</span><span id="r-term">—</span></div>
+            <hr class="result-divider" />
+            <div class="result-row"><span>Total repaid over term</span><span id="r-total">—</span></div>
+            <div class="result-row"><span>Total interest paid</span><span id="r-interest">—</span></div>
+          </div>
+          <div class="duty-note">
+            <span class="duty-amount" id="r-duty">—</span>
+            <p>Estimated transfer duty (SARS 2024 rates). First-time buyers purchasing below R1,100,000 pay no transfer duty.</p>
+          </div>
+          <p class="result-cta">Ready to move forward? <a href="valuation.html">Request a free valuation</a> or <a href="contact.html">speak to an agent</a> about your purchase timeline.</p>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">
+        <svg width="20" height="16" viewBox="0 0 42 34" fill="none" aria-hidden="true">
+          <path d="M2 30 Q2 4 21 4 Q40 4 40 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M8 30 Q8 10 21 10 Q34 10 34 30" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <line x1="2" y1="30" x2="40" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        Marlow Estate Co.
+      </a>
+      <nav aria-label="Footer navigation"><ul class="footer-nav-list">
+        <li><a href="listings.html">Listings</a></li>
+        <li><a href="sold.html">Sold</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="blog.html">Insights</a></li>
+        <li><a href="areas.html">Areas</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="bond-calculator.html">Calculator</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="legal.html">Legal</a></li>
+      </ul></nav>
+      <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/27743357752" class="wa-float" aria-label="WhatsApp Marlow Estate Co." target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    /* Nav */
+    document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navOverlay').classList.add('open'));
+    document.getElementById('navClose').addEventListener('click', () => document.getElementById('navOverlay').classList.remove('open'));
+
+    /* Lenis smooth scroll */
+    if (typeof Lenis !== 'undefined') {
+      const lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 1.4 });
+      (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+    }
+
+    /* Custom cursor */
+    if (matchMedia('(pointer: fine)').matches) {
+      const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+      document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
+      document.addEventListener('mouseup', () => ring.classList.remove('is-clicking'));
+      document.querySelectorAll('a,button,input,select,label,[role="button"]').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+      });
+      (function animRing() { rx += (mx-rx)*.1; ry += (my-ry)*.1; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); })();
+    }
+
+    /* Deposit range */
+    const depositSlider = document.getElementById('depositPct');
+    const depositDisplay = document.getElementById('depositDisplay');
+    depositSlider.addEventListener('input', () => depositDisplay.textContent = depositSlider.value + '%');
+
+    /* Transfer duty (SARS 2024) */
+    function calcTransferDuty(price) {
+      if (price <= 1100000) return 0;
+      if (price <= 1512375) return (price - 1100000) * 0.03;
+      if (price <= 2117000) return 12375 + (price - 1512375) * 0.06;
+      if (price <= 2722500) return 48675 + (price - 2117000) * 0.08;
+      if (price <= 12100000) return 97075 + (price - 2722500) * 0.11;
+      return 1128600 + (price - 12100000) * 0.13;
+    }
+
+    function fmt(n) { return 'R ' + Math.round(n).toLocaleString('en-ZA'); }
+
+    document.getElementById('calcForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const price = parseFloat(document.getElementById('purchasePrice').value) || 0;
+      const depositPct = parseFloat(document.getElementById('depositPct').value) / 100;
+      const annualRate = parseFloat(document.getElementById('interestRate').value) / 100;
+      const years = parseInt(document.getElementById('term').value);
+
+      const deposit = price * depositPct;
+      const principal = price - deposit;
+      const monthlyRate = annualRate / 12;
+      const n = years * 12;
+
+      const monthly = monthlyRate === 0
+        ? principal / n
+        : principal * (monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+
+      const totalRepaid = monthly * n;
+      const totalInterest = totalRepaid - principal;
+      const duty = calcTransferDuty(price);
+
+      document.getElementById('monthlyRepayment').textContent = fmt(monthly) + '/mo';
+      document.getElementById('loanAmount').textContent = fmt(principal);
+      document.getElementById('r-price').textContent = fmt(price);
+      document.getElementById('r-deposit').textContent = fmt(deposit) + ' (' + document.getElementById('depositPct').value + '%)';
+      document.getElementById('r-rate').textContent = document.getElementById('interestRate').value + '% per year';
+      document.getElementById('r-term').textContent = years + ' years (' + n + ' months)';
+      document.getElementById('r-total').textContent = fmt(totalRepaid);
+      document.getElementById('r-interest').textContent = fmt(totalInterest);
+      document.getElementById('r-duty').textContent = duty === 0 ? 'R 0 — Transfer duty exempt' : 'Transfer duty: ' + fmt(duty);
+
+      document.getElementById('results').classList.add('visible');
+    });
+  </script>
+</body>
+</html>

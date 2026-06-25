@@ -31,7 +31,7 @@
       --banner-h:  28px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
 
     body {
       background: var(--bg);
@@ -968,9 +968,24 @@
       .testimonial { border-right: none; border-bottom: 1px solid var(--border); }
       .testimonial:last-child { border-bottom: none; }
     }
+
+    /* ── CURSOR ── */
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor-dot { position: fixed; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+      .cursor-ring { position: fixed; width: 30px; height: 30px; border: 1.2px solid rgba(176,141,87,.65); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s ease, height .3s ease, border-color .3s; }
+      .cursor-ring.is-hovering { width: 50px; height: 50px; border-color: rgba(201,160,99,.5); }
+      .cursor-ring.is-clicking { width: 22px; height: 22px; border-color: var(--gold); }
+    }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
   </style>
 </head>
 <body>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
   <!-- WSD Demo Banner -->
   <div class="wsd-banner" role="banner">
@@ -989,6 +1004,9 @@
       <li><a href="#listings"><span class="nav-bracket">[1]</span> Listings</a></li>
       <li><a href="#about"><span class="nav-bracket">[2]</span> About</a></li>
       <li><a href="#contact"><span class="nav-bracket">[3]</span> Contact</a></li>
+      <li><a href="areas.html"><span class="nav-bracket">[4]</span> Areas</a></li>
+      <li><a href="faq.html"><span class="nav-bracket">[5]</span> FAQ</a></li>
+      <li><a href="bond-calculator.html"><span class="nav-bracket">[6]</span> Calculator</a></li>
     </ul>
   </nav>
 
@@ -1103,8 +1121,7 @@
           <p class="section-label">Featured Properties</p>
           <h2 id="listings-title" class="section-title">Current listings</h2>
         </div>
-        <!-- REPLACE: link to full listings page -->
-        <a href="#" class="view-all-link">View all listings ↗</a>
+        <a href="listings.html" class="view-all-link">View all listings ↗</a>
       </div>
 
       <div class="listings-grid">
@@ -1305,10 +1322,13 @@
 
         <nav aria-label="Footer navigation">
           <ul class="footer-nav">
-            <li><a href="listings.html">All listings</a></li>
+            <li><a href="listings.html">Listings</a></li>
             <li><a href="sold.html">Sold</a></li>
             <li><a href="team.html">Our Team</a></li>
             <li><a href="blog.html">Insights</a></li>
+            <li><a href="areas.html">Areas</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="bond-calculator.html">Calculator</a></li>
             <li><a href="valuation.html">Valuation</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="legal.html">Legal</a></li>
@@ -1365,13 +1385,26 @@
     });
   </script>
 
+  <a href="https://wa.me/27743357752" class="wa-float" aria-label="WhatsApp Marlow Estate Co." target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <!-- Scroll reveal timeline — animation logic unchanged from reference -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
+
+    /* Lenis smooth scroll integrated with GSAP ticker */
+    if (typeof Lenis !== 'undefined') {
+      const lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 1.4 });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(time => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
 
     const revealLine   = document.getElementById('revealLine');
     const centerImage  = document.getElementById('centerImage');
@@ -1442,6 +1475,20 @@
       // PHASE 8: doors gone; gap = 100vw; dark green about section fills screen
       .to(doorLeft,            { width: '0vw',  duration: 1 }, 22.2)
       .to(doorRight,           { width: '0vw',  duration: 1 }, 22.2);
+
+    /* Custom cursor */
+    if (matchMedia('(pointer: fine)').matches) {
+      const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+      document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
+      document.addEventListener('mouseup', () => ring.classList.remove('is-clicking'));
+      document.querySelectorAll('a,button,[role="button"]').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+      });
+      (function animRing() { rx += (mx-rx)*.1; ry += (my-ry)*.1; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); })();
+    }
   </script>
 
 </body>

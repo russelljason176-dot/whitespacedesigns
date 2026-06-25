@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -19,7 +19,7 @@
       --sans: 'Work Sans', system-ui, sans-serif;
       --header-h: 72px;
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
     body { background: var(--bg); color: var(--cream); font-family: var(--body); line-height: 1.65; overflow-x: hidden; }
 
     .site-header { position: fixed; top: 0; left: 0; right: 0; height: var(--header-h); background: rgba(27,42,35,0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); z-index: 500; display: flex; align-items: center; }
@@ -106,9 +106,23 @@
     @media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(2, 1fr); } .page-header-inner { grid-template-columns: 1fr; gap: 2rem; } }
     @media (max-width: 900px) { .header-inner, .page-header-inner, .team-main, .footer-inner { padding-left: 2rem; padding-right: 2rem; } }
     @media (max-width: 768px) { .main-nav, .header-cta { display: none; } .nav-toggle { display: block; margin-left: auto; } .team-grid { grid-template-columns: 1fr; } .footer-inner { flex-direction: column; text-align: center; } .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; } }
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor-dot { position: fixed; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+      .cursor-ring { position: fixed; width: 30px; height: 30px; border: 1.2px solid rgba(176,141,87,.65); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s ease, height .3s ease, border-color .3s; }
+      .cursor-ring.is-hovering { width: 50px; height: 50px; border-color: rgba(201,160,99,.5); }
+      .cursor-ring.is-clicking { width: 22px; height: 22px; border-color: var(--gold); }
+    }
+    .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+    .agent-rating { display: flex; align-items: center; gap: .55rem; margin-bottom: 1.1rem; }
+    .rating-stars { color: var(--gold); font-size: .85rem; letter-spacing: .06em; }
+    .rating-label { font-family: var(--sans); font-size: .52rem; letter-spacing: .06em; color: var(--cream); opacity: .42; }
   </style>
 </head>
 <body>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
   <header class="site-header">
     <div class="header-inner">
@@ -137,6 +151,7 @@
     <a href="listings.html">Listings</a><a href="sold.html">Sold</a>
     <a href="team.html">Our Team</a><a href="blog.html">Insights</a>
     <a href="valuation.html">Valuation</a><a href="contact.html">Contact</a>
+    <a href="areas.html">Areas</a><a href="faq.html">FAQ</a><a href="bond-calculator.html">Calculator</a>
   </div>
 
   <div class="page-header">
@@ -164,6 +179,10 @@
             <p class="agent-tag">Principal &amp; Founder</p>
             <h2 class="agent-name">Catherine Marlow</h2>
             <p class="agent-bio">Catherine founded Marlow Estate Co. in 2003 after a decade with one of South Africa's largest national franchises. Disillusioned by volume-over-value culture, she set out to build a boutique firm where each client receives counsel, not just a listing. She personally oversees every mandate valued above R4 million.</p>
+            <div class="agent-rating">
+              <span class="rating-stars">★★★★★</span>
+              <span class="rating-label">4.9 · 62 reviews</span>
+            </div>
             <div class="agent-specialisms">
               <span class="specialism-tag">Luxury residential</span>
               <span class="specialism-tag">Estate planning</span>
@@ -187,6 +206,10 @@
             <p class="agent-tag">Senior Agent</p>
             <h2 class="agent-name">James Olivier</h2>
             <p class="agent-bio">James joined Marlow Estate Co. in 2012 after completing a BCom in Property Studies at the University of Pretoria. His particular strength is the Centurion golf estate market, where he has an unmatched network of sellers, developers and tenants built over more than a decade of consistent, referral-led business.</p>
+            <div class="agent-rating">
+              <span class="rating-stars">★★★★★</span>
+              <span class="rating-label">4.8 · 47 reviews</span>
+            </div>
             <div class="agent-specialisms">
               <span class="specialism-tag">Golf estates</span>
               <span class="specialism-tag">Centurion</span>
@@ -210,6 +233,10 @@
             <p class="agent-tag">Residential Specialist</p>
             <h2 class="agent-name">Priya Naidoo</h2>
             <p class="agent-bio">Priya leads the firm's rental and relocation division, a role she has shaped from the ground up since joining in 2016. Her background in interior design gives her an advantage in property presentation and staging, which consistently results in faster sales and stronger photographs for the listings she manages.</p>
+            <div class="agent-rating">
+              <span class="rating-stars">★★★★★</span>
+              <span class="rating-label">4.9 · 38 reviews</span>
+            </div>
             <div class="agent-specialisms">
               <span class="specialism-tag">Rentals</span>
               <span class="specialism-tag">Relocation</span>
@@ -242,6 +269,9 @@
         <li><a href="team.html">Our Team</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="legal.html">Legal</a></li>
+        <li><a href="areas.html">Areas</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="bond-calculator.html">Calculator</a></li>
       </ul></nav>
       <p class="footer-copy">&copy; 2024 Marlow Estate Co. &nbsp;·&nbsp; Registered Estate Agent</p>
     </div>
@@ -254,6 +284,25 @@
     toggle.addEventListener('click', () => overlay.classList.add('open'));
     closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
     overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+  </script>
+  <a href="https://wa.me/27743357752" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.4, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, wheelMultiplier: 1.4 });
+    (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })(0);
+    (function() {
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+      const dot = document.getElementById('cursorDot');
+      const ring = document.getElementById('cursorRing');
+      document.addEventListener('mousemove', e => { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; });
+      (function loop() { requestAnimationFrame(loop); ring.style.left = (parseFloat(ring.style.left||0) + (parseFloat(dot.style.left||0) - parseFloat(ring.style.left||0)) * 0.1) + 'px'; ring.style.top = (parseFloat(ring.style.top||0) + (parseFloat(dot.style.top||0) - parseFloat(ring.style.top||0)) * 0.1) + 'px'; })();
+      document.querySelectorAll('a,button,[role="button"],input,textarea,select,label').forEach(el => {
+        el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+      });
+      document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
+      document.addEventListener('mouseup', () => ring.classList.remove('is-clicking'));
+    })();
   </script>
 </body>
 </html>
