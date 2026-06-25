@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -981,6 +981,8 @@
     /* ── WHATSAPP FLOAT ── */
     .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
     .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+    @keyframes wa-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
+    .wa-float::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #25D366; animation: wa-pulse 2.4s ease-out infinite; pointer-events: none; }
   </style>
 </head>
 <body>

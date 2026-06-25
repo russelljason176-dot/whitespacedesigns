@@ -30,6 +30,10 @@
     .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
     .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
     .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    @media (hover: hover) and (pointer: fine) {
+      .header-cta { transition: border-color .2s, color .2s, transform .2s; }
+      .header-cta:hover { transform: translateX(2px); }
+    }
     .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
     .nav-overlay.open { display: flex; }
@@ -129,6 +133,8 @@
     }
     .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
     .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+    @keyframes wa-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
+    .wa-float::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #25D366; animation: wa-pulse 2.4s ease-out infinite; pointer-events: none; }
     .reviews-section { margin-bottom: 3.5rem; }
     .review-item { padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
     .review-item:first-of-type { border-top: 1px solid var(--border); }
@@ -139,6 +145,12 @@
     .form-success-state .check { font-size: 2rem; color: var(--gold); margin-bottom: .75rem; }
     .form-success-state h4 { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--cream); margin-bottom: .5rem; }
     .form-success-state p { font-family: var(--body); font-size: .9rem; color: var(--cream); opacity: .6; }
+      @media (hover: hover) and (pointer: fine) {
+      .mini-listing { transition: border-color .25s, transform .25s, box-shadow .25s; }
+      .mini-listing:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.25); border-color: rgba(168,154,130,.5); }
+      .mini-img img { transition: transform .5s cubic-bezier(.25,.46,.45,.94); }
+      .mini-listing:hover .mini-img img { transform: scale(1.05); }
+    }
   </style>
 </head>
 <body>
@@ -178,9 +190,8 @@
   <!-- AGENT HERO -->
   <div class="agent-hero">
     <div class="agent-hero-inner">
-      <div class="agent-portrait" role="img" aria-label="Catherine Marlow — professional headshot placeholder">
-        <span class="portrait-initials" aria-hidden="true">CM</span>
-        Headshot placeholder
+      <div class="agent-portrait" role="img" aria-label="Catherine Marlow">
+        <img src="assets/headshot-catherine.webp" alt="Catherine Marlow" style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
       <div class="agent-meta">
         <a href="team.html" class="back-link">← Back to Our Team</a>
@@ -224,8 +235,10 @@
         <h2 class="section-heading">Active listings</h2>
         <div class="active-listings-grid">
           <article class="mini-listing">
-            <a href="property-detail.html">
-              <div class="mini-img" role="img" aria-label="14 Aloe Ridge Drive photo placeholder">Photo</div>
+            <a href="property-detail.html?ref=MEC-2024-001">
+              <div class="mini-img" role="img" aria-label="14 Aloe Ridge Drive" style="position:relative;display:block;padding:0;">
+                <img src="assets/listing-1.jpg" alt="14 Aloe Ridge Drive" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+              </div>
               <div class="mini-body">
                 <p class="mini-tag">For Sale · Centurion</p>
                 <p class="mini-addr">14 Aloe Ridge Drive</p>
@@ -234,8 +247,10 @@
             </a>
           </article>
           <article class="mini-listing">
-            <a href="property-detail.html">
-              <div class="mini-img alt" role="img" aria-label="31 Heritage Estate photo placeholder">Photo</div>
+            <a href="property-detail.html?ref=MEC-2024-006">
+              <div class="mini-img alt" role="img" aria-label="31 Heritage Estate" style="position:relative;display:block;padding:0;">
+                <img src="assets/listing-6.webp" alt="31 Heritage Estate, Midrand" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
+              </div>
               <div class="mini-body">
                 <p class="mini-tag">For Sale · Midrand</p>
                 <p class="mini-addr">31 Heritage Estate</p>

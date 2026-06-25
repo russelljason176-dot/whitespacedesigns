@@ -30,6 +30,10 @@
     .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
     .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
     .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    @media (hover: hover) and (pointer: fine) {
+      .header-cta { transition: border-color .2s, color .2s, transform .2s; }
+      .header-cta:hover { transform: translateX(2px); }
+    }
     .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
     .nav-overlay.open { display: flex; }
@@ -115,9 +119,17 @@
     }
     .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
     .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+    @keyframes wa-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
+    .wa-float::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #25D366; animation: wa-pulse 2.4s ease-out infinite; pointer-events: none; }
     .agent-rating { display: flex; align-items: center; gap: .55rem; margin-bottom: 1.1rem; }
     .rating-stars { color: var(--gold); font-size: .85rem; letter-spacing: .06em; }
     .rating-label { font-family: var(--sans); font-size: .52rem; letter-spacing: .06em; color: var(--cream); opacity: .42; }
+      @media (hover: hover) and (pointer: fine) {
+      .agent-card { transition: border-color .28s, transform .28s, box-shadow .28s; }
+      .agent-card:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,0,0,.3); }
+      .agent-photo img { transition: transform .55s cubic-bezier(.25,.46,.45,.94); }
+      .agent-card:hover .agent-photo img { transform: scale(1.05); }
+    }
   </style>
 </head>
 <body>
@@ -171,9 +183,8 @@
 
       <article class="agent-card">
         <a href="agent.html">
-          <div class="agent-photo" role="img" aria-label="Catherine Marlow — headshot placeholder">
-            <span class="agent-initials" aria-hidden="true">CM</span>
-            Headshot placeholder
+          <div class="agent-photo" role="img" aria-label="Catherine Marlow">
+            <img src="assets/headshot-catherine.webp" alt="Catherine Marlow" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
           </div>
           <div class="agent-body">
             <p class="agent-tag">Principal &amp; Founder</p>
@@ -198,9 +209,8 @@
 
       <article class="agent-card">
         <a href="agent.html">
-          <div class="agent-photo" role="img" aria-label="James Olivier — headshot placeholder">
-            <span class="agent-initials" aria-hidden="true">JO</span>
-            Headshot placeholder
+          <div class="agent-photo" role="img" aria-label="James Olivier">
+            <img src="assets/headshot-james.webp" alt="James Olivier" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
           </div>
           <div class="agent-body">
             <p class="agent-tag">Senior Agent</p>
@@ -225,9 +235,8 @@
 
       <article class="agent-card">
         <a href="agent.html">
-          <div class="agent-photo" role="img" aria-label="Priya Naidoo — headshot placeholder">
-            <span class="agent-initials" aria-hidden="true">PN</span>
-            Headshot placeholder
+          <div class="agent-photo" role="img" aria-label="Priya Naidoo">
+            <img src="assets/headshot-priya.webp" alt="Priya Naidoo" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
           </div>
           <div class="agent-body">
             <p class="agent-tag">Residential Specialist</p>

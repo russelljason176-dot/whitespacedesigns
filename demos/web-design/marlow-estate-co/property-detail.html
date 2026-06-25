@@ -31,6 +31,10 @@
     .main-nav a:hover, .main-nav a.active { opacity: 1; color: var(--gold-lt); }
     .header-cta { font-family: var(--sans); font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; border: 1px solid rgba(244,239,230,.35); padding: .55rem 1.2rem; transition: border-color .2s, color .2s; white-space: nowrap; flex-shrink: 0; }
     .header-cta:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+    @media (hover: hover) and (pointer: fine) {
+      .header-cta { transition: border-color .2s, color .2s, transform .2s; }
+      .header-cta:hover { transform: translateX(2px); }
+    }
     .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.3rem; cursor: pointer; }
     .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(27,42,35,0.98); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; }
     .nav-overlay.open { display: flex; }
@@ -71,7 +75,7 @@
       position: relative;
     }
     .gallery-cell:hover { filter: brightness(1.1); }
-    .gallery-cell:first-child { grid-row: 1 / 3; }
+    .gallery-cell:first-child { grid-row: 1 / 5; }
     .gallery-cell:nth-child(2) { background: #3A5E48; }
     .gallery-cell:nth-child(3) { background: #4A7359; }
     .gallery-cell:nth-child(4) { background: #3A5E48; }
@@ -220,6 +224,7 @@
       .gallery-cell:first-child { grid-row: auto; }
       .specs-row { flex-wrap: wrap; }
       .spec { flex: 1 1 40%; border-bottom: 1px solid var(--border); }
+      .spec:nth-child(odd):last-child { flex: 1 1 100%; border-right: none; }
       .amenities-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; text-align: center; }
       .footer-nav-list { flex-wrap: wrap; justify-content: center; gap: 1rem 1.75rem; }
@@ -233,11 +238,15 @@
     }
     .wa-float { position: fixed; bottom: 2.25rem; right: 2.25rem; z-index: 400; width: 52px; height: 52px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35); transition: transform .2s, box-shadow .2s; text-decoration: none; }
     .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+    @keyframes wa-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
+    .wa-float::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid #25D366; animation: wa-pulse 2.4s ease-out infinite; pointer-events: none; }
     .virtual-tour { margin-bottom: 3rem; }
     .tour-frame { background: #1B2A23; border: 1px solid var(--border); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; }
     .tour-frame p { font-family: var(--sans); font-size: .55rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,239,230,.28); }
     .tour-cta { font-family: var(--sans); font-size: .6rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); border: 1px solid rgba(201,160,99,.35); padding: .55rem 1.2rem; text-decoration: none; transition: border-color .2s, color .2s; }
     .tour-cta:hover { border-color: var(--gold-lt); color: var(--gold); }
+    .property-map { margin-bottom: 3rem; }
+    .property-map-frame { width: 100%; height: 340px; border: 1px solid var(--border); display: block; }
     .reviews-section { margin-bottom: 3rem; }
     .reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .review-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem 1.6rem; }
@@ -248,6 +257,10 @@
     .form-success-state .check { font-size: 2rem; color: var(--gold); margin-bottom: .75rem; }
     .form-success-state h4 { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--cream); margin-bottom: .5rem; }
     .form-success-state p { font-family: var(--body); font-size: .9rem; color: var(--cream); opacity: .6; }
+      @media (hover: hover) and (pointer: fine) {
+      .gallery-cell img { transition: transform .5s ease; }
+      .gallery-cell:hover img { transform: scale(1.07); }
+    }
   </style>
 </head>
 <body>
@@ -300,22 +313,26 @@
   <section class="gallery" aria-label="Property photographs">
     <div class="gallery-inner">
       <div class="gallery-grid">
-        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 1 of 3" data-index="0" style="background:none;">
+        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 1 of 5" data-index="0" style="background:none;">
           <img src="assets/listing-1.jpg" alt="14 Aloe Ridge Drive exterior" style="width:100%;height:100%;object-fit:cover;display:block;" />
-          <span class="gallery-cell-num">1 / 3</span>
+          <span class="gallery-cell-num">1 / 5</span>
         </div>
-        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 2 of 3" data-index="1" style="background:none;">
+        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 2 of 5" data-index="1" style="background:none;">
           <img src="assets/listing-2.jpg" alt="14 Aloe Ridge Drive library" style="width:100%;height:100%;object-fit:cover;display:block;" />
-          <span class="gallery-cell-num">2 / 3</span>
+          <span class="gallery-cell-num">2 / 5</span>
         </div>
-        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 3 of 3" data-index="2" style="background:none;">
+        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 3 of 5" data-index="2" style="background:none;">
           <img src="assets/listing-3.jpg" alt="14 Aloe Ridge Drive terrace" style="width:100%;height:100%;object-fit:cover;display:block;" />
-          <span class="gallery-cell-num">3 / 3</span>
+          <span class="gallery-cell-num">3 / 5</span>
         </div>
-        <div class="gallery-cell" role="button" tabindex="0" aria-label="View all photos" data-index="0" style="background:#2D4A38;">
-          <div class="gallery-more">+ View all 3 photos</div>
+        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 4 of 5" data-index="3" style="background:none;">
+          <img src="assets/aloe-ridge-kitchen.webp" alt="14 Aloe Ridge Drive — kitchen" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          <div class="gallery-more">+ View all 5 photos</div>
+          <span class="gallery-cell-num">4 / 5</span>
         </div>
-        <div class="gallery-cell" style="background:#3A5E48; cursor:default;">
+        <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 5 of 5" data-index="4" style="background:none;">
+          <img src="assets/aloe-ridge-master.webp" alt="14 Aloe Ridge Drive — master suite" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          <span class="gallery-cell-num">5 / 5</span>
         </div>
       </div>
     </div>
@@ -369,8 +386,8 @@
 
       <div class="floor-plan">
         <h2 class="section-heading">Floor plan</h2>
-        <div class="floor-plan-box" role="img" aria-label="Floor plan placeholder — replace with actual floor plan PDF or image">
-          Floor plan — replace with PDF or scaled image
+        <div class="floor-plan-box" role="img" aria-label="14 Aloe Ridge Drive floor plan" style="padding:0;overflow:hidden;background:var(--bg2);">
+          <img src="assets/aloe-ridge-floorplan.png" alt="14 Aloe Ridge Drive — first and second floor plan" style="width:100%;height:auto;display:block;" />
         </div>
       </div>
 
@@ -381,6 +398,17 @@
           <p style="font-family:var(--sans);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--taupe);">Virtual tour — replace with Matterport / iGuide embed</p>
           <a href="contact.html" style="font-family:var(--sans);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;">Request full virtual tour ↗</a>
         </div>
+      </div>
+
+      <div class="property-map">
+        <h2 class="section-heading">Location</h2>
+        <iframe
+          class="property-map-frame"
+          src="https://maps.google.com/maps?q=Aloe+Ridge+Security+Estate,+Centurion,+Gauteng,+South+Africa&z=14&output=embed"
+          style="border:0;" loading="lazy"
+          allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+          title="Property location map">
+        </iframe>
       </div>
 
       <div class="reviews-section">
@@ -480,7 +508,7 @@
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo gallery">
     <button class="lightbox-close" id="lbClose" aria-label="Close gallery">✕</button>
     <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous photo">‹</button>
-    <div class="lightbox-img" id="lbImg" role="img" aria-label="Property photo placeholder">Photo placeholder</div>
+    <div class="lightbox-img" id="lbImg" role="img" aria-label="Property photo" style="display:flex;align-items:center;justify-content:center;"></div>
     <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next photo">›</button>
     <p class="lightbox-counter" id="lbCounter">1 / 5</p>
   </div>
@@ -518,15 +546,167 @@
     toggle.addEventListener('click', () => overlay.classList.add('open'));
     close.addEventListener('click', () => overlay.classList.remove('open'));
 
-    /* Gallery lightbox */
-    const lightbox = document.getElementById('lightbox');
-    const lbClose  = document.getElementById('lbClose');
-    const lbPrev   = document.getElementById('lbPrev');
-    const lbNext   = document.getElementById('lbNext');
-    const lbImg    = document.getElementById('lbImg');
-    const lbCounter = document.getElementById('lbCounter');
-    const totalPhotos = 3;
+    /* ── Listing data ─────────────────────────────────────────────────────── */
+    const LISTINGS = {
+      'MEC-2024-001': {
+        address:'14 Aloe Ridge Drive', suburb:'Centurion', suburblc:'centurion',
+        fullAddr:'Aloe Ridge Security Estate, Centurion, Gauteng',
+        status:'For Sale', statusType:'sale',
+        price:'R 4,850,000',
+        priceNote:'Asking price · Rates approx. R2,850/month · Levies approx. R3,200/month',
+        beds:4, baths:3, garages:2, sqm:'485', sqmLabel:'m² under roof', stand:'1,050',
+        photos:[
+          {src:'assets/listing-1.jpg',           alt:'14 Aloe Ridge Drive — exterior'},
+          {src:'assets/listing-2.jpg',           alt:'14 Aloe Ridge Drive — library'},
+          {src:'assets/listing-3.jpg',           alt:'14 Aloe Ridge Drive — terrace'},
+          {src:'assets/aloe-ridge-kitchen.webp', alt:'14 Aloe Ridge Drive — kitchen'},
+          {src:'assets/aloe-ridge-master.webp',  alt:'14 Aloe Ridge Drive — master suite'},
+        ],
+        floorplan:'assets/aloe-ridge-floorplan.png',
+      },
+      'MEC-2024-002': {
+        address:'8 Watercrest Estate', suburb:'Midrand', suburblc:'midrand',
+        fullAddr:'Watercrest Estate, Midrand, Gauteng',
+        status:'For Rent', statusType:'rent',
+        price:'R 28,500 / month',
+        priceNote:'Per month · Utilities excluded · Deposit: 2 months',
+        beds:3, baths:2, garages:1, sqm:'320', sqmLabel:'m² floor area', stand:null,
+        photos:[{src:'assets/listing-2.jpg', alt:'8 Watercrest Estate'}],
+        floorplan:null,
+      },
+      'MEC-2024-003': {
+        address:'22 The Willows', suburb:'Pretoria East', suburblc:'pretoria-east',
+        fullAddr:'The Willows, Pretoria East, Gauteng',
+        status:'For Sale', statusType:'sale',
+        price:'R 6,200,000',
+        priceNote:'Asking price',
+        beds:5, baths:4, garages:3, sqm:'720', sqmLabel:'m² under roof', stand:null,
+        photos:[{src:'assets/listing-3.jpg', alt:'22 The Willows — exterior'}],
+        floorplan:null,
+      },
+      'MEC-2024-004': {
+        address:'6 Silverbrook Lane', suburb:'Irene', suburblc:'irene',
+        fullAddr:'Silverbrook Lane, Irene, Centurion, Gauteng',
+        status:'For Sale', statusType:'sale',
+        price:'R 3,750,000',
+        priceNote:'Asking price',
+        beds:3, baths:2, garages:2, sqm:'295', sqmLabel:'m² floor area', stand:null,
+        photos:[{src:'assets/listing-4.webp', alt:'6 Silverbrook Lane — exterior'}],
+        floorplan:null,
+      },
+      'MEC-2024-005': {
+        address:'19 Falcon Ridge', suburb:'Centurion', suburblc:'centurion',
+        fullAddr:'Falcon Ridge Estate, Centurion, Gauteng',
+        status:'For Rent', statusType:'rent',
+        price:'R 42,000 / month',
+        priceNote:'Per month · Utilities excluded · Deposit: 2 months',
+        beds:4, baths:3, garages:3, sqm:'560', sqmLabel:'m² floor area', stand:null,
+        photos:[{src:'assets/listing-5.webp', alt:'19 Falcon Ridge — exterior'}],
+        floorplan:null,
+      },
+      'MEC-2024-006': {
+        address:'31 Heritage Estate', suburb:'Midrand', suburblc:'midrand',
+        fullAddr:'Heritage Estate, Midrand, Gauteng',
+        status:'For Sale', statusType:'sale',
+        price:'R 8,200,000',
+        priceNote:'Asking price',
+        beds:6, baths:5, garages:4, sqm:'1,100', sqmLabel:'m² under roof', stand:null,
+        photos:[{src:'assets/listing-6.webp', alt:'31 Heritage Estate — exterior'}],
+        floorplan:null,
+      },
+    };
+
+    /* ── Gallery + page population ─────────────────────────────────────────── */
+    let photos = [];
     let currentPhoto = 0;
+
+    function populatePage(L) {
+      const ref = new URLSearchParams(window.location.search).get('ref') || 'MEC-2024-001';
+      photos = L.photos;
+
+      document.title = L.address + ' · Marlow Estate Co.';
+
+      const bcSuburb  = document.querySelector('.breadcrumb-inner a:last-of-type');
+      const bcCurrent = document.querySelector('.breadcrumb .current');
+      if (bcSuburb)  { bcSuburb.textContent = L.suburb; bcSuburb.href = 'listings.html?location=' + L.suburblc; }
+      if (bcCurrent)   bcCurrent.textContent = L.address;
+
+      const grid = document.querySelector('.gallery-grid');
+      if (grid) {
+        const n = L.photos.length;
+        let html = '';
+        for (let i = 0; i < 5; i++) {
+          if (i < n) {
+            const p = L.photos[i];
+            const viewAll = (i === 3 && n > 4) ? '<div class="gallery-more">+ View all ' + n + ' photos</div>' : '';
+            html += '<div class="gallery-cell" role="button" tabindex="0" aria-label="View photo ' + (i+1) + ' of ' + n + '" data-index="' + i + '" style="background:none;">'
+                  + '<img src="' + p.src + '" alt="' + p.alt + '" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />'
+                  + viewAll
+                  + '<span class="gallery-cell-num">' + (i+1) + ' / ' + n + '</span></div>';
+          } else {
+            html += '<div class="gallery-cell" style="cursor:default;"></div>';
+          }
+        }
+        grid.innerHTML = html;
+        grid.querySelectorAll('.gallery-cell[data-index]').forEach(cell => {
+          cell.addEventListener('click', () => openLightbox(parseInt(cell.dataset.index)));
+          cell.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); openLightbox(parseInt(cell.dataset.index)); } });
+        });
+      }
+
+      const eyebrow = document.querySelector('.listing-eyebrow');
+      const title   = document.querySelector('.listing-title');
+      const sub     = document.querySelector('.listing-sub');
+      const specs   = document.querySelector('.specs-row');
+      if (eyebrow) eyebrow.textContent = L.status + '  ·  ' + L.suburb;
+      if (title)   title.textContent   = L.address;
+      if (sub)     sub.innerHTML       = L.fullAddr + ' &nbsp;&middot;&nbsp; Ref. ' + ref;
+      if (specs) {
+        const standRow = L.stand ? '<div class="spec" role="listitem"><span class="spec-val">' + L.stand + '</span><span class="spec-label">m² stand</span></div>' : '';
+        specs.innerHTML = '<div class="spec" role="listitem"><span class="spec-val">' + L.beds    + '</span><span class="spec-label">Bedrooms</span></div>'
+                        + '<div class="spec" role="listitem"><span class="spec-val">' + L.baths   + '</span><span class="spec-label">Bathrooms</span></div>'
+                        + '<div class="spec" role="listitem"><span class="spec-val">' + L.garages + '</span><span class="spec-label">Garages</span></div>'
+                        + '<div class="spec" role="listitem"><span class="spec-val">' + L.sqm     + '</span><span class="spec-label">' + L.sqmLabel + '</span></div>'
+                        + standRow;
+      }
+
+      const statusEl = document.querySelector('.listing-status');
+      const priceEl  = document.querySelector('.big-price');
+      const noteEl   = document.querySelector('.price-note');
+      if (statusEl) statusEl.textContent = L.status;
+      if (priceEl)  priceEl.textContent  = L.price;
+      if (noteEl)   noteEl.textContent   = L.priceNote;
+
+      const fpSection = document.querySelector('.floor-plan');
+      if (fpSection) {
+        if (L.floorplan) {
+          const fpImg = fpSection.querySelector('img');
+          if (fpImg) fpImg.src = L.floorplan;
+          fpSection.style.display = '';
+        } else {
+          fpSection.style.display = 'none';
+        }
+      }
+
+      const mapFrame = document.querySelector('.property-map-frame');
+      if (mapFrame) {
+        mapFrame.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(L.fullAddr + ', South Africa') + '&z=14&output=embed';
+        mapFrame.title = L.address + ' — location map';
+      }
+    }
+
+    (function initFromUrl() {
+      const ref = new URLSearchParams(window.location.search).get('ref') || 'MEC-2024-001';
+      populatePage(LISTINGS[ref] || LISTINGS['MEC-2024-001']);
+    })();
+
+    /* ── Lightbox ──────────────────────────────────────────────────────────── */
+    const lightbox  = document.getElementById('lightbox');
+    const lbClose   = document.getElementById('lbClose');
+    const lbPrev    = document.getElementById('lbPrev');
+    const lbNext    = document.getElementById('lbNext');
+    const lbImg     = document.getElementById('lbImg');
+    const lbCounter = document.getElementById('lbCounter');
 
     function openLightbox(index) {
       currentPhoto = index;
@@ -539,25 +719,21 @@
       document.body.style.overflow = '';
     }
     function updateLightbox() {
-      lbImg.setAttribute('aria-label', `Photo ${currentPhoto + 1} of ${totalPhotos} — placeholder`);
-      lbImg.textContent = `Photo ${currentPhoto + 1} placeholder`;
-      lbCounter.textContent = `${currentPhoto + 1} / ${totalPhotos}`;
+      const p = photos[currentPhoto];
+      lbImg.innerHTML = '<img src="' + p.src + '" alt="' + p.alt + '" style="max-width:100%;max-height:100%;object-fit:contain;display:block;margin:auto;" />';
+      lbImg.setAttribute('aria-label', p.alt);
+      lbCounter.textContent = (currentPhoto + 1) + ' / ' + photos.length;
     }
-
-    document.querySelectorAll('.gallery-cell').forEach(cell => {
-      cell.addEventListener('click', () => openLightbox(parseInt(cell.dataset.index)));
-      cell.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(parseInt(cell.dataset.index)); } });
-    });
 
     lbClose.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-    lbPrev.addEventListener('click', () => { currentPhoto = (currentPhoto - 1 + totalPhotos) % totalPhotos; updateLightbox(); });
-    lbNext.addEventListener('click', () => { currentPhoto = (currentPhoto + 1) % totalPhotos; updateLightbox(); });
+    lbPrev.addEventListener('click', () => { currentPhoto = (currentPhoto - 1 + photos.length) % photos.length; updateLightbox(); });
+    lbNext.addEventListener('click', () => { currentPhoto = (currentPhoto + 1) % photos.length; updateLightbox(); });
     document.addEventListener('keydown', e => {
       if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') { currentPhoto = (currentPhoto - 1 + totalPhotos) % totalPhotos; updateLightbox(); }
-      if (e.key === 'ArrowRight') { currentPhoto = (currentPhoto + 1) % totalPhotos; updateLightbox(); }
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')  { currentPhoto = (currentPhoto - 1 + photos.length) % photos.length; updateLightbox(); }
+      if (e.key === 'ArrowRight') { currentPhoto = (currentPhoto + 1) % photos.length; updateLightbox(); }
     });
   </script>
   <a href="https://wa.me/27743357752" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
