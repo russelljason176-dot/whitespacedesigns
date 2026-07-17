@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seren — South African Botanical Skincare</title>
+  <meta name="description" content="Seren is a South African botanical skincare brand rooted in indigenous plant science. Fewer ingredients. Better skin." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Tokens ──────────────────────────────────────────────── */
+    :root {
+      --cream:        #FAF7F2;
+      --cream-alt:    #F2EDE4;
+      --olive:        #5C6B4A;
+      --olive-dark:   #3D4A30;
+      --terracotta:   #C4704A;
+      --text:         #2C2420;
+      --text-dim:     #7A6A5E;
+      --border:       rgba(44,36,32,.12);
+      --serif:        'Cormorant Garamond', Georgia, serif;
+      --sans:         'DM Sans', -apple-system, sans-serif;
+      --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--cream);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: auto;
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+    button { font-family: var(--sans); }
+
+    /* ─── NAV ─────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 72px;
+      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .4s, height .4s var(--ease-out), border-color .4s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(250,247,242,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: var(--border);
+      height: 62px;
+    }
+
+    /* Gradient progress bar — grows with scroll depth */
+    .nav-progress {
+      position: absolute;
+      bottom: -1px; left: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--olive), var(--terracotta));
+      width: 0%;
+      opacity: 0;
+      transition: opacity .4s;
+      pointer-events: none;
+    }
+    .nav.scrolled .nav-progress { opacity: 1; }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 400;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      transition: color .35s, font-size .35s var(--ease-out);
+    }
+    .nav.scrolled .nav-logo { color: var(--olive); font-size: 1.3rem; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: .63rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(250,247,242,.65);
+      transition: color .2s;
+      position: relative;
+    }
+    /* Underline slide-in on scrolled nav hover */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--olive);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s var(--ease-out);
+    }
+    .nav.scrolled .nav-links a { color: var(--text-dim); }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav-links a:hover { color: var(--cream); }
+      .nav.scrolled .nav-links a:hover { color: var(--olive); }
+      .nav.scrolled .nav-links a:hover::after { transform: scaleX(1); }
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-cart {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(250,247,242,.75);
+      position: relative;
+      transition: color .2s;
+    }
+    .nav.scrolled .nav-cart { color: var(--text-dim); }
+
+    .nav-cart-count {
+      position: absolute;
+      top: 3px; right: 3px;
+      width: 15px; height: 15px;
+      background: var(--terracotta);
+      border-radius: 50%;
+      font-size: .42rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-cta {
+      font-family: var(--sans);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(250,247,242,.45);
+      padding: .5rem 1.2rem;
+      transition: border-color .2s, color .25s, background .3s;
+    }
+    /* Solid terracotta fill when scrolled — visible and on-brand against cream */
+    .nav.scrolled .nav-cta {
+      color: #fff;
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav-cta:hover { background: rgba(255,255,255,.1); border-color: rgba(250,247,242,.9); }
+      .nav.scrolled .nav-cta:hover { background: #a85a38; border-color: #a85a38; }
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--cream);
+      transition: background .3s;
+    }
+    .nav.scrolled .nav-hamburger span { background: var(--text); }
+
+    .nav-drawer {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(300px, 100vw);
+      height: 100vh;
+      background: var(--cream);
+      z-index: 200;
+      padding: 2rem;
+      transition: right .35s var(--ease-out);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      box-shadow: -8px 0 40px rgba(44,36,32,.08);
+    }
+    .nav-drawer.open { right: 0; }
+    .nav-drawer-close {
+      align-self: flex-end;
+      background: none; border: none;
+      font-size: 1.3rem; color: var(--text-dim);
+      cursor: pointer; line-height: 1;
+    }
+    .nav-drawer-links {
+      list-style: none;
+      display: flex; flex-direction: column;
+      gap: 1.5rem;
+    }
+    .nav-drawer-links a {
+      font-family: var(--serif);
+      font-size: 1.9rem; font-weight: 300;
+      color: var(--text);
+    }
+    .nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(44,36,32,.25);
+      z-index: 150;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 3rem 5.5rem;
+    }
+
+    /* Video — its own clean layer, no transforms, no will-change.
+       Keeping it off the compositor stack gives full native resolution. */
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-video video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      /* Promote to its own layer without degrading quality */
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+    .hero-video img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: -1;
+    }
+    /* Dark gradient overlay — sits on top of video */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      z-index: 1;
+      background: linear-gradient(
+        to top,
+        rgba(30,22,18,.80) 0%,
+        rgba(30,22,18,.46) 35%,
+        rgba(30,22,18,.22) 65%,
+        rgba(30,22,18,.08) 100%
+      );
+      pointer-events: none;
+    }
+    /* Parallax elements — pre-promoted to GPU layers */
+    #hero-flatlay, #hero-content, #float-sprig, #float-leaf {
+      will-change: transform;
+    }
+
+    /* Product flatlay — mid parallax layer */
+    .hero-flatlay {
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 44%;
+      will-change: transform;
+      z-index: 1;
+    }
+    .hero-flatlay img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-flatlay::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 240px;
+      background: linear-gradient(to right, rgba(30,22,18,.7), transparent);
+      z-index: 2;
+    }
+    .hero-flatlay::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(30,22,18,.55) 0%,
+        transparent 50%
+      );
+      z-index: 2;
+    }
+
+    /* Text — near-normal parallax, lives on top */
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 600px;
+      will-change: transform;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: .58rem; font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(250,247,242,.55);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6.5vw, 6.2rem);
+      font-weight: 300;
+      line-height: .98;
+      color: var(--cream);
+      margin-bottom: 1.6rem;
+      letter-spacing: -.01em;
+    }
+    .hero-title em { font-style: italic; font-weight: 300; }
+
+    .hero-desc {
+      font-family: var(--sans);
+      font-size: .9rem; font-weight: 300;
+      line-height: 1.8;
+      color: rgba(250,247,242,.7);
+      max-width: 380px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .btn-primary {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      background: var(--terracotta);
+      color: #fff;
+      padding: .95rem 2.1rem;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      transition: background .2s, transform .2s var(--ease-out);
+    }
+    /* Shimmer sweep on hover */
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%);
+      transform: translateX(-160%);
+      transition: transform .65s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover { background: #b86040; transform: translateY(-2px); }
+      .btn-primary:hover::after { transform: translateX(160%); }
+    }
+    .btn-primary:active { transform: scale(0.97) translateY(0) !important; transition: transform .1s; }
+
+    .btn-text {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(250,247,242,.75);
+      display: inline-flex; align-items: center; gap: .5rem;
+      transition: color .2s;
+    }
+    .btn-text::after { content: '→'; transition: transform .2s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-text:hover { color: var(--cream); }
+      .btn-text:hover::after { transform: translateX(5px); }
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem; right: 3rem;
+      z-index: 5;
+      display: flex; flex-direction: column;
+      align-items: center; gap: .5rem;
+      color: rgba(250,247,242,.4);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 44px;
+      background: rgba(250,247,242,.2);
+      overflow: hidden; position: relative;
+    }
+    .hero-scroll-line::after {
+      content: '';
+      position: absolute; top: -100%; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(250,247,242,.65);
+      animation: scrollDrop 1.9s var(--ease-out) infinite;
+    }
+    @keyframes scrollDrop {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+    .hero-scroll-label {
+      font-family: var(--sans);
+      font-size: .46rem; letter-spacing: .2em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+    }
+
+    /* ─── BELIEF STRIP ─────────────────────────────────────────── */
+    .belief-strip {
+      background: var(--olive);
+      padding: 4rem 3rem;
+      overflow: hidden;
+    }
+    .belief-inner { text-align: center; }
+    .belief-label {
+      font-family: var(--sans);
+      font-size: .55rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,247,242,.4);
+      margin-bottom: 1rem;
+    }
+    .belief-statement {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4.5vw, 3.4rem);
+      font-weight: 300; font-style: italic;
+      color: var(--cream);
+      letter-spacing: .02em;
+      line-height: 1.1;
+      display: inline-block;
+      transition: letter-spacing .08s linear;
+    }
+    .belief-sub {
+      margin-top: 1.1rem;
+      font-family: var(--sans);
+      font-size: .78rem; font-weight: 300;
+      color: rgba(250,247,242,.45);
+      letter-spacing: .05em;
+    }
+
+    /* ─── SECTION SHELL ──────────────────────────────────────── */
+    .section { padding: 6.5rem 3rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3.5rem;
+    }
+    .section-eyebrow {
+      font-family: var(--sans);
+      font-size: .55rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: .7rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+      font-weight: 300; color: var(--text);
+      line-height: 1.08;
+    }
+    .section-link {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--olive);
+      display: inline-flex; align-items: center; gap: .4rem;
+      flex-shrink: 0; margin-bottom: .25rem;
+      transition: color .2s;
+    }
+    .section-link::after { content: '→'; transition: transform .2s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) {
+      .section-link:hover { color: var(--olive-dark); }
+      .section-link:hover::after { transform: translateX(4px); }
+    }
+
+    /* ─── PRODUCT GRID ───────────────────────────────────────── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .product-card {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .65s var(--ease-out), transform .65s var(--ease-out);
+      cursor: pointer;
+    }
+    .product-card.visible { opacity: 1; transform: translateY(0); }
+
+    .product-card-img {
+      aspect-ratio: 1 / 1;
+      background: var(--cream-alt);
+      overflow: hidden;
+      margin-bottom: 1.1rem;
+    }
+    .product-card-img img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      padding: 1.5rem;
+      transition: transform .6s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .product-card:hover .product-card-img img { transform: scale(1.05); }
+    }
+
+    .product-card-category {
+      font-family: var(--sans);
+      font-size: .52rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: .3rem;
+    }
+    .product-card-name {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 400;
+      color: var(--text); line-height: 1.25;
+      margin-bottom: .9rem;
+    }
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-card-price {
+      font-family: var(--sans);
+      font-size: .88rem; font-weight: 500;
+      color: var(--olive);
+    }
+    .btn-add {
+      font-family: var(--sans);
+      font-size: .53rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--terracotta);
+      /* Fill rises from the bottom on hover */
+      background: linear-gradient(var(--terracotta) 0 0) no-repeat bottom / 100% 0%;
+      border: 1px solid rgba(196,112,74,.45);
+      padding: .45rem .9rem;
+      cursor: pointer;
+      transition: background-size .28s var(--ease-out), color .22s, border-color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-add:hover { background-size: 100% 100%; color: #fff; border-color: var(--terracotta); }
+    }
+    .btn-add:active { transform: scale(0.96); transition: transform .1s; }
+
+    /* ─── INGREDIENT SECTION ─────────────────────────────────── */
+    .ingredients-section {
+      padding: 6.5rem 3rem;
+      background: var(--cream-alt);
+      position: relative;
+      overflow: hidden;
+    }
+    .ingredients-inner { max-width: 1200px; margin: 0 auto; }
+
+    .ingredient-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      padding: 4.5rem 0;
+    }
+    .ingredient-pair + .ingredient-pair { border-top: 1px solid var(--border); }
+    .ingredient-pair.reverse .ingredient-img { order: 2; }
+    .ingredient-pair.reverse .ingredient-text { order: 1; }
+
+    .ingredient-img {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+    .ingredient-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.0);
+      transition: transform .9s var(--ease-out);
+    }
+    .ingredient-img.in-view img { transform: scale(1.05); }
+
+    .ingredient-number {
+      font-family: var(--serif);
+      font-size: 4.5rem; font-weight: 300;
+      color: rgba(92,107,74,.13);
+      line-height: 1; margin-bottom: .4rem;
+    }
+    .ingredient-name {
+      font-family: var(--serif);
+      font-size: 2.4rem; font-weight: 400;
+      color: var(--text); margin-bottom: .25rem;
+    }
+    .ingredient-scientific {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 400;
+      letter-spacing: .1em; font-style: italic;
+      color: var(--text-dim); margin-bottom: 1.6rem;
+    }
+    .ingredient-desc {
+      font-family: var(--sans);
+      font-size: .9rem; font-weight: 300;
+      line-height: 1.82; color: var(--text-dim);
+      max-width: 400px; margin-bottom: 2rem;
+    }
+    .ingredient-tags {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+    }
+    .ingredient-tag {
+      font-family: var(--sans);
+      font-size: .5rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--olive);
+      border: 1px solid rgba(92,107,74,.38);
+      padding: .3rem .7rem;
+    }
+
+    /* Floating botanical accents */
+    .float-accent {
+      position: absolute;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .float-accent img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+    .float-sprig { width: 200px; height: 200px; top: 8%; right: -50px; opacity: .65; }
+    .float-leaf  { width: 150px; height: 150px; bottom: 12%; left: -35px; opacity: .6; }
+
+    /* ─── RITUAL SECTION ─────────────────────────────────────── */
+    .ritual-section { padding: 6.5rem 3rem; }
+    .ritual-inner { max-width: 1200px; margin: 0 auto; }
+    .ritual-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .ritual-step {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .55s var(--ease-out), transform .55s var(--ease-out);
+    }
+    .ritual-step.visible { opacity: 1; transform: translateY(0); }
+
+    .ritual-step-img {
+      aspect-ratio: 1 / 1;
+      background: var(--cream-alt);
+      overflow: hidden;
+      margin-bottom: 1.3rem;
+    }
+    .ritual-step-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .ritual-step-num {
+      font-family: var(--sans);
+      font-size: .5rem; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--olive); margin-bottom: .4rem;
+    }
+    .ritual-step-name {
+      font-family: var(--serif);
+      font-size: 1.35rem; font-weight: 400;
+      color: var(--text); margin-bottom: .5rem;
+    }
+    .ritual-step-desc {
+      font-family: var(--sans);
+      font-size: .8rem; font-weight: 300;
+      line-height: 1.75; color: var(--text-dim);
+    }
+
+    /* ─── SKIN MARQUEE ───────────────────────────────────────── */
+    .skin-marquee {
+      position: relative;
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .skin-marquee::before,
+    .skin-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 140px;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .skin-marquee::before { left: 0; background: linear-gradient(to right, var(--cream) 20%, transparent 100%); }
+    .skin-marquee::after  { right: 0; background: linear-gradient(to left,  var(--cream) 20%, transparent 100%); }
+    .sm-row { overflow: hidden; }
+    .sm-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      will-change: transform;
+    }
+    .sm-row--top    .sm-track { animation: sm-left  40s linear infinite; }
+    .sm-row--bottom .sm-track { animation: sm-right 40s linear infinite; }
+    .sm-track img {
+      height: 300px;
+      width: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: block;
+    }
+    @keyframes sm-left  { from { transform: translateX(0);    } to { transform: translateX(-50%); } }
+    @keyframes sm-right { from { transform: translateX(-50%); } to { transform: translateX(0);    } }
+    .sm-center {
+      padding: 2.5rem 0;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    .sm-headline {
+      font-family: var(--serif);
+      font-size: clamp(52px, 8vw, 116px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    @media (prefers-reduced-motion: reduce) { .sm-track { animation-play-state: paused; } }
+
+    /* ─── TESTIMONIAL ────────────────────────────────────────── */
+    .quote-section {
+      padding: 7.5rem 3rem;
+      background: var(--cream-alt);
+      text-align: center;
+    }
+    .quote-mark {
+      font-family: var(--serif);
+      font-size: 5rem; font-weight: 300;
+      color: var(--olive); opacity: .25;
+      line-height: .55; margin-bottom: 1.8rem;
+      display: block;
+    }
+    .quote-text {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-weight: 300; font-style: italic;
+      color: var(--text);
+      max-width: 700px; margin: 0 auto 1.5rem;
+      line-height: 1.55;
+    }
+    .quote-author {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ─── JOURNAL ────────────────────────────────────────────── */
+    .journal-section { padding: 6.5rem 3rem; }
+    .journal-inner { max-width: 1200px; margin: 0 auto; }
+    .journal-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .journal-card {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+      display: block;
+    }
+    .journal-card.visible { opacity: 1; transform: translateY(0); }
+
+    .journal-card-img {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      margin-bottom: 1.1rem;
+      background: var(--cream-alt);
+    }
+    .journal-card:first-child .journal-card-img { aspect-ratio: 4 / 3; }
+    .journal-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .55s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .journal-card:hover .journal-card-img img { transform: scale(1.04); }
+    }
+
+    .journal-card-cat {
+      font-family: var(--sans);
+      font-size: .5rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--olive); margin-bottom: .4rem;
+    }
+    .journal-card-title {
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 400;
+      color: var(--text); line-height: 1.3;
+      margin-bottom: .4rem;
+    }
+    .journal-card:first-child .journal-card-title { font-size: 1.55rem; }
+    .journal-card-meta {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 300;
+      color: var(--text-dim);
+    }
+
+    /* ─── EMAIL CAPTURE ──────────────────────────────────────── */
+    .email-section {
+      padding: 5.5rem 3rem;
+      background: var(--olive);
+      position: relative;
+      overflow: hidden;
+    }
+    .email-pod {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 180px; height: 180px;
+      opacity: .3;
+      pointer-events: none;
+    }
+    .email-pod img { width: 100%; height: 100%; object-fit: contain; }
+    .email-inner { max-width: 540px; margin: 0 auto; text-align: center; }
+    .email-eyebrow {
+      font-family: var(--sans);
+      font-size: .55rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(250,247,242,.4); margin-bottom: 1rem;
+    }
+    .email-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 300; font-style: italic;
+      color: var(--cream); line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+    .email-sub {
+      font-family: var(--sans);
+      font-size: .82rem; font-weight: 300;
+      color: rgba(250,247,242,.55);
+      line-height: 1.75; margin-bottom: 2rem;
+    }
+    .email-form { display: flex; gap: .75rem; }
+    .email-input {
+      flex: 1;
+      font-family: var(--sans);
+      font-size: .82rem; color: var(--text);
+      background: var(--cream);
+      border: none;
+      padding: .95rem 1.2rem;
+    }
+    .email-input::placeholder { color: var(--text-dim); }
+    .email-submit {
+      font-family: var(--sans);
+      font-size: .6rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      background: var(--terracotta); color: #fff;
+      border: none; cursor: pointer;
+      padding: .95rem 1.6rem;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .email-submit:hover { background: #a85a38; }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--cream);
+      border-top: 1px solid var(--border);
+      padding: 4.5rem 3rem 3rem;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 1.55rem; font-weight: 400;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text); margin-bottom: .75rem;
+    }
+    .footer-brand-desc {
+      font-family: var(--sans);
+      font-size: .8rem; font-weight: 300;
+      line-height: 1.8; color: var(--text-dim);
+      max-width: 260px;
+    }
+    .footer-col-title {
+      font-family: var(--sans);
+      font-size: .55rem; font-weight: 600;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 1.3rem;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+    .footer-links a {
+      font-family: var(--sans);
+      font-size: .82rem; font-weight: 300;
+      color: var(--text-dim);
+      transition: color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .footer-links a:hover { color: var(--text); }
+    }
+    .footer-social {
+      display: flex; gap: 1rem; margin-top: 1.5rem;
+    }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dim);
+      transition: border-color .2s, color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .footer-social a:hover { border-color: var(--olive); color: var(--olive); }
+    }
+    .footer-social svg { width: 15px; height: 15px; }
+
+    .footer-bottom {
+      max-width: 1200px; margin: 3rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .footer-legal {
+      font-family: var(--sans);
+      font-size: .62rem; font-weight: 300;
+      color: var(--text-dim);
+    }
+    .footer-demo-badge {
+      font-family: var(--sans);
+      font-size: .5rem; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--terracotta);
+      border: 1px solid rgba(196,112,74,.3);
+      padding: .3rem .7rem;
+    }
+
+    /* ─── STATS STRIP ───────────────────────────────────────── */
+    .stats-strip {
+      padding: 3.5rem 3rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+    }
+    .stats-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .stat-item { text-align: center; flex: 1; }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 5vw, 3.8rem);
+      font-weight: 300; color: var(--olive);
+      line-height: 1; margin-bottom: .4rem;
+      display: block;
+    }
+    .stat-label {
+      font-family: var(--sans);
+      font-size: .58rem; font-weight: 500;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .stat-divider {
+      font-size: .65rem; color: rgba(92,107,74,.25);
+      flex-shrink: 0; padding: 0 .5rem;
+      user-select: none;
+    }
+
+    /* ─── SECTION LINK — underline slide ─────────────────────── */
+    .section-link {
+      position: relative;
+    }
+    .section-link::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 1.2rem;
+      height: 1px;
+      background: var(--olive);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .section-link:hover::before { transform: scaleX(1); }
+    }
+
+    /* ─── RITUAL IMAGE PARALLAX container ────────────────────── */
+    .ritual-step-img img {
+      /* Extra height lets GSAP translate without exposing gaps */
+      height: calc(100% + 40px);
+      margin: -20px 0;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    /* ─── JOURNAL IMAGE PARALLAX container ───────────────────── */
+    .journal-card-img img {
+      height: calc(100% + 36px);
+      margin: -18px 0;
+      width: 100%;
+      object-fit: cover;
+      transition: none; /* GSAP drives transform */
+    }
+
+    /* ─── REVEAL UTILITY ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-content { max-width: 480px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .journal-grid { grid-template-columns: 1fr 1fr; }
+      .journal-card:last-child { display: none; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .stats-strip { padding: 2.5rem 1.5rem; }
+      .stats-inner { flex-wrap: wrap; justify-content: center; gap: 1.5rem 3rem; }
+      .stat-divider { display: none; }
+      .stat-item { min-width: 100px; }
+
+      .nav { padding: 0 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cart { display: none; }
+
+      .hero { padding: 0 1.5rem 4rem; min-height: 100svh; }
+      .hero-flatlay { display: none; }
+      .hero-bg::after {
+        background: linear-gradient(
+          to top,
+          rgba(30,22,18,.85) 0%,
+          rgba(30,22,18,.5) 40%,
+          rgba(30,22,18,.2) 100%
+        );
+      }
+
+      .section { padding: 4.5rem 1.5rem; }
+      .ingredients-section { padding: 4.5rem 1.5rem; }
+      .ingredient-pair { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0; }
+      .ingredient-pair.reverse .ingredient-img { order: unset; }
+      .ingredient-pair.reverse .ingredient-text { order: unset; }
+
+      .ritual-section { padding: 4.5rem 1.5rem; }
+      .ritual-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .quote-section { padding: 4.5rem 1.5rem; }
+
+      .journal-section { padding: 4.5rem 1.5rem; }
+      .journal-grid { grid-template-columns: 1fr; }
+      .journal-card:last-child { display: block; }
+
+      .email-section { padding: 4rem 1.5rem; }
+      .email-form { flex-direction: column; }
+
+      footer { padding: 3.5rem 1.5rem 2.5rem; }
+      .float-sprig, .float-leaf { display: none; }
+    }
+
+    @media (max-width: 375px) {
+      .hero-title { font-size: 2.8rem; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      .product-grid { grid-template-columns: 1fr; }
+      .ritual-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ─── ACCESSIBILITY & UX POLISH ──────────────────────────── */
+    body { font-size: 1rem; line-height: 1.6; }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem; z-index: 9999;
+      background: var(--olive); color: #fff; padding: .5rem 1rem;
+      font-family: var(--sans); font-size: .8rem; font-weight: 500;
+      border-radius: 0 0 4px 4px; text-decoration: none; transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* Global focus rings — visible, on-brand, only keyboard */
+    :focus-visible {
+      outline: 2px solid var(--olive);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    .email-input:focus-visible {
+      outline: 2px solid rgba(250,247,242,.85);
+      outline-offset: -2px;
+    }
+
+    /* Remove outline:none from email input — handled above */
+    .email-input { outline: revert; }
+    .email-input:focus { outline: 2px solid rgba(250,247,242,.85); outline-offset: -2px; }
+
+    /* Touch optimisation — kill 300ms tap delay globally */
+    a, button, [role="button"] { touch-action: manipulation; }
+
+    /* Touch targets — minimum 44×44px */
+    .nav-cart { min-width: 44px; min-height: 44px; }
+    .nav-hamburger { min-width: 44px; min-height: 44px; padding: 10px; }
+    .nav-drawer-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+
+    /* Active page indicator in nav */
+    .nav-links a[aria-current="page"] { color: rgba(250,247,242,.95) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"] { color: var(--olive) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-drawer-links a[aria-current="page"] { color: var(--olive); font-weight: 500; }
+
+    /* Tabular numbers for prices and stats */
+    .prod-price, .stat-num { font-variant-numeric: tabular-nums; }
+
+    /* Mobile viewport — dvh prevents iOS address bar overlap */
+    .hero { height: 100dvh; }
+    .nav-drawer { height: 100dvh; }
+
+    /* Email success state */
+    .email-success {
+      font-family: var(--serif); font-style: italic;
+      font-size: 1.2rem; color: var(--cream);
+      text-align: center; padding: 1rem 0;
+      opacity: 0; transition: opacity .5s;
+    }
+    .email-success.visible { opacity: 1; }
+
+    /* Comprehensive reduced-motion — disables everything */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .sm-track { animation-play-state: paused !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#hero">Skip to content</a>
+
+  <!-- ─── NAV ────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart (0 items)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="nav-cart-count" id="cart-count">0</span>
+      </a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <button class="nav-drawer-close" id="nav-close" aria-label="Close menu">✕</button>
+    <ul class="nav-drawer-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ────────────────────────────────────────────────── -->
+  <section class="hero" id="hero" aria-label="Hero" tabindex="-1">
+    <!-- Video: no transforms, no will-change — native resolution rendering -->
+    <div class="hero-video">
+      <img src="images/hero-texture-bg.png" alt="" role="presentation" loading="eager" fetchpriority="high" />
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="images/hero-texture-bg.png"
+        aria-hidden="true"
+      >
+        <source src="images/hero-bg.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <!-- Gradient overlay -->
+    <div class="hero-overlay"></div>
+    <div class="hero-flatlay" id="hero-flatlay">
+      <img src="images/hero-flatlay.png" alt="Seren botanical skincare collection flat-lay" loading="eager" />
+    </div>
+    <div class="hero-content" id="hero-content">
+      <p class="hero-eyebrow">South African Botanical Skincare</p>
+      <h1 class="hero-title">Skin that<br /><em>thrives,</em><br />naturally.</h1>
+      <p class="hero-desc">You've tried twelve products. We built eight. Every ingredient earns its place. No exceptions.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="shop.html">Shop the Range</a>
+        <a class="btn-text" href="ingredients.html">Our Botanicals</a>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-line"></div>
+      <span class="hero-scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ─── BELIEF STRIP ────────────────────────────────────────── -->
+  <div class="belief-strip" id="belief-strip">
+    <div class="belief-inner">
+      <p class="belief-label">Our philosophy</p>
+      <p class="belief-statement" id="belief-statement">Fewer things. Better skin.</p>
+      <p class="belief-sub">Most skincare sells complexity. We sell results.</p>
+    </div>
+  </div>
+
+  <!-- ─── STATS STRIP ───────────────────────────────────────────── -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-num" data-target="8" data-suffix="">8</span>
+        <span class="stat-label">Products in the range</span>
+      </div>
+      <span class="stat-divider">✦</span>
+      <div class="stat-item">
+        <span class="stat-num" data-target="100" data-suffix="%">100%</span>
+        <span class="stat-label">Botanical actives</span>
+      </div>
+      <span class="stat-divider">✦</span>
+      <div class="stat-item">
+        <span class="stat-num" data-target="4" data-suffix="">4</span>
+        <span class="stat-label">SA-sourced ingredients</span>
+      </div>
+      <span class="stat-divider">✦</span>
+      <div class="stat-item">
+        <span class="stat-num" data-target="0" data-suffix="">0</span>
+        <span class="stat-label">Synthetic fragrances</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FEATURED PRODUCTS ───────────────────────────────────── -->
+  <section class="section" aria-label="Featured products">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-eyebrow">The Range</p>
+          <h2 class="section-title">Eight botanicals.<br />Eight formulas.</h2>
+        </div>
+        <a class="section-link" href="shop.html">View all products</a>
+      </div>
+      <div class="product-grid" id="product-grid">
+
+        <a class="product-card" href="product.html?ref=SRN-001">
+          <div class="product-card-img">
+            <img src="images/prod-srn-001.png" alt="Rooibos Antioxidant Serum" loading="lazy" />
+          </div>
+          <p class="product-card-category">Serum</p>
+          <h3 class="product-card-name">Rooibos Antioxidant Serum</h3>
+          <div class="product-card-footer">
+            <span class="product-card-price">R420</span>
+            <button class="btn-add" data-name="Rooibos Antioxidant Serum">Add to cart</button>
+          </div>
+        </a>
+
+        <a class="product-card" href="product.html?ref=SRN-003">
+          <div class="product-card-img">
+            <img src="images/prod-srn-003.png" alt="Marula Daily Moisturiser" loading="lazy" />
+          </div>
+          <p class="product-card-category">Moisturiser</p>
+          <h3 class="product-card-name">Marula Daily Moisturiser</h3>
+          <div class="product-card-footer">
+            <span class="product-card-price">R380</span>
+            <button class="btn-add" data-name="Marula Daily Moisturiser">Add to cart</button>
+          </div>
+        </a>
+
+        <a class="product-card" href="product.html?ref=SRN-007">
+          <div class="product-card-img">
+            <img src="images/prod-srn-007.png" alt="Marula Radiance Oil" loading="lazy" />
+          </div>
+          <p class="product-card-category">Face Oil</p>
+          <h3 class="product-card-name">Marula Radiance Oil</h3>
+          <div class="product-card-footer">
+            <span class="product-card-price">R560</span>
+            <button class="btn-add" data-name="Marula Radiance Oil">Add to cart</button>
+          </div>
+        </a>
+
+        <a class="product-card" href="product.html?ref=SRN-005">
+          <div class="product-card-img">
+            <img src="images/prod-srn-005.png" alt="Rooibos Cleansing Balm" loading="lazy" />
+          </div>
+          <p class="product-card-category">Cleanser</p>
+          <h3 class="product-card-name">Rooibos Cleansing Balm</h3>
+          <div class="product-card-footer">
+            <span class="product-card-price">R320</span>
+            <button class="btn-add" data-name="Rooibos Cleansing Balm">Add to cart</button>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INGREDIENTS ──────────────────────────────────────────── -->
+  <section class="ingredients-section" aria-label="Key botanicals">
+    <div class="float-accent float-sprig" id="float-sprig">
+      <img src="images/float-sprig.png" alt="" role="presentation" />
+    </div>
+    <div class="float-accent float-leaf" id="float-leaf">
+      <img src="images/float-leaf.png" alt="" role="presentation" />
+    </div>
+
+    <div class="ingredients-inner">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-eyebrow">Botanicals</p>
+          <h2 class="section-title">Ingredients you<br />can trace.</h2>
+        </div>
+        <a class="section-link" href="ingredients.html">All botanicals</a>
+      </div>
+
+      <div class="ingredient-pair">
+        <div class="ingredient-img reveal" data-ing="true">
+          <img src="images/ing-rooibos.png" alt="Rooibos needles — Aspalathus linearis, Cederberg Mountains" loading="lazy" />
+        </div>
+        <div class="ingredient-text reveal">
+          <div class="ingredient-number">01</div>
+          <h3 class="ingredient-name">Rooibos</h3>
+          <p class="ingredient-scientific">Aspalathus linearis</p>
+          <p class="ingredient-desc">Harvested in the Cederberg mountains, rooibos contains aspalathin, an antioxidant found nowhere else on earth. It neutralises free radicals while supporting the skin's natural collagen network.</p>
+          <div class="ingredient-tags">
+            <span class="ingredient-tag">Antioxidant</span>
+            <span class="ingredient-tag">Anti-inflammatory</span>
+            <span class="ingredient-tag">South African</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ingredient-pair reverse">
+        <div class="ingredient-text reveal">
+          <div class="ingredient-number">02</div>
+          <h3 class="ingredient-name">Baobab</h3>
+          <p class="ingredient-scientific">Adansonia digitata</p>
+          <p class="ingredient-desc">Cold-pressed from the seeds of Africa's tree of life, baobab oil is rich in omega 3, 6, and 9 fatty acids. It repairs the lipid barrier and locks in moisture without heaviness.</p>
+          <div class="ingredient-tags">
+            <span class="ingredient-tag">Barrier Repair</span>
+            <span class="ingredient-tag">Omega Rich</span>
+            <span class="ingredient-tag">Indigenous</span>
+          </div>
+        </div>
+        <div class="ingredient-img reveal" data-ing="true">
+          <img src="images/ing-baobab.png" alt="Baobab fruit pod — Adansonia digitata" loading="lazy" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── RITUAL STRIP ─────────────────────────────────────────── -->
+  <section class="ritual-section" aria-label="The skincare ritual">
+    <div class="ritual-inner">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-eyebrow">The Ritual</p>
+          <h2 class="section-title">Four steps.<br />One ritual.</h2>
+        </div>
+        <a class="section-link" href="routines.html">View routines</a>
+      </div>
+      <div class="ritual-grid" id="ritual-grid">
+        <div class="ritual-step">
+          <div class="ritual-step-img">
+            <img src="images/ritual-cleanse.png" alt="Cleanse step" loading="lazy" />
+          </div>
+          <p class="ritual-step-num">Step 01</p>
+          <h3 class="ritual-step-name">Cleanse</h3>
+          <p class="ritual-step-desc">Remove the day without stripping your skin. Balm and gel cleansers dissolve impurities while preserving the microbiome.</p>
+        </div>
+        <div class="ritual-step">
+          <div class="ritual-step-img">
+            <img src="images/ritual-treat.png" alt="Treat step" loading="lazy" />
+          </div>
+          <p class="ritual-step-num">Step 02</p>
+          <h3 class="ritual-step-name">Treat</h3>
+          <p class="ritual-step-desc">Concentrated actives via botanical serums. Rooibos, baobab, and rosehip. Each with a targeted purpose.</p>
+        </div>
+        <div class="ritual-step">
+          <div class="ritual-step-img">
+            <img src="images/ritual-moisturise.png" alt="Moisturise step" loading="lazy" />
+          </div>
+          <p class="ritual-step-num">Step 03</p>
+          <h3 class="ritual-step-name">Moisturise</h3>
+          <p class="ritual-step-desc">Seal and support. Marula and baobab creams adapt to your skin's needs. Light for mornings, richer at night.</p>
+        </div>
+        <div class="ritual-step">
+          <div class="ritual-step-img">
+            <img src="images/ritual-protect.png" alt="Protect step" loading="lazy" />
+          </div>
+          <p class="ritual-step-num">Step 04</p>
+          <h3 class="ritual-step-name">Protect</h3>
+          <p class="ritual-step-desc">Antioxidant oils form a breathable shield, locking your ritual in and the world out.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SKIN MARQUEE ────────────────────────────────────────── -->
+  <section class="skin-marquee" aria-label="For every skin type">
+    <div class="sm-row sm-row--top" aria-hidden="true">
+      <div class="sm-track">
+        <img src="images/prod-srn-001.png" alt=""><img src="images/ritual-treat.png" alt=""><img src="images/prod-srn-003.png" alt=""><img src="images/prod-srn-005.png" alt=""><img src="images/ritual-moisturise.png" alt=""><img src="images/prod-srn-007.png" alt="">
+        <img src="images/prod-srn-001.png" alt=""><img src="images/ritual-treat.png" alt=""><img src="images/prod-srn-003.png" alt=""><img src="images/prod-srn-005.png" alt=""><img src="images/ritual-moisturise.png" alt=""><img src="images/prod-srn-007.png" alt="">
+      </div>
+    </div>
+    <div class="sm-center">
+      <h2 class="sm-headline">Every skin.<br>One ritual.</h2>
+    </div>
+    <div class="sm-row sm-row--bottom" aria-hidden="true">
+      <div class="sm-track">
+        <img src="images/prod-srn-002.png" alt=""><img src="images/ritual-cleanse.png" alt=""><img src="images/prod-srn-004.png" alt=""><img src="images/prod-srn-006.png" alt=""><img src="images/ritual-protect.png" alt=""><img src="images/prod-srn-008.png" alt="">
+        <img src="images/prod-srn-002.png" alt=""><img src="images/ritual-cleanse.png" alt=""><img src="images/prod-srn-004.png" alt=""><img src="images/prod-srn-006.png" alt=""><img src="images/ritual-protect.png" alt=""><img src="images/prod-srn-008.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIAL ──────────────────────────────────────────── -->
+  <section class="quote-section reveal" aria-label="Customer testimonial">
+    <span class="quote-mark" aria-hidden="true">"</span>
+    <blockquote>
+      <p class="quote-text">Three years of trying different products. Six weeks with Seren. I can see the difference. I stopped buying everything else.</p>
+      <footer class="quote-author">Liezel M., Cape Town · Week 6</footer>
+    </blockquote>
+  </section>
+
+  <!-- ─── JOURNAL ──────────────────────────────────────────────── -->
+  <section class="journal-section" aria-label="From the journal">
+    <div class="journal-inner">
+      <div class="section-header reveal">
+        <div>
+          <p class="section-eyebrow">The Journal</p>
+          <h2 class="section-title">Read. Learn.<br />Simplify.</h2>
+        </div>
+        <a class="section-link" href="journal.html">All articles</a>
+      </div>
+      <div class="journal-grid" id="journal-grid">
+        <a class="journal-card" href="article.html?id=1">
+          <div class="journal-card-img">
+            <img src="images/journal-featured.png" alt="The Cederberg Rooibos Story" loading="lazy" />
+          </div>
+          <p class="journal-card-cat">Ingredients</p>
+          <h3 class="journal-card-title">The Cederberg Rooibos Story: Why One Plant Changed Everything</h3>
+          <p class="journal-card-meta">8 min read · June 2026</p>
+        </a>
+        <a class="journal-card" href="article.html?id=2">
+          <div class="journal-card-img">
+            <img src="images/journal-2.png" alt="Understanding Your Skin Barrier" loading="lazy" />
+          </div>
+          <p class="journal-card-cat">Skin Science</p>
+          <h3 class="journal-card-title">Understanding Your Skin Barrier (And How to Stop Breaking It)</h3>
+          <p class="journal-card-meta">5 min read · June 2026</p>
+        </a>
+        <a class="journal-card" href="article.html?id=3">
+          <div class="journal-card-img">
+            <img src="images/journal-3.png" alt="A Slower Morning Skincare Ritual" loading="lazy" />
+          </div>
+          <p class="journal-card-cat">Ritual</p>
+          <h3 class="journal-card-title">A Slower Morning: The Case for a Two-Minute Skincare Ritual</h3>
+          <p class="journal-card-meta">4 min read · June 2026</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EMAIL CAPTURE ──────────────────────────────────────── -->
+  <section class="email-section" aria-label="Newsletter sign-up">
+    <div class="email-pod">
+      <img src="images/float-pod.png" alt="" role="presentation" />
+    </div>
+    <div class="email-inner reveal">
+      <p class="email-eyebrow">The Seren Edit</p>
+      <h2 class="email-title">Skincare knowledge, delivered monthly.</h2>
+      <p class="email-sub">Monthly notes on botanicals, rituals, and the science of simpler skincare. No noise.</p>
+      <form class="email-form" id="email-form" novalidate>
+        <input class="email-input" type="email" placeholder="Your email address" autocomplete="email" required aria-label="Email address" />
+        <button class="email-submit" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html?cat=serums">Serums</a></li>
+          <li><a href="shop.html?cat=moisturisers">Moisturisers</a></li>
+          <li><a href="shop.html?cat=cleansers">Cleansers</a></li>
+          <li><a href="shop.html?cat=oils">Face Oils</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Learn</p>
+        <ul class="footer-links">
+          <li><a href="ingredients.html">Botanicals</a></li>
+          <li><a href="routines.html">Routines</a></li>
+          <li><a href="journal.html">Journal</a></li>
+          <li><a href="about.html">Our Story</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Shipping &amp; Returns</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+
+  <!-- ─── GSAP + ScrollTrigger (dashboard tool) ────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- ─── Lenis smooth scroll ───────────────────────────────── -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    // ── Lenis init ─────────────────────────────────────────────
+    const lenis = new Lenis({
+      duration: 1.0,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 1.1,
+      touchMultiplier: 1.5,
+    });
+
+    // ── GSAP + Lenis integration (replaces manual RAF) ─────────
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // ── Pointer device detection ──────────────────────────────
+    const isPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // ── DOM refs ──────────────────────────────────────────────
+    const nav             = document.getElementById('nav');
+    const navProgress     = document.getElementById('nav-progress');
+    const heroFlatlay     = document.getElementById('hero-flatlay');
+    const heroContent     = document.getElementById('hero-content');
+    const floatSprig      = document.getElementById('float-sprig');
+    const floatLeaf       = document.getElementById('float-leaf');
+    const beliefStrip     = document.getElementById('belief-strip');
+    const beliefStatement = document.getElementById('belief-statement');
+
+    // ── Cache layout measurements — prevents forced reflow on every tick ──
+    let totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    let beliefTop    = beliefStrip ? beliefStrip.getBoundingClientRect().top + window.scrollY : 0;
+
+    window.addEventListener('resize', () => {
+      totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      beliefTop    = beliefStrip ? beliefStrip.getBoundingClientRect().top + window.scrollY : 0;
+    }, { passive: true });
+
+    // ── Nav state + parallax + belief scrub on scroll ─────────
+    lenis.on('scroll', ({ scroll }) => {
+      nav.classList.toggle('scrolled', scroll > 60);
+
+      // Scroll progress bar — uses cached totalScrollH, no layout read
+      if (navProgress) {
+        navProgress.style.width = `${Math.min(100, scroll / totalScrollH * 100).toFixed(1)}%`;
+      }
+
+      if (!isPointer) return;
+
+      // Hero — translate3d triggers GPU composite layer, no layout flush
+      if (heroFlatlay) heroFlatlay.style.transform = `translate3d(0,${scroll * 0.18}px,0)`;
+      if (heroContent) heroContent.style.transform = `translate3d(0,${scroll * 0.07}px,0)`;
+      if (floatSprig)  floatSprig.style.transform  = `translate3d(0,${scroll * 0.1}px,0)`;
+      if (floatLeaf)   floatLeaf.style.transform   = `translate3d(0,${-scroll * 0.07}px,0)`;
+
+      // Belief strip — pure math using cached offset, no getBoundingClientRect
+      if (beliefStatement) {
+        const relTop   = beliefTop - scroll;
+        const progress = Math.min(1, Math.max(0, 1 - relTop / window.innerHeight));
+        beliefStatement.style.letterSpacing = `${(0.02 + progress * 0.09).toFixed(3)}em`;
+      }
+    });
+
+    // ── IntersectionObserver — generic reveals ────────────────
+    const revealIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
+
+    // ── Product cards — stagger 80ms ──────────────────────────
+    const productGrid = document.getElementById('product-grid');
+    if (productGrid) {
+      new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          document.querySelectorAll('.product-card').forEach((c, i) =>
+            setTimeout(() => c.classList.add('visible'), i * 80));
+        }
+      }, { threshold: 0.08 }).observe(productGrid);
+    }
+
+    // ── Ritual steps — stagger 90ms ───────────────────────────
+    const ritualGrid = document.getElementById('ritual-grid');
+    if (ritualGrid) {
+      new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          document.querySelectorAll('.ritual-step').forEach((s, i) =>
+            setTimeout(() => s.classList.add('visible'), i * 90));
+        }
+      }, { threshold: 0.08 }).observe(ritualGrid);
+    }
+
+    // ── Journal cards — stagger 100ms ─────────────────────────
+    const journalGrid = document.getElementById('journal-grid');
+    if (journalGrid) {
+      new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          document.querySelectorAll('.journal-card').forEach((c, i) =>
+            setTimeout(() => c.classList.add('visible'), i * 100));
+        }
+      }, { threshold: 0.08 }).observe(journalGrid);
+    }
+
+    // ── Ingredient image scale on enter ───────────────────────
+    const ingIO = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('[data-ing]').forEach(el => ingIO.observe(el));
+
+    // ── GSAP: Stats counter animation ────────────────────────
+    document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: target,
+            duration: 1.6,
+            ease: 'power2.out',
+            onUpdate: () => { el.textContent = Math.round(obj.val) + suffix; }
+          });
+        }
+      });
+    });
+
+    // ── GSAP: Ritual image parallax (pointer only) ────────────
+    if (isPointer) {
+      document.querySelectorAll('.ritual-step-img img').forEach((img, i) => {
+        gsap.fromTo(img,
+          { y: 10 },
+          { y: -20, ease: 'none',
+            scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 0.9 }
+          }
+        );
+      });
+
+      // ── GSAP: Journal image parallax ─────────────────────────
+      document.querySelectorAll('.journal-card-img img').forEach(img => {
+        gsap.fromTo(img,
+          { y: 8 },
+          { y: -18, ease: 'none',
+            scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: 0.9 }
+          }
+        );
+      });
+
+    }
+
+    // ── Mobile nav ────────────────────────────────────────────
+    const hamburger = document.getElementById('nav-hamburger');
+    const drawer    = document.getElementById('nav-drawer');
+    const overlay   = document.getElementById('nav-overlay');
+    const closeBtn  = document.getElementById('nav-close');
+
+    function openNav() {
+      drawer.classList.add('open'); overlay.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true'); lenis.stop();
+    }
+    function closeNav() {
+      drawer.classList.remove('open'); overlay.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false'); lenis.start();
+    }
+    hamburger.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+
+    // ── aria-current: mark active nav page ──────────────────────
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+        a.setAttribute('aria-current', 'page');
+      }
+    });
+
+    // ── Respect prefers-reduced-motion: stop Lenis ─────────────
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      lenis.destroy();
+    }
+
+    // ── Email form — loading then success state ──────────────────
+    document.getElementById('email-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const form  = e.target;
+      const input = form.querySelector('.email-input');
+      const btn   = form.querySelector('.email-submit');
+      if (!input.validity.valid) { input.focus(); return; }
+      btn.disabled = true;
+      btn.textContent = '…';
+      setTimeout(() => {
+        form.innerHTML = '<p class="email-success visible" role="status" aria-live="polite">You\'re in. Watch your inbox.</p>';
+      }, 700);
+    });
+
+    // ── Cart demo ─────────────────────────────────────────────
+    let cartCount = 0;
+    const cartCountEl = document.getElementById('cart-count');
+    document.querySelectorAll('.btn-add').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        cartCount++;
+        cartCountEl.textContent = cartCount;
+        const orig = btn.textContent;
+        btn.textContent = 'Added ✓';
+        btn.style.cssText = 'background-size:100% 100%;color:#fff;border-color:var(--terracotta)';
+        setTimeout(() => { btn.textContent = orig; btn.style.cssText = ''; }, 1600);
+      });
+    });
+  </script>
+
+</body>
+</html>

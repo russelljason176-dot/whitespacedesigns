@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop the Range — Seren Botanical Skincare</title>
+  <meta name="description" content="Browse Seren's full range of South African botanical skincare. Eight products, zero synthetics." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream:      #FAF7F2;
+      --cream-alt:  #F2EDE4;
+      --olive:      #5C6B4A;
+      --olive-dark: #3D4A30;
+      --terracotta: #C4704A;
+      --text:       #2C2420;
+      --text-dim:   #7A6A5E;
+      --border:     rgba(44,36,32,.12);
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'DM Sans', -apple-system, sans-serif;
+      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); color: var(--text); -webkit-font-smoothing: antialiased; scroll-behavior: auto; }
+    body { font-family: var(--sans); background: var(--cream); overflow-x: hidden; }
+    img  { display: block; max-width: 100%; }
+    a    { color: inherit; text-decoration: none; }
+    button { font-family: var(--sans); cursor: pointer; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 72px; padding: 0 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .4s, height .4s var(--ease-out), border-color .4s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(250,247,242,0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: var(--border);
+      height: 62px;
+    }
+    .nav-progress {
+      position: absolute; bottom: -1px; left: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--olive), var(--terracotta));
+      width: 0%; opacity: 0; transition: opacity .4s; pointer-events: none;
+    }
+    .nav.scrolled .nav-progress { opacity: 1; }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.55rem; font-weight: 400;
+      letter-spacing: .12em; color: var(--text); transition: color .4s, font-size .4s;
+    }
+    .nav.scrolled .nav-logo { color: var(--olive); font-size: 1.3rem; }
+    .nav-links { list-style: none; display: flex; gap: 2.5rem; }
+    .nav-links a {
+      font-size: .78rem; font-weight: 400; letter-spacing: .05em;
+      color: rgba(255,255,255,.85); position: relative;
+      transition: color .25s;
+    }
+    .nav.scrolled .nav-links a { color: var(--text-dim); }
+    .nav-links a.active { color: var(--olive) !important; }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--olive);
+      transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .nav.scrolled .nav-links a:hover::after { transform: scaleX(1); }
+    }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-cart {
+      position: relative; display: flex; align-items: center;
+      color: rgba(255,255,255,.85); transition: color .4s;
+    }
+    .nav.scrolled .nav-cart { color: var(--text); }
+    .nav-cart-count {
+      position: absolute; top: -6px; right: -8px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--terracotta); color: #fff;
+      font-size: .55rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-cta {
+      font-size: .7rem; font-weight: 500; letter-spacing: .08em;
+      border: 1px solid rgba(255,255,255,.55); color: rgba(255,255,255,.9);
+      padding: .5rem 1.1rem; border-radius: 2px;
+      transition: background .3s, color .3s, border-color .3s;
+    }
+    .nav.scrolled .nav-cta { color: #fff; background: var(--terracotta); border-color: var(--terracotta); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; padding: 4px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: rgba(255,255,255,.85); transition: background .4s;
+    }
+    .nav.scrolled .nav-hamburger span { background: var(--text); }
+    .nav-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(44,36,32,.4);
+      z-index: 110; opacity: 0; transition: opacity .3s;
+    }
+    .nav-drawer {
+      position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100%;
+      background: var(--cream); z-index: 120; padding: 5rem 2.5rem 2.5rem;
+      transition: right .4s var(--ease-out);
+    }
+    .nav-drawer-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; font-size: 1.1rem; color: var(--text-dim); cursor: pointer;
+    }
+    .nav-drawer-links { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+    .nav-drawer-links a { font-size: 1.4rem; font-weight: 300; font-family: var(--serif); color: var(--text); }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ── PAGE HEADER ─────────────────────────────────────── */
+    .page-header {
+      padding: 140px 3rem 3rem;
+      background: var(--cream-alt);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .page-eyebrow {
+      font-size: .6rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--terracotta); margin-bottom: .75rem;
+    }
+    .page-title {
+      font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400; line-height: 1.1; color: var(--text);
+    }
+    .page-sub {
+      margin-top: .75rem; font-size: .9rem; font-weight: 300;
+      color: var(--text-dim); max-width: 400px; margin-inline: auto;
+    }
+
+    /* ── FILTER BAR ──────────────────────────────────────── */
+    .filter-bar {
+      position: sticky; top: 62px; z-index: 50;
+      background: rgba(250,247,242,0.97);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 3rem;
+      display: flex; align-items: center; gap: 0;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      background: none; border: none;
+      font-size: .7rem; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-dim);
+      padding: 1.1rem 1.5rem; border-bottom: 2px solid transparent;
+      white-space: nowrap; transition: color .2s, border-color .2s;
+    }
+    .filter-btn.active { color: var(--olive); border-bottom-color: var(--olive); }
+    @media (hover: hover) and (pointer: fine) {
+      .filter-btn:hover { color: var(--text); }
+    }
+    .filter-count {
+      margin-left: auto; padding: 1.1rem 0 1.1rem 1.5rem;
+      font-size: .65rem; color: var(--text-dim); white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── PRODUCT GRID ────────────────────────────────────── */
+    .shop-section {
+      max-width: 1200px; margin: 0 auto;
+      padding: 3.5rem 3rem 6rem;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    /* ── PRODUCT CARD ────────────────────────────────────── */
+    .product-card {
+      display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+    }
+    .product-card.visible { opacity: 1; transform: translateY(0); }
+    .product-card.hidden { display: none; }
+
+    .product-img-wrap {
+      aspect-ratio: 1 / 1;
+      background: var(--cream-alt);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transition: transform .7s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .product-card:hover .product-img-wrap img { transform: scale(1.04); }
+    }
+    .product-badge {
+      position: absolute; top: 12px; left: 12px;
+      font-size: .5rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      background: var(--cream); color: var(--olive);
+      padding: .3rem .65rem; border-radius: 2px;
+    }
+    .product-body { padding: 1.1rem 0 0; flex: 1; display: flex; flex-direction: column; }
+    .product-cat {
+      font-size: .55rem; font-weight: 500; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: .4rem;
+    }
+    .product-name {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 400;
+      color: var(--text); line-height: 1.25; margin-bottom: .4rem;
+    }
+    .product-desc {
+      font-size: .8rem; font-weight: 300; color: var(--text-dim);
+      line-height: 1.6; flex: 1; margin-bottom: 1rem;
+    }
+    .product-card-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: .75rem;
+    }
+    .product-price {
+      font-size: .92rem; font-weight: 500; color: var(--text);
+    }
+    .btn-add {
+      font-size: .65rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+      border: 1px solid var(--border); color: var(--text); padding: .55rem 1.1rem;
+      border-radius: 2px; cursor: pointer;
+      background: linear-gradient(var(--terracotta) 0 0) no-repeat bottom / 100% 0%;
+      transition: background-size .28s var(--ease-out), color .22s, border-color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-add:hover { background-size: 100% 100%; color: #fff; border-color: var(--terracotta); }
+    }
+    .btn-add:active { transform: scale(0.97); transition: transform .1s; }
+
+    .product-view-link {
+      display: block; margin-top: .6rem;
+      font-size: .7rem; font-weight: 400; color: var(--text-dim);
+      letter-spacing: .03em;
+      transition: color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .product-view-link:hover { color: var(--olive); }
+    }
+
+    /* ── EMPTY STATE ─────────────────────────────────────── */
+    .empty-state {
+      display: none; text-align: center; padding: 4rem 0;
+      color: var(--text-dim); font-size: .9rem; font-weight: 300;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer { background: var(--cream); border-top: 1px solid var(--border); padding: 4.5rem 3rem 3rem; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand-name { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .1em; color: var(--text); margin-bottom: .75rem; }
+    .footer-brand-desc { font-family: var(--sans); font-size: .8rem; font-weight: 300; color: var(--text-dim); line-height: 1.7; max-width: 260px; }
+    .footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .footer-social a {
+      width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dim); transition: border-color .2s, color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .footer-social a:hover { border-color: var(--olive); color: var(--olive); }
+    }
+    .footer-social svg { width: 15px; height: 15px; }
+    .footer-col-title { font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.3rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+    .footer-links a { font-size: .82rem; font-weight: 300; color: var(--text-dim); transition: color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--text); } }
+    .footer-bottom {
+      max-width: 1200px; margin: 3rem auto 0;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-legal { font-size: .62rem; font-weight: 300; color: var(--text-dim); }
+    .footer-demo-badge { font-size: .5rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .page-header { padding: 120px 1.5rem 2.5rem; }
+      .filter-bar { padding: 0 1.5rem; }
+      .shop-section { padding: 2.5rem 1.5rem 4rem; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      footer { padding: 3.5rem 1.5rem 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+    @media (max-width: 375px) {
+      .product-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── ACCESSIBILITY & UX POLISH ──────────────────────────── */
+    body { font-size: 1rem; line-height: 1.6; }
+    .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; background: var(--olive); color: #fff; padding: .5rem 1rem; font-family: var(--sans); font-size: .8rem; font-weight: 500; border-radius: 0 0 4px 4px; text-decoration: none; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; border-radius: 2px; }
+    a, button, [role="button"] { touch-action: manipulation; }
+    .nav-cart { min-width: 44px; min-height: 44px; }
+    .nav-hamburger { min-width: 44px; min-height: 44px; padding: 10px; }
+    .nav-drawer-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .nav-links a[aria-current="page"] { color: rgba(250,247,242,.95) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"] { color: var(--olive) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-drawer-links a[aria-current="page"] { color: var(--olive); font-weight: 500; }
+    .nav-drawer { height: 100dvh; }
+    .prod-price, .stat-num { font-variant-numeric: tabular-nums; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav-cart-count" id="cart-count">0</span>
+      </a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <button class="nav-drawer-close" id="nav-close" aria-label="Close menu">✕</button>
+    <ul class="nav-drawer-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── PAGE HEADER ───────────────────────────────────────── -->
+  <div class="page-header">
+    <p class="page-eyebrow">South African Botanicals</p>
+    <h1 class="page-title">The Range</h1>
+    <p class="page-sub">Eight products. Every ingredient earns its place or it doesn't make the formula.</p>
+  </div>
+
+  <!-- ── FILTER BAR ─────────────────────────────────────────── -->
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="serum">Serums</button>
+    <button class="filter-btn" data-filter="moisturiser">Moisturisers</button>
+    <button class="filter-btn" data-filter="cleanser">Cleansers</button>
+    <button class="filter-btn" data-filter="face-oil">Face Oils</button>
+    <span class="filter-count" id="filter-count">8 products</span>
+  </div>
+
+  <!-- ── PRODUCT GRID ───────────────────────────────────────── -->
+  <section class="shop-section" id="main" tabindex="-1">
+    <div class="product-grid" id="product-grid">
+
+      <article class="product-card" data-cat="serum">
+        <a href="product.html?ref=SRN-001" class="product-img-wrap">
+          <img src="images/prod-srn-001.png" alt="Rooibos Renewal Serum" loading="lazy" />
+          <span class="product-badge">Best Seller</span>
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Serum</p>
+          <p class="product-name">Rooibos Renewal Serum</p>
+          <p class="product-desc">High-potency antioxidant serum targeting fine lines and uneven tone. Fermented rooibos extract at 12% concentration.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R695</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-001">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="moisturiser">
+        <a href="product.html?ref=SRN-002" class="product-img-wrap">
+          <img src="images/prod-srn-002.png" alt="Baobab Deep Moisture Cream" loading="lazy" />
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Moisturiser</p>
+          <p class="product-name">Baobab Deep Moisture Cream</p>
+          <p class="product-desc">Rich whipped cream with cold-pressed baobab oil. Repairs the barrier and holds moisture through Highveld winters.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R545</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-002">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="face-oil">
+        <a href="product.html?ref=SRN-003" class="product-img-wrap">
+          <img src="images/prod-srn-003.png" alt="Marula Glow Face Oil" loading="lazy" />
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Face Oil</p>
+          <p class="product-name">Marula Glow Face Oil</p>
+          <p class="product-desc">Cold-pressed marula. The oil your skin recognises, working harder. Absorbs in 60 seconds. No grease.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R595</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-003">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="cleanser">
+        <a href="product.html?ref=SRN-004" class="product-img-wrap">
+          <img src="images/prod-srn-004.png" alt="Buchu Clarifying Cleanser" loading="lazy" />
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Cleanser</p>
+          <p class="product-name">Buchu Clarifying Cleanser</p>
+          <p class="product-desc">Low-foam gel cleanser with indigenous Buchu extract. Clears without stripping. pH-balanced at 5.5.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R445</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-004">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="serum">
+        <a href="product.html?ref=SRN-005" class="product-img-wrap">
+          <img src="images/prod-srn-005.png" alt="Rooibos Eye Repair Serum" loading="lazy" />
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Serum</p>
+          <p class="product-name">Rooibos Eye Repair Serum</p>
+          <p class="product-desc">Concentrated formula for the periorbital zone. Targets puffiness, dark circles, and the first creases.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R495</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-005">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="moisturiser">
+        <a href="product.html?ref=SRN-006" class="product-img-wrap">
+          <img src="images/prod-srn-006.png" alt="Baobab Night Recovery Balm" loading="lazy" />
+          <span class="product-badge">New</span>
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Moisturiser</p>
+          <p class="product-name">Baobab Night Recovery Balm</p>
+          <p class="product-desc">Overnight occlusive balm. Works with your skin's repair cycle. Wake up with smoother, plumper skin.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R625</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-006">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="cleanser">
+        <a href="product.html?ref=SRN-007" class="product-img-wrap">
+          <img src="images/prod-srn-007.png" alt="Cape Aloe Soothing Gel" loading="lazy" />
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Cleanser</p>
+          <p class="product-name">Cape Aloe Soothing Gel</p>
+          <p class="product-desc">Cooling micellar gel for sensitive and reactive skin. Removes makeup and sunscreen in one pass, zero irritation.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R395</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-007">View product →</a>
+        </div>
+      </article>
+
+      <article class="product-card" data-cat="face-oil">
+        <a href="product.html?ref=SRN-008" class="product-img-wrap">
+          <img src="images/prod-srn-008.png" alt="Marula Radiance Booster" loading="lazy" />
+        </a>
+        <div class="product-body">
+          <p class="product-cat">Face Oil</p>
+          <p class="product-name">Marula Radiance Booster</p>
+          <p class="product-desc">Lightweight radiance booster blended with vitamin C precursors. Mix with your moisturiser or use alone.</p>
+          <div class="product-card-footer">
+            <span class="product-price">R545</span>
+            <button class="btn-add">Add to Cart</button>
+          </div>
+          <a class="product-view-link" href="product.html?ref=SRN-008">View product →</a>
+        </div>
+      </article>
+
+    </div>
+    <p class="empty-state" id="empty-state">No products in this category yet.</p>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html?cat=serums">Serums</a></li>
+          <li><a href="shop.html?cat=moisturisers">Moisturisers</a></li>
+          <li><a href="shop.html?cat=cleansers">Cleansers</a></li>
+          <li><a href="shop.html?cat=oils">Face Oils</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Learn</p>
+        <ul class="footer-links">
+          <li><a href="ingredients.html">Botanicals</a></li>
+          <li><a href="routines.html">Routines</a></li>
+          <li><a href="journal.html">Journal</a></li>
+          <li><a href="about.html">Our Story</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Shipping &amp; Returns</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    // Lenis
+    const lenis = new Lenis({ duration: 1.0, easing: t => Math.min(1, 1.001 - Math.pow(2,-10*t)), smoothWheel: true, wheelMultiplier: 1.1 });
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // Nav scroll state
+    const nav = document.getElementById('nav');
+    const navProgress = document.getElementById('nav-progress');
+    let totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    window.addEventListener('resize', () => { totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight); }, { passive: true });
+
+    lenis.on('scroll', ({ scroll }) => {
+      nav.classList.toggle('scrolled', scroll > 10);
+      if (navProgress) navProgress.style.width = `${Math.min(100, scroll / totalScrollH * 100).toFixed(1)}%`;
+    });
+
+    // Mobile nav
+    const hamburger = document.getElementById('nav-hamburger');
+    const drawer    = document.getElementById('nav-drawer');
+    const overlay   = document.getElementById('nav-overlay');
+    const closeBtn  = document.getElementById('nav-close');
+    function openDrawer()  { drawer.style.right = '0'; overlay.style.display = 'block'; requestAnimationFrame(() => { overlay.style.opacity = '1'; }); hamburger.setAttribute('aria-expanded','true'); lenis.stop(); }
+    function closeDrawer() { drawer.style.right = '-100%'; overlay.style.opacity = '0'; setTimeout(() => { overlay.style.display = 'none'; }, 300); hamburger.setAttribute('aria-expanded','false'); lenis.start(); }
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Card reveal
+    const cards = document.querySelectorAll('.product-card');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    cards.forEach(c => io.observe(c));
+
+    // Filter
+    const filterBtns  = document.querySelectorAll('.filter-btn');
+    const countEl     = document.getElementById('filter-count');
+    const emptyState  = document.getElementById('empty-state');
+    let activeFilter  = 'all';
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeFilter = btn.dataset.filter;
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        let visible = 0;
+        cards.forEach(card => {
+          const match = activeFilter === 'all' || card.dataset.cat === activeFilter;
+          card.classList.toggle('hidden', !match);
+          if (match) visible++;
+        });
+
+        countEl.textContent = `${visible} product${visible !== 1 ? 's' : ''}`;
+        emptyState.style.display = visible === 0 ? 'block' : 'none';
+
+        // Re-observe visible cards for stagger reveal
+        document.querySelectorAll('.product-card:not(.hidden)').forEach((c, i) => {
+          c.classList.remove('visible');
+          setTimeout(() => c.classList.add('visible'), i * 60);
+        });
+      });
+    });
+
+    // URL param filter on load
+    const params = new URLSearchParams(location.search);
+    const catParam = params.get('cat');
+    if (catParam) {
+      const map = { serums: 'serum', moisturisers: 'moisturiser', cleansers: 'cleanser', oils: 'face-oil' };
+      const matched = document.querySelector(`[data-filter="${map[catParam] || catParam}"]`);
+      if (matched) matched.click();
+    }
+
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(a => {
+      if (a.getAttribute('href') === currentPage) a.setAttribute('aria-current', 'page');
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) lenis.destroy();
+  </script>
+</body>
+</html>

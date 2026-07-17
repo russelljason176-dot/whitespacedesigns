@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journal — Seren Botanical Skincare</title>
+  <meta name="description" content="The Seren Journal: skincare science, ingredient stories, and rituals from the field." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #FAF7F2; --cream-alt: #F2EDE4; --olive: #5C6B4A; --olive-dark: #3D4A30;
+      --terracotta: #C4704A; --text: #2C2420; --text-dim: #7A6A5E;
+      --border: rgba(44,36,32,.12); --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, sans-serif; --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); color: var(--text); -webkit-font-smoothing: antialiased; scroll-behavior: auto; }
+    body { font-family: var(--sans); background: var(--cream); overflow-x: hidden; }
+    img { display: block; max-width: 100%; } a { color: inherit; text-decoration: none; } button { font-family: var(--sans); cursor: pointer; }
+
+    /* ── NAV ── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 72px; padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; transition: background .4s, height .4s var(--ease-out), border-color .4s; border-bottom: 1px solid transparent; }
+    .nav.scrolled { background: rgba(250,247,242,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border); height: 62px; }
+    .nav-progress { position: absolute; bottom: -1px; left: 0; height: 2px; background: linear-gradient(to right, var(--olive), var(--terracotta)); width: 0%; opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .nav.scrolled .nav-progress { opacity: 1; }
+    .nav-logo { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .12em; color: var(--text); transition: color .4s, font-size .4s; }
+    .nav.scrolled .nav-logo { color: var(--olive); font-size: 1.3rem; }
+    .nav-links { list-style: none; display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: .78rem; font-weight: 400; letter-spacing: .05em; color: rgba(255,255,255,.85); position: relative; transition: color .25s; }
+    .nav.scrolled .nav-links a { color: var(--text-dim); }
+    .nav-links a.active { color: var(--olive) !important; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--olive); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { .nav.scrolled .nav-links a:hover::after { transform: scaleX(1); } }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-cart { position: relative; display: flex; align-items: center; color: rgba(255,255,255,.85); transition: color .4s; }
+    .nav.scrolled .nav-cart { color: var(--text); }
+    .nav-cart-count { position: absolute; top: -6px; right: -8px; width: 16px; height: 16px; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: .55rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .nav-cta { font-size: .7rem; font-weight: 500; letter-spacing: .08em; border: 1px solid rgba(255,255,255,.55); color: rgba(255,255,255,.9); padding: .5rem 1.1rem; border-radius: 2px; transition: background .3s, color .3s, border-color .3s; }
+    .nav.scrolled .nav-cta { color: #fff; background: var(--terracotta); border-color: var(--terracotta); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.85); transition: background .4s; }
+    .nav.scrolled .nav-hamburger span { background: var(--text); }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(44,36,32,.4); z-index: 110; opacity: 0; transition: opacity .3s; }
+    .nav-drawer { position: fixed; top: 0; right: -100%; width: min(320px,85vw); height: 100%; background: var(--cream); z-index: 120; padding: 5rem 2.5rem 2.5rem; transition: right .4s var(--ease-out); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.1rem; color: var(--text-dim); cursor: pointer; }
+    .nav-drawer-links { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+    .nav-drawer-links a { font-size: 1.4rem; font-weight: 300; font-family: var(--serif); color: var(--text); }
+    @media (max-width: 768px) { .nav { padding: 0 1.5rem; } .nav-links, .nav-cta { display: none; } .nav-hamburger { display: flex; } }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 140px 3rem 4rem; background: var(--cream-alt); border-bottom: 1px solid var(--border); }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .header-text {}
+    .page-eyebrow { font-size: .6rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .75rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; color: var(--text); line-height: 1.1; }
+    .page-sub { margin-top: .75rem; font-size: .9rem; font-weight: 300; color: var(--text-dim); max-width: 400px; line-height: 1.75; }
+    .featured-badge { font-size: .6rem; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── CATEGORY FILTER ── */
+    .cat-filter { display: flex; gap: .5rem; padding: 2rem 3rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
+    .cat-btn { background: none; border: 1px solid var(--border); font-size: .62rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); padding: .45rem 1rem; border-radius: 2px; transition: background .2s, color .2s, border-color .2s; }
+    .cat-btn.active { background: var(--olive); color: #fff; border-color: var(--olive); }
+    @media (hover: hover) and (pointer: fine) { .cat-btn:hover:not(.active) { border-color: var(--text-dim); color: var(--text); } }
+
+    /* ── FEATURED ARTICLE ── */
+    .featured-wrap { max-width: 1200px; margin: 0 auto; padding: 3rem 3rem 0; }
+    .featured-article {
+      display: grid; grid-template-columns: 1.4fr 1fr;
+      gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+      margin-bottom: 4rem; opacity: 0; transform: translateY(24px);
+      transition: opacity .65s var(--ease-out), transform .65s var(--ease-out);
+    }
+    .featured-article.visible { opacity: 1; transform: translateY(0); }
+    .featured-img { aspect-ratio: 4/3; overflow: hidden; }
+    .featured-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { .featured-article:hover .featured-img img { transform: scale(1.03); } }
+    .featured-body { padding: 3rem; background: var(--cream-alt); display: flex; flex-direction: column; justify-content: center; }
+    .feat-cat { font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .75rem; }
+    .feat-title { font-family: var(--serif); font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 1rem; }
+    .feat-excerpt { font-size: .85rem; font-weight: 300; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.75rem; flex: 1; }
+    .feat-meta { display: flex; align-items: center; gap: 1rem; }
+    .feat-author { font-size: .72rem; font-weight: 400; color: var(--text); }
+    .feat-date { font-size: .65rem; color: var(--text-dim); }
+    .feat-read { font-size: .65rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--olive); margin-top: 1.25rem; transition: letter-spacing .2s; }
+    @media (hover: hover) and (pointer: fine) { .featured-article:hover .feat-read { letter-spacing: .14em; } }
+
+    /* ── ARTICLE GRID ── */
+    .journal-section { max-width: 1200px; margin: 0 auto; padding: 0 3rem 6rem; }
+    .journal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+    .article-card {
+      display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .55s var(--ease-out), transform .55s var(--ease-out);
+    }
+    .article-card.visible { opacity: 1; transform: translateY(0); }
+    .article-card.hidden { display: none; }
+
+    .article-img { aspect-ratio: 16/10; border-radius: 4px; overflow: hidden; background: var(--cream-alt); margin-bottom: 1.25rem; }
+    .article-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .65s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { .article-card:hover .article-img img { transform: scale(1.04); } }
+
+    .article-cat { font-size: .55rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .45rem; }
+    .article-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; color: var(--text); line-height: 1.3; margin-bottom: .5rem; }
+    .article-excerpt { font-size: .8rem; font-weight: 300; color: var(--text-dim); line-height: 1.75; flex: 1; margin-bottom: 1rem; }
+    .article-footer { display: flex; align-items: center; justify-content: space-between; }
+    .article-date { font-size: .65rem; color: var(--text-dim); }
+    .article-read { font-size: .65rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--olive); transition: letter-spacing .2s; }
+    @media (hover: hover) and (pointer: fine) { .article-card:hover .article-read { letter-spacing: .13em; } }
+
+    /* ── EMAIL STRIP ── */
+    .email-strip { background: var(--olive-dark); padding: 4.5rem 3rem; text-align: center; }
+    .email-strip-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 400; color: #fff; margin-bottom: .75rem; }
+    .email-strip-sub { font-size: .9rem; font-weight: 300; color: rgba(255,255,255,.7); max-width: 420px; margin: 0 auto 2rem; line-height: 1.75; }
+    .email-form { display: flex; gap: .75rem; max-width: 440px; margin: 0 auto; }
+    .email-input { flex: 1; padding: .85rem 1.1rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); border-radius: 2px; font-family: var(--sans); font-size: .82rem; color: #fff; outline: none; }
+    .email-input::placeholder { color: rgba(255,255,255,.45); }
+    .email-input:focus { border-color: rgba(255,255,255,.5); }
+    .email-submit { padding: .85rem 1.5rem; background: var(--terracotta); color: #fff; border: none; border-radius: 2px; font-size: .7rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; cursor: pointer; transition: background .2s; }
+    @media (hover: hover) and (pointer: fine) { .email-submit:hover { background: #b05e3c; } }
+
+    /* ── FOOTER ── */
+    footer { background: var(--cream); border-top: 1px solid var(--border); padding: 4.5rem 3rem 3rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+    .footer-brand-name { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .1em; color: var(--text); margin-bottom: .75rem; }
+    .footer-brand-desc { font-size: .8rem; font-weight: 300; color: var(--text-dim); line-height: 1.7; max-width: 260px; }
+    .footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .footer-social a { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: border-color .2s, color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-social a:hover { border-color: var(--olive); color: var(--olive); } }
+    .footer-social svg { width: 15px; height: 15px; }
+    .footer-col-title { font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.3rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+    .footer-links a { font-size: .82rem; font-weight: 300; color: var(--text-dim); transition: color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--text); } }
+    .footer-bottom { max-width: 1200px; margin: 3rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .footer-legal { font-size: .62rem; font-weight: 300; color: var(--text-dim); }
+    .footer-demo-badge { font-size: .5rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .featured-article { grid-template-columns: 1fr; }
+      .featured-img { aspect-ratio: 16/9; }
+      .journal-grid { grid-template-columns: 1fr 1fr; }
+      .featured-wrap { padding: 2.5rem 1.5rem 0; }
+      .journal-section { padding: 0 1.5rem 5rem; }
+      .cat-filter { padding: 1.5rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .page-header { padding: 120px 1.5rem 3rem; }
+      .journal-grid { grid-template-columns: 1fr; }
+      .email-form { flex-direction: column; }
+      .email-strip { padding: 3.5rem 1.5rem; }
+      footer { padding: 3.5rem 1.5rem 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+
+    /* ─── ACCESSIBILITY & UX POLISH ──────────────────────────── */
+    body { font-size: 1rem; line-height: 1.6; }
+    .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; background: var(--olive); color: #fff; padding: .5rem 1rem; font-family: var(--sans); font-size: .8rem; font-weight: 500; border-radius: 0 0 4px 4px; text-decoration: none; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; border-radius: 2px; }
+    .email-input { outline: revert; }
+    .email-input:focus { outline: 2px solid rgba(255,255,255,.7); outline-offset: -2px; }
+    a, button, [role="button"] { touch-action: manipulation; }
+    .nav-cart { min-width: 44px; min-height: 44px; }
+    .nav-hamburger { min-width: 44px; min-height: 44px; padding: 10px; }
+    .nav-drawer-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .nav-links a[aria-current="page"] { color: rgba(250,247,242,.95) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"] { color: var(--olive) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-drawer-links a[aria-current="page"] { color: var(--olive); font-weight: 500; }
+    .nav-drawer { height: 100dvh; }
+    .prod-price, .stat-num { font-variant-numeric: tabular-nums; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html" class="active">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="nav-cart-count">0</span></a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer"><button class="nav-drawer-close" id="nav-close">✕</button><ul class="nav-drawer-links"><li><a href="shop.html">Shop</a></li><li><a href="ingredients.html">Ingredients</a></li><li><a href="routines.html">Routines</a></li><li><a href="about.html">About</a></li><li><a href="journal.html">Journal</a></li><li><a href="cart.html">Cart</a></li></ul></nav>
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="header-text">
+        <p class="page-eyebrow">The Seren Edit</p>
+        <h1 class="page-title">Journal</h1>
+        <p class="page-sub">Ingredient science, ritual guides, and stories from the Cederberg. Knowledge that makes your routine better.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CATEGORY FILTER ── -->
+  <div class="cat-filter">
+    <button class="cat-btn active" data-cat="all">All</button>
+    <button class="cat-btn" data-cat="ingredients">Ingredients</button>
+    <button class="cat-btn" data-cat="rituals">Rituals</button>
+    <button class="cat-btn" data-cat="science">Science</button>
+    <button class="cat-btn" data-cat="behind">Behind the Brand</button>
+  </div>
+
+  <!-- ── FEATURED ── -->
+  <div class="featured-wrap">
+    <a class="featured-article" href="article.html?slug=rooibos-science" id="featured-card" data-art-cat="ingredients">
+      <div class="featured-img">
+        <img src="images/journal-1.png" alt="Rooibos field at sunrise in the Cederberg" loading="lazy" />
+      </div>
+      <div class="featured-body">
+        <p class="feat-cat">Ingredients · Featured</p>
+        <h2 class="feat-title">Why Rooibos at 12% Changes Everything: Why Nobody Else Uses It</h2>
+        <p class="feat-excerpt">Most skincare brands list rooibos as a marketing ingredient. A third of a percent to put it on the label. We put it in at 12% because that's the concentration where aspalathin works. The science behind the decision, and what it means for your skin.</p>
+        <div class="feat-meta">
+          <span class="feat-author">Naledi Khumalo</span>
+          <span class="feat-date">June 2026 · 8 min read</span>
+        </div>
+        <p class="feat-read">Read the article →</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- ── ARTICLE GRID ── -->
+  <section class="journal-section" id="main" tabindex="-1">
+    <div class="journal-grid" id="journal-grid">
+
+      <a class="article-card" href="article.html?slug=baobab-barrier" data-art-cat="science">
+        <div class="article-img"><img src="images/journal-2.png" alt="Baobab tree silhouette" loading="lazy" /></div>
+        <p class="article-cat">Science</p>
+        <h3 class="article-title">The Skin Barrier Explained: Why Baobab Repairs It Better Than Most Ceramides</h3>
+        <p class="article-excerpt">Your skin barrier is a brick wall. Ceramides are the mortar. Here's why baobab oil slots into those gaps more effectively than synthetic ceramides.</p>
+        <div class="article-footer">
+          <span class="article-date">May 2026 · 6 min</span>
+          <span class="article-read">Read →</span>
+        </div>
+      </a>
+
+      <a class="article-card" href="article.html?slug=morning-ritual" data-art-cat="rituals">
+        <div class="article-img"><img src="images/journal-3.png" alt="Morning skincare routine flatlay" loading="lazy" /></div>
+        <p class="article-cat">Rituals</p>
+        <h3 class="article-title">The Four-Minute Morning Routine We Actually Stick To</h3>
+        <p class="article-excerpt">Not ten steps. Not five. Four minutes. Cleanse, serum, moisturise. Here's how we simplified and what changed when we did.</p>
+        <div class="article-footer">
+          <span class="article-date">May 2026 · 4 min</span>
+          <span class="article-read">Read →</span>
+        </div>
+      </a>
+
+      <a class="article-card" href="article.html?slug=cederberg" data-art-cat="behind">
+        <div class="article-img"><img src="images/sourcing-split.png" alt="Cederberg landscape" loading="lazy" /></div>
+        <p class="article-cat">Behind the Brand</p>
+        <h3 class="article-title">Three Days in the Cederberg: How We Found Our Rooibos Supplier</h3>
+        <p class="article-excerpt">The trip that started as sourcing research became something bigger. A story about what traceability actually means when you're standing in the field.</p>
+        <div class="article-footer">
+          <span class="article-date">April 2026 · 7 min</span>
+          <span class="article-read">Read →</span>
+        </div>
+      </a>
+
+      <a class="article-card" href="article.html?slug=marula-myth" data-art-cat="ingredients">
+        <div class="article-img"><img src="images/ing-marula.png" alt="Marula fruit" loading="lazy" /></div>
+        <p class="article-cat">Ingredients</p>
+        <h3 class="article-title">The Marula Myth: What the Elephant Story Gets Wrong About This Oil</h3>
+        <p class="article-excerpt">You've heard the elephant story. The actual chemistry is more interesting, and more useful for understanding why it works on skin.</p>
+        <div class="article-footer">
+          <span class="article-date">April 2026 · 5 min</span>
+          <span class="article-read">Read →</span>
+        </div>
+      </a>
+
+      <a class="article-card" href="article.html?slug=double-cleanse" data-art-cat="rituals">
+        <div class="article-img"><img src="images/ritual-cleanse.png" alt="Cleansing ritual" loading="lazy" /></div>
+        <p class="article-cat">Rituals</p>
+        <h3 class="article-title">Double Cleansing Isn't Overwashing, With the Right Products</h3>
+        <p class="article-excerpt">The double cleanse debate is mostly people using the wrong first cleanser. Here's what actually happens to your barrier when you cleanse correctly.</p>
+        <div class="article-footer">
+          <span class="article-date">March 2026 · 5 min</span>
+          <span class="article-read">Read →</span>
+        </div>
+      </a>
+
+      <a class="article-card" href="article.html?slug=less-is-more" data-art-cat="science">
+        <div class="article-img"><img src="images/hero-flatlay.png" alt="Seren product collection" loading="lazy" /></div>
+        <p class="article-cat">Science</p>
+        <h3 class="article-title">The Overloaded Routine Problem: Why More Products Make Your Skin Worse</h3>
+        <p class="article-excerpt">When you apply twelve different actives in sequence, they don't stack. They compete. The interaction data that drove us to eight products only.</p>
+        <div class="article-footer">
+          <span class="article-date">March 2026 · 9 min</span>
+          <span class="article-read">Read →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ── EMAIL STRIP ── -->
+  <section class="email-strip">
+    <h2 class="email-strip-title">The Seren Edit, monthly.</h2>
+    <p class="email-strip-sub">Ingredient breakdowns, ritual guides, and new journal pieces. One email a month. No noise.</p>
+    <form class="email-form" novalidate>
+      <input class="email-input" type="email" placeholder="Your email address" autocomplete="email" required />
+      <button class="email-submit" type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div><p class="footer-col-title">Shop</p><ul class="footer-links"><li><a href="shop.html">All Products</a></li><li><a href="shop.html?cat=serums">Serums</a></li><li><a href="shop.html?cat=moisturisers">Moisturisers</a></li><li><a href="shop.html?cat=cleansers">Cleansers</a></li></ul></div>
+      <div><p class="footer-col-title">Learn</p><ul class="footer-links"><li><a href="ingredients.html">Botanicals</a></li><li><a href="routines.html">Routines</a></li><li><a href="journal.html">Journal</a></li><li><a href="about.html">Our Story</a></li></ul></div>
+      <div><p class="footer-col-title">Help</p><ul class="footer-links"><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="#">Shipping &amp; Returns</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.0, easing: t => Math.min(1, 1.001 - Math.pow(2,-10*t)), smoothWheel: true, wheelMultiplier: 1.1 });
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    const nav = document.getElementById('nav');
+    const navProgress = document.getElementById('nav-progress');
+    let totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    window.addEventListener('resize', () => { totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight); }, { passive: true });
+    lenis.on('scroll', ({ scroll }) => {
+      nav.classList.toggle('scrolled', scroll > 60);
+      if (navProgress) navProgress.style.width = `${Math.min(100, scroll / totalScrollH * 100).toFixed(1)}%`;
+    });
+
+    const isPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (isPointer) {
+      const featuredImg = document.querySelector('.featured-img img');
+      if (featuredImg) gsap.fromTo(featuredImg,
+        { yPercent: -8, scale: 1.1 },
+        { yPercent: 8, scale: 1.1, ease: 'none',
+          scrollTrigger: { trigger: '.featured-img', start: 'top bottom', end: 'bottom top', scrub: true } }
+      );
+      gsap.utils.toArray('.article-img img').forEach(img => {
+        gsap.fromTo(img,
+          { yPercent: -5, scale: 1.06 },
+          { yPercent: 5, scale: 1.06, ease: 'none',
+            scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } }
+        );
+      });
+    }
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    const closeBtn = document.getElementById('nav-close');
+    function openDrawer()  { drawer.style.right = '0'; overlay.style.display = 'block'; requestAnimationFrame(() => overlay.style.opacity = '1'); lenis.stop(); }
+    function closeDrawer() { drawer.style.right = '-100%'; overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 300); lenis.start(); }
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Reveal on scroll
+    const io = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); io.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.article-card, .featured-article').forEach(el => io.observe(el));
+
+    // Category filter
+    const catBtns = document.querySelectorAll('.cat-btn');
+    const articles = document.querySelectorAll('.article-card');
+    const featCard = document.getElementById('featured-card');
+
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+
+        // Featured card visibility
+        if (featCard) {
+          const featMatch = cat === 'all' || featCard.dataset.artCat === cat;
+          featCard.style.display = featMatch ? '' : 'none';
+          if (featMatch) requestAnimationFrame(() => featCard.classList.add('visible'));
+        }
+
+        // Grid cards
+        let delay = 0;
+        articles.forEach(card => {
+          const match = cat === 'all' || card.dataset.artCat === cat;
+          if (match) {
+            card.classList.remove('hidden');
+            card.classList.remove('visible');
+            setTimeout(() => card.classList.add('visible'), delay);
+            delay += 60;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(a => {
+      if (a.getAttribute('href') === currentPage) a.setAttribute('aria-current', 'page');
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) lenis.destroy();
+  </script>
+</body>
+</html>

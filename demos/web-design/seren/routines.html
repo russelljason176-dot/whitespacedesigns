@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Routines — Seren Botanical Skincare</title>
+  <meta name="description" content="Morning and evening routines built around Seren's botanical range. Three steps in the morning. Four at night. Every product serves a purpose." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #FAF7F2; --cream-alt: #F2EDE4; --olive: #5C6B4A; --olive-dark: #3D4A30;
+      --terracotta: #C4704A; --text: #2C2420; --text-dim: #7A6A5E;
+      --border: rgba(44,36,32,.12); --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, sans-serif; --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); color: var(--text); -webkit-font-smoothing: antialiased; scroll-behavior: auto; }
+    body { font-family: var(--sans); background: var(--cream); overflow-x: hidden; }
+    img { display: block; max-width: 100%; } a { color: inherit; text-decoration: none; } button { font-family: var(--sans); cursor: pointer; }
+
+    /* ── NAV (shared) ── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 72px; padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; transition: background .4s, height .4s var(--ease-out), border-color .4s; border-bottom: 1px solid transparent; }
+    .nav.scrolled { background: rgba(250,247,242,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border); height: 62px; }
+    .nav-progress { position: absolute; bottom: -1px; left: 0; height: 2px; background: linear-gradient(to right, var(--olive), var(--terracotta)); width: 0%; opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .nav.scrolled .nav-progress { opacity: 1; }
+    .nav-logo { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .12em; color: var(--text); transition: color .4s, font-size .4s; }
+    .nav.scrolled .nav-logo { color: var(--olive); font-size: 1.3rem; }
+    .nav-links { list-style: none; display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: .78rem; font-weight: 400; letter-spacing: .05em; color: rgba(255,255,255,.85); position: relative; transition: color .25s; }
+    .nav.scrolled .nav-links a { color: var(--text-dim); }
+    .nav-links a.active { color: var(--olive) !important; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--olive); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { .nav.scrolled .nav-links a:hover::after { transform: scaleX(1); } }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-cart { position: relative; display: flex; align-items: center; color: rgba(255,255,255,.85); transition: color .4s; }
+    .nav.scrolled .nav-cart { color: var(--text); }
+    .nav-cart-count { position: absolute; top: -6px; right: -8px; width: 16px; height: 16px; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: .55rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .nav-cta { font-size: .7rem; font-weight: 500; letter-spacing: .08em; border: 1px solid rgba(255,255,255,.55); color: rgba(255,255,255,.9); padding: .5rem 1.1rem; border-radius: 2px; transition: background .3s, color .3s, border-color .3s; }
+    .nav.scrolled .nav-cta { color: #fff; background: var(--terracotta); border-color: var(--terracotta); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.85); transition: background .4s; }
+    .nav.scrolled .nav-hamburger span { background: var(--text); }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(44,36,32,.4); z-index: 110; opacity: 0; transition: opacity .3s; }
+    .nav-drawer { position: fixed; top: 0; right: -100%; width: min(320px,85vw); height: 100%; background: var(--cream); z-index: 120; padding: 5rem 2.5rem 2.5rem; transition: right .4s var(--ease-out); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.1rem; color: var(--text-dim); cursor: pointer; }
+    .nav-drawer-links { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+    .nav-drawer-links a { font-size: 1.4rem; font-weight: 300; font-family: var(--serif); color: var(--text); }
+    @media (max-width: 768px) { .nav { padding: 0 1.5rem; } .nav-links, .nav-cta { display: none; } .nav-hamburger { display: flex; } }
+
+    /* ── PAGE HEADER ── */
+    .page-header { padding: 140px 3rem 4rem; background: var(--cream-alt); border-bottom: 1px solid var(--border); text-align: center; }
+    .page-eyebrow { font-size: .6rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .75rem; }
+    .page-title { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 400; color: var(--text); line-height: 1.1; }
+    .page-sub { margin-top: .75rem; font-size: .9rem; font-weight: 300; color: var(--text-dim); max-width: 480px; margin-inline: auto; line-height: 1.75; }
+
+    /* ── ROUTINE TABS ── */
+    .routine-tabs { display: flex; justify-content: center; gap: 0; border-bottom: 1px solid var(--border); background: var(--cream); position: sticky; top: 62px; z-index: 50; }
+    .tab-btn { background: none; border: none; font-size: .78rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); padding: 1.25rem 2.5rem; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
+    .tab-btn.active { color: var(--olive); border-bottom-color: var(--olive); }
+    @media (hover: hover) and (pointer: fine) { .tab-btn:hover { color: var(--text); } }
+
+    /* ── ROUTINE PANEL ── */
+    .routine-panel { display: none; max-width: 1100px; margin: 0 auto; padding: 4.5rem 3rem 6rem; }
+    .routine-panel.active { display: block; }
+
+    .routine-intro { max-width: 600px; margin-bottom: 4rem; }
+    .routine-time { font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--olive); margin-bottom: .75rem; }
+    .routine-headline { font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 400; color: var(--text); line-height: 1.25; margin-bottom: 1rem; }
+    .routine-body { font-size: .9rem; font-weight: 300; color: var(--text-dim); line-height: 1.8; }
+
+    /* ── STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: grid; grid-template-columns: 60px 1fr auto;
+      gap: 2rem; align-items: start;
+      padding: 2.5rem 0; border-bottom: 1px solid var(--border);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .55s var(--ease-out), transform .55s var(--ease-out);
+    }
+    .step.visible { opacity: 1; transform: translateY(0); }
+    .step:last-child { border-bottom: none; }
+    .step-num { font-family: var(--serif); font-size: 2.5rem; font-weight: 300; color: var(--border); line-height: 1; padding-top: .1rem; }
+    .step-content {}
+    .step-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; color: var(--text); margin-bottom: .4rem; }
+    .step-desc { font-size: .82rem; font-weight: 300; color: var(--text-dim); line-height: 1.75; max-width: 520px; }
+    .step-tip { margin-top: .65rem; font-size: .75rem; color: var(--olive); font-style: italic; }
+    .step-product { flex-shrink: 0; text-align: right; }
+    .step-product-img { width: 80px; height: 80px; border-radius: 4px; object-fit: cover; background: var(--cream-alt); }
+    .step-product-link { display: block; font-size: .62rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); margin-top: .5rem; text-align: center; transition: color .2s; }
+    @media (hover: hover) and (pointer: fine) { .step-product-link:hover { color: var(--olive); } }
+
+    /* ── SKIN TYPE GUIDE ── */
+    .skin-section { background: var(--cream-alt); padding: 5rem 3rem; }
+    .skin-inner { max-width: 1100px; margin: 0 auto; }
+    .skin-label { font-size: .55rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1rem; }
+    .skin-title { font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 400; color: var(--text); margin-bottom: 3rem; }
+    .skin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .skin-card {
+      background: var(--cream); border: 1px solid var(--border); border-radius: 4px;
+      padding: 2rem; opacity: 0; transform: translateY(20px);
+      transition: opacity .55s var(--ease-out), transform .55s var(--ease-out);
+    }
+    .skin-card.visible { opacity: 1; transform: translateY(0); }
+    .skin-card-icon { width: 36px; height: 36px; background: var(--cream-alt); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .skin-card-icon svg { width: 16px; height: 16px; color: var(--olive); }
+    .skin-type { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--text); margin-bottom: .5rem; }
+    .skin-desc { font-size: .8rem; font-weight: 300; color: var(--text-dim); line-height: 1.7; margin-bottom: 1.25rem; }
+    .skin-products-label { font-size: .55rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .6rem; }
+    .skin-tags { display: flex; flex-direction: column; gap: .4rem; }
+    .skin-tag { font-size: .72rem; font-weight: 300; color: var(--olive); }
+
+    /* ── CTA STRIP ── */
+    .routine-cta { background: var(--olive-dark); color: #fff; text-align: center; padding: 5rem 3rem; }
+    .routine-cta-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; margin-bottom: 1rem; }
+    .routine-cta-sub { font-size: .9rem; font-weight: 300; color: rgba(255,255,255,.7); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.75; }
+    .btn-primary {
+      display: inline-block; font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      background: var(--terracotta); color: #fff; padding: .95rem 2.2rem; border-radius: 2px;
+      position: relative; overflow: hidden; transition: background .3s;
+    }
+    .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%); transform: translateX(-160%); transition: transform .65s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { .btn-primary:hover::after { transform: translateX(160%); } }
+    .btn-primary:active { transform: scale(0.97); transition: transform .1s; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--cream); border-top: 1px solid var(--border); padding: 4.5rem 3rem 3rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+    .footer-brand-name { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .1em; color: var(--text); margin-bottom: .75rem; }
+    .footer-brand-desc { font-size: .8rem; font-weight: 300; color: var(--text-dim); line-height: 1.7; max-width: 260px; }
+    .footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .footer-social a { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: border-color .2s, color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-social a:hover { border-color: var(--olive); color: var(--olive); } }
+    .footer-social svg { width: 15px; height: 15px; }
+    .footer-col-title { font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.3rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+    .footer-links a { font-size: .82rem; font-weight: 300; color: var(--text-dim); transition: color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--text); } }
+    .footer-bottom { max-width: 1200px; margin: 3rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .footer-legal { font-size: .62rem; font-weight: 300; color: var(--text-dim); }
+    .footer-demo-badge { font-size: .5rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .step { grid-template-columns: 40px 1fr; }
+      .step-product { display: none; }
+      .skin-grid { grid-template-columns: 1fr; }
+      .routine-panel { padding: 3rem 1.5rem 5rem; }
+      .skin-section { padding: 3.5rem 1.5rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .page-header { padding: 120px 1.5rem 3rem; }
+      footer { padding: 3.5rem 1.5rem 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+
+    /* ─── ACCESSIBILITY & UX POLISH ──────────────────────────── */
+    body { font-size: 1rem; line-height: 1.6; }
+    .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; background: var(--olive); color: #fff; padding: .5rem 1rem; font-family: var(--sans); font-size: .8rem; font-weight: 500; border-radius: 0 0 4px 4px; text-decoration: none; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; border-radius: 2px; }
+    a, button, [role="button"] { touch-action: manipulation; }
+    .nav-cart { min-width: 44px; min-height: 44px; }
+    .nav-hamburger { min-width: 44px; min-height: 44px; padding: 10px; }
+    .nav-drawer-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .nav-links a[aria-current="page"] { color: rgba(250,247,242,.95) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"] { color: var(--olive) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-drawer-links a[aria-current="page"] { color: var(--olive); font-weight: 500; }
+    .nav-drawer { height: 100dvh; }
+    .prod-price, .stat-num { font-variant-numeric: tabular-nums; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html" class="active">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="nav-cart-count">0</span></a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer"><button class="nav-drawer-close" id="nav-close">✕</button><ul class="nav-drawer-links"><li><a href="shop.html">Shop</a></li><li><a href="ingredients.html">Ingredients</a></li><li><a href="routines.html">Routines</a></li><li><a href="about.html">About</a></li><li><a href="journal.html">Journal</a></li><li><a href="cart.html">Cart</a></li></ul></nav>
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-header">
+    <p class="page-eyebrow">How to Use Seren</p>
+    <h1 class="page-title">Your Ritual</h1>
+    <p class="page-sub">Three steps in the morning. Four at night. That's the complete routine. Every product serves a specific purpose in the sequence.</p>
+  </div>
+
+  <!-- ── TABS ── -->
+  <div class="routine-tabs">
+    <button class="tab-btn active" data-tab="am">Morning</button>
+    <button class="tab-btn" data-tab="pm">Evening</button>
+  </div>
+
+  <!-- ── AM ROUTINE ── -->
+  <div class="routine-panel active" id="tab-am">
+    <div class="routine-intro">
+      <p class="routine-time">AM · Morning Ritual</p>
+      <h2 class="routine-headline">Prepare your skin for the day, and protect what you're rebuilding.</h2>
+      <p class="routine-body">The morning routine is about three things: clean, treat, protect. Skip any of the three and you're undoing the work you did the night before. It takes four minutes.</p>
+    </div>
+    <div class="steps" id="steps-am">
+      <div class="step" data-step>
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3 class="step-title">Cleanse</h3>
+          <p class="step-desc">Wash with lukewarm water, not hot. Hot water strips your barrier faster than anything else in a morning routine. Use the Cape Aloe Soothing Gel or Buchu Clarifying Cleanser depending on your skin type. Massage for 45 seconds, rinse, pat dry. Don't rub.</p>
+          <p class="step-tip">Tip: If you cleansed properly the night before, a short 30-second cleanse in the morning is enough.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-007.png" alt="Cape Aloe Soothing Gel" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-007">Cape Aloe Gel</a>
+        </div>
+      </div>
+      <div class="step" data-step>
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3 class="step-title">Serum</h3>
+          <p class="step-desc">Apply the Rooibos Renewal Serum to damp skin, not dry. Damp skin allows actives to penetrate more evenly. Three to four drops pressed (not rubbed) across forehead, cheeks, and chin. Give it 90 seconds to absorb before the next step. If you're targeting the eye area, apply Rooibos Eye Repair Serum here too.</p>
+          <p class="step-tip">Tip: Pressing is more effective than rubbing. Your fingertips warm the product and push it in; rubbing just moves it around.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-001.png" alt="Rooibos Renewal Serum" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-001">Rooibos Serum</a>
+        </div>
+      </div>
+      <div class="step" data-step>
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3 class="step-title">Moisturise &amp; Seal</h3>
+          <p class="step-desc">Finish with the Baobab Deep Moisture Cream. This locks in the serum and forms the day's moisture foundation. Two pea-sized amounts is enough for the full face and neck. If you want extra radiance, mix one drop of Marula Glow Face Oil into the moisturiser before applying.</p>
+          <p class="step-tip">Tip: The Marula oil blend trick works because oil mixed into a water-based moisturiser distributes more evenly than applying oil alone.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-002.png" alt="Baobab Deep Moisture Cream" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-002">Baobab Cream</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PM ROUTINE ── -->
+  <div class="routine-panel" id="tab-pm">
+    <div class="routine-intro">
+      <p class="routine-time">PM · Evening Ritual</p>
+      <h2 class="routine-headline">This is when your skin actually repairs. Give it something to work with.</h2>
+      <p class="routine-body">Skin cell turnover peaks between 11pm and 4am. The evening routine is about removing the day's damage and loading your skin with what it needs for overnight recovery. Five minutes. Four steps.</p>
+    </div>
+    <div class="steps" id="steps-pm">
+      <div class="step" data-step>
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3 class="step-title">Double Cleanse</h3>
+          <p class="step-desc">First cleanse removes sunscreen and makeup. Second cleanse treats the skin. Start with Cape Aloe Soothing Gel or a dedicated oil cleanser for the first pass, then use Buchu Clarifying Cleanser for the second. Take your time. Sixty seconds per pass, minimum.</p>
+          <p class="step-tip">Tip: If you skipped SPF today, a single cleanse with the Buchu is sufficient.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-004.png" alt="Buchu Clarifying Cleanser" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-004">Buchu Cleanser</a>
+        </div>
+      </div>
+      <div class="step" data-step>
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3 class="step-title">Treatment Serum</h3>
+          <p class="step-desc">Apply Rooibos Renewal Serum to damp skin. At night, use four to five drops. The skin is in repair mode and can absorb more. The aspalathin in rooibos is most active when skin temperature drops slightly in the evening. Let it absorb for two minutes.</p>
+          <p class="step-tip">Tip: Eye repair serums go on before face serums. Thinner formulas first, thicker second.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-001.png" alt="Rooibos Renewal Serum" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-001">Rooibos Serum</a>
+        </div>
+      </div>
+      <div class="step" data-step>
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3 class="step-title">Face Oil (Optional)</h3>
+          <p class="step-desc">If your skin is dry or you're in a Highveld winter, add two drops of Marula Glow Face Oil before your moisturiser. Press it in. Don't rub. This step is optional for oily or combination skin.</p>
+          <p class="step-tip">Tip: Oil before moisturiser at night. Moisturiser before oil in the morning. The order is different because the goal is different.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-003.png" alt="Marula Glow Face Oil" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-003">Marula Face Oil</a>
+        </div>
+      </div>
+      <div class="step" data-step>
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3 class="step-title">Night Balm</h3>
+          <p class="step-desc">Finish with Baobab Night Recovery Balm. About half a teaspoon, warmed between your palms and pressed onto the face and neck. This is the occlusive layer that prevents transepidermal water loss while you sleep. It's the step most people skip. Don't.</p>
+          <p class="step-tip">Tip: The balm works by keeping moisture in, not adding moisture. The serum does the adding. The balm does the locking.</p>
+        </div>
+        <div class="step-product">
+          <img class="step-product-img" src="images/prod-srn-006.png" alt="Baobab Night Recovery Balm" loading="lazy" />
+          <a class="step-product-link" href="product.html?ref=SRN-006">Night Balm</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SKIN TYPE GUIDE ── -->
+  <section class="skin-section" id="main" tabindex="-1">
+    <div class="skin-inner">
+      <p class="skin-label">Personalise Your Routine</p>
+      <h2 class="skin-title">Find your starting point</h2>
+      <div class="skin-grid">
+        <div class="skin-card" data-skin>
+          <div class="skin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <p class="skin-type">Normal / Balanced</p>
+          <p class="skin-desc">Your skin behaves. No major dryness, no excess oil. The full routine works as written, AM and PM without modifications.</p>
+          <p class="skin-products-label">Core products</p>
+          <div class="skin-tags">
+            <span class="skin-tag">Buchu Clarifying Cleanser</span>
+            <span class="skin-tag">Rooibos Renewal Serum</span>
+            <span class="skin-tag">Baobab Deep Moisture Cream</span>
+          </div>
+        </div>
+        <div class="skin-card" data-skin>
+          <div class="skin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10"/><path d="M12 8v4l3 3"/></svg></div>
+          <p class="skin-type">Dry / Dehydrated</p>
+          <p class="skin-desc">You feel tightness after cleansing. Prioritise the Baobab products and add Marula oil at both AM and PM. The Night Balm is non-negotiable.</p>
+          <p class="skin-products-label">Core products</p>
+          <div class="skin-tags">
+            <span class="skin-tag">Cape Aloe Soothing Gel</span>
+            <span class="skin-tag">Rooibos Renewal Serum</span>
+            <span class="skin-tag">Baobab Night Recovery Balm</span>
+            <span class="skin-tag">Marula Glow Face Oil</span>
+          </div>
+        </div>
+        <div class="skin-card" data-skin>
+          <div class="skin-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <p class="skin-type">Oily / Combination</p>
+          <p class="skin-desc">Skip the face oil unless it's winter or you're in a dry climate. Buchu cleanser twice daily. Lighter application of the moisture cream.</p>
+          <p class="skin-products-label">Core products</p>
+          <div class="skin-tags">
+            <span class="skin-tag">Buchu Clarifying Cleanser</span>
+            <span class="skin-tag">Rooibos Renewal Serum</span>
+            <span class="skin-tag">Marula Radiance Booster (AM only)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="routine-cta">
+    <h2 class="routine-cta-title">Ready to start?</h2>
+    <p class="routine-cta-sub">The full range is eight products. Most routines use three to four. Pick the right ones.</p>
+    <a class="btn-primary" href="shop.html">Shop the Range</a>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div><p class="footer-col-title">Shop</p><ul class="footer-links"><li><a href="shop.html">All Products</a></li><li><a href="shop.html?cat=serums">Serums</a></li><li><a href="shop.html?cat=moisturisers">Moisturisers</a></li><li><a href="shop.html?cat=cleansers">Cleansers</a></li></ul></div>
+      <div><p class="footer-col-title">Learn</p><ul class="footer-links"><li><a href="ingredients.html">Botanicals</a></li><li><a href="routines.html">Routines</a></li><li><a href="journal.html">Journal</a></li><li><a href="about.html">Our Story</a></li></ul></div>
+      <div><p class="footer-col-title">Help</p><ul class="footer-links"><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="#">Shipping &amp; Returns</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.0, easing: t => Math.min(1, 1.001 - Math.pow(2,-10*t)), smoothWheel: true, wheelMultiplier: 1.1 });
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    const nav = document.getElementById('nav');
+    const navProgress = document.getElementById('nav-progress');
+    let totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    window.addEventListener('resize', () => { totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight); }, { passive: true });
+    lenis.on('scroll', ({ scroll }) => {
+      nav.classList.toggle('scrolled', scroll > 60);
+      if (navProgress) navProgress.style.width = `${Math.min(100, scroll / totalScrollH * 100).toFixed(1)}%`;
+    });
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    const closeBtn = document.getElementById('nav-close');
+    function openDrawer()  { drawer.style.right = '0'; overlay.style.display = 'block'; requestAnimationFrame(() => overlay.style.opacity = '1'); lenis.stop(); }
+    function closeDrawer() { drawer.style.right = '-100%'; overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 300); lenis.start(); }
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    // Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panels  = document.querySelectorAll('.routine-panel');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        lenis.scrollTo(document.querySelector('.routine-tabs'), { offset: -70, duration: 0.8 });
+        triggerStepReveal();
+      });
+    });
+
+    // Reveal steps + skin cards
+    function triggerStepReveal() {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); io.unobserve(e.target); } });
+      }, { threshold: 0.05 });
+      document.querySelectorAll('[data-step], [data-skin]').forEach(el => { el.classList.remove('visible'); io.observe(el); });
+    }
+    triggerStepReveal();
+
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(a => {
+      if (a.getAttribute('href') === currentPage) a.setAttribute('aria-current', 'page');
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) lenis.destroy();
+  </script>
+</body>
+</html>

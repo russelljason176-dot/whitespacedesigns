@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Botanicals — Seren Botanical Skincare</title>
+  <meta name="description" content="Every Seren ingredient is chosen for a reason. Meet the South African botanicals at the heart of the range." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #FAF7F2; --cream-alt: #F2EDE4; --olive: #5C6B4A; --olive-dark: #3D4A30;
+      --terracotta: #C4704A; --text: #2C2420; --text-dim: #7A6A5E;
+      --border: rgba(44,36,32,.12); --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', -apple-system, sans-serif; --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--cream); color: var(--text); -webkit-font-smoothing: antialiased; scroll-behavior: auto; }
+    body { font-family: var(--sans); background: var(--cream); overflow-x: hidden; }
+    img { display: block; max-width: 100%; } a { color: inherit; text-decoration: none; } button { font-family: var(--sans); cursor: pointer; }
+
+    /* ── NAV ── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 72px; padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; transition: background .4s, height .4s var(--ease-out), border-color .4s; border-bottom: 1px solid transparent; }
+    .nav.scrolled { background: rgba(250,247,242,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: var(--border); height: 62px; }
+    .nav-progress { position: absolute; bottom: -1px; left: 0; height: 2px; background: linear-gradient(to right, var(--olive), var(--terracotta)); width: 0%; opacity: 0; transition: opacity .4s; pointer-events: none; }
+    .nav.scrolled .nav-progress { opacity: 1; }
+    .nav-logo { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .12em; color: var(--text); transition: color .4s, font-size .4s; }
+    .nav.scrolled .nav-logo { color: var(--olive); font-size: 1.3rem; }
+    .nav-links { list-style: none; display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: .78rem; font-weight: 400; letter-spacing: .05em; color: rgba(255,255,255,.85); position: relative; transition: color .25s; }
+    .nav.scrolled .nav-links a { color: var(--text-dim); }
+    .nav-links a.active { color: var(--olive) !important; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--olive); transform: scaleX(0); transform-origin: left; transition: transform .25s var(--ease-out); }
+    @media (hover: hover) and (pointer: fine) { .nav.scrolled .nav-links a:hover::after { transform: scaleX(1); } }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-cart { position: relative; display: flex; align-items: center; color: rgba(255,255,255,.85); transition: color .4s; }
+    .nav.scrolled .nav-cart { color: var(--text); }
+    .nav-cart-count { position: absolute; top: -6px; right: -8px; width: 16px; height: 16px; border-radius: 50%; background: var(--terracotta); color: #fff; font-size: .55rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .nav-cta { font-size: .7rem; font-weight: 500; letter-spacing: .08em; border: 1px solid rgba(255,255,255,.55); color: rgba(255,255,255,.9); padding: .5rem 1.1rem; border-radius: 2px; transition: background .3s, color .3s, border-color .3s; }
+    .nav.scrolled .nav-cta { color: #fff; background: var(--terracotta); border-color: var(--terracotta); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,.85); transition: background .4s; }
+    .nav.scrolled .nav-hamburger span { background: var(--text); }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(44,36,32,.4); z-index: 110; opacity: 0; transition: opacity .3s; }
+    .nav-drawer { position: fixed; top: 0; right: -100%; width: min(320px,85vw); height: 100%; background: var(--cream); z-index: 120; padding: 5rem 2.5rem 2.5rem; transition: right .4s var(--ease-out); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; font-size: 1.1rem; color: var(--text-dim); cursor: pointer; }
+    .nav-drawer-links { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+    .nav-drawer-links a { font-size: 1.4rem; font-weight: 300; font-family: var(--serif); color: var(--text); }
+    @media (max-width: 768px) { .nav { padding: 0 1.5rem; } .nav-links, .nav-cta { display: none; } .nav-hamburger { display: flex; } }
+
+    /* ── HERO ── */
+    .ing-hero {
+      min-height: 70vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 120px 3rem 5rem;
+      background: var(--olive-dark);
+      position: relative; overflow: hidden;
+    }
+    .ing-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('images/ing-rooibos.png') center/cover no-repeat;
+      opacity: .18;
+    }
+    .ing-hero-eyebrow { position: relative; font-size: .6rem; font-weight: 500; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-bottom: 1.25rem; }
+    .ing-hero-title { position: relative; font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 400; color: #fff; line-height: 1.1; max-width: 800px; margin-bottom: 1.5rem; }
+    .ing-hero-title em { font-style: italic; }
+    .ing-hero-sub { position: relative; font-size: .92rem; font-weight: 300; color: rgba(255,255,255,.7); max-width: 480px; line-height: 1.75; }
+
+    /* ── PHILOSOPHY STRIP ── */
+    .philosophy-strip { background: var(--cream-alt); border-bottom: 1px solid var(--border); padding: 3.5rem 3rem; }
+    .philosophy-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .philosophy-quote { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 400; color: var(--text); line-height: 1.5; }
+    .philosophy-quote em { color: var(--olive); }
+    .philosophy-attr { margin-top: 1.25rem; font-size: .7rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── INGREDIENT FEATURES ── */
+    .ing-section { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem; }
+    .ing-section-label { font-size: .55rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 3.5rem; text-align: center; }
+
+    .ing-feature {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center; margin-bottom: 7rem;
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+    }
+    .ing-feature.visible { opacity: 1; transform: translateY(0); }
+    .ing-feature:last-child { margin-bottom: 0; }
+    .ing-feature.reverse { direction: rtl; }
+    .ing-feature.reverse > * { direction: ltr; }
+
+    .ing-img-wrap {
+      aspect-ratio: 4 / 5; border-radius: 4px; overflow: hidden;
+      background: var(--cream-alt);
+    }
+    .ing-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+    .ing-content {}
+    .ing-number { font-size: .55rem; font-weight: 600; letter-spacing: .2em; color: var(--text-dim); margin-bottom: 1rem; }
+    .ing-botanical { font-family: var(--serif); font-size: .85rem; font-style: italic; color: var(--text-dim); margin-bottom: .4rem; }
+    .ing-name { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400; color: var(--text); line-height: 1.1; margin-bottom: .75rem; }
+    .ing-source { display: flex; align-items: center; gap: .5rem; font-size: .7rem; font-weight: 400; letter-spacing: .06em; color: var(--terracotta); margin-bottom: 1.5rem; }
+    .ing-source svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .ing-desc { font-size: .9rem; font-weight: 300; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.75rem; }
+    .ing-benefits { list-style: none; display: flex; flex-direction: column; gap: .65rem; margin-bottom: 2rem; }
+    .ing-benefits li { display: flex; align-items: flex-start; gap: .75rem; font-size: .82rem; font-weight: 300; color: var(--text-dim); line-height: 1.6; }
+    .ing-benefits li::before { content: '✦'; color: var(--olive); font-size: .6rem; margin-top: .2rem; flex-shrink: 0; }
+    .ing-found-in { font-size: .65rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .5rem; }
+    .ing-products { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .ing-product-tag {
+      font-size: .65rem; font-weight: 400; color: var(--olive);
+      border: 1px solid rgba(92,107,74,.3); padding: .3rem .7rem; border-radius: 2px;
+      transition: background .2s, color .2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .ing-product-tag:hover { background: var(--olive); color: #fff; }
+    }
+
+    /* ── SOURCING BANNER ── */
+    .sourcing-banner {
+      background: var(--olive-dark); color: #fff;
+      padding: 5rem 3rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .sourcing-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('images/sourcing-split.png') center/cover no-repeat;
+      opacity: .15;
+    }
+    .sourcing-inner { position: relative; max-width: 680px; margin: 0 auto; }
+    .sourcing-eyebrow { font-size: .6rem; font-weight: 500; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 1.25rem; }
+    .sourcing-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem; }
+    .sourcing-body { font-size: .9rem; font-weight: 300; color: rgba(255,255,255,.75); line-height: 1.8; margin-bottom: 2.5rem; }
+    .btn-light { display: inline-block; font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; border: 1px solid rgba(255,255,255,.5); color: #fff; padding: .85rem 1.8rem; border-radius: 2px; transition: background .3s, border-color .3s; }
+    @media (hover: hover) and (pointer: fine) { .btn-light:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.8); } }
+
+    /* ── FOOTER ── */
+    footer { background: var(--cream); border-top: 1px solid var(--border); padding: 4.5rem 3rem 3rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+    .footer-brand-name { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; letter-spacing: .1em; color: var(--text); margin-bottom: .75rem; }
+    .footer-brand-desc { font-size: .8rem; font-weight: 300; color: var(--text-dim); line-height: 1.7; max-width: 260px; }
+    .footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .footer-social a { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-dim); transition: border-color .2s, color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-social a:hover { border-color: var(--olive); color: var(--olive); } }
+    .footer-social svg { width: 15px; height: 15px; }
+    .footer-col-title { font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1.3rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+    .footer-links a { font-size: .82rem; font-weight: 300; color: var(--text-dim); transition: color .2s; }
+    @media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--text); } }
+    .footer-bottom { max-width: 1200px; margin: 3rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .footer-legal { font-size: .62rem; font-weight: 300; color: var(--text-dim); }
+    .footer-demo-badge { font-size: .5rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .ing-feature, .ing-feature.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2.5rem; }
+      .ing-img-wrap { aspect-ratio: 16/9; }
+      .ing-section { padding: 4rem 1.5rem; }
+      .philosophy-strip { padding: 2.5rem 1.5rem; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 640px) {
+      .ing-hero { padding: 110px 1.5rem 4rem; min-height: 60vh; }
+      .sourcing-banner { padding: 3.5rem 1.5rem; }
+      footer { padding: 3.5rem 1.5rem 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+
+    /* ─── ACCESSIBILITY & UX POLISH ──────────────────────────── */
+    body { font-size: 1rem; line-height: 1.6; }
+    .skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; background: var(--olive); color: #fff; padding: .5rem 1rem; font-family: var(--sans); font-size: .8rem; font-weight: 500; border-radius: 0 0 4px 4px; text-decoration: none; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 2px solid var(--olive); outline-offset: 3px; border-radius: 2px; }
+    a, button, [role="button"] { touch-action: manipulation; }
+    .nav-cart { min-width: 44px; min-height: 44px; }
+    .nav-hamburger { min-width: 44px; min-height: 44px; padding: 10px; }
+    .nav-drawer-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .nav-links a[aria-current="page"] { color: rgba(250,247,242,.95) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"] { color: var(--olive) !important; }
+    .nav.scrolled .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+    .nav-drawer-links a[aria-current="page"] { color: var(--olive); font-weight: 500; }
+    .nav-drawer { height: 100dvh; }
+    .prod-price, .stat-num { font-variant-numeric: tabular-nums; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ── NAV ── -->
+  <nav class="nav" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html" class="active">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="nav-cart-count">0</span></a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <button class="nav-drawer-close" id="nav-close" aria-label="Close menu">✕</button>
+    <ul class="nav-drawer-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="ing-hero" id="main" tabindex="-1">
+    <p class="ing-hero-eyebrow">The Science of Less</p>
+    <h1 class="ing-hero-title">Four plants.<br /><em>Eight products.</em><br />One philosophy.</h1>
+    <p class="ing-hero-sub">We don't source ingredients to fill a bottle. We source them because the science demands it. Nothing else does the job.</p>
+  </section>
+
+  <!-- ── PHILOSOPHY STRIP ── -->
+  <div class="philosophy-strip">
+    <div class="philosophy-inner">
+      <p class="philosophy-quote">"If an ingredient doesn't have a <em>specific, proven role</em> in the formula, it doesn't make the cut. That's respect for your skin's chemistry."</p>
+      <p class="philosophy-attr">The Seren Formulation Standard</p>
+    </div>
+  </div>
+
+  <!-- ── INGREDIENT FEATURES ── -->
+  <section class="ing-section">
+    <p class="ing-section-label">Active Botanicals</p>
+
+    <!-- Rooibos -->
+    <div class="ing-feature" data-ing>
+      <div class="ing-img-wrap">
+        <img src="images/ing-rooibos.png" alt="Rooibos plant in the Cederberg" loading="lazy" />
+      </div>
+      <div class="ing-content">
+        <p class="ing-number">01</p>
+        <p class="ing-botanical">Aspalathus linearis</p>
+        <h2 class="ing-name">Rooibos</h2>
+        <p class="ing-source">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Cederberg Mountains, Western Cape
+        </p>
+        <p class="ing-desc">Rooibos grows only in the Cederberg. Nowhere else on earth. Its fermented extract contains aspalathin, a flavonoid with documented antioxidant activity that outperforms green tea at equivalent concentrations. We use it at 12% in our serums, more than any other SA skincare brand.</p>
+        <ul class="ing-benefits">
+          <li>Neutralises free-radical damage before it reaches skin cells</li>
+          <li>Reduces visible redness and chronic inflammation markers</li>
+          <li>Supports natural collagen synthesis over time</li>
+          <li>Clinically studied, with published peer review</li>
+        </ul>
+        <p class="ing-found-in">Found in</p>
+        <div class="ing-products">
+          <a class="ing-product-tag" href="product.html?ref=SRN-001">Rooibos Renewal Serum</a>
+          <a class="ing-product-tag" href="product.html?ref=SRN-005">Rooibos Eye Repair Serum</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Baobab -->
+    <div class="ing-feature reverse" data-ing>
+      <div class="ing-img-wrap">
+        <img src="images/ing-baobab.png" alt="Baobab tree in the Limpopo" loading="lazy" />
+      </div>
+      <div class="ing-content">
+        <p class="ing-number">02</p>
+        <p class="ing-botanical">Adansonia digitata</p>
+        <h2 class="ing-name">Baobab</h2>
+        <p class="ing-source">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Limpopo Province, Northern SA
+        </p>
+        <p class="ing-desc">Cold-pressed from seeds harvested by community cooperatives in Limpopo. Baobab oil has a fatty acid profile (omega 3, 6, 9) that closely mirrors your skin's natural lipid layer, which is why it absorbs without the heavy residue most face oils leave behind.</p>
+        <ul class="ing-benefits">
+          <li>Repairs compromised moisture barriers in 4–6 weeks</li>
+          <li>Omega-rich profile absorbs without occlusive residue</li>
+          <li>High vitamin E concentration (tocopherols) preserves cell integrity</li>
+          <li>Community fair-trade sourced, traceable to cooperative</li>
+        </ul>
+        <p class="ing-found-in">Found in</p>
+        <div class="ing-products">
+          <a class="ing-product-tag" href="product.html?ref=SRN-002">Baobab Deep Moisture Cream</a>
+          <a class="ing-product-tag" href="product.html?ref=SRN-006">Baobab Night Recovery Balm</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marula -->
+    <div class="ing-feature" data-ing>
+      <div class="ing-img-wrap">
+        <img src="images/ing-marula.png" alt="Marula fruit on the branch" loading="lazy" />
+      </div>
+      <div class="ing-content">
+        <p class="ing-number">03</p>
+        <p class="ing-botanical">Sclerocarya birrea</p>
+        <h2 class="ing-name">Marula</h2>
+        <p class="ing-source">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          KwaZulu-Natal &amp; Mpumalanga
+        </p>
+        <p class="ing-desc">Marula oil is structurally similar to sebum, the oil your skin already produces. That's why it absorbs in under 60 seconds. Our cold-pressing process preserves the oleic acid content at over 70%, which is what gives it the radiance effect without clogging.</p>
+        <ul class="ing-benefits">
+          <li>Mirrors your skin's sebum. Absorbs in under 60 seconds.</li>
+          <li>70%+ oleic acid content seals moisture without pore interference</li>
+          <li>Antioxidant stability higher than argan oil in independent tests</li>
+          <li>Visibly brightens in 3 weeks with consistent AM use</li>
+        </ul>
+        <p class="ing-found-in">Found in</p>
+        <div class="ing-products">
+          <a class="ing-product-tag" href="product.html?ref=SRN-003">Marula Glow Face Oil</a>
+          <a class="ing-product-tag" href="product.html?ref=SRN-008">Marula Radiance Booster</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buchu / Cape Aloe -->
+    <div class="ing-feature reverse" data-ing>
+      <div class="ing-img-wrap">
+        <img src="images/ing-buchu.png" alt="Buchu and Cape Aloe growing wild" loading="lazy" />
+      </div>
+      <div class="ing-content">
+        <p class="ing-number">04</p>
+        <p class="ing-botanical">Agathosma betulina · Aloe ferox</p>
+        <h2 class="ing-name">Buchu &amp; Cape Aloe</h2>
+        <p class="ing-source">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Cape Winelands &amp; Eastern Cape
+        </p>
+        <p class="ing-desc">Two plants, one purpose: calm reactive skin without numbing it. Buchu is used traditionally to treat inflammation and infection. Cape Aloe (Aloe ferox, not the supermarket variety) has 200× the antioxidant content of Aloe vera and a documented ability to balance the skin microbiome.</p>
+        <ul class="ing-benefits">
+          <li>Buchu naturally inhibits bacteria associated with breakouts</li>
+          <li>Cape Aloe rebalances skin microbiome diversity</li>
+          <li>Both maintain pH balance, critical for barrier integrity</li>
+          <li>Zero artificial fragrance or masking agents required</li>
+        </ul>
+        <p class="ing-found-in">Found in</p>
+        <div class="ing-products">
+          <a class="ing-product-tag" href="product.html?ref=SRN-004">Buchu Clarifying Cleanser</a>
+          <a class="ing-product-tag" href="product.html?ref=SRN-007">Cape Aloe Soothing Gel</a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── SOURCING BANNER ── -->
+  <section class="sourcing-banner">
+    <div class="sourcing-inner">
+      <p class="sourcing-eyebrow">Our Sourcing Commitment</p>
+      <h2 class="sourcing-title">Every ingredient is traceable to its harvest.</h2>
+      <p class="sourcing-body">We work directly with three cooperatives in the Western Cape, Limpopo, and KwaZulu-Natal. No middlemen. No commodity markets. We know the farmers, we know the harvest dates, and we can trace every batch from field to formula.</p>
+      <a class="btn-light" href="about.html">Read our story</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div><p class="footer-col-title">Shop</p><ul class="footer-links"><li><a href="shop.html">All Products</a></li><li><a href="shop.html?cat=serums">Serums</a></li><li><a href="shop.html?cat=moisturisers">Moisturisers</a></li><li><a href="shop.html?cat=cleansers">Cleansers</a></li><li><a href="shop.html?cat=oils">Face Oils</a></li></ul></div>
+      <div><p class="footer-col-title">Learn</p><ul class="footer-links"><li><a href="ingredients.html">Botanicals</a></li><li><a href="routines.html">Routines</a></li><li><a href="journal.html">Journal</a></li><li><a href="about.html">Our Story</a></li></ul></div>
+      <div><p class="footer-col-title">Help</p><ul class="footer-links"><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="#">Shipping &amp; Returns</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.0, easing: t => Math.min(1, 1.001 - Math.pow(2,-10*t)), smoothWheel: true, wheelMultiplier: 1.1 });
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    const nav = document.getElementById('nav');
+    const navProgress = document.getElementById('nav-progress');
+    let totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    window.addEventListener('resize', () => { totalScrollH = Math.max(1, document.body.scrollHeight - window.innerHeight); }, { passive: true });
+
+    lenis.on('scroll', ({ scroll }) => {
+      nav.classList.toggle('scrolled', scroll > 60);
+      if (navProgress) navProgress.style.width = `${Math.min(100, scroll / totalScrollH * 100).toFixed(1)}%`;
+    });
+
+    const isPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (isPointer) {
+      gsap.utils.toArray('.ing-img-wrap img').forEach(img => {
+        gsap.fromTo(img,
+          { yPercent: -6, scale: 1.08 },
+          { yPercent: 6, scale: 1.08, ease: 'none',
+            scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } }
+        );
+      });
+    }
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    const closeBtn = document.getElementById('nav-close');
+    function openDrawer()  { drawer.style.right = '0'; overlay.style.display = 'block'; requestAnimationFrame(() => overlay.style.opacity = '1'); lenis.stop(); }
+    function closeDrawer() { drawer.style.right = '-100%'; overlay.style.opacity = '0'; setTimeout(() => overlay.style.display = 'none', 300); lenis.start(); }
+    hamburger.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-ing]').forEach(el => io.observe(el));
+
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(a => {
+      if (a.getAttribute('href') === currentPage) a.setAttribute('aria-current', 'page');
+    });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) lenis.destroy();
+  </script>
+</body>
+</html>
