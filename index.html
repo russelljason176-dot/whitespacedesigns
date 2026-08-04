@@ -82,6 +82,9 @@
 
   <!-- ─── Favicon ────────────────────────────────────────── -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%23ff3b30'><animate attributeName='r' values='7;10;7' dur='1.8s' repeatCount='indefinite'/><animate attributeName='opacity' values='1;0.55;1' dur='1.8s' repeatCount='indefinite'/></circle></svg>" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1178,6 +1181,10 @@
         height: 300px;
         inset: auto;
         scroll-snap-align: center;
+      }
+      .wc-card:nth-child(2),
+      .wc-card:nth-child(3) {
+        background-position: center 25% !important;
       }
       .wc-link { color: rgba(255,255,255,0.6); }
     }
