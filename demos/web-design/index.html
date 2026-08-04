@@ -90,6 +90,13 @@
       align-items: center;
       justify-content: center;
     }
+    .demo-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.45) 0%, transparent 30%, transparent 70%, rgba(0,0,0,.15) 100%);
+      pointer-events: none;
+    }
     .demo-thumb-logo {
       font-family: 'Inter', sans-serif;
       font-size: 1.05rem;
@@ -101,6 +108,7 @@
     }
     .demo-thumb-tag {
       position: absolute;
+      z-index: 1;
       top: 14px;
       left: 14px;
       font-family: var(--mono);
@@ -115,13 +123,15 @@
     }
     .demo-pages-badge {
       position: absolute;
+      z-index: 1;
       bottom: 14px;
       right: 14px;
       font-family: var(--mono);
       font-size: .5rem;
       letter-spacing: .08em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.35);
+      color: rgba(255,255,255,.7);
+      text-shadow: 0 1px 4px rgba(0,0,0,.8);
     }
 
     .demo-body { padding: 22px 24px 24px; }
@@ -208,8 +218,7 @@
     <div class="demo-grid">
 
       <a class="demo-card" href="/demos/web-design/marlow-estate-co/">
-        <div class="demo-thumb">
-          <span class="demo-thumb-logo">Marlow Estate Co.</span>
+        <div class="demo-thumb" style="background:url('assets/covers/marlow-estate-co-cover.jpg') center top/cover no-repeat;">
           <div class="demo-thumb-tag">Real Estate</div>
           <div class="demo-pages-badge">14 pages</div>
         </div>
@@ -228,8 +237,7 @@
       </a>
 
       <a class="demo-card" href="/demos/web-design/seren/" style="--color-seren:#5C6B4A">
-        <div class="demo-thumb" style="background:linear-gradient(135deg,#2A3320,#4A5938);">
-          <span class="demo-thumb-logo" style="color:#C4A882;letter-spacing:.25em;">Seren</span>
+        <div class="demo-thumb" style="background:url('assets/covers/seren-cover.jpg') center top/cover no-repeat;">
           <div class="demo-thumb-tag" style="background:rgba(196,168,130,.12);color:#C4A882;border-color:rgba(196,168,130,.3);">Skincare</div>
           <div class="demo-pages-badge">11 pages</div>
         </div>
@@ -248,8 +256,7 @@
       </a>
 
       <a class="demo-card" href="/demos/web-design/pretty-absurd/">
-        <div class="demo-thumb" style="background:linear-gradient(135deg,#111111,#2a2620);">
-          <span class="demo-thumb-logo" style="color:#F7F2EE;letter-spacing:.25em;">Pretty Absurd</span>
+        <div class="demo-thumb" style="background:url('assets/covers/pretty-absurd-cover.jpg') center top/cover no-repeat;">
           <div class="demo-thumb-tag" style="background:rgba(237,160,190,.15);color:#EDA0BE;border-color:rgba(237,160,190,.35);">Live Client</div>
           <div class="demo-pages-badge">6 pages</div>
         </div>
