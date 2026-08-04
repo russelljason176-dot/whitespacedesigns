@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | White Space Designs</title>
+  <meta name="description" content="White Space Designs privacy policy — how we collect, use, and protect personal information under South Africa's POPIA." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://whitespacedesigns.co.za/privacy-policy" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='9' fill='%23ff3b30'><animate attributeName='r' values='7;10;7' dur='1.8s' repeatCount='indefinite'/><animate attributeName='opacity' values='1;0.55;1' dur='1.8s' repeatCount='indefinite'/></circle></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:   #0a0a0a;
+      --bg2:  #111111;
+      --sf:   #161616;
+      --sf2:  #1c1c1c;
+      --bdr:  rgba(255,255,255,.13);
+      --bdr2: rgba(255,255,255,.07);
+      --txt:  #ffffff;
+      --mt:   #aaaaaa;
+      --dim:  #8e8e8e;
+      --red:  #ff3b30;
+      --fnt:  'Inter', system-ui, sans-serif;
+      --mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fnt); background: var(--bg); color: var(--txt); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+    ::selection { background: rgba(255,59,48,.25); color: #fff; }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid var(--bdr);
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--mono); font-size: .72rem;
+      letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+    }
+    .logo-dot {
+      width: 8px; height: 8px; background: var(--red); border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .nav-back {
+      font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--mt); display: flex; align-items: center; gap: 8px;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--txt); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    /* HERO */
+    .policy-hero {
+      padding: 80px 0 56px;
+      border-bottom: 1px solid var(--bdr2);
+    }
+    .label {
+      font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--mt); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .label::before {
+      content: ''; display: inline-block;
+      width: 20px; height: 1px; background: var(--red); flex-shrink: 0;
+    }
+    .policy-hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; letter-spacing: -.03em; line-height: 1.08;
+      margin-bottom: 20px;
+    }
+    .policy-hero h1 strong { font-weight: 700; }
+    .policy-hero p {
+      font-size: 1rem; color: var(--mt); line-height: 1.8; max-width: 600px;
+    }
+    .updated {
+      margin-top: 28px;
+      font-family: var(--mono); font-size: .62rem;
+      letter-spacing: .08em; color: var(--dim);
+    }
+
+    /* CONTENT */
+    .policy-body { padding: 64px 0 80px; }
+
+    .policy-section { margin-bottom: 56px; }
+
+    .section-tag {
+      font-family: var(--mono); font-size: .62rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 12px;
+    }
+    .policy-section h2 {
+      font-size: 1.35rem; font-weight: 600;
+      letter-spacing: -.02em; margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--bdr2);
+    }
+    .policy-section p {
+      font-size: .93rem; color: var(--mt); line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section strong { color: var(--txt); font-weight: 600; }
+
+    /* TABLE */
+    .pay-table {
+      width: 100%; border-collapse: collapse; margin: 24px 0;
+      font-size: .88rem;
+    }
+    .pay-table th {
+      font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--dim); text-align: left;
+      padding: 10px 16px; border-bottom: 1px solid var(--bdr);
+    }
+    .pay-table td {
+      padding: 14px 16px; color: var(--mt);
+      border-bottom: 1px solid var(--bdr2);
+      vertical-align: top;
+    }
+    .pay-table td:first-child { color: var(--txt); font-weight: 500; }
+    .pay-table tr:last-child td { border-bottom: none; }
+    .pay-table tr:hover td { background: rgba(255,255,255,.02); }
+
+    /* CALLOUT */
+    .callout {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      border-left: 3px solid var(--red);
+      padding: 20px 24px; margin: 28px 0;
+      font-size: .9rem; color: var(--mt); line-height: 1.75;
+    }
+    .callout strong { color: var(--txt); }
+
+    /* LIST */
+    .policy-list {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+      margin: 16px 0;
+    }
+    .policy-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: .9rem; color: var(--mt); line-height: 1.7;
+    }
+    .policy-list li::before {
+      content: '—'; color: var(--red);
+      font-family: var(--mono); font-size: .78rem;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* CONTACT STRIP */
+    .policy-contact {
+      background: var(--sf);
+      border: 1px solid var(--bdr);
+      padding: 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-top: 64px;
+    }
+    .policy-contact p { font-size: .9rem; color: var(--mt); max-width: 420px; line-height: 1.7; }
+    .policy-contact p strong { color: var(--txt); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; font-size: .78rem;
+      font-family: var(--mono); font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: all .2s;
+    }
+    .btn-solid { background: var(--txt); color: var(--bg); }
+    .btn-solid:hover { background: #d4d4d4; }
+
+    /* FOOTER */
+    .policy-footer {
+      border-top: 1px solid var(--bdr);
+      padding: 24px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .policy-footer p {
+      font-family: var(--mono); font-size: .6rem;
+      color: var(--dim); letter-spacing: .06em;
+    }
+    .policy-footer a { color: var(--mt); transition: color .2s; }
+    .policy-footer a:hover { color: var(--txt); }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .policy-hero { padding: 48px 0 40px; }
+      .policy-contact { padding: 28px 24px; }
+      .pay-table th, .pay-table td { padding: 10px; }
+      .policy-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-dot"></div>
+      White Space Designs
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to site
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="policy-hero">
+  <div class="wrap">
+    <div class="label">Legal / Policy</div>
+    <h1>Privacy<br /><strong>Policy</strong></h1>
+    <p>How White Space Designs collects, uses, and protects your personal information — in line with South Africa's Protection of Personal Information Act (POPIA).</p>
+    <p class="updated">Last updated: August 2026</p>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="policy-body">
+  <div class="wrap">
+
+    <!-- 1. WHO WE ARE -->
+    <div class="policy-section">
+      <div class="section-tag">01</div>
+      <h2>Who We Are</h2>
+      <p>White Space Designs ("WSD", "we", "us") is a web design and AI automation studio based in Southern Africa, operated by Jason Russell. This policy explains what personal information we collect through <strong>whitespacedesigns.co.za</strong>, why we collect it, and how it's handled.</p>
+      <p>For any privacy-related question or request, contact <strong>studio@whitespacedesigns.co.za</strong>.</p>
+    </div>
+
+    <!-- 2. WHAT WE COLLECT -->
+    <div class="policy-section">
+      <div class="section-tag">02</div>
+      <h2>Information We Collect</h2>
+      <p>We only collect what's needed to respond to enquiries and run the site properly:</p>
+      <ul class="policy-list">
+        <li><strong>Contact form submissions:</strong> name, email address, and any message content you submit.</li>
+        <li><strong>Booking details:</strong> if you book a call via Calendly, your name, email, and selected time slot are handled by Calendly under its own privacy policy.</li>
+        <li><strong>Site analytics:</strong> basic, aggregated usage data (pages viewed, approximate location, device type) used to understand traffic and improve the site.</li>
+        <li><strong>Lead research data:</strong> where WSD is running lead-generation research on behalf of a prospective client engagement, publicly available business information (company name, public contact details) may be gathered — this does not apply to visitors browsing whitespacedesigns.co.za itself.</li>
+      </ul>
+      <p>We do not collect payment card details on this site — invoicing happens directly via email/EFT once a project is agreed.</p>
+    </div>
+
+    <!-- 3. WHY WE COLLECT IT -->
+    <div class="policy-section">
+      <div class="section-tag">03</div>
+      <h2>How We Use Your Information</h2>
+      <ul class="policy-list">
+        <li>To respond to enquiries submitted through the contact form or booking link.</li>
+        <li>To prepare quotes, proposals, and project scoping for prospective clients.</li>
+        <li>To understand how visitors use the site so we can improve it.</li>
+        <li>To meet legal or accounting obligations (e.g. invoicing records).</li>
+      </ul>
+      <div class="callout">
+        <strong>We never sell your information.</strong> Personal information submitted through this site is used solely for the purposes above and is not passed to third parties for marketing.
+      </div>
+    </div>
+
+    <!-- 4. LEGAL BASIS / POPIA -->
+    <div class="policy-section">
+      <div class="section-tag">04</div>
+      <h2>POPIA Compliance</h2>
+      <p>White Space Designs processes personal information in accordance with South Africa's <strong>Protection of Personal Information Act (POPIA)</strong>. We process information only:</p>
+      <ul class="policy-list">
+        <li>With your consent (e.g. submitting the contact form or booking a call), or</li>
+        <li>Where necessary to take steps toward a contract at your request (e.g. preparing a quote), or</li>
+        <li>Where necessary to comply with a legal obligation (e.g. financial record-keeping).</li>
+      </ul>
+      <p>You have the right to request access to, correction of, or deletion of your personal information at any time. You may also lodge a complaint with South Africa's <strong>Information Regulator</strong> (inforegulator.org.za) if you believe your information has been mishandled.</p>
+    </div>
+
+    <!-- 5. THIRD-PARTY SERVICES -->
+    <div class="policy-section">
+      <div class="section-tag">05</div>
+      <h2>Third-Party Services</h2>
+      <p>This site relies on a small number of trusted third-party services, each governed by its own privacy policy:</p>
+      <table class="pay-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Calendly</td>
+            <td>Call booking and scheduling</td>
+          </tr>
+          <tr>
+            <td>Google Workspace</td>
+            <td>Email correspondence and internal record-keeping</td>
+          </tr>
+          <tr>
+            <td>Google Sheets</td>
+            <td>Internal lead and enquiry tracking (WSD staff access only)</td>
+          </tr>
+          <tr>
+            <td>GitHub Pages</td>
+            <td>Website hosting</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>None of these providers are permitted to use your information for their own marketing purposes on our behalf.</p>
+    </div>
+
+    <!-- 6. COOKIES -->
+    <div class="policy-section">
+      <div class="section-tag">06</div>
+      <h2>Cookies</h2>
+      <p>This site uses minimal, functional cookies only — for example, to remember basic display preferences (like currency). We do not use invasive tracking or third-party advertising cookies. You can disable cookies via your browser settings at any time without affecting core site functionality.</p>
+    </div>
+
+    <!-- 7. DATA RETENTION -->
+    <div class="policy-section">
+      <div class="section-tag">07</div>
+      <h2>Data Retention</h2>
+      <p>Enquiry and contact form data is retained only for as long as needed to respond to your enquiry and, if a project proceeds, for the duration of the client relationship plus any period required for accounting records under South African law. You can request deletion of your data at any point where we're not legally required to retain it.</p>
+    </div>
+
+    <!-- 8. YOUR RIGHTS -->
+    <div class="policy-section">
+      <div class="section-tag">08</div>
+      <h2>Your Rights</h2>
+      <ul class="policy-list">
+        <li>Request a copy of the personal information we hold about you.</li>
+        <li>Request correction of inaccurate or outdated information.</li>
+        <li>Request deletion of your information, subject to legal record-keeping requirements.</li>
+        <li>Withdraw consent for us to contact you at any time.</li>
+      </ul>
+      <p>To exercise any of these rights, email <strong>studio@whitespacedesigns.co.za</strong> — we'll respond within a reasonable timeframe.</p>
+    </div>
+
+    <!-- CONTACT STRIP -->
+    <div class="policy-contact">
+      <div>
+        <p style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;">Questions about this policy?</p>
+        <p><strong>Reach out any time</strong> — we're happy to explain how your information is handled before or after you get in touch.</p>
+      </div>
+      <a href="mailto:studio@whitespacedesigns.co.za" class="btn btn-solid">Contact Us</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--bdr);">
+  <div class="wrap policy-footer">
+    <p>WSD / 2026 — White Space Designs — Southern Africa</p>
+    <p><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="mailto:studio@whitespacedesigns.co.za">studio@whitespacedesigns.co.za</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
