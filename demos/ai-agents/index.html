@@ -10,6 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a:focus-visible, button:focus-visible, video:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
     :root {
       --bg: #0a0a0a;
       --fg: #ffffff;
@@ -77,16 +81,6 @@
       border-bottom: 12px solid transparent;
       border-left: 20px solid var(--accent);
     }
-    .coming-icon {
-      font-size: 3rem;
-      margin-bottom: 28px;
-      color: var(--accent);
-      animation: pulse 3s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.92); }
-    }
     .coming-label {
       font-family: var(--mono);
       font-size: .58rem;
@@ -111,21 +105,6 @@
       line-height: 1.8;
       margin-bottom: 48px;
     }
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border: 1px solid var(--bdr);
-      color: var(--fg);
-      font-family: var(--mono);
-      font-size: .6rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
     footer {
       border-top: 1px solid var(--bdr);
       padding: 24px 40px;
@@ -137,6 +116,28 @@
       color: var(--dim);
     }
     footer a { color: var(--accent); text-decoration: none; }
+
+    /* IN-DEPTH SECTION */
+    .depth-section { max-width: 860px; margin: 0 auto; padding: 24px 40px 96px; text-align: left; }
+    .depth-label { font-family: var(--mono); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .depth-label::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
+    .depth-h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; letter-spacing: -.03em; line-height: 1.12; margin-bottom: 28px; color: var(--fg); }
+    .depth-h2 strong { font-weight: 700; }
+    .depth-intro { font-size: 1rem; color: var(--dim); line-height: 1.85; max-width: 680px; margin-bottom: 56px; }
+    .depth-sub { font-size: 1.15rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--bdr); color: var(--fg); }
+    .depth-list { list-style: none; display: flex; flex-direction: column; gap: 18px; margin-bottom: 56px; }
+    .depth-list li { font-size: .92rem; color: var(--dim); line-height: 1.75; padding-left: 22px; position: relative; }
+    .depth-list li::before { content: '—'; color: var(--accent); font-family: var(--mono); font-size: .8rem; position: absolute; left: 0; top: 1px; }
+    .depth-list li strong { color: var(--fg); font-weight: 600; }
+    .depth-bridge { font-size: 1rem; color: var(--fg); font-weight: 400; line-height: 1.85; max-width: 680px; margin-bottom: 48px; padding: 20px 24px; background: #111; border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; }
+    .depth-close { font-size: 1rem; color: var(--dim); line-height: 1.85; max-width: 680px; margin-bottom: 32px; }
+    .depth-close strong { color: var(--fg); }
+    .depth-cta { display: inline-flex; align-items: center; gap: 10px; padding: 15px 30px; font-size: .78rem; font-family: var(--mono); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--fg); color: var(--bg); border: none; text-decoration: none; transition: background .2s; }
+    .depth-cta:hover { background: #d4d4d4; }
+
+    @media (max-width: 600px) {
+      .depth-section { padding: 16px 24px 72px; }
+    }
   </style>
 </head>
 <body>
@@ -154,8 +155,36 @@
       </button>
     </div>
     <p>A look at how our AI Agents work — autonomous lead qualifiers, WhatsApp sales agents, appointment schedulers, and multi-step intelligent assistants. More live demos coming soon.</p>
-    <a class="back-btn" href="/">&#8592; Back to White Space Designs</a>
   </main>
+
+  <section class="depth-section">
+    <div class="depth-label">The Agents</div>
+    <h2 class="depth-h2">Not a chatbot.<br /><strong>A team that never clocks off.</strong></h2>
+    <p class="depth-intro">Most "AI chatbots" are a FAQ page with extra steps. What we build qualifies leads, books calls, answers questions, and follows up, covering the hours you're asleep or busy with someone else.</p>
+
+    <h3 class="depth-sub">What we build</h3>
+    <ul class="depth-list">
+      <li><strong>Lead Qualifier Agent:</strong> sorts every enquiry the second it lands as hot, warm, or not ready. You stop wasting time on leads that were never going to buy, and you never miss the one that was.</li>
+      <li><strong>WhatsApp Sales Agent:</strong> lives inside the app your customers already use. It answers questions, handles objections, and moves the conversation toward a booking or sale, day or night. No "we'll get back to you tomorrow."</li>
+      <li><strong>Appointment Scheduler Agent:</strong> checks your real calendar, books the slot, sends the confirmation. No more "does Tuesday work for you?" back-and-forth.</li>
+      <li><strong>Custom Multi-Step Assistant:</strong> multi-turn workflows built around how your business actually runs.</li>
+    </ul>
+
+    <div class="depth-bridge">Nobody's job disappears. What disappears is the 11pm enquiry that used to wait until morning, and lose the deal to whoever answered first.</div>
+
+    <h3 class="depth-sub">Who actually needs this</h3>
+    <ul class="depth-list">
+      <li><strong>Real estate &amp; property:</strong> an enquiry at 9pm about a listing gets a reply the same second, instead of the next morning. Whoever responds first usually wins the deal.</li>
+      <li><strong>E-commerce &amp; retail:</strong> WhatsApp questions about sizing, stock, or delivery get answered instantly, no staff member picking up a phone.</li>
+      <li><strong>Service businesses:</strong> clinics, salons, contractors. Bookings get captured the moment someone's ready, before they move on to a competitor who answered first.</li>
+      <li><strong>Any business drowning in repetitive questions or manual admin:</strong> the agent handles the 80% of enquiries that are the same five questions, plus the technical operations behind them: order status checks, stock lookups, appointment changes. You deal with what actually needs a human.</li>
+    </ul>
+
+    <p class="depth-close"><strong>One agent catching one missed opportunity a month usually pays for the whole build.</strong> Everything after that is deals you'd have lost otherwise. Book a free call and we'll tell you exactly which agent fits your business.</p>
+
+    <a class="depth-cta" href="https://calendly.com/contact-whitespacedesigns/new-meeting" target="_blank" rel="noopener">Book a Free Call</a>
+  </section>
+
   <footer>
     &copy; 2026 <a href="https://whitespacedesigns.co.za">White Space Designs</a> &middot; All demos are fictional showcases
   </footer>
