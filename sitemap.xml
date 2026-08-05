@@ -36,6 +36,21 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://whitespacedesigns.co.za/demos/web-design/marlow-estate-co/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://whitespacedesigns.co.za/demos/web-design/seren/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://whitespacedesigns.co.za/demos/web-design/pretty-absurd/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://whitespacedesigns.co.za/demos/ai-automation/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -44,5 +59,15 @@
     <loc>https://whitespacedesigns.co.za/demos/ai-agents/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://whitespacedesigns.co.za/pricing-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://whitespacedesigns.co.za/privacy-policy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>

@@ -15,7 +15,7 @@
 
   <!-- ─── Primary SEO ─────────────────────────────────────── -->
   <title>White Space Designs | Web Design &amp; AI Systems — Southern Africa</title>
-  <meta name="description" content="White Space Designs is a Southern African web design and AI solutions agency. We build conversion-focused websites, custom AI agents, and smart automations. Book a free discovery call today." />
+  <meta name="description" content="White Space Designs — Southern African web design and AI automation agency. Custom websites, AI agents, and smart automations. Book a free discovery call." />
   <meta name="keywords" content="web design South Africa, AI agents, automation, brand identity, UI UX design, N8N automation, full stack development, digital strategy, packaging design, Jason Russell" />
   <meta name="author" content="Jason Russell — White Space Designs" />
   <meta name="robots" content="index, follow" />
@@ -44,7 +44,7 @@
     "name": "White Space Designs",
     "description": "Southern African web design and AI solutions agency specialising in conversion-focused websites, custom AI agents, and smart automations.",
     "url": "https://whitespacedesigns.co.za",
-    "logo": "https://whitespacedesigns.co.za/logo.png",
+    "logo": "https://whitespacedesigns.co.za/logo.jpg",
     "image": "https://whitespacedesigns.co.za/og-image.jpg",
     "founder": {
       "@type": "Person",
@@ -2039,7 +2039,10 @@
 <body>
 <!-- ─── Intro Loader ──────────────────────────────────────── -->
 <div id="intro-loader">
-  <video id="intro-video" src="intro.mp4" autoplay muted playsinline preload="auto"></video>
+  <video id="intro-video" autoplay muted playsinline preload="auto"></video>
+  <script>
+    document.getElementById('intro-video').src = window.matchMedia('(max-width: 768px)').matches ? 'intro-mobile.mp4' : 'intro.mp4';
+  </script>
 </div>
 
 <!-- ══════════════ NAV ══════════════════════════════════ -->
