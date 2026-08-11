@@ -36,6 +36,10 @@
     .nav-logo span { color: var(--accent); }
     .nav-back { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; }
     .nav-back:hover { color: var(--fg); }
+    .breadcrumbs { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); display: flex; gap: 8px; align-items: center; padding: 18px 32px 0; }
+    .breadcrumbs a { color: var(--dim); text-decoration: none; transition: color .2s; }
+    .breadcrumbs a:hover { color: var(--fg); }
+    .breadcrumbs span[aria-current] { color: var(--fg); }
 
     main {
       display: flex;
@@ -144,6 +148,11 @@
   <nav>
     <a class="nav-logo" href="https://whitespacedesigns.co.za">White<span>Space</span></a>
     <a class="nav-back" href="/">&#8592; Back to site</a>
+  </nav>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="https://whitespacedesigns.co.za">Home</a>
+    <span>/</span>
+    <span aria-current="page">AI Agents Demos</span>
   </nav>
   <main>
     <div class="coming-label">Demo Showcase</div>
