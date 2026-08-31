@@ -61,12 +61,12 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://whitespacedesigns.co.za/pricing-policy.html</loc>
+    <loc>https://whitespacedesigns.co.za/pricing-policy/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://whitespacedesigns.co.za/privacy-policy.html</loc>
+    <loc>https://whitespacedesigns.co.za/privacy-policy/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

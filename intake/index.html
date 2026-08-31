@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Project Intake — White Space Designs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0a; --bg2: #111111; --sf: #161616;
+    --bdr: rgba(255,255,255,.13); --bdr2: rgba(255,255,255,.07);
+    --txt: #ffffff; --mt: #aaaaaa; --dim: #8e8e8e;
+    --red: #ff3b30;
+    --fnt: 'Inter', system-ui, sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--fnt); background: var(--bg); color: var(--txt); line-height: 1.6; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 60px 24px 120px; }
+  .label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+  .brand { font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; margin-bottom: 40px; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 600; letter-spacing: -.01em; margin: 8px 0 4px; }
+  .sub { color: var(--mt); font-size: .98rem; max-width: 58ch; margin-bottom: 8px; }
+  form { margin-top: 48px; }
+  fieldset { border: none; margin-bottom: 40px; }
+  .q-label { display: block; font-size: 1rem; font-weight: 500; margin-bottom: 4px; }
+  .q-hint { color: var(--dim); font-size: .82rem; margin-bottom: 14px; }
+  input[type="text"], input[type="email"], input[type="tel"], textarea {
+    width: 100%; background: var(--sf); border: 1px solid var(--bdr); border-radius: 3px;
+    color: var(--txt); font-family: var(--fnt); font-size: .95rem; padding: 12px 14px;
+    outline: none; transition: border-color .2s;
+  }
+  input:focus, textarea:focus { border-color: var(--red); }
+  textarea { resize: vertical; min-height: 90px; }
+  .radio-group { display: flex; flex-direction: column; gap: 10px; }
+  .radio-opt { display: flex; align-items: center; gap: 10px; background: var(--sf); border: 1px solid var(--bdr); border-radius: 3px; padding: 12px 14px; cursor: pointer; transition: border-color .2s; }
+  .radio-opt:has(input:checked) { border-color: var(--red); }
+  .radio-opt input { accent-color: var(--red); width: 16px; height: 16px; }
+  .radio-opt span { font-size: .92rem; color: var(--mt); }
+  .req { color: var(--red); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+  .submit-btn { display: block; width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; border-radius: 3px; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: opacity .2s; }
+  .submit-btn:hover { opacity: .9; }
+  .note { color: var(--dim); font-size: .78rem; margin-top: 16px; text-align: center; }
+  #success { display: none; text-align: center; padding: 60px 0; }
+  #success h2 { font-size: 1.6rem; margin-bottom: 12px; }
+  #success p { color: var(--mt); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">WHITE SPACE DESIGNS</div>
+
+  <div id="form-view">
+    <h1>Project Intake</h1>
+    <p class="sub">Everything we need to kick off your build. Takes about 5 minutes — the more detail you give us here, the fewer back-and-forth emails later.</p>
+
+    <form id="intake-form" action="https://formspree.io/f/xjgjpkwp" method="POST">
+      <input type="hidden" name="_subject" value="New Project Intake Submission" />
+
+      <fieldset>
+        <span class="label">Contact</span>
+        <div class="row2" style="margin-top:16px;">
+          <div>
+            <label class="q-label" for="name">Full name <span class="req">*</span></label>
+            <input type="text" id="name" name="Full Name" required />
+          </div>
+          <div>
+            <label class="q-label" for="company">Business name <span class="req">*</span></label>
+            <input type="text" id="company" name="Business Name" required />
+          </div>
+        </div>
+        <div class="row2" style="margin-top:16px;">
+          <div>
+            <label class="q-label" for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="Email" required />
+          </div>
+          <div>
+            <label class="q-label" for="phone">Phone / WhatsApp</label>
+            <input type="tel" id="phone" name="Phone" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label">Do you have existing brand assets (logo, colours, fonts)? <span class="req">*</span></label>
+        <p class="q-hint">If yes, email them to studio@whitespacedesigns.co.za separately, or share a Drive/Dropbox link below.</p>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="Brand Assets" value="Yes, will send" required /><span>Yes — I'll send them</span></label>
+          <label class="radio-opt"><input type="radio" name="Brand Assets" value="No, needs building" required /><span>No — need branding built from scratch</span></label>
+          <label class="radio-opt"><input type="radio" name="Brand Assets" value="Some, incomplete" required /><span>Some, but not complete</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label" for="refs">Sites or brands whose look you like</label>
+        <p class="q-hint">Links are enough — we'll figure out why they work.</p>
+        <textarea id="refs" name="Reference Sites" placeholder="e.g. https://..."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label">Is your content/copy ready, or do you need help writing it? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="Content Status" value="Ready" required /><span>I have content ready</span></label>
+          <label class="radio-opt"><input type="radio" name="Content Status" value="Need writing help" required /><span>Need help writing it</span></label>
+          <label class="radio-opt"><input type="radio" name="Content Status" value="Some of both" required /><span>Some of both</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label" for="content">Paste any existing content, or a link to it</label>
+        <p class="q-hint">Optional — skip if you answered "need help writing it" above.</p>
+        <textarea id="content" name="Existing Content"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label">Domain & hosting <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="Domain Status" value="Already have one" required /><span>Already have a domain</span></label>
+          <label class="radio-opt"><input type="radio" name="Domain Status" value="Need one registered" required /><span>Need one registered</span></label>
+          <label class="radio-opt"><input type="radio" name="Domain Status" value="Not sure" required /><span>Not sure</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label" for="domain">If you have one — domain name and who it's registered with</label>
+        <input type="text" id="domain" name="Domain Details" placeholder="e.g. example.co.za, registered with domains.co.za" />
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label" for="tools">Anything this needs to connect to?</label>
+        <p class="q-hint">Existing WhatsApp Business number, booking system, CRM, payment processor, etc.</p>
+        <textarea id="tools" name="Tools To Connect"></textarea>
+      </fieldset>
+
+      <fieldset>
+        <label class="q-label" for="extra">Anything else we should know before we start?</label>
+        <textarea id="extra" name="Additional Notes"></textarea>
+      </fieldset>
+
+      <button type="submit" class="submit-btn">Submit</button>
+      <p class="note">We'll confirm receipt by email within 24 hours.</p>
+    </form>
+  </div>
+
+  <div id="success">
+    <h1>Got it.</h1>
+    <p>Thanks — we've got everything we need to get started. We'll be in touch shortly to confirm the kickoff.</p>
+  </div>
+</div>
+
+<script>
+document.getElementById('intake-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const form = e.target;
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  }).then(res => {
+    if (res.ok) {
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    } else {
+      alert('Something went wrong submitting the form — please email studio@whitespacedesigns.co.za directly.');
+    }
+  }).catch(() => {
+    alert('Something went wrong submitting the form — please email studio@whitespacedesigns.co.za directly.');
+  });
+});
+</script>
+</body>
+</html>
