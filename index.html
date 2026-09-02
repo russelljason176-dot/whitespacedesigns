@@ -2282,6 +2282,24 @@
   </div>
 </div>
 
+<!-- Markets served marquee (added 2026-09-02) -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="mq-item"><span class="mq-dot"></span>Pretoria</div>
+    <div class="mq-item"><span class="mq-dot"></span>Cape Town</div>
+    <div class="mq-item"><span class="mq-dot"></span>Boksburg</div>
+    <div class="mq-item"><span class="mq-dot"></span>Benoni</div>
+    <div class="mq-item"><span class="mq-dot"></span>Southern Africa</div>
+    <div class="mq-item"><span class="mq-dot"></span>Select International</div>
+    <div class="mq-item"><span class="mq-dot"></span>Pretoria</div>
+    <div class="mq-item"><span class="mq-dot"></span>Cape Town</div>
+    <div class="mq-item"><span class="mq-dot"></span>Boksburg</div>
+    <div class="mq-item"><span class="mq-dot"></span>Benoni</div>
+    <div class="mq-item"><span class="mq-dot"></span>Southern Africa</div>
+    <div class="mq-item"><span class="mq-dot"></span>Select International</div>
+  </div>
+</div>
+
 <!-- ══════════════ PAIN STRIP ══════════════════════════ -->
 <div class="pain-strip rv">
   <div class="wrap">
@@ -3100,16 +3118,12 @@
           <div class="f-g">
             <label>Service Required</label>
             <select name="service">
-              <option value="" disabled selected>Select a service</option>
+              <option value="" disabled selected>What do you need help with?</option>
               <option>Web Design</option>
-              <option>AI Agents</option>
-              <option>Automation</option>
+              <option>AI Automation (agents &amp; workflows)</option>
+              <option>Ongoing Retainer / Support</option>
               <option>Brand Identity</option>
-              <option>UI / UX Design</option>
               <option>Full-Stack Development</option>
-              <option>Packaging Design</option>
-              <option>Digital Strategy</option>
-              <option>Multiple Services</option>
               <option>Not sure yet — let's chat</option>
             </select>
           </div>
@@ -3599,6 +3613,30 @@ document.getElementById('cform').addEventListener('submit', function (e) {
 
 <!-- ══════════════ COOKIE CONSENT ══════════════════════ -->
 <style>
+  /* WhatsApp quick-text float (added 2026-09-02) */
+  .wa-float {
+    position: fixed; bottom: 6rem; right: 1.75rem; z-index: 500;
+    width: 52px; height: 52px; background: #25D366; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; box-shadow: 0 4px 20px rgba(37,211,102,.35);
+    transition: transform .2s, box-shadow .2s, bottom .3s ease;
+    text-decoration: none;
+  }
+  .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,.45); }
+  .wa-float svg { width: 26px; height: 26px; }
+  @keyframes wa-pulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.9); opacity: 0; } }
+  .wa-float::before {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    border: 2px solid #25D366; animation: wa-pulse 2.4s ease-out infinite;
+    pointer-events: none;
+  }
+  /* Nudge above the cookie bar while it's showing so they never overlap */
+  body:has(#cookie-bar.show) .wa-float { bottom: 9.5rem; }
+  @media (max-width: 640px) {
+    .wa-float { bottom: 5.5rem; right: 1.1rem; width: 48px; height: 48px; }
+    body:has(#cookie-bar.show) .wa-float { bottom: 10.5rem; }
+  }
+
   #cookie-bar {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
     background: rgba(10,10,10,.97); border-top: 1px solid rgba(255,255,255,.1);
@@ -4020,6 +4058,10 @@ function cookieConsent(accepted) {
   });
 })();
 </script>
+
+<a href="https://wa.me/27743357752?text=Hi%2C%20I%27d%20like%20to%20find%20out%20more%20about%20White%20Space%20Designs" class="wa-float" aria-label="Message White Space Designs on WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.77.46 3.45 1.27 4.9L2 22l5.25-1.38A9.94 9.94 0 0 0 12.04 22c5.52 0 10-4.48 10-10s-4.48-10-10-10zm0 18.15c-1.6 0-3.15-.43-4.5-1.24l-.32-.19-3.12.82.83-3.04-.21-.31A8.15 8.15 0 0 1 3.85 12c0-4.5 3.66-8.15 8.19-8.15 4.5 0 8.15 3.65 8.15 8.15 0 4.5-3.65 8.15-8.15 8.15zm4.48-6.11c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42-.14 0-.31-.02-.47-.02-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.03s.87 2.36.99 2.52c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28z"/></svg>
+</a>
 
 </body>
 </html>
