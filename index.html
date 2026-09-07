@@ -4129,7 +4129,7 @@ function cookieConsent(accepted) {
     document.body.style.overflow = '';
   }
 
-  document.querySelectorAll('.svc-quote, [data-pick]').forEach(function(el) {
+  document.querySelectorAll('.svc-quote[href="#contact"], [data-pick]').forEach(function(el) {
     el.addEventListener('click', openPicker);
   });
 
