@@ -91,6 +91,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whitespacedesigns.co.za/ai-adoption-south-african-small-business/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://whitespacedesigns.co.za/pricing-policy/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
