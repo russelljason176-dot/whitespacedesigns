@@ -7,47 +7,52 @@
 <title>Project Intake — White Space Designs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0a0a0a; --bg2: #111111; --sf: #161616;
-    --bdr: rgba(255,255,255,.13); --bdr2: rgba(255,255,255,.07);
-    --txt: #ffffff; --mt: #aaaaaa; --dim: #8e8e8e;
-    --red: #ff3b30;
-    --fnt: 'Inter', system-ui, sans-serif;
-    --mono: 'Space Mono', monospace;
+    /* Claymorphism palette — "The Clay Standard" v1, 2026-09-16 (wsd-153), official tokens */
+    --bg: #F2EADC; --bg2: #E6D8C2; --sf: #FAF4EA;
+    --bdr: rgba(46,43,38,.10); --bdr2: rgba(46,43,38,.06);
+    --txt: #2E2B26; --mt: #5B564C; --dim: #746a5c;
+    --red: #CB7A52;
+    --sage: #7E9574;
+    --clay-shadow: 10px 10px 22px rgba(46,43,38,.22), -8px -8px 16px rgba(255,255,255,.85);
+    --clay-shadow-sm: 6px 6px 13px rgba(46,43,38,.18), -5px -5px 10px rgba(255,255,255,.85);
+    --fnt: 'Manrope', system-ui, sans-serif;
+    --display: 'Fredoka', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--fnt); background: var(--bg); color: var(--txt); line-height: 1.6; }
   .wrap { max-width: 680px; margin: 0 auto; padding: 60px 24px 120px; }
   .label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
   .brand { font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; margin-bottom: 40px; }
-  h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 600; letter-spacing: -.01em; margin: 8px 0 4px; }
+  h1 { font-family: var(--display); font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 600; letter-spacing: -.01em; margin: 8px 0 4px; }
   .sub { color: var(--mt); font-size: .98rem; max-width: 58ch; margin-bottom: 8px; }
   form { margin-top: 48px; }
   fieldset { border: none; margin-bottom: 40px; }
-  .q-label { display: block; font-size: 1rem; font-weight: 500; margin-bottom: 4px; }
+  .q-label { display: block; font-family: var(--display); font-size: 1rem; font-weight: 500; margin-bottom: 4px; }
   .q-hint { color: var(--dim); font-size: .82rem; margin-bottom: 14px; }
   input[type="text"], input[type="email"], input[type="tel"], textarea {
-    width: 100%; background: var(--sf); border: 1px solid var(--bdr); border-radius: 3px;
+    width: 100%; background: var(--sf); border: 1px solid var(--bdr); border-radius: 14px;
     color: var(--txt); font-family: var(--fnt); font-size: .95rem; padding: 12px 14px;
-    outline: none; transition: border-color .2s;
+    outline: none; transition: box-shadow .2s; box-shadow: var(--clay-shadow-sm);
   }
-  input:focus, textarea:focus { border-color: var(--red); }
+  input:focus, textarea:focus { box-shadow: var(--clay-shadow); }
   textarea { resize: vertical; min-height: 90px; }
   .radio-group { display: flex; flex-direction: column; gap: 10px; }
-  .radio-opt { display: flex; align-items: center; gap: 10px; background: var(--sf); border: 1px solid var(--bdr); border-radius: 3px; padding: 12px 14px; cursor: pointer; transition: border-color .2s; }
-  .radio-opt:has(input:checked) { border-color: var(--red); }
+  .radio-opt { display: flex; align-items: center; gap: 10px; background: var(--sf); border: 1px solid var(--bdr); border-radius: 14px; padding: 12px 14px; cursor: pointer; transition: box-shadow .2s; box-shadow: var(--clay-shadow-sm); }
+  .radio-opt:has(input:checked) { box-shadow: var(--clay-shadow); }
   .radio-opt input { accent-color: var(--red); width: 16px; height: 16px; }
   .radio-opt span { font-size: .92rem; color: var(--mt); }
   .req { color: var(--red); }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
-  .submit-btn { display: block; width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; border-radius: 3px; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: opacity .2s; }
+  .submit-btn { display: block; width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; border-radius: 14px; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: opacity .2s; box-shadow: var(--clay-shadow-sm); }
   .submit-btn:hover { opacity: .9; }
   .note { color: var(--dim); font-size: .78rem; margin-top: 16px; text-align: center; }
   #success { display: none; text-align: center; padding: 60px 0; }
-  #success h2 { font-size: 1.6rem; margin-bottom: 12px; }
+  #success h2 { font-family: var(--display); font-size: 1.6rem; margin-bottom: 12px; }
   #success p { color: var(--mt); }
 </style>
 </head>
