@@ -7,176 +7,303 @@
 <title>Project Intake — White Space Designs</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
-    /* Claymorphism palette — "The Clay Standard" v1, 2026-09-16 (wsd-153), official tokens */
-    --bg: #F2EADC; --bg2: #E6D8C2; --sf: #FAF4EA;
-    --bdr: rgba(46,43,38,.10); --bdr2: rgba(46,43,38,.06);
-    --txt: #2E2B26; --mt: #5B564C; --dim: #746a5c;
-    --red: #CB7A52;
-    --sage: #7E9574;
-    --clay-shadow: 10px 10px 22px rgba(46,43,38,.22), -8px -8px 16px rgba(255,255,255,.85);
-    --clay-shadow-sm: 6px 6px 13px rgba(46,43,38,.18), -5px -5px 10px rgba(255,255,255,.85);
+    --accent: #d97a3f;
+    --accent-dark: #c56a2c;
+    --accent-text: #7a4a20;
+    --bg: #edefec;
+    --card: #f5f6f3;
+    --field: #eceee9;
+    --txt: #20221e;
+    --mt: #5c6157;
+    --dim: #8a8f81;
+    --eyebrow: #a9ae9f;
+    --shadow-out: 9px 9px 22px rgba(163,172,157,.35), -9px -9px 20px rgba(255,255,255,.9);
+    --shadow-in: inset 4px 4px 9px rgba(163,172,157,.35), inset -4px -4px 9px rgba(255,255,255,.85);
     --fnt: 'Manrope', system-ui, sans-serif;
-    --display: 'Fredoka', system-ui, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+    --display: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--fnt); background: var(--bg); color: var(--txt); line-height: 1.6; }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 60px 24px 120px; }
-  .label { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
-  .brand { font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; margin-bottom: 40px; }
-  h1 { font-family: var(--display); font-size: clamp(1.7rem, 4vw, 2.3rem); font-weight: 600; letter-spacing: -.01em; margin: 8px 0 4px; }
-  .sub { color: var(--mt); font-size: .98rem; max-width: 58ch; margin-bottom: 8px; }
-  form { margin-top: 48px; }
-  fieldset { border: none; margin-bottom: 40px; }
-  .q-label { display: block; font-family: var(--display); font-size: 1rem; font-weight: 500; margin-bottom: 4px; }
-  .q-hint { color: var(--dim); font-size: .82rem; margin-bottom: 14px; }
-  input[type="text"], input[type="email"], input[type="tel"], textarea {
-    width: 100%; background: var(--sf); border: 1px solid var(--bdr); border-radius: 14px;
-    color: var(--txt); font-family: var(--fnt); font-size: .95rem; padding: 12px 14px;
-    outline: none; transition: box-shadow .2s; box-shadow: var(--clay-shadow-sm);
+  ::selection { background: rgba(214,124,58,.25); }
+  a { color: var(--accent-dark); }
+  a:hover { color: var(--accent-text); }
+
+  .page { min-height: 100vh; width: 100%; display: flex; justify-content: center; padding: 64px 20px 96px; }
+  .shell { width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: 22px; }
+
+  .header { padding: 4px 6px 8px; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-dark); }
+  h1 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 6vw, 44px); color: var(--txt); margin: 14px 0 12px; letter-spacing: -.01em; }
+  .sub { font-size: 16px; line-height: 1.6; color: var(--mt); max-width: 520px; }
+
+  .rail { position: fixed; right: 28px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 20; }
+  .rail-track { position: relative; width: 12px; height: 230px; border-radius: 999px; background: #e6e8e3; box-shadow: inset 3px 3px 8px rgba(163,172,157,.4), inset -3px -3px 8px rgba(255,255,255,.85); overflow: hidden; display: flex; flex-direction: column-reverse; }
+  .rail-fill { width: 100%; height: 0%; border-radius: 999px; background: linear-gradient(180deg, #f7c896, var(--accent)); box-shadow: 0 0 16px 3px rgba(217,122,63,.45); transition: height .3s ease; }
+  .rail-label { font-size: 12px; font-weight: 700; color: var(--dim); }
+  @media (max-width: 900px) { .rail { display: none; } }
+
+  .card { background: var(--card); border-radius: 28px; padding: 30px 30px 32px; box-shadow: var(--shadow-out); display: flex; flex-direction: column; gap: 16px; }
+  .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--eyebrow); }
+  .q-title { font-family: var(--display); font-size: 19px; font-weight: 700; color: var(--txt); }
+  .hint { font-size: 14px; color: #787f72; line-height: 1.5; margin-top: -6px; }
+
+  .two-col { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+  @media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+  .field-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .field-label { font-size: 13px; font-weight: 600; color: #4b5045; }
+  .req { color: #c56a2c; }
+  input, textarea {
+    width: 100%; border: none; outline: none; font-family: var(--fnt); font-size: 15px; color: var(--txt);
+    background: var(--field); border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow-in);
   }
-  input:focus, textarea:focus { box-shadow: var(--clay-shadow); }
-  textarea { resize: vertical; min-height: 90px; }
-  .radio-group { display: flex; flex-direction: column; gap: 10px; }
-  .radio-opt { display: flex; align-items: center; gap: 10px; background: var(--sf); border: 1px solid var(--bdr); border-radius: 14px; padding: 12px 14px; cursor: pointer; transition: box-shadow .2s; box-shadow: var(--clay-shadow-sm); }
-  .radio-opt:has(input:checked) { box-shadow: var(--clay-shadow); }
-  .radio-opt input { accent-color: var(--red); width: 16px; height: 16px; }
-  .radio-opt span { font-size: .92rem; color: var(--mt); }
-  .req { color: var(--red); }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
-  .submit-btn { display: block; width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; border-radius: 14px; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: opacity .2s; box-shadow: var(--clay-shadow-sm); }
-  .submit-btn:hover { opacity: .9; }
-  .note { color: var(--dim); font-size: .78rem; margin-top: 16px; text-align: center; }
-  #success { display: none; text-align: center; padding: 60px 0; }
-  #success h2 { font-family: var(--display); font-size: 1.6rem; margin-bottom: 12px; }
-  #success p { color: var(--mt); }
+  textarea { resize: vertical; line-height: 1.5; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-family: var(--fnt); font-size: 14.5px; font-weight: 600; padding: 13px 20px; border-radius: 999px;
+    border: none; cursor: pointer; transition: all .18s ease; background: #f2f4f0; color: #3c4038;
+    box-shadow: 5px 5px 12px rgba(163,172,157,.35), -5px -5px 12px rgba(255,255,255,.85);
+  }
+  .chip.selected {
+    background: linear-gradient(135deg, #fbf3ea, #f3e6d7); color: var(--accent-text);
+    box-shadow: 0 0 0 1px rgba(217,122,63,.19), inset 0 1px 2px rgba(255,255,255,.9), 0 0 22px -4px rgba(217,122,63,.5);
+  }
+
+  .conditional { display: none; }
+  .conditional.show { display: flex; }
+
+  .footer-block { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 10px 6px 0; }
+  .submit-btn {
+    width: 100%; border: none; cursor: pointer; font-family: var(--display); font-size: 17px; font-weight: 700;
+    color: var(--accent-text); padding: 18px 0; border-radius: 999px; background: linear-gradient(135deg, #fbf3ea, #f3e6d7);
+    box-shadow: 6px 6px 16px rgba(163,172,157,.35), -4px -4px 12px rgba(255,255,255,.85), inset 0 1px 2px rgba(255,255,255,.9), 0 0 26px -2px rgba(217,122,63,.5);
+    transition: box-shadow .2s;
+  }
+  .submit-btn:hover { box-shadow: 6px 6px 16px rgba(163,172,157,.35), -4px -4px 12px rgba(255,255,255,.85), inset 0 1px 2px rgba(255,255,255,.9), 0 0 36px -2px rgba(217,122,63,.6); }
+  .footer-note { font-size: 13.5px; color: var(--dim); }
+
+  #success { display: none; }
+  .success-card {
+    position: relative; overflow: hidden; width: 100%; max-width: 520px; margin: auto;
+    background: var(--card); border-radius: 28px; padding: 48px 40px; box-shadow: var(--shadow-out);
+    text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .success-glow {
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 220px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(217,122,63,.33), transparent 70%); filter: blur(10px);
+  }
+  .success-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-dark); }
+  .success-title { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--txt); margin-top: 10px; line-height: 1.25; }
+  .success-body { font-size: 16px; color: var(--mt); margin-top: 14px; line-height: 1.6; }
+  .ghost-btn {
+    margin-top: 22px; border: none; cursor: pointer; font-family: var(--fnt); font-size: 14px; font-weight: 600;
+    color: var(--accent-text); padding: 13px 22px; border-radius: 999px; background: linear-gradient(135deg, #fbf3ea, #f3e6d7);
+    box-shadow: 5px 5px 12px rgba(163,172,157,.35), -5px -5px 12px rgba(255,255,255,.85), 0 0 18px -4px rgba(217,122,63,.45);
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">WHITE SPACE DESIGNS</div>
 
-  <div id="form-view">
-    <h1>Project Intake</h1>
-    <p class="sub">Everything we need to kick off your build. Takes about 5 minutes — the more detail you give us here, the fewer back-and-forth emails later.</p>
+<div class="rail" id="rail">
+  <div class="rail-track"><div class="rail-fill" id="rail-fill"></div></div>
+  <span class="rail-label" id="rail-label">0%</span>
+</div>
 
-    <form id="intake-form" action="https://formspree.io/f/xjgjpkwp" method="POST">
-      <input type="hidden" name="_subject" value="New Project Intake Submission" />
+<div class="page" id="form-view">
+  <form class="shell" id="intake-form" action="https://formspree.io/f/xjgjpkwp" method="POST">
+    <input type="hidden" name="_subject" value="New Project Intake Submission" />
+    <input type="hidden" name="Brand Assets" id="brand-assets-field" />
+    <input type="hidden" name="Content Status" id="content-status-field" />
+    <input type="hidden" name="Domain Status" id="domain-status-field" />
 
-      <fieldset>
-        <span class="label">Contact</span>
-        <div class="row2" style="margin-top:16px;">
-          <div>
-            <label class="q-label" for="name">Full name <span class="req">*</span></label>
-            <input type="text" id="name" name="Full Name" required />
-          </div>
-          <div>
-            <label class="q-label" for="company">Business name <span class="req">*</span></label>
-            <input type="text" id="company" name="Business Name" required />
-          </div>
-        </div>
-        <div class="row2" style="margin-top:16px;">
-          <div>
-            <label class="q-label" for="email">Email <span class="req">*</span></label>
-            <input type="email" id="email" name="Email" required />
-          </div>
-          <div>
-            <label class="q-label" for="phone">Phone / WhatsApp</label>
-            <input type="tel" id="phone" name="Phone" />
-          </div>
-        </div>
-      </fieldset>
+    <div class="header">
+      <div class="eyebrow">White Space Designs · Project Intake</div>
+      <h1>Project Intake</h1>
+      <p class="sub">Everything we need to kick off your build. Takes about 5 minutes — the more detail you give us here, the fewer back-and-forth emails later.</p>
+    </div>
 
-      <fieldset>
-        <label class="q-label">Do you have existing brand assets (logo, colours, fonts)? <span class="req">*</span></label>
-        <p class="q-hint">If yes, email them to studio@whitespacedesigns.co.za separately, or share a Drive/Dropbox link below.</p>
-        <div class="radio-group">
-          <label class="radio-opt"><input type="radio" name="Brand Assets" value="Yes, will send" required /><span>Yes — I'll send them</span></label>
-          <label class="radio-opt"><input type="radio" name="Brand Assets" value="No, needs building" required /><span>No — need branding built from scratch</span></label>
-          <label class="radio-opt"><input type="radio" name="Brand Assets" value="Some, incomplete" required /><span>Some, but not complete</span></label>
-        </div>
-      </fieldset>
+    <div class="card">
+      <div class="section-eyebrow">01 — Contact</div>
+      <div class="two-col">
+        <label class="field-wrap">
+          <span class="field-label">Full name <span class="req">*</span></span>
+          <input type="text" id="name" name="Full Name" placeholder="Thabo Nkosi" required data-track />
+        </label>
+        <label class="field-wrap">
+          <span class="field-label">Business name <span class="req">*</span></span>
+          <input type="text" id="company" name="Business Name" placeholder="e.g. Karoo Roastery" required data-track />
+        </label>
+        <label class="field-wrap">
+          <span class="field-label">Email <span class="req">*</span></span>
+          <input type="email" id="email" name="Email" placeholder="you@business.co.za" required data-track />
+        </label>
+        <label class="field-wrap">
+          <span class="field-label">Phone / WhatsApp</span>
+          <input type="tel" id="phone" name="Phone" placeholder="082 000 0000" />
+        </label>
+      </div>
+    </div>
 
-      <fieldset>
-        <label class="q-label" for="refs">Sites or brands whose look you like</label>
-        <p class="q-hint">Links are enough — we'll figure out why they work.</p>
-        <textarea id="refs" name="Reference Sites" placeholder="e.g. https://..."></textarea>
-      </fieldset>
+    <div class="card">
+      <div class="section-eyebrow">02 — Brand assets</div>
+      <div class="q-title">Do you have existing brand assets (logo, colours, fonts)? <span class="req">*</span></div>
+      <div class="hint">If yes, email them to <a href="mailto:studio@whitespacedesigns.co.za">studio@whitespacedesigns.co.za</a> separately, or share a Drive/Dropbox link below.</div>
+      <div class="chip-row" data-chip-group="brand" data-required-field="brand-assets-field" data-track>
+        <button type="button" class="chip" data-value="Yes, will send">Yes — I'll send them</button>
+        <button type="button" class="chip" data-value="No, needs building">No — need branding built from scratch</button>
+        <button type="button" class="chip" data-value="Some, incomplete">Some, but not complete</button>
+      </div>
+      <label class="field-wrap conditional" id="brand-link-wrap">
+        <span class="field-label">Link to your assets</span>
+        <input type="text" name="Brand Link" placeholder="https://drive.google.com/..." />
+      </label>
+    </div>
 
-      <fieldset>
-        <label class="q-label">Is your content/copy ready, or do you need help writing it? <span class="req">*</span></label>
-        <div class="radio-group">
-          <label class="radio-opt"><input type="radio" name="Content Status" value="Ready" required /><span>I have content ready</span></label>
-          <label class="radio-opt"><input type="radio" name="Content Status" value="Need writing help" required /><span>Need help writing it</span></label>
-          <label class="radio-opt"><input type="radio" name="Content Status" value="Some of both" required /><span>Some of both</span></label>
-        </div>
-      </fieldset>
+    <div class="card">
+      <div class="section-eyebrow">03 — Inspiration</div>
+      <div class="q-title">Sites or brands whose look you like</div>
+      <div class="hint">Links are enough — we'll figure out why they work.</div>
+      <label class="field-wrap">
+        <textarea id="refs" name="Reference Sites" placeholder="e.g. https://..." rows="3"></textarea>
+      </label>
+    </div>
 
-      <fieldset>
-        <label class="q-label" for="content">Paste any existing content, or a link to it</label>
-        <p class="q-hint">Optional — skip if you answered "need help writing it" above.</p>
-        <textarea id="content" name="Existing Content"></textarea>
-      </fieldset>
+    <div class="card">
+      <div class="section-eyebrow">04 — Copy &amp; content</div>
+      <div class="q-title">Is your content/copy ready, or do you need help writing it? <span class="req">*</span></div>
+      <div class="chip-row" data-chip-group="content" data-required-field="content-status-field" data-track>
+        <button type="button" class="chip" data-value="Ready">I have content ready</button>
+        <button type="button" class="chip" data-value="Need writing help">Need help writing it</button>
+        <button type="button" class="chip" data-value="Some of both">Some of both</button>
+      </div>
+      <label class="field-wrap conditional show" id="content-paste-wrap">
+        <span class="field-label">Paste any existing content, or a link to it</span>
+        <textarea id="content" name="Existing Content" placeholder="Drop your copy, PDF link, or Google Doc here" rows="4"></textarea>
+      </label>
+    </div>
 
-      <fieldset>
-        <label class="q-label">Domain & hosting <span class="req">*</span></label>
-        <div class="radio-group">
-          <label class="radio-opt"><input type="radio" name="Domain Status" value="Already have one" required /><span>Already have a domain</span></label>
-          <label class="radio-opt"><input type="radio" name="Domain Status" value="Need one registered" required /><span>Need one registered</span></label>
-          <label class="radio-opt"><input type="radio" name="Domain Status" value="Not sure" required /><span>Not sure</span></label>
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <label class="q-label" for="domain">If you have one — domain name and who it's registered with</label>
+    <div class="card">
+      <div class="section-eyebrow">05 — Domain &amp; hosting</div>
+      <div class="q-title">Domain &amp; hosting <span class="req">*</span></div>
+      <div class="chip-row" data-chip-group="domain" data-required-field="domain-status-field" data-track>
+        <button type="button" class="chip" data-value="Already have one">Already have a domain</button>
+        <button type="button" class="chip" data-value="Need one registered">Need one registered</button>
+        <button type="button" class="chip" data-value="Not sure">Not sure</button>
+      </div>
+      <label class="field-wrap conditional" id="domain-details-wrap">
+        <span class="field-label">Domain name and who it's registered with</span>
         <input type="text" id="domain" name="Domain Details" placeholder="e.g. example.co.za, registered with domains.co.za" />
-      </fieldset>
+      </label>
+      <label class="field-wrap">
+        <span class="field-label">Anything this needs to connect to?</span>
+        <div class="hint">Existing WhatsApp Business number, booking system, CRM, payment processor, etc.</div>
+        <textarea id="tools" name="Tools To Connect" placeholder="e.g. WhatsApp Business, Yoco payments, Cal.com" rows="3"></textarea>
+      </label>
+    </div>
 
-      <fieldset>
-        <label class="q-label" for="tools">Anything this needs to connect to?</label>
-        <p class="q-hint">Existing WhatsApp Business number, booking system, CRM, payment processor, etc.</p>
-        <textarea id="tools" name="Tools To Connect"></textarea>
-      </fieldset>
+    <div class="card">
+      <div class="section-eyebrow">06 — Anything else</div>
+      <div class="q-title">Anything else we should know before we start?</div>
+      <label class="field-wrap">
+        <textarea id="extra" name="Additional Notes" placeholder="Deadlines, must-haves, things to avoid..." rows="3"></textarea>
+      </label>
+    </div>
 
-      <fieldset>
-        <label class="q-label" for="extra">Anything else we should know before we start?</label>
-        <textarea id="extra" name="Additional Notes"></textarea>
-      </fieldset>
+    <div class="footer-block">
+      <button type="submit" class="submit-btn">Submit intake</button>
+      <div class="footer-note">We'll confirm receipt by email within 24 hours.</div>
+    </div>
+  </form>
+</div>
 
-      <button type="submit" class="submit-btn">Send My Project Details</button>
-      <p class="note">We'll confirm receipt by email within 24 hours.</p>
-    </form>
-  </div>
-
-  <div id="success">
-    <h1>Got it.</h1>
-    <p>Thanks — we've got everything we need to get started. We'll be in touch shortly to confirm the kickoff.</p>
+<div class="page" id="success" style="display:none;">
+  <div class="success-card">
+    <div class="success-glow"></div>
+    <div class="success-eyebrow">Received</div>
+    <div class="success-title" id="success-title">Thanks. We've got everything.</div>
+    <div class="success-body">We'll confirm receipt by email within 24 hours, then follow up with next steps and a rough timeline.</div>
+    <button type="button" class="ghost-btn" onclick="location.reload()">Submit another response</button>
   </div>
 </div>
 
 <script>
-document.getElementById('intake-form').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const form = e.target;
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form),
-    headers: { 'Accept': 'application/json' }
-  }).then(res => {
-    if (res.ok) {
-      document.getElementById('form-view').style.display = 'none';
-      document.getElementById('success').style.display = 'block';
-    } else {
-      alert('Something went wrong submitting the form — please email studio@whitespacedesigns.co.za directly.');
-    }
-  }).catch(() => {
-    alert('Something went wrong submitting the form — please email studio@whitespacedesigns.co.za directly.');
+(function () {
+  const form = document.getElementById('intake-form');
+  const chipGroups = form.querySelectorAll('[data-chip-group]');
+
+  chipGroups.forEach((group) => {
+    const hiddenField = document.getElementById(group.dataset.requiredField);
+    group.querySelectorAll('.chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.chip').forEach((c) => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        hiddenField.value = chip.dataset.value;
+        updateConditionals();
+        updateProgress();
+      });
+    });
   });
-});
+
+  function updateConditionals() {
+    const brand = document.getElementById('brand-assets-field').value;
+    document.getElementById('brand-link-wrap').classList.toggle('show', brand === 'Yes, will send' || brand === 'Some, incomplete');
+
+    const content = document.getElementById('content-status-field').value;
+    document.getElementById('content-paste-wrap').classList.toggle('show', content === 'Ready' || content === 'Some of both' || content === '');
+
+    const domain = document.getElementById('domain-status-field').value;
+    document.getElementById('domain-details-wrap').classList.toggle('show', domain === 'Already have one');
+  }
+
+  const requiredCount = 6;
+  function updateProgress() {
+    let filled = 0;
+    if (document.getElementById('name').value.trim()) filled++;
+    if (document.getElementById('company').value.trim()) filled++;
+    if (document.getElementById('email').value.trim()) filled++;
+    if (document.getElementById('brand-assets-field').value) filled++;
+    if (document.getElementById('content-status-field').value) filled++;
+    if (document.getElementById('domain-status-field').value) filled++;
+    const pct = Math.round((filled / requiredCount) * 100);
+    document.getElementById('rail-fill').style.height = pct + '%';
+    document.getElementById('rail-label').textContent = pct + '%';
+  }
+
+  form.querySelectorAll('[data-track]').forEach((el) => {
+    el.addEventListener('input', updateProgress);
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!document.getElementById('brand-assets-field').value || !document.getElementById('content-status-field').value || !document.getElementById('domain-status-field').value) {
+      alert('Please answer all the required questions (marked *) before submitting.');
+      return;
+    }
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then((res) => {
+      if (res.ok) {
+        const first = (document.getElementById('name').value.trim().split(' ')[0]) || 'there';
+        document.getElementById('success-title').textContent = 'Thanks, ' + first + '. We\'ve got everything.';
+        document.getElementById('form-view').style.display = 'none';
+        document.getElementById('rail').style.display = 'none';
+        document.getElementById('success').style.display = 'flex';
+      } else {
+        alert('Something went wrong submitting the form — please email studio@whitespacedesigns.co.za directly.');
+      }
+    }).catch(() => {
+      alert('Something went wrong submitting the form — please email studio@whitespacedesigns.co.za directly.');
+    });
+  });
+
+  updateConditionals();
+  updateProgress();
+})();
 </script>
 </body>
 </html>
