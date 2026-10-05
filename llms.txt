@@ -1,0 +1,51 @@
+# White Space Designs
+
+> Pretoria-based AI automation and web design agency. We build AI agents that answer enquiries, follow up and book appointments for small businesses, plus the websites that bring customers in. Founded by Jason Russell. Serving Pretoria, Centurion, Midrand and Pretoria East, plus select clients elsewhere in South Africa.
+
+Website: https://whitespacedesigns.co.za/
+Contact: studio@whitespacedesigns.co.za
+Book a free discovery call: https://cal.com/whitespacedesigns/discovery-call
+
+## Quick facts
+
+- Business: White Space Designs, an AI automation and web design agency based in Pretoria, South Africa.
+- Founder: Jason Russell.
+- What it does: builds AI agents and automation that answer enquiries, follow up and book appointments for small businesses, plus websites.
+- Pricing (ZAR, South African clients): AI automation build R9,500 once-off; web design from R7,500; care plans from R1,500 per month. AI running costs are separate and disclosed up front.
+- Typical timeline: about two weeks from discovery call to live.
+- Service area: Pretoria, Centurion, Midrand and Pretoria East; remote-first, select clients elsewhere in South Africa and internationally.
+- Start: free 30-minute discovery call, no obligation.
+
+## Services
+
+- [AI Automation & AI Agents](https://whitespacedesigns.co.za/services/ai-automation/): custom AI agents, WhatsApp bots, lead qualification and marketing automation. Once-off build fee of R9,500.
+- [Web Design](https://whitespacedesigns.co.za/services/web-design/): custom, mobile-first websites built to convert. From R7,500.
+- [Care Plans & Retainers](https://whitespacedesigns.co.za/services/retainers/): ongoing website maintenance, AI agent support and monthly automation. From R1,500 per month.
+- [Brand Identity](https://whitespacedesigns.co.za/services/brand-identity/): logo, colour, typography and brand guidelines.
+- [Full-Stack Development](https://whitespacedesigns.co.za/services/full-stack-development/): custom web apps, back-end logic and API integrations.
+
+## Industries and areas
+
+- [AI Automation for Trades & Home Services](https://whitespacedesigns.co.za/ai-automation-for-trades-home-services/)
+- [AI Automation for Estate Agents & Professional Services](https://whitespacedesigns.co.za/ai-automation-for-estate-agents-professional-services/)
+- [AI Automation for Salons, Beauty & Wellness](https://whitespacedesigns.co.za/ai-automation-for-salons-beauty-wellness/)
+- [AI Automation in Pretoria](https://whitespacedesigns.co.za/ai-automation-pretoria/)
+- [AI Automation in Centurion](https://whitespacedesigns.co.za/ai-automation-centurion/)
+- [AI Automation in Midrand](https://whitespacedesigns.co.za/ai-automation-midrand/)
+- [AI Automation in Boksburg & Benoni](https://whitespacedesigns.co.za/ai-automation-boksburg-benoni/)
+- [Roofing & Waterproofing](https://whitespacedesigns.co.za/roofing-waterproofing/)
+
+## Guides and data
+
+- [AI Automation for Med-Aesthetic Clinics](https://whitespacedesigns.co.za/ai-automation-med-aesthetic-clinics/): WhatsApp booking, no-show follow-ups and lead capture for clinics.
+- [AI Adoption Among South African Small Businesses (2026 Data)](https://whitespacedesigns.co.za/ai-adoption-south-african-small-business/): what the 2026 data says and what it means for Gauteng business owners.
+
+## Policies
+
+- [Pricing & Payment Policy](https://whitespacedesigns.co.za/pricing-policy/)
+- [Privacy Policy](https://whitespacedesigns.co.za/privacy-policy/)
+
+## Notes
+
+- Prices are in South African rand (ZAR), shown for South African clients. International enquiries are quoted on request.
+- AI running costs (for example model API usage) are separate from the build fee and are disclosed up front.
