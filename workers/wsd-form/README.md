@@ -6,11 +6,11 @@ What it does: the site form posts to this Worker. The Worker saves the lead to C
 
 Do this in the Cloudflare account that owns `whitespacedesigns.co.za` (the one with the domain's DNS and Email Routing).
 
-1. **Email Routing destination.** Domain `whitespacedesigns.co.za` > Email > Email Routing. Under Destination addresses, make sure `whitespacedesigns.co.za@gmail.com` is **Verified**.
+1. **Email Routing destination.** Domain `whitespacedesigns.co.za` > Email > Email Routing. Under Destination addresses, make sure `contact.whitespacedesigns@gmail.com` is **Verified**.
 2. **KV store.** Workers & Pages > KV > Create namespace `wsd-leads`.
 3. **Create the Worker.** Workers & Pages > Create > Worker > name it `wsd-form` > Deploy, then Edit code and paste `worker.js`.
 4. **Bindings** (Worker > Settings > Bindings):
-   - **Send Email**, name `EMAIL`, "Selected destination address" `whitespacedesigns.co.za@gmail.com`.
+   - **Send Email**, name `EMAIL`, "Selected destination address" `contact.whitespacedesigns@gmail.com`.
    - **KV namespace**, name `LEADS`, pick `wsd-leads`.
 5. **Admin key (secret).** Worker > Settings > Variables and Secrets > Add > type **Secret**, name `ADMIN_KEY`, value = a long random string (for example 40 random characters). Keep a copy.
 6. **Connect Mission Control.** Create `C:\Users\Jason\Documents\Dashboards\MissionControl\form-worker.json`:

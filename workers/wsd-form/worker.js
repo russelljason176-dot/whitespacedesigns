@@ -6,8 +6,7 @@ import { EmailMessage } from 'cloudflare:email';
 
 const ALLOWED_ORIGINS = ['https://whitespacedesigns.co.za', 'https://www.whitespacedesigns.co.za'];
 const FROM = 'forms@whitespacedesigns.co.za';       // must be an address on a domain with Email Routing enabled
-const TO = 'whitespacedesigns.co.za@gmail.com';     // must be a VERIFIED destination address in Email Routing
-const KNOWN = ['_gotcha', 'name', 'first_name', 'email', 'message', 'source'];
+const TO = 'contact.whitespacedesigns@gmail.com';     // must be a VERIFIED destination address in Email Routing
 
 const cors = (origin) => ({
   'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
@@ -58,15 +57,22 @@ export default {
       data = ct.includes('application/json') ? await request.json() : Object.fromEntries(await request.formData());
     } catch { return json({ ok: false, error: 'bad request' }, 400, origin); }
 
-    if (clean(data._gotcha)) return json({ ok: true }, 200, origin); // honeypot: silently drop bots
-    const name = header(data.name || data.first_name || '');
-    const email = header(data.email);
-    const message = clean(data.message);
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email) || message.length < 3) return json({ ok: false, error: 'invalid input' }, 422, origin);
+    if (clean(data._gotcha) || clean(data.gotcha)) return json({ ok: true }, 200, origin); // honeypot: silently drop bots
+    // forms differ (home: first_name/last_name/message, intake: Full Name/Email), so match field names loosely
+    const norm = (k) => k.toLowerCase().replace(/[\s_-]/g, '');
+    const pick = (...keys) => { for (const want of keys) { const k = Object.keys(data).find((x) => norm(x) === want && clean(data[x])); if (k) return { key: k, value: data[k] }; } return { key: '', value: '' }; };
+    const first = pick('firstname').value, last = pick('lastname').value;
+    const name = header(pick('name', 'fullname').value || [first, last].filter(Boolean).join(' '));
+    const email = header(pick('email').value);
+    const msgPick = pick('message', 'additionalnotes', 'notes');
+    const message = clean(msgPick.value);
+    const subjectField = header(pick('subject').value);
+    const used = new Set(['gotcha', 'name', 'fullname', 'firstname', 'lastname', 'email', 'message', 'source', 'subject']);
+    const extra = Object.fromEntries(Object.entries(data).filter(([k, v]) => !used.has(norm(k)) && k !== msgPick.key && clean(v)).slice(0, 25).map(([k, v]) => [header(k), clean(v, 500)]));
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email) || (message.length < 3 && !Object.keys(extra).length)) return json({ ok: false, error: 'invalid input' }, 422, origin);
 
     let source = header(data.source || '');
     if (!source) { try { source = new URL(request.headers.get('Referer') || '').pathname; } catch { source = ''; } }
-    const extra = Object.fromEntries(Object.entries(data).filter(([k]) => !KNOWN.includes(k)).slice(0, 25).map(([k, v]) => [header(k), clean(v, 500)]));
     const ts = new Date().toISOString();
     const id = `lead-${ts}-${crypto.randomUUID().slice(0, 8)}`;
 
@@ -74,7 +80,7 @@ export default {
     if (env.LEADS) await env.LEADS.put(id, JSON.stringify({ id, ts, name, email, message, source, extra, emailed: false }), { expirationTtl: 60 * 60 * 24 * 730 });
 
     const rest = Object.entries(extra).map(([k, v]) => `${k}: ${v}`).join('\n');
-    const subject = `New enquiry from ${name || email}`;
+    const subject = subjectField ? `${subjectField}: ${name || email}` : `New enquiry from ${name || email}`;
     const body = `Name: ${name}\nEmail: ${email}\nPage: ${source || 'unknown'}\n\n${message}\n\n${rest}\n\nReceived: ${ts}`;
     const raw = [`From: WSD website <${FROM}>`, `To: ${TO}`, `Reply-To: ${email}`, `Subject: ${subject}`, `Message-ID: <${crypto.randomUUID()}@whitespacedesigns.co.za>`, 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=utf-8', '', body].join('\r\n');
 
