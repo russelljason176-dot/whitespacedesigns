@@ -1,0 +1,87 @@
+{
+  "niche_id": "roofing-waterproofing",
+  "rotation_id": "01",
+  "window": { "start": "2026-10-06", "end": "2027-01-03" },
+  "meta": {
+    "title": "Never Lose a Job to a Missed Call | White Space Designs",
+    "description": "The Job Catcher: missed-call text-back, instant lead reply, inspection booking and quote follow-up for roofing & waterproofing contractors in Gauteng.",
+    "og_title": "Never Lose a Job to a Missed Call or a Slow Quote",
+    "og_description": "Built for roofing and waterproofing contractors. One missed call can cost you a job worth tens of thousands — the Job Catcher makes sure it doesn't happen."
+  },
+  "offer": {
+    "name": "Job Catcher",
+    "one_liner": "I make sure you never lose a job to a missed call or a slow quote.",
+    "headline": "Never lose a job to a missed call.",
+    "subhead": "Built for roofing and waterproofing contractors who are on a roof, not by the phone.",
+    "cta_primary": "Book a 15 minute demo",
+    "cta_secondary": "See how it works"
+  },
+  "pain_lines": [
+    "A missed call at 7pm could be a R40,000 roof replacement going to the next guy on the list.",
+    "You're on a roof, not by a phone — every ring you can't answer is a quote you never get to send.",
+    "Quotes go out and go quiet. No one chases them, so no one closes them."
+  ],
+  "modules": [
+    {
+      "id": "missed_call",
+      "title": "Missed call text-back",
+      "description": "Every missed call gets an instant WhatsApp or SMS: \"Sorry we missed you, what can we help with?\" — so the lead doesn't call the next number on the list."
+    },
+    {
+      "id": "instant_reply",
+      "title": "Instant lead reply",
+      "description": "Website and Facebook enquiries get a reply within a minute, with qualifying questions — roof type, leak or full job, area, photos."
+    },
+    {
+      "id": "inspection_booking",
+      "title": "Inspection booking",
+      "description": "Qualified leads pick an inspection slot straight into your calendar — no back-and-forth."
+    },
+    {
+      "id": "quote_followup",
+      "title": "Quote follow-up",
+      "description": "Sent quotes get automatic nudges on day 2, 5 and 10 until the client says yes or no."
+    },
+    {
+      "id": "review_requests",
+      "title": "Review requests",
+      "description": "Finished jobs get a review request, so your Google profile keeps growing on its own."
+    }
+  ],
+  "proof": {
+    "case_study_id": null,
+    "case_study_name": null,
+    "case_study_blurb": "No live case study yet — King of Paintings never closed (lead went cold, see project_king_of_paintings memory). No proof point exists until the first real client. Do not reference King of Paintings as a client anywhere in marketing."
+  },
+  "pricing": {
+    "currency_primary": "ZAR",
+    "setup": { "zar": [5000, 12000], "usd": [750, 2000] },
+    "monthly": { "zar": [1500, 3500], "usd": [300, 800] },
+    "website_addon": { "zar": [6000, 15000], "usd": [1000, 2500] },
+    "founding_offer": "Setup at cost, 3-month minimum on monthly — first 3 local clients only.",
+    "terms": "50% deposit, 50% on go-live.",
+    "justification_line": "What's an average job worth to you? If this saves one job a month, it pays for itself several times over."
+  },
+  "objections": [
+    { "code": "HAS_RECEPTIONIST", "text": "We already have a receptionist.", "response": "Great — this covers after hours, weekends and her lunch break." },
+    { "code": "PRICE", "text": "Too expensive.", "response": "What's one job worth to you? This needs to save one a year to pay off." },
+    { "code": "NOT_TECH", "text": "I'm not good with tech.", "response": "You don't touch it. I set it up and run it; you just see the bookings come in." }
+  ],
+  "faqs": [
+    { "q": "How fast does the missed-call text go out?", "a": "Within seconds of the missed call — before the caller has even put their phone down." },
+    { "q": "Do I need to change my phone number?", "a": "No — it works with the number you already use." },
+    { "q": "What happens to my current receptionist or admin?", "a": "Nothing changes for them. This covers the gaps — after hours, weekends, lunch breaks, and while you're on site." },
+    { "q": "How long does setup take?", "a": "Most contractors are live within a week of signing." }
+  ],
+  "service_areas": [
+    { "slug": "waterproofing-centurion", "service": "Waterproofing", "area": "Centurion" },
+    { "slug": "roofing-pretoria", "service": "Roofing", "area": "Pretoria" },
+    { "slug": "roof-repairs-boksburg", "service": "Roof Repairs", "area": "Boksburg" },
+    { "slug": "waterproofing-midrand", "service": "Waterproofing", "area": "Midrand" },
+    { "slug": "roofing-johannesburg", "service": "Roofing", "area": "Johannesburg" }
+  ],
+  "ideal_client": {
+    "target": ["5+ staff or several crews", "Runs Google or Facebook ads, active Google profile", "30+ Google reviews", "Roof replacements, waterproofing, full repaints"],
+    "avoid": ["Solo handyman, one bakkie", "Word of mouth only, no online presence", "Under 10 reviews", "Small repairs, odd jobs"]
+  }
+}
