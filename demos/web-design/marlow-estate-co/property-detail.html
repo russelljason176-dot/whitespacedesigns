@@ -322,24 +322,24 @@
     <div class="gallery-inner">
       <div class="gallery-grid">
         <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 1 of 5" data-index="0" style="background:none;">
-          <img src="assets/listing-1.jpg" alt="14 Aloe Ridge Drive exterior" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="assets/listing-1.webp" alt="14 Aloe Ridge Drive exterior" style="width:100%;height:100%;object-fit:cover;display:block;" />
           <span class="gallery-cell-num">1 / 5</span>
         </div>
         <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 2 of 5" data-index="1" style="background:none;">
-          <img src="assets/listing-2.jpg" alt="14 Aloe Ridge Drive library" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="assets/listing-2.webp" alt="14 Aloe Ridge Drive library" style="width:100%;height:100%;object-fit:cover;display:block;"  loading="lazy" decoding="async"/>
           <span class="gallery-cell-num">2 / 5</span>
         </div>
         <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 3 of 5" data-index="2" style="background:none;">
-          <img src="assets/listing-3.jpg" alt="14 Aloe Ridge Drive terrace" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="assets/listing-3.webp" alt="14 Aloe Ridge Drive terrace" style="width:100%;height:100%;object-fit:cover;display:block;"  loading="lazy" decoding="async"/>
           <span class="gallery-cell-num">3 / 5</span>
         </div>
         <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 4 of 5" data-index="3" style="background:none;">
-          <img src="assets/aloe-ridge-kitchen.webp" alt="14 Aloe Ridge Drive — kitchen" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          <img src="assets/aloe-ridge-kitchen.webp" alt="14 Aloe Ridge Drive — kitchen" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;"  loading="lazy" decoding="async"/>
           <div class="gallery-more">+ View all 5 photos</div>
           <span class="gallery-cell-num">4 / 5</span>
         </div>
         <div class="gallery-cell" role="button" tabindex="0" aria-label="View photo 5 of 5" data-index="4" style="background:none;">
-          <img src="assets/aloe-ridge-master.webp" alt="14 Aloe Ridge Drive — master suite" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />
+          <img src="assets/aloe-ridge-master.webp" alt="14 Aloe Ridge Drive — master suite" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;"  loading="lazy" decoding="async"/>
           <span class="gallery-cell-num">5 / 5</span>
         </div>
       </div>
@@ -395,7 +395,7 @@
       <div class="floor-plan">
         <h2 class="section-heading">Floor plan</h2>
         <div class="floor-plan-box" role="img" aria-label="14 Aloe Ridge Drive floor plan" style="padding:0;overflow:hidden;background:var(--bg2);">
-          <img src="assets/aloe-ridge-floorplan.png" alt="14 Aloe Ridge Drive — first and second floor plan" style="width:100%;height:auto;display:block;" />
+          <img src="assets/aloe-ridge-floorplan.webp" alt="14 Aloe Ridge Drive — first and second floor plan" style="width:100%;height:auto;display:block;"  loading="lazy" decoding="async"/>
         </div>
       </div>
 
@@ -564,13 +564,13 @@
         priceNote:'Asking price · Rates approx. R2,850/month · Levies approx. R3,200/month',
         beds:4, baths:3, garages:2, sqm:'485', sqmLabel:'m² under roof', stand:'1,050',
         photos:[
-          {src:'assets/listing-1.jpg',           alt:'14 Aloe Ridge Drive — exterior'},
-          {src:'assets/listing-2.jpg',           alt:'14 Aloe Ridge Drive — library'},
-          {src:'assets/listing-3.jpg',           alt:'14 Aloe Ridge Drive — terrace'},
+          {src:'assets/listing-1.webp',           alt:'14 Aloe Ridge Drive — exterior'},
+          {src:'assets/listing-2.webp',           alt:'14 Aloe Ridge Drive — library'},
+          {src:'assets/listing-3.webp',           alt:'14 Aloe Ridge Drive — terrace'},
           {src:'assets/aloe-ridge-kitchen.webp', alt:'14 Aloe Ridge Drive — kitchen'},
           {src:'assets/aloe-ridge-master.webp',  alt:'14 Aloe Ridge Drive — master suite'},
         ],
-        floorplan:'assets/aloe-ridge-floorplan.png',
+        floorplan:'assets/aloe-ridge-floorplan.webp',
       },
       'MEC-2024-002': {
         address:'8 Watercrest Estate', suburb:'Midrand', suburblc:'midrand',
@@ -579,7 +579,7 @@
         price:'R 28,500 / month',
         priceNote:'Per month · Utilities excluded · Deposit: 2 months',
         beds:3, baths:2, garages:1, sqm:'320', sqmLabel:'m² floor area', stand:null,
-        photos:[{src:'assets/listing-2.jpg', alt:'8 Watercrest Estate'}],
+        photos:[{src:'assets/listing-2.webp', alt:'8 Watercrest Estate'}],
         floorplan:null,
       },
       'MEC-2024-003': {
@@ -589,7 +589,7 @@
         price:'R 6,200,000',
         priceNote:'Asking price',
         beds:5, baths:4, garages:3, sqm:'720', sqmLabel:'m² under roof', stand:null,
-        photos:[{src:'assets/listing-3.jpg', alt:'22 The Willows — exterior'}],
+        photos:[{src:'assets/listing-3.webp', alt:'22 The Willows — exterior'}],
         floorplan:null,
       },
       'MEC-2024-004': {
@@ -648,7 +648,7 @@
             const p = L.photos[i];
             const viewAll = (i === 3 && n > 4) ? '<div class="gallery-more">+ View all ' + n + ' photos</div>' : '';
             html += '<div class="gallery-cell" role="button" tabindex="0" aria-label="View photo ' + (i+1) + ' of ' + n + '" data-index="' + i + '" style="background:none;">'
-                  + '<img src="' + p.src + '" alt="' + p.alt + '" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;" />'
+                  + '<img src="' + p.src + '" alt="' + p.alt + '" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;"  loading="lazy" decoding="async"/>'
                   + viewAll
                   + '<span class="gallery-cell-num">' + (i+1) + ' / ' + n + '</span></div>';
           } else {
@@ -728,7 +728,7 @@
     }
     function updateLightbox() {
       const p = photos[currentPhoto];
-      lbImg.innerHTML = '<img src="' + p.src + '" alt="' + p.alt + '" style="max-width:100%;max-height:100%;object-fit:contain;display:block;margin:auto;" />';
+      lbImg.innerHTML = '<img src="' + p.src + '" alt="' + p.alt + '" style="max-width:100%;max-height:100%;object-fit:contain;display:block;margin:auto;"  loading="lazy" decoding="async"/>';
       lbImg.setAttribute('aria-label', p.alt);
       lbCounter.textContent = (currentPhoto + 1) + ' / ' + photos.length;
     }

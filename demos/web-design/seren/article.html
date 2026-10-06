@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Journal — Seren Botanical Skincare</title>
+  <meta name="description" content="Notes on botanicals, rituals and the science of simpler skincare." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="seren-shell.css" />
+  <style>
+  .art-cat { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 1rem; }
+  .art h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4.5vw, 3.2rem); line-height: 1.15; margin-bottom: 1rem; }
+  .art-meta { font-size: .78rem; color: var(--text-dim); margin-bottom: 2rem; }
+  .art-hero { aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; background: var(--cream-alt); margin-bottom: 2.5rem; }
+  .art-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .art p.b { font-size: 1.05rem; font-weight: 300; line-height: 1.9; margin-bottom: 1.5rem; }
+  .art-prod { margin-top: 3.5rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+  .art-prod h2 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; margin-bottom: 1.25rem; }
+  .art-prod .product-grid { grid-template-columns: repeat(3, 1fr); } .art-prod .product-card { opacity: 1; transform: none; }
+  .art-back { display: inline-block; margin-top: 2.5rem; font-size: .8rem; color: var(--olive); text-decoration: underline; }
+  .nf { text-align: center; padding: 4rem 0; } .nf p { color: var(--text-dim); margin: .75rem 0 1.75rem; }
+  @media (max-width: 640px) { .art-prod .product-grid { grid-template-columns: repeat(2, 1fr); } }</style>
+  <!-- ─── Microsoft Clarity (heatmaps + session replay) ───── -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ysvpdz7c35");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html" class="active">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav-cart-count" id="cart-count">0</span>
+      </a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <button class="nav-drawer-close" id="nav-close" aria-label="Close menu">✕</button>
+    <ul class="nav-drawer-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <main class="wrap narrow" id="main" tabindex="-1" style="padding-top:110px">
+    <div id="art-root"></div>
+  </main>
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html?cat=serums">Serums</a></li>
+          <li><a href="shop.html?cat=moisturisers">Moisturisers</a></li>
+          <li><a href="shop.html?cat=cleansers">Cleansers</a></li>
+          <li><a href="shop.html?cat=oils">Face Oils</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Learn</p>
+        <ul class="footer-links">
+          <li><a href="ingredients.html">Botanicals</a></li>
+          <li><a href="routines.html">Routines</a></li>
+          <li><a href="journal.html">Journal</a></li>
+          <li><a href="about.html">Our Story</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="faq.html#shipping">Shipping &amp; Returns</a></li>
+          <li><a href="faq.html#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+  <script src="seren.js"></script>
+  <script>
+    (function () {
+      var nav = document.getElementById('nav'), ham = document.getElementById('nav-hamburger'), dr = document.getElementById('nav-drawer'),
+          ov = document.getElementById('nav-overlay'), cl = document.getElementById('nav-close');
+      function open() { dr.classList.add('open'); ov.classList.add('open'); ham.setAttribute('aria-expanded', 'true'); }
+      function close() { dr.classList.remove('open'); ov.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); }
+      ham.addEventListener('click', open); cl.addEventListener('click', close); ov.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+      var cur = location.pathname.split('/').pop();
+      document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(function (a) { if (a.getAttribute('href') === cur) a.setAttribute('aria-current', 'page'); });
+    })();
+
+    var qs = new URLSearchParams(location.search), slug = qs.get('slug'), legacy = { '1': 'rooibos-science', '2': 'baobab-barrier', '3': 'morning-ritual' };
+    if (!slug && qs.get('id')) slug = legacy[qs.get('id')];
+    var a = Seren.ARTICLES[slug], root = document.getElementById('art-root');
+    if (!a) {
+      document.title = 'Article not found — Seren Botanical Skincare';
+      root.innerHTML = '<div class="nf"><h1 class="page-title">Article not found</h1><p>We could not find that article.</p><a class="btn" href="journal.html">Back to the journal</a></div>';
+    } else {
+      document.title = a.title + ' — Seren Journal';
+      root.innerHTML = '<p class="crumbs"><a href="index.html">Home</a> / <a href="journal.html">Journal</a></p><article class="art"><p class="art-cat">' + a.cat + '</p><h1>' + a.title + '</h1>' +
+        '<p class="art-meta">' + a.author + ' · ' + a.date + '</p><div class="art-hero"><img src="images/' + a.img + '.webp" alt="" width="1000" height="563" /></div>' +
+        a.body.map(function (t) { return '<p class="b">' + t + '</p>'; }).join('') + '</article>' +
+        '<section class="art-prod"><h2>Mentioned in this article</h2><div class="product-grid">' + a.products.map(function (k) { var r = Seren.PRODUCTS[k];
+          return '<article class="product-card"><a href="product.html?ref=' + k + '" class="product-img-wrap"><img src="images/' + r.img + '.webp" alt="' + r.name + '" loading="lazy" width="400" height="400" /></a><div class="product-body"><p class="product-cat">' + r.cat + '</p><p class="product-name">' + r.name + '</p><div class="product-card-footer"><span class="product-price">' + Seren.money(r.price) + '</span><button class="btn-add" data-ref="' + k + '">Add to Cart</button></div></div></article>'; }).join('') + '</div></section>' +
+        '<a class="art-back" href="journal.html">← Back to the journal</a>';
+    }
+  </script>
+</body>
+</html>

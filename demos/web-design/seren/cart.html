@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Your Cart — Seren Botanical Skincare</title>
+  <meta name="description" content="Review your Seren order." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="seren-shell.css" />
+  <style>
+  .cart-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
+  .line { display: grid; grid-template-columns: 96px 1fr auto; gap: 1.25rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); align-items: center; }
+  .line img { width: 96px; height: 96px; object-fit: cover; border-radius: 4px; background: var(--cream-alt); }
+  .line .nm { font-family: var(--serif); font-size: 1.15rem; } .line .ct { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: .25rem; }
+  .line .pr { text-align: right; font-size: .95rem; font-weight: 500; }
+  .line .rm { background: none; border: none; font-size: .7rem; color: var(--text-dim); text-decoration: underline; margin-top: .5rem; padding: 0; }
+  .sum { background: var(--cream-alt); border: 1px solid var(--border); border-radius: 4px; padding: 1.75rem; position: sticky; top: 90px; }
+  .sum h2 { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; margin-bottom: 1rem; }
+  .sum .row { display: flex; justify-content: space-between; font-size: .88rem; padding: .45rem 0; color: var(--text-dim); }
+  .sum .row.total { color: var(--text); font-weight: 500; font-size: 1rem; border-top: 1px solid var(--border); margin-top: .5rem; padding-top: 1rem; }
+  .sum .btn { width: 100%; text-align: center; margin-top: 1.25rem; }
+  .empty { text-align: center; padding: 4rem 0; } .empty p { color: var(--text-dim); margin: .75rem 0 1.75rem; font-weight: 300; }
+  .ok { display: none; text-align: center; padding: 3rem 1rem; } .ok h2 { font-family: var(--serif); font-weight: 400; font-size: 2rem; margin-bottom: .75rem; }
+  @media (max-width: 860px) { .cart-grid { grid-template-columns: 1fr; } .sum { position: static; } }
+  @media (max-width: 480px) { .line { grid-template-columns: 72px 1fr; } .line img { width: 72px; height: 72px; } .line .pr { grid-column: 2; text-align: left; } }</style>
+  <!-- ─── Microsoft Clarity (heatmaps + session replay) ───── -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ysvpdz7c35");
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ── NAV ──────────────────────────────────────────────── -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-progress" id="nav-progress"></div>
+    <a class="nav-logo" href="index.html">Seren</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+    </ul>
+    <div class="nav-right">
+      <a class="nav-cart" href="cart.html" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="nav-cart-count" id="cart-count">0</span>
+      </a>
+      <a class="nav-cta" href="shop.html">Shop now</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <nav class="nav-drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <button class="nav-drawer-close" id="nav-close" aria-label="Close menu">✕</button>
+    <ul class="nav-drawer-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="ingredients.html">Ingredients</a></li>
+      <li><a href="routines.html">Routines</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="journal.html">Journal</a></li>
+      <li><a href="cart.html" class="active">Cart</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="page-header">
+    <p class="page-eyebrow">Your order</p>
+    <h1 class="page-title">Cart</h1>
+  </div>
+  <main class="wrap" id="main" tabindex="-1">
+    <div id="cart-root"></div>
+  </main>
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-name">Seren</div>
+        <p class="footer-brand-desc">South African botanical skincare. Eight ingredients. Eight products. All the skin needs.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/whitespacedesign_za" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/whitespacedesigns" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/white-space-designs" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="shop.html">All Products</a></li>
+          <li><a href="shop.html?cat=serums">Serums</a></li>
+          <li><a href="shop.html?cat=moisturisers">Moisturisers</a></li>
+          <li><a href="shop.html?cat=cleansers">Cleansers</a></li>
+          <li><a href="shop.html?cat=oils">Face Oils</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Learn</p>
+        <ul class="footer-links">
+          <li><a href="ingredients.html">Botanicals</a></li>
+          <li><a href="routines.html">Routines</a></li>
+          <li><a href="journal.html">Journal</a></li>
+          <li><a href="about.html">Our Story</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="faq.html#shipping">Shipping &amp; Returns</a></li>
+          <li><a href="faq.html#privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">© 2026 Seren Botanical Skincare · South Africa</p>
+      <span class="footer-demo-badge">Portfolio Demo — White Space Designs</span>
+    </div>
+  </footer>
+  <script src="seren.js"></script>
+  <script>
+    (function () {
+      var nav = document.getElementById('nav'), ham = document.getElementById('nav-hamburger'), dr = document.getElementById('nav-drawer'),
+          ov = document.getElementById('nav-overlay'), cl = document.getElementById('nav-close');
+      function open() { dr.classList.add('open'); ov.classList.add('open'); ham.setAttribute('aria-expanded', 'true'); }
+      function close() { dr.classList.remove('open'); ov.classList.remove('open'); ham.setAttribute('aria-expanded', 'false'); }
+      ham.addEventListener('click', open); cl.addEventListener('click', close); ov.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+      var cur = location.pathname.split('/').pop();
+      document.querySelectorAll('.nav-links a, .nav-drawer-links a').forEach(function (a) { if (a.getAttribute('href') === cur) a.setAttribute('aria-current', 'page'); });
+    })();
+
+    var FREE_FROM = 750, SHIP = 75;
+    function render() {
+      var c = Seren.cart.get(), keys = Object.keys(c), root = document.getElementById('cart-root');
+      if (!keys.length) { root.innerHTML = '<div class="empty"><h2 style="font-family:var(--serif);font-weight:400;font-size:1.8rem">Your cart is empty</h2><p>Eight products, all of them earning their place.</p><a class="btn" href="shop.html">Shop the range</a></div>'; return; }
+      var sub = 0, lines = keys.map(function (k) {
+        var p = Seren.PRODUCTS[k], q = c[k]; sub += p.price * q;
+        return '<div class="line"><a href="product.html?ref=' + k + '"><img src="images/' + p.img + '.webp" alt="' + p.name + '" width="96" height="96" /></a>' +
+          '<div><p class="ct">' + p.cat + '</p><a class="nm" href="product.html?ref=' + k + '">' + p.name + '</a>' +
+          '<div style="margin-top:.6rem"><span class="qty"><button aria-label="Decrease quantity" data-q="' + k + '" data-d="-1">−</button><span aria-live="polite">' + q + '</span><button aria-label="Increase quantity" data-q="' + k + '" data-d="1">+</button></span></div>' +
+          '<button class="rm" data-rm="' + k + '">Remove</button></div>' +
+          '<div class="pr">' + Seren.money(p.price * q) + '</div></div>';
+      }).join('');
+      var ship = sub >= FREE_FROM ? 0 : SHIP;
+      root.innerHTML = '<div class="cart-grid"><div>' + lines + '</div><aside class="sum"><h2>Summary</h2>' +
+        '<div class="row"><span>Subtotal</span><span>' + Seren.money(sub) + '</span></div>' +
+        '<div class="row"><span>Shipping</span><span>' + (ship ? Seren.money(ship) : 'Free') + '</span></div>' +
+        (ship ? '<div class="row" style="font-size:.72rem">Free shipping from ' + Seren.money(FREE_FROM) + '. You are ' + Seren.money(FREE_FROM - sub) + ' away.</div>' : '') +
+        '<div class="row total"><span>Total</span><span>' + Seren.money(sub + ship) + '</span></div>' +
+        '<button class="btn" id="checkout">Checkout</button>' +
+        '<p class="demo-note">Portfolio demo by White Space Designs. Checkout is a simulation: no payment is taken and no order is placed.</p></aside></div>' +
+        '<div class="ok" id="ok"></div>';
+    }
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (t.dataset.q) { var c = Seren.cart.get(); Seren.cart.setQty(t.dataset.q, (c[t.dataset.q] || 0) + parseInt(t.dataset.d, 10)); render(); }
+      else if (t.dataset.rm) { Seren.cart.setQty(t.dataset.rm, 0); render(); }
+      else if (t.id === 'checkout') {
+        Object.keys(Seren.cart.get()).forEach(function (k) { Seren.cart.setQty(k, 0); });
+        document.getElementById('cart-root').innerHTML = '<div class="ok" style="display:block"><h2>Thank you</h2><p style="color:var(--text-dim);font-weight:300;margin-bottom:1.75rem">This is a demo checkout, so nothing was charged and no order was placed. On a live store, payment and order confirmation would happen here.</p><a class="btn" href="shop.html">Back to the shop</a></div>';
+        window.scrollTo(0, 0);
+      }
+    });
+    render();
+  </script>
+</body>
+</html>
