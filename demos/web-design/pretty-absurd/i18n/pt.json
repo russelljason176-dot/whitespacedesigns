@@ -4,21 +4,15 @@
   "nav": {
     "brand": "Pretty Absurd",
     "lookbook": "Lookbook",
-    "collection": "Os Vestidos",
+    "collection": "As Bolsas",
     "about": "Sobre",
-    "brandWorld": "Universo da Marca",
     "contact": "Contato"
   },
   "home": {
     "hero": {
       "sub": "O exagero é justamente o objetivo.",
       "cta_lookbook": "Entrar no lookbook",
-      "cta_collection": "Ver os vestidos"
-    },
-    "prelaunch": {
-      "label": "Pré-lançamento",
-      "text": "Pré-venda abre em 25 de julho — Coleção chega em 25 de julho de 2026",
-      "cta": "Avise-me →"
+      "cta_collection": "Ver as bolsas"
     },
     "receipt": {
       "brand": "PRETTY ABSURD",
@@ -26,9 +20,14 @@
       "blue": "O Azul Gelo",
       "dot": "A Poá",
       "total": "TOTAL",
-      "status_line": "STATUS … em breve<br>LISTA DE ESPERA … aberta",
-      "cta_main": "TOQUE PARA RESERVAR",
-      "cta_sub": "entrar na lista de espera — xo"
+      "status_line": "STATUS … em estoque<br>ENTREGA … The Courier Guy",
+      "cta_main": "TOQUE PARA COMPRAR",
+      "cta_sub": "as bolsas chegaram — xo"
+    },
+    "shop": {
+      "label": "As Bolsas",
+      "headline": "Brocado, amarrado e com franjas.",
+      "cta": "Ver todas as bolsas →"
     },
     "designer": {
       "label": "A Estilista",
@@ -38,28 +37,36 @@
     },
     "notify": {
       "headline": "Seja a primeira a saber.",
-      "sub": "Pré-venda abre em 25 de julho de 2026. Deixe seu e-mail e avisamos assim que abrir.",
+      "sub": "Deixe seu e-mail e avisamos sobre novas bolsas e reposições.",
       "placeholder": "seu@email.com",
       "btn": "Avise-me"
     }
   },
+  "bags": {
+    "shoulder":    { "descriptor": "bolsa de ombro em brocado", "desc": "divine… uma bolsa de ombro macia e arredondada em brocado, cortada com generosidade e finalizada com uma franja que se move assim que você se move. a peça mais ousada da linha." },
+    "knot-fringe": { "descriptor": "bolsa amarrada em brocado, com franjas", "desc": "candy… a bolsa amarrada de inspiração japonesa, presa ao pulso e finalizada com uma longa franja que simplesmente não para quieta." },
+    "knot":        { "descriptor": "bolsa amarrada em brocado", "desc": "edie… uma bolsa amarrada emprestada da tradição japonesa do furoshiki, levada depois para onde não deveria ter ido. brocado cortado à mão, tule com paetês, forro de tafetá. feita à mão em johannesburgo… 15 de cada vez." }
+  },
   "collection": {
+    "bags_label": "As Bolsas",
+    "bags_headline": "Brocado, amarrado e com franjas.",
+    "bags_sub": "Três formatos, algumas cores, feitas em pequenas quantidades. Quando uma cor acaba, acabou de vez.",
     "label": "A Coleção",
     "headline": "Três Vestidos.",
-    "sub": "Cada um feito para ser admirado. Pré-venda abre em 25 de julho — Coleção chega em 25 de julho de 2026.",
+    "sub": "Cada um feito para ser admirado. Pré-venda abre em 22 de agosto — Coleção chega em 22 de agosto de 2026.",
     "view_dress": "Ver o vestido ↓",
     "price_label": "Preço",
     "cta_inquire": "Perguntar sobre este vestido",
-    "launch_note": "Pré-venda abre em 25 de julho — Chega em 25 de julho de 2026",
+    "launch_note": "Pré-venda abre em 22 de agosto — Chega em 22 de agosto de 2026",
     "pieces": {
       "pink": {
         "num": "01 — 03",
         "name": "O Cetim Rosa",
-        "desc": "Um corpete que leva a sério. Uma saia plissada que não leva. Feito em cetim rosa lilás macio, com estrutura de barbatanas, decote coração e um cadarço nas costas que não tem pressa.",
+        "desc": "Um corpete que leva a sério. Uma saia plissada que não leva. Feito em cetim Duquesa rosa lilás macio, com decote coração e um cadarço nas costas que não tem pressa.",
         "details": [
-          "Cetim com estrutura de barbatanas",
+          "Cetim Duquesa rosa lilás macio",
           "Decote coração com babado",
-          "Fechamento com cadarço nas costas",
+          "Cadarço nas costas",
           "Zíper invisível lateral",
           "Minissaia plissada"
         ],
@@ -68,9 +75,9 @@
       "blue": {
         "num": "02 — 03",
         "name": "O Azul Gelo",
-        "desc": "Cetim azul empoeirado. Decote coração. Estruturalmente absurdo. A mesma silhueta do rosa — mesma base, humor diferente. Mais discreto, até você ver em movimento.",
+        "desc": "Cetim Duquesa azul empoeirado. Decote coração. Estruturalmente absurdo. A mesma silhueta do rosa — mesma base, humor diferente. Mais discreto, até você ver em movimento.",
         "details": [
-          "Cetim azul gelo com estrutura de barbatanas",
+          "Cetim Duquesa azul gelo",
           "Decote coração com babado",
           "Cadarço de fita nas costas, tom sobre tom",
           "Zíper invisível lateral",
@@ -83,9 +90,9 @@
         "name": "A Poá",
         "desc": "Bolinhas pretas sobre branco. Charme retrô. Caos contemporâneo. Mesma silhueta, mesma estrutura — mas a poá muda tudo. É o vestido que faz todo mundo olhar duas vezes.",
         "details": [
-          "Tecido estruturado branco com poás pretas",
+          "Cetim Duquesa branco com poás pretas",
           "Decote coração com babado",
-          "Fechamento com cadarço nas costas",
+          "Cadarço nas costas",
           "Zíper invisível lateral",
           "Minissaia plissada"
         ],
@@ -103,13 +110,13 @@
       "label": "A História",
       "headline": "Roupas que pertencem a um filme que você não consegue identificar.",
       "p1": "Roupas femininas normalmente escolhem um caminho: invisíveis, ou esforçando-se demais. Kaylah driblou essa escolha e criou três vestidos.",
-      "p2": "Cada um compartilha a mesma base — corpete, decote coração, saia plissada — e conta uma história diferente. Cetim rosa que parece um sonho de Barbie. Azul gelo digno de passarela parisiense. Poás que lembram Marilyn Monroe em uma cobertura.",
+      "p2": "Cada um compartilha a mesma base — corpete, decote coração, saia plissada — e conta uma história diferente. Cetim Duquesa rosa que parece um sonho de Barbie. Azul gelo digno de passarela parisiense. Poás que lembram Marilyn Monroe em uma cobertura.",
       "p3": "O nome diz tudo. Pretty Absurd é uma moda deliberada e alegremente fora do lugar. Roupas que fazem as pessoas olharem — não porque são estranhas, mas porque estão exatamente certas em tudo o que têm de errado."
     },
     "philosophy": {
       "label": "A Filosofia",
       "quote": "\"Pretty Absurd se baseia em uma única ideia: a roupa deve fazer você se sentir a pessoa mais interessante da sala. Não a mais elegante. A mais interessante.\"",
-      "body": "Feminina ou séria. Divertida ou impecável. Essa escolha é imposta às mulheres o tempo todo. Kaylah ignorou. As barbatanas do corpete são sérias. As poás são divertidas. As duas coisas, ao mesmo tempo, de propósito."
+      "body": "Feminina ou séria. Divertida ou impecável. Essa escolha é imposta às mulheres o tempo todo. Kaylah ignorou. A estrutura do corpete é séria. As poás são divertidas. As duas coisas, ao mesmo tempo, de propósito."
     },
     "studio_caption": "O ateliê — onde tudo começa",
     "process": {
@@ -117,43 +124,17 @@
       "headline_1": "Cada costura posicionada com intenção.",
       "headline_2": "O caos está em vestir, não em fazer.",
       "step1_title": "Estrutura primeiro",
-      "step1_text": "Cada vestido começa pela base. As barbatanas do corpete definem a silhueta antes de qualquer pedaço de cetim ser cortado. Estrutura nunca é um detalhe de última hora.",
+      "step1_text": "Cada vestido começa pela forma. A silhueta do corpete é desenhada antes de qualquer pedaço de cetim Duquesa ser cortado. Estrutura nunca é um detalhe de última hora.",
       "step2_title": "O tecido como personalidade",
-      "step2_text": "O tecido nunca é apenas um revestimento — é a personalidade da peça. O cetim capta a luz de um jeito diferente. As poás mudam a conversa antes mesmo de você dizer uma palavra.",
+      "step2_text": "O tecido nunca é apenas um revestimento — é a personalidade da peça. O cetim Duquesa capta a luz de um jeito diferente. As poás mudam a conversa antes mesmo de você dizer uma palavra.",
       "step3_title": "Detalhes que merecem seu lugar",
       "step3_text": "O babado no decote coração. O cadarço nas costas. O zíper invisível na lateral. Nada está ali por decoração — cada detalhe cumpre uma função."
     },
     "cta_strip": {
-      "text": "Três vestidos. Pré-venda abre em 25 de julho — Coleção chega em 25 de julho de 2026.",
-      "cta_collection": "Ver os vestidos →",
+      "text": "Três vestidos. Pré-venda abre em 22 de agosto — Coleção chega em 22 de agosto de 2026.",
+      "cta_collection": "Ver as bolsas →",
       "cta_lookbook": "Entrar no lookbook →"
     }
-  },
-  "brandWorld": {
-    "label": "Universo da Marca",
-    "headline_1": "O Universo da",
-    "headline_2": "Pretty Absurd.",
-    "intro": "Poás no metrô. Grama na sala de estar. Um vestido perfeitamente passado no lugar totalmente errado. Este é o mundo de onde vêm essas roupas.",
-    "manifesto": {
-      "one": "O vestido que não combina com o ambiente. O tecido bom demais para a ocasião. A silhueta que para a sala. Ninguém planeja lembrar de um look. A Pretty Absurd garante que isso aconteça.",
-      "two": "As referências estão em todo lugar: Marilyn Monroe sobre uma grade de metrô, Barbie em uma casa dos sonhos um pouco torta, um editorial da Vogue fotografado onde a Vogue jamais iria. A Pretty Absurd pega emprestado de tudo isso — e coloca dentro de um corpete.",
-      "three": "Essa não é uma moda que quer desaparecer no armário. Ela quer ser usada, admirada, e usada de novo."
-    },
-    "captions": {
-      "dot_subway": "Poás no metrô — Edição 01",
-      "pink_butterfly": "Cetim Rosa — detalhe",
-      "blue_armchair": "Azul Gelo — cenário retrô",
-      "pink_street": "Cetim Rosa — rua",
-      "dot_highway": "A Poá — espreguiçadeira na estrada",
-      "blue_newspaper": "Azul Gelo — editorial",
-      "blue_playful": "Azul Gelo — Edição 01",
-      "dot_crosswalk": "A Poá — faixa de pedestre P&B",
-      "dot_navy": "A Poá — retrato"
-    },
-    "quote": "\"Vestidos feitos para serem admirados.\"",
-    "quote_attr": "— Pretty Absurd, SS26",
-    "cta_lookbook": "Entrar no lookbook →",
-    "cta_collection": "Ver a coleção →"
   },
   "contact": {
     "label": "Fale Conosco",
@@ -161,40 +142,29 @@
     "headline_2": "conversar.",
     "sub": "Solicitações de imprensa, conversas com lojistas e curiosos em geral são bem-vindos.",
     "preorder_label": "Pré-venda",
-    "preorder_val": "Abre em 25 de julho de 2026 — Chega em 25 de julho de 2026",
+    "preorder_val": "Abre em 22 de agosto de 2026 — Chega em 22 de agosto de 2026",
     "inquiries_label": "Solicitações",
     "inquiries_val": "Use o formulário — respondemos em até 48 horas",
     "stockists_label": "Lojistas",
     "stockists_val": "Aceitando solicitações no momento",
-    "early_access": {
-      "tag": "Círculo Interno",
-      "headline": "Garanta antes de todo mundo.",
-      "perk1": "Acesso à pré-venda em <strong>25 de julho</strong> — antes do lançamento público",
-      "perk2": "<strong>15% de desconto</strong> no seu primeiro vestido, aplicado no checkout",
-      "nudge": "Selecione \"Entrar no acesso antecipado\" no formulário →"
-    },
     "form": {
       "name": "Seu nome",
       "email": "E-mail",
       "country": "País",
       "type": "Sobre o que é isso?",
       "type_choose": "Escolha uma opção",
-      "type_early": "Entrar no acesso antecipado — 15% de desconto",
       "type_notify": "Avisar quando os pedidos abrirem",
       "type_dress": "Dúvida sobre um vestido",
       "type_press": "Solicitação de imprensa",
       "type_stockist": "Solicitação de lojista",
       "type_general": "Geral",
-      "early_note": "Você está entrando no círculo interno — enviaremos seu código de 15% assim que a pré-venda abrir, em 25 de julho.",
       "message": "Sua mensagem",
       "submit": "Enviar",
-      "submit_early": "Entrar no acesso antecipado",
       "sending": "Enviando…",
       "sent": "Enviado",
       "try_again": "Tentar novamente",
       "footer_note": "Responderemos em até 48 horas.",
-      "success": "Enviado. Entraremos em contato em breve.",
-      "success_early": "Você está no círculo interno. Seu código de 15% chega assim que a pré-venda abrir — em 25 de julho."
+      "success": "Enviado. Entraremos em contato em breve."
     }
   },
   "lookbook": {
@@ -278,12 +248,15 @@
     "nav_prev": "ANT",
     "nav_next": "PRÓX"
   },
+  "faq": {
+    "pricing_answer": "A Divine custa R600, a Candy R500 e a Edie R400. A entrega tem taxa fixa de R150 em qualquer lugar da África do Sul."
+  },
   "footer": {
-    "tagline": "Vestidos feitos para serem admirados.",
+    "tagline": "Feitas para serem admiradas.",
     "copy": "© 2026 Pretty Absurd. Todos os direitos reservados.",
     "links": {
       "lookbook": "Lookbook",
-      "collection": "Os Vestidos",
+      "collection": "As Bolsas",
       "about": "Sobre",
       "contact": "Contato"
     }

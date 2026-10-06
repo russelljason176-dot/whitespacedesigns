@@ -62,7 +62,6 @@ function initActiveNav() {
     lookbook:      ['lookbook.html'],
     collection:    ['collection.html'],
     about:         ['about.html'],
-    'brand-world': ['brand-world.html'],
     contact:       ['contact.html'],
   };
   const targets = map[page] || [];
@@ -220,6 +219,8 @@ function initMagazine() {
 
 /* === Magnetic button (hero ghost CTA) === */
 function initMagneticButton() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return; // desktop-mouse only — no cursor to follow on touch
+
   const hero       = document.querySelector('.home-hero');
   const btn        = document.querySelector('.home-hero__cta--ghost');
   const primaryBtn = document.querySelector('.home-hero__cta--primary');
@@ -257,9 +258,9 @@ function initMagneticButton() {
         if (moveX < maxLeft) moveX = maxLeft;
       }
 
-      // Clamp downward movement so btn never overlaps the prelaunch strip
+      // Clamp downward movement so btn never overlaps the scalloped hero edge
       if (moveY > 0) {
-        const prelaunch = document.querySelector('.home-prelaunch');
+        const prelaunch = document.querySelector('.home-hero__scallop');
         if (prelaunch) {
           const plRect = prelaunch.getBoundingClientRect();
           const maxDown = plRect.top - (rect.bottom) - GAP_MIN;

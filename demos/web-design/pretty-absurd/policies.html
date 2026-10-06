@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<script>/* DEMO: simulate checkout + forms so the copy can never take a payment or send an email */
+(function(){var f=window.fetch;window.fetch=function(u,o){var s=String(u&&u.url||u);
+if(/workers\.dev|formspree\.io/.test(s)){var b=/promo\/check/.test(s)?{valid:false}:/workers\.dev/.test(s)?{redirectUrl:'order-confirmation.html'}:{ok:true};
+return Promise.resolve(new Response(JSON.stringify(b),{status:200,headers:{'Content-Type':'application/json'}}));}
+return f.apply(this,arguments);};})();</script>
+<style>.wsd-demo-bar{position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#1a1a1a;color:#fff;font:500 11px/1.4 system-ui,sans-serif;letter-spacing:.04em;text-align:center;padding:7px 12px}.wsd-demo-bar a{color:#fff;text-decoration:underline}</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2R6JZW1R9L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2R6JZW1R9L');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pretty Absurd — Returns &amp; Refunds and Terms &amp; Conditions.">
+  <link rel="canonical" href="https://prettyabsurd.co.za/policies.html">
+  <meta name="theme-color" content="#F7F2EE">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:url" content="https://prettyabsurd.co.za/policies.html">
+  <meta property="og:title" content="Returns &amp; Terms — Pretty Absurd">
+  <meta property="og:description" content="Returns &amp; Refunds Policy and Terms &amp; Conditions.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://prettyabsurd.co.za/assets/images/brand/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Returns &amp; Terms — Pretty Absurd">
+  <meta name="twitter:description" content="Returns &amp; Refunds Policy and Terms &amp; Conditions.">
+  <meta name="twitter:image" content="https://prettyabsurd.co.za/assets/images/brand/og-image.jpg">
+  <title>Returns &amp; Terms — Pretty Absurd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/policies.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://prettyabsurd.co.za/" },
+      { "@type": "ListItem", "position": 2, "name": "Returns & Terms", "item": "https://prettyabsurd.co.za/policies.html" }
+    ]
+  }
+  </script>
+</head>
+<body data-page="policies">
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand" data-i18n="nav.brand">Pretty Absurd</a>
+      <ul class="nav__links" role="list">
+        <li><a href="collection.html"  class="nav__link" data-i18n="nav.collection">The Bags</a></li>
+        <li><a href="about.html"       class="nav__link" data-i18n="nav.about">About</a></li>
+        <li><a href="faq.html"         class="nav__link">FAQ</a></li>
+        <li><a href="contact.html"     class="nav__link" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="nav__lang" role="group" aria-label="Language">
+        <button class="nav__lang-btn is-active" data-lang="en">EN</button>
+        <button class="nav__lang-btn"            data-lang="fr">FR</button>
+        <button class="nav__lang-btn"            data-lang="it">IT</button>
+        <button class="nav__lang-btn"            data-lang="es">ES</button>
+        <button class="nav__lang-btn"            data-lang="de">DE</button>
+        <button class="nav__lang-btn"            data-lang="pt">PT</button>
+      </div>
+      <button class="pa-cart-toggle" aria-label="Open cart" type="button">
+        <svg class="pa-cart-toggle__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="pa-cart-toggle__count" hidden>0</span>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-overlay">
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="nav-overlay" role="dialog" aria-label="Mobile navigation">
+      <ul class="nav__overlay-links" role="list">
+        <li><a href="collection.html"  class="nav__overlay-link" data-i18n="nav.collection">The Bags</a></li>
+        <li><a href="about.html"       class="nav__overlay-link" data-i18n="nav.about">About</a></li>
+        <li><a href="faq.html"         class="nav__overlay-link">FAQ</a></li>
+        <li><a href="contact.html"     class="nav__overlay-link" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="nav__overlay-bottom">
+        <button class="nav__lang-btn is-active" data-lang="en">EN</button>
+        <button class="nav__lang-btn"            data-lang="fr">FR</button>
+        <button class="nav__lang-btn"            data-lang="it">IT</button>
+        <button class="nav__lang-btn"            data-lang="es">ES</button>
+        <button class="nav__lang-btn"            data-lang="de">DE</button>
+        <button class="nav__lang-btn"            data-lang="pt">PT</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <div class="nav-spacer"></div>
+
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol class="breadcrumbs__list">
+          <li><a href="index.html" class="breadcrumbs__link">Home</a></li>
+          <li class="breadcrumbs__sep">/</li>
+          <li class="breadcrumbs__current" aria-current="page">Returns &amp; Terms</li>
+        </ol>
+      </nav>
+
+      <header class="policies-hero section--sm">
+        <span class="policies-hero__label">Good to Know</span>
+        <h1 class="policies-hero__headline">Returns &amp; Terms.</h1>
+        <p class="policies-hero__sub">Everything you need to know about delivery, returns and ordering. Read it before you order.</p>
+        <nav class="policies-jump" aria-label="Jump to section">
+          <a href="#returns">Returns &amp; Refunds</a>
+          <a href="#terms">Terms &amp; Conditions</a>
+        </nav>
+      </header>
+
+      <div class="policies-body">
+
+        <!-- ── Returns & Refunds ── -->
+        <section class="policies-section" id="returns">
+          <span class="policies-section__label">Section 01</span>
+          <h2 class="policies-section__headline">Returns &amp; Refunds Policy</h2>
+
+          <h3>Delivery</h3>
+          <p>Bags are delivered within South Africa by The Courier Guy for a flat fee, shown at checkout. Once your bag ships, we'll email you a tracking number so you can follow it to your door.</p>
+
+          <h3>Cancelling your order</h3>
+          <p>You can cancel for a full refund, including delivery, any time before your bag ships. Contact us as soon as possible with your order details.</p>
+
+          <h3>Change of mind</h3>
+          <p>You can return an unused bag within <strong>7 days</strong> of receiving it, for any reason. Contact us first with your order details, then send the bag back unused, in its original condition and packaging. You pay the cost of returning it. Once we've received it, we'll refund the price of the bag.</p>
+
+          <h3>Faulty, damaged, or incorrect items</h3>
+          <p>If your bag arrives faulty, is damaged in transit, or isn't what you ordered, contact us within 7 days of delivery with your order details and photos of the issue. We'll repair or replace it at no cost to you, including delivery. If that isn't possible, we'll issue a full refund.</p>
+
+          <h3>How refunds are paid</h3>
+          <p>Approved refunds are paid back to your original payment method via Yoco. Processing typically takes a few business days once approved, though the exact timing depends on Yoco and your bank.</p>
+
+          <h3>How to reach us</h3>
+          <p>For cancellations, faulty items, or any question about an order, use the <a href="contact.html">contact form</a> — we respond within 48 hours.</p>
+        </section>
+
+        <!-- ── Terms & Conditions ── -->
+        <section class="policies-section" id="terms">
+          <span class="policies-section__label">Section 02</span>
+          <h2 class="policies-section__headline">Terms &amp; Conditions</h2>
+
+          <h3>Who we are</h3>
+          <p>This website, prettyabsurd.co.za, and everything sold through it is operated by Kaylah Bigwood, trading as <strong>Pretty Absurd</strong>, a South African sole proprietor. Pretty Absurd is not currently registered as a company or for VAT, as annual turnover falls below the thresholds that require it under South African law.</p>
+          <p>Trading address: 26 Logan Avenue, Highveld, Centurion, Gauteng, South Africa.<br>Contact: via the <a href="contact.html">contact form</a> on this site.</p>
+
+          <h3>These terms</h3>
+          <p>By browsing this site or placing an order, you agree to these terms and to our <a href="#returns">Returns &amp; Refunds Policy</a> above. We may update these terms from time to time; changes take effect once posted on this page.</p>
+
+          <h3>Products &amp; pricing</h3>
+          <p>All prices are shown in South African Rand (ZAR) and exclude delivery, which is charged as a flat fee at checkout. Colours may vary slightly from what you see on screen depending on your device's display. We take reasonable care to describe each piece accurately, but small variations in brocade pattern placement are normal, so no two bags are exactly alike.</p>
+
+          <h3>Payment</h3>
+          <p>Payment is processed securely through Yoco's hosted checkout. Your card details are handled entirely by Yoco and never stored on or pass through prettyabsurd.co.za.</p>
+          <p>Orders are paid in full at checkout.</p>
+
+          <h3>Shipping</h3>
+          <p>Checkout currently covers delivery within South Africa only. For orders outside South Africa, <a href="contact.html">contact us</a> first for a shipping quote before ordering — international freight isn't included in the listed price.</p>
+
+          <h3>Cancellations, returns &amp; refunds</h3>
+          <p>See the <a href="#returns">Returns &amp; Refunds Policy</a> above, which forms part of these terms.</p>
+
+          <h3>Intellectual property</h3>
+          <p>All designs, photography, and content on this site belong to Pretty Absurd and may not be reproduced, copied, or used elsewhere without permission.</p>
+
+          <h3>Liability</h3>
+          <p>Pretty Absurd is not liable for any indirect or consequential loss arising from your use of this site or a delay in production or delivery, beyond what is required by South African law. Nothing in these terms limits any right you have under the Consumer Protection Act 68 of 2008.</p>
+
+          <h3>Governing law</h3>
+          <p>These terms are governed by the laws of South Africa.</p>
+        </section>
+
+      </div>
+
+      <p class="policies-note">Last updated 26 August 2026.</p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <div class="footer__brand" data-i18n="nav.brand">Pretty Absurd</div>
+          <div class="footer__tagline" data-i18n="footer.tagline">Made to be stared at.</div>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="collection.html"  class="footer__nav-link" data-i18n="footer.links.collection">The Bags</a>
+          <a href="about.html"       class="footer__nav-link" data-i18n="footer.links.about">About</a>
+          <a href="faq.html"         class="footer__nav-link">FAQ</a>
+          <a href="contact.html"     class="footer__nav-link" data-i18n="footer.links.contact">Contact</a>
+          <a href="policies.html"    class="footer__nav-link is-active">Returns &amp; Terms</a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy" data-i18n="footer.copy">© 2026 Pretty Absurd. All rights reserved.</span>
+        <div class="footer__socials">
+          <a href="https://www.instagram.com/pretty_absurdd/" class="footer__social" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@pretty.absurdd" class="footer__social" aria-label="TikTok" target="_blank" rel="noopener">TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta">
+    <a href="collection.html" class="sticky-cta__link">Shop the Bags</a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/components.js"></script>
+
+  <!-- ── Cart drawer ── -->
+  <div class="pa-cart-scrim" id="pa-cart-scrim"></div>
+  <aside class="pa-cart-drawer" id="pa-cart-drawer" aria-label="Shopping cart">
+    <div class="pa-cart-drawer__head">
+      <span class="pa-cart-drawer__title">Your Bag</span>
+      <button class="pa-cart-drawer__close" id="pa-cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="pa-cart-drawer__body">
+      <p class="pa-cart-empty" id="pa-cart-empty">Your bag is empty.</p>
+      <div id="pa-cart-items"></div>
+    </div>
+    <div class="pa-cart-drawer__foot">
+      <div class="pa-cart-drawer__totalrow"><span>Total</span><span id="pa-cart-total">R0</span></div>
+      <button class="pa-cart-drawer__checkout" id="pa-cart-checkout" type="button">Checkout</button>
+    </div>
+  </aside>
+  <script src="js/cart.js"></script>
+<div class="wsd-demo-bar">Portfolio demo of the live Pretty Absurd site by White Space Designs &middot; checkout and forms are simulated &middot; <a href="https://prettyabsurd.co.za" rel="noopener">Visit the real site</a></div>
+</body>
+</html>

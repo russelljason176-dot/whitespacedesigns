@@ -3,7 +3,7 @@
    ============================================================ */
 
 .home-ephemera {
-  background: #f5f1ea;
+  background: #fcf0f9;
   padding: 130px var(--container-pad) 120px;
   position: relative;
   overflow: hidden;
@@ -83,6 +83,7 @@
   }
   .pa-sticker[data-s="3"] {
     width: clamp(90px, 24vw, 130px);
+    top: -18px;
   }
   .pa-sticker[data-s="4"] {
     display: none; /* sits mid-height — collides with stacked cards on narrow screens */
@@ -184,7 +185,7 @@
 
 .pa-curl {
   position: absolute; top: 0; left: -3px; right: -3px; height: 26px; z-index: 0;
-  background: linear-gradient(180deg,#f3efe7 0%,#ece8df 46%,rgba(0,0,0,.09) 86%,transparent 100%);
+  background: linear-gradient(180deg,#ffffff 0%,var(--cream-dark) 46%,rgba(0,0,0,.09) 86%,transparent 100%);
   border-radius: 0 0 40% 40%/0 0 100% 100%; transform: rotate(-.6deg); pointer-events: none;
 }
 
@@ -217,6 +218,66 @@
   background-image: repeating-linear-gradient(90deg,#171717 0 2px,transparent 2px 4px,#171717 4px 7px,transparent 7px 9px,#171717 9px 10px,transparent 10px 13px,#171717 13px 16px,transparent 16px 17px,#171717 17px 20px,transparent 20px 23px);
 }
 
+
+/* ============================================================
+   Follow row — Instagram / TikTok, made prominent per client ask
+   ============================================================ */
+.pa-follow {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 60px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.pa-follow__label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6a655c;
+}
+.pa-follow__links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.pa-follow__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border: 1.5px solid #171717;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #171717;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.pa-follow__icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+.pa-follow__icon--outline {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-follow__link:hover {
+    background: #171717;
+    color: #f5f1ea;
+    transform: translateY(-2px);
+  }
+}
 
 /* ============================================================
    Slot 2 — Zine / magazine flip-through
@@ -264,7 +325,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: 44% top;
   display: block;
 }
 
@@ -354,23 +415,32 @@
   text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
-/* Spine */
+/* Spine — a shadowed crease (how a closed magazine's cover actually
+   catches light at the fold), not a pale highlight stripe */
 .pa-zine__spine {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 11px;
+  width: 16px;
   background: linear-gradient(
     to right,
-    #a8a39c 0%,
-    #c4bfb8 45%,
-    #dedad3 75%,
-    #f5f1ea 100%
+    rgba(20, 18, 15, 0.5) 0%,
+    rgba(20, 18, 15, 0.28) 18%,
+    rgba(20, 18, 15, 0.1) 45%,
+    transparent 100%
   );
   z-index: 10;
-  border-radius: 2px 0 0 2px;
   pointer-events: none;
+}
+.pa-zine__spine::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(20, 18, 15, 0.55);
 }
 
 /* Page thickness (right edge stack) */
@@ -495,6 +565,9 @@
   transform-style: preserve-3d;
   transition: transform .8s cubic-bezier(.2, .72, .2, 1);
   box-shadow: 0 10px 26px rgba(0,0,0,.14);
+}
+#pa-lookbook-overlay .lb-leaf.lb-noTransition {
+  transition: none;
 }
 #pa-lookbook-overlay .lb-face {
   position: absolute;

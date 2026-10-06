@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<script>/* DEMO: simulate checkout + forms so the copy can never take a payment or send an email */
+(function(){var f=window.fetch;window.fetch=function(u,o){var s=String(u&&u.url||u);
+if(/workers\.dev|formspree\.io/.test(s)){var b=/promo\/check/.test(s)?{valid:false}:/workers\.dev/.test(s)?{redirectUrl:'order-confirmation.html'}:{ok:true};
+return Promise.resolve(new Response(JSON.stringify(b),{status:200,headers:{'Content-Type':'application/json'}}));}
+return f.apply(this,arguments);};})();</script>
+<style>.wsd-demo-bar{position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#1a1a1a;color:#fff;font:500 11px/1.4 system-ui,sans-serif;letter-spacing:.04em;text-align:center;padding:7px 12px}.wsd-demo-bar a{color:#fff;text-decoration:underline}</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2R6JZW1R9L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2R6JZW1R9L');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pretty Absurd — Order confirmed.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://prettyabsurd.co.za/order-confirmation.html">
+  <meta name="theme-color" content="#F7F2EE">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <title>Order Confirmed — Pretty Absurd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body data-page="order-confirmation">
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">Pretty Absurd</a>
+      <ul class="nav__links" role="list">
+        <li><a href="collection.html"  class="nav__link">The Bags</a></li>
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="faq.html"         class="nav__link">FAQ</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+      </ul>
+      <button class="pa-cart-toggle" aria-label="Open cart" type="button">
+        <svg class="pa-cart-toggle__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="pa-cart-toggle__count" hidden>0</span>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-overlay">
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="nav-overlay" role="dialog" aria-label="Mobile navigation">
+      <ul class="nav__overlay-links" role="list">
+        <li><a href="collection.html"  class="nav__overlay-link">The Bags</a></li>
+        <li><a href="about.html"       class="nav__overlay-link">About</a></li>
+        <li><a href="faq.html"         class="nav__overlay-link">FAQ</a></li>
+        <li><a href="contact.html"     class="nav__overlay-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <div class="nav-spacer"></div>
+    <section class="order-confirm">
+      <span class="order-confirm__mark">Thank you.</span>
+      <h1 class="collection-header__headline">Your order is in.</h1>
+      <p class="order-confirm__note" id="order-confirm-detail">We'll email you a confirmation shortly and follow up with shipping details.</p>
+      <p class="order-confirm__note">Your bag will be delivered by The Courier Guy — we'll email your tracking number as soon as it ships.</p>
+      <a href="collection.html" class="error-404__link">Keep browsing</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <div class="footer__brand">Pretty Absurd</div>
+          <div class="footer__tagline">Made to be stared at.</div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">© 2026 Pretty Absurd. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+
+  <!-- ── Cart drawer ── -->
+  <div class="pa-cart-scrim" id="pa-cart-scrim"></div>
+  <aside class="pa-cart-drawer" id="pa-cart-drawer" aria-label="Shopping cart">
+    <div class="pa-cart-drawer__head">
+      <span class="pa-cart-drawer__title">Your Bag</span>
+      <button class="pa-cart-drawer__close" id="pa-cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="pa-cart-drawer__body">
+      <p class="pa-cart-empty" id="pa-cart-empty">Your bag is empty.</p>
+      <div id="pa-cart-items"></div>
+    </div>
+    <div class="pa-cart-drawer__foot">
+      <div class="pa-cart-drawer__totalrow"><span>Total</span><span id="pa-cart-total">R0</span></div>
+      <button class="pa-cart-drawer__checkout" id="pa-cart-checkout" type="button">Checkout</button>
+    </div>
+  </aside>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const raw = sessionStorage.getItem('pa-last-order');
+      if (raw) {
+        try {
+          const order = JSON.parse(raw);
+          document.getElementById('order-confirm-detail').textContent =
+            `Order ${order.mPaymentId} — ${paCartFormatZAR(order.total)}. We'll email you a confirmation shortly and follow up with shipping details.`;
+        } catch {}
+        sessionStorage.removeItem('pa-last-order');
+      }
+      PaCart.clear();
+    });
+  </script>
+<div class="wsd-demo-bar">Portfolio demo of the live Pretty Absurd site by White Space Designs &middot; checkout and forms are simulated &middot; <a href="https://prettyabsurd.co.za" rel="noopener">Visit the real site</a></div>
+</body>
+</html>

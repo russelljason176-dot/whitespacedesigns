@@ -66,12 +66,9 @@
 }
 
 .collection-grid__stage img {
-  max-width: 76%;
-  max-height: 88%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.12));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform var(--dur-base) var(--ease-out);
 }
 
@@ -137,7 +134,7 @@
 .dress-feature__stage {
   background: var(--cream-dark);
   border-radius: var(--radius-lg);
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -145,12 +142,9 @@
 }
 
 .dress-feature__stage img {
-  max-width: 70%;
-  max-height: 82%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.14));
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform var(--dur-slow) var(--ease-out);
 }
 
@@ -289,11 +283,36 @@
 
 .dress-feature__launch-note {
   font-size: var(--text-xs);
-  color: var(--ink-faint);
   letter-spacing: 0.02em;
+  animation: launch-note-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes launch-note-pulse {
+  0%, 100% {
+    color: var(--ink);
+    text-shadow:
+      0 0 5px  rgba(17, 17, 17, 0.5),
+      0 0 14px rgba(17, 17, 17, 0.25);
+  }
+  50% {
+    color: var(--pink-dark);
+    text-shadow:
+      0 0 6px  rgba(237, 160, 190, 0.9),
+      0 0 18px rgba(237, 160, 190, 0.6),
+      0 0 36px rgba(237, 160, 190, 0.3);
+  }
 }
 
 /* ── Responsive ── */
+/* Shop header ("The Bags" intro) — shrink drastically on phones so the
+   actual bag frames appear with far less scrolling; the breadcrumb + label
+   + headline still orient the visitor, the sub-line and half the padding
+   aren't worth the scroll cost at this width. */
+@media (max-width: 560px) {
+  .collection-header.section--sm { padding-block: var(--space-4) var(--space-6); }
+  .collection-header__sub { display: none; }
+}
+
 @media (max-width: 900px) {
   .collection-grid { grid-template-columns: 1fr; }
 

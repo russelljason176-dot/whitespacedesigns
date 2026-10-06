@@ -4,21 +4,15 @@
   "nav": {
     "brand": "Pretty Absurd",
     "lookbook": "Lookbook",
-    "collection": "Les Robes",
+    "collection": "Les Sacs",
     "about": "À propos",
-    "brandWorld": "Univers de marque",
     "contact": "Contact"
   },
   "home": {
     "hero": {
       "sub": "Trop, c'est justement le but.",
       "cta_lookbook": "Découvrir le lookbook",
-      "cta_collection": "Voir les robes"
-    },
-    "prelaunch": {
-      "label": "Avant-lancement",
-      "text": "Précommandes ouvertes le 25 juillet — Collection disponible le 25 juillet 2026",
-      "cta": "M'avertir →"
+      "cta_collection": "Voir les sacs"
     },
     "receipt": {
       "brand": "PRETTY ABSURD",
@@ -26,9 +20,14 @@
       "blue": "Le Bleu Glacé",
       "dot": "Le Pois",
       "total": "TOTAL",
-      "status_line": "STATUT … bientôt<br>LISTE D'ATTENTE … ouverte",
-      "cta_main": "TOUCHEZ POUR LA RÉSERVER",
-      "cta_sub": "rejoindre la liste d'attente — xo"
+      "status_line": "STATUT … en stock<br>LIVRAISON … The Courier Guy",
+      "cta_main": "TOUCHEZ POUR ACHETER",
+      "cta_sub": "les sacs sont arrivés — xo"
+    },
+    "shop": {
+      "label": "Les Sacs",
+      "headline": "Brocart, noué et frangé.",
+      "cta": "Voir tous les sacs →"
     },
     "designer": {
       "label": "La Créatrice",
@@ -38,28 +37,36 @@
     },
     "notify": {
       "headline": "Soyez la première informée.",
-      "sub": "Précommandes ouvertes le 25 juillet 2026. Laissez votre e-mail, on vous prévient dès l'ouverture.",
+      "sub": "Laissez votre e-mail et on vous préviendra des nouveaux sacs et réassorts.",
       "placeholder": "votre@email.com",
       "btn": "M'avertir"
     }
   },
+  "bags": {
+    "shoulder":    { "descriptor": "sac porté épaule en brocart", "desc": "divine… un sac porté épaule tout en rondeur, en brocart, taillé généreusement et fini par une frange qui bouge dès que vous bougez. la pièce la plus audacieuse de la ligne." },
+    "knot-fringe": { "descriptor": "sac noué en brocart, frangé", "desc": "candy… le sac noué d'inspiration japonaise, attaché au poignet et fini par une longue frange qui ne tient jamais en place." },
+    "knot":        { "descriptor": "sac noué en brocart", "desc": "edie… un sac noué emprunté à la tradition japonaise du furoshiki, puis emmené là où elle n'aurait pas dû aller. brocart taillé main, tulle pailleté, doublure en taffetas. fait à la main à johannesburg… 15 à la fois." }
+  },
   "collection": {
+    "bags_label": "Les Sacs",
+    "bags_headline": "Brocart, noué et frangé.",
+    "bags_sub": "Trois formes, quelques coloris, fabriqués en petite série. Une fois qu'un coloris est épuisé, il ne revient pas.",
     "label": "La Collection",
     "headline": "Trois Robes.",
-    "sub": "Chacune faite pour qu'on la regarde. Précommandes ouvertes le 25 juillet — Collection disponible le 25 juillet 2026.",
+    "sub": "Chacune faite pour qu'on la regarde. Précommandes ouvertes le 22 août — Collection disponible le 22 août 2026.",
     "view_dress": "Voir la robe ↓",
     "price_label": "Prix",
     "cta_inquire": "Se renseigner sur cette robe",
-    "launch_note": "Précommandes ouvertes le 25 juillet — Disponible le 25 juillet 2026",
+    "launch_note": "Précommandes ouvertes le 22 août — Disponible le 22 août 2026",
     "pieces": {
       "pink": {
         "num": "01 — 03",
         "name": "La Rose Satinée",
-        "desc": "Un bustier corset qui ne plaisante pas. Une jupe plissée qui ne prend rien au sérieux. En satin rose lilas doux, avec baleinage structuré, décolleté cœur et un laçage dans le dos qui prend son temps.",
+        "desc": "Un bustier corset qui ne plaisante pas. Une jupe plissée qui ne prend rien au sérieux. En satin duchesse rose lilas doux, avec décolleté cœur et un laçage dans le dos qui prend son temps.",
         "details": [
-          "Satin avec structure baleinée",
+          "Satin duchesse rose lilas doux",
           "Décolleté cœur avec volant",
-          "Fermeture laçage dans le dos",
+          "Laçage dans le dos",
           "Fermeture éclair invisible sur le côté",
           "Jupe courte plissée"
         ],
@@ -68,9 +75,9 @@
       "blue": {
         "num": "02 — 03",
         "name": "Le Bleu Glacé",
-        "desc": "Satin bleu poudré. Décolleté cœur. Structurellement absurde. La même silhouette que la rose — les mêmes lignes, une autre humeur. Plus discrète, jusqu'à ce qu'on la voie bouger.",
+        "desc": "Satin duchesse bleu poudré. Décolleté cœur. Structurellement absurde. La même silhouette que la rose — les mêmes lignes, une autre humeur. Plus discrète, jusqu'à ce qu'on la voie bouger.",
         "details": [
-          "Satin bleu glacé avec structure baleinée",
+          "Satin duchesse bleu glacé",
           "Décolleté cœur avec volant",
           "Laçage ruban dans le dos, ton sur ton",
           "Fermeture éclair invisible sur le côté",
@@ -83,9 +90,9 @@
         "name": "Le Pois",
         "desc": "Pois noirs sur fond blanc. Charme rétro. Chaos contemporain. Même silhouette, même structure — mais le pois change tout. C'est celle qui fait qu'on regarde deux fois.",
         "details": [
-          "Tissu structuré blanc à pois noirs",
+          "Satin duchesse blanc à pois noirs",
           "Décolleté cœur avec volant",
-          "Fermeture laçage dans le dos",
+          "Laçage dans le dos",
           "Fermeture éclair invisible sur le côté",
           "Jupe courte plissée"
         ],
@@ -103,13 +110,13 @@
       "label": "L'Histoire",
       "headline": "Des vêtements sortis d'un film qu'on n'arrive pas à situer.",
       "p1": "Les vêtements pour femmes choisissent en général un camp : invisibles, ou trop voyants. Kaylah a refusé de choisir et a créé trois robes à la place.",
-      "p2": "Chacune partage la même ossature — bustier corset, décolleté cœur, jupe plissée — et raconte une histoire différente. Le satin rose qui évoque un rêve de poupée. Le bleu glacé digne d'un défilé parisien. Les pois qui font penser à Marilyn Monroe sur un toit.",
+      "p2": "Chacune partage la même ossature — bustier corset, décolleté cœur, jupe plissée — et raconte une histoire différente. Le satin duchesse rose qui évoque un rêve de poupée. Le bleu glacé digne d'un défilé parisien. Les pois qui font penser à Marilyn Monroe sur un toit.",
       "p3": "Le nom dit tout. Pretty Absurd est une mode volontairement, joyeusement décalée. Des vêtements qui font qu'on regarde — pas parce qu'ils sont étranges, mais parce qu'ils sont exactement justes dans tout ce qu'ils ont de travers."
     },
     "philosophy": {
       "label": "La Philosophie",
       "quote": "« Pretty Absurd repose sur une seule idée : les vêtements doivent vous donner l'impression d'être la personne la plus intéressante de la pièce. Pas la plus élégante. La plus intéressante. »",
-      "body": "Féminine ou sérieuse. Ludique ou soignée. On impose sans cesse ce choix aux femmes. Kaylah l'a ignoré. Le baleinage du corset est sérieux. Les pois sont ludiques. Les deux, en même temps, volontairement."
+      "body": "Féminine ou sérieuse. Ludique ou soignée. On impose sans cesse ce choix aux femmes. Kaylah l'a ignoré. La structure du corset est sérieuse. Les pois sont ludiques. Les deux, en même temps, volontairement."
     },
     "studio_caption": "L'atelier — là où tout commence",
     "process": {
@@ -117,43 +124,17 @@
       "headline_1": "Chaque couture placée avec intention.",
       "headline_2": "Le chaos est dans le port, pas dans la fabrication.",
       "step1_title": "La structure d'abord",
-      "step1_text": "Chaque robe commence par l'ossature. Le baleinage du corset définit la silhouette avant même qu'un seul morceau de satin soit coupé. La structure n'est jamais une réflexion après coup.",
+      "step1_text": "Chaque robe commence par la forme. La silhouette du corset est dessinée avant même qu'un seul morceau de satin duchesse soit coupé. La structure n'est jamais une réflexion après coup.",
       "step2_title": "Le tissu comme caractère",
-      "step2_text": "Le tissu n'est jamais un simple revêtement — il est la personnalité de la pièce. Le satin capte la lumière différemment. Les pois changent la conversation avant même qu'on ait dit un mot.",
+      "step2_text": "Le tissu n'est jamais un simple revêtement — il est la personnalité de la pièce. Le satin duchesse capte la lumière différemment. Les pois changent la conversation avant même qu'on ait dit un mot.",
       "step3_title": "Des détails qui méritent leur place",
       "step3_text": "Le volant au décolleté cœur. Le laçage dans le dos. La fermeture éclair invisible sur le côté. Rien n'est là pour décorer — chaque détail a un rôle."
     },
     "cta_strip": {
-      "text": "Trois robes. Précommandes ouvertes le 25 juillet — Collection disponible le 25 juillet 2026.",
-      "cta_collection": "Voir les robes →",
+      "text": "Trois robes. Précommandes ouvertes le 22 août — Collection disponible le 22 août 2026.",
+      "cta_collection": "Voir les sacs →",
       "cta_lookbook": "Découvrir le lookbook →"
     }
-  },
-  "brandWorld": {
-    "label": "Univers de marque",
-    "headline_1": "L'Univers de",
-    "headline_2": "Pretty Absurd.",
-    "intro": "Des pois dans le métro. De l'herbe dans un salon. Une robe parfaitement repassée au mauvais endroit. C'est l'univers d'où viennent ces vêtements.",
-    "manifesto": {
-      "one": "La robe qui ne correspond pas au décor. Le tissu trop beau pour l'occasion. La silhouette qui arrête la pièce. Personne ne prévoit de se souvenir d'une tenue. Pretty Absurd s'en assure.",
-      "two": "Les références sont partout : Marilyn Monroe sur une bouche de métro, Barbie dans une maison de rêve légèrement de travers, un éditorial Vogue photographié là où Vogue n'irait jamais. Pretty Absurd emprunte à tout cela — et le glisse dans un corset.",
-      "three": "Ce n'est pas une mode qui veut disparaître dans la penderie. Elle veut être portée, regardée, et portée encore."
-    },
-    "captions": {
-      "dot_subway": "Pois dans le métro — Numéro 01",
-      "pink_butterfly": "Rose Satinée — détail",
-      "blue_armchair": "Bleu Glacé — décor rétro",
-      "pink_street": "Rose Satinée — rue",
-      "dot_highway": "Le Pois — bord d'autoroute",
-      "blue_newspaper": "Bleu Glacé — éditorial",
-      "blue_playful": "Bleu Glacé — Numéro 01",
-      "dot_crosswalk": "Le Pois — passage piéton N&B",
-      "dot_navy": "Le Pois — portrait"
-    },
-    "quote": "« Des robes faites pour qu'on les regarde. »",
-    "quote_attr": "— Pretty Absurd, SS26",
-    "cta_lookbook": "Découvrir le lookbook →",
-    "cta_collection": "Voir la collection →"
   },
   "contact": {
     "label": "Nous Contacter",
@@ -161,40 +142,29 @@
     "headline_2": "en.",
     "sub": "Demandes presse, échanges revendeurs, et curieux en tous genres bienvenus.",
     "preorder_label": "Précommande",
-    "preorder_val": "Ouverture le 25 juillet 2026 — Disponible le 25 juillet 2026",
+    "preorder_val": "Ouverture le 22 août 2026 — Disponible le 22 août 2026",
     "inquiries_label": "Demandes",
     "inquiries_val": "Utilisez le formulaire — réponse sous 48 heures",
     "stockists_label": "Revendeurs",
     "stockists_val": "Candidatures actuellement acceptées",
-    "early_access": {
-      "tag": "Cercle Privé",
-      "headline": "Obtenez-la avant tout le monde.",
-      "perk1": "Accès précommande dès le <strong>25 juillet</strong> — avant l'ouverture publique",
-      "perk2": "<strong>15% de réduction</strong> sur votre première robe, appliqué au paiement",
-      "nudge": "Sélectionnez « Rejoindre l'accès anticipé » dans le formulaire →"
-    },
     "form": {
       "name": "Votre nom",
       "email": "Adresse e-mail",
       "country": "Pays",
       "type": "De quoi s'agit-il ?",
       "type_choose": "Choisissez une option",
-      "type_early": "Rejoindre l'accès anticipé — 15% de réduction",
       "type_notify": "M'avertir à l'ouverture des commandes",
       "type_dress": "Question sur une robe",
       "type_press": "Demande presse",
       "type_stockist": "Demande revendeur",
       "type_general": "Général",
-      "early_note": "Vous rejoignez le cercle privé — votre code de réduction de 15% arrive dès l'ouverture des précommandes le 25 juillet.",
       "message": "Votre message",
       "submit": "Envoyer",
-      "submit_early": "Rejoindre l'accès anticipé",
       "sending": "Envoi…",
       "sent": "Envoyé",
       "try_again": "Réessayer",
       "footer_note": "Nous vous répondrons sous 48 heures.",
-      "success": "Envoyé. Nous vous répondrons bientôt.",
-      "success_early": "Vous êtes dans le cercle privé. Votre code de 15% arrive dès l'ouverture des précommandes — le 25 juillet."
+      "success": "Envoyé. Nous vous répondrons bientôt."
     }
   },
   "lookbook": {
@@ -278,12 +248,15 @@
     "nav_prev": "PRÉC",
     "nav_next": "SUIV"
   },
+  "faq": {
+    "pricing_answer": "Divine est à R600, Candy à R500 et Edie à R400. La livraison est forfaitaire à R150 partout en Afrique du Sud."
+  },
   "footer": {
-    "tagline": "Des robes faites pour qu'on les regarde.",
+    "tagline": "Faits pour être regardés.",
     "copy": "© 2026 Pretty Absurd. Tous droits réservés.",
     "links": {
       "lookbook": "Lookbook",
-      "collection": "Les Robes",
+      "collection": "Les Sacs",
       "about": "À propos",
       "contact": "Contact"
     }

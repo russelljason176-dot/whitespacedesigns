@@ -4,21 +4,15 @@
   "nav": {
     "brand": "Pretty Absurd",
     "lookbook": "Lookbook",
-    "collection": "Los Vestidos",
+    "collection": "Los Bolsos",
     "about": "Sobre Nosotros",
-    "brandWorld": "Universo de Marca",
     "contact": "Contacto"
   },
   "home": {
     "hero": {
       "sub": "El exceso es justamente el punto.",
       "cta_lookbook": "Entrar al lookbook",
-      "cta_collection": "Ver los vestidos"
-    },
-    "prelaunch": {
-      "label": "Prelanzamiento",
-      "text": "Los pedidos anticipados abren el 25 de julio — Colección disponible el 25 de julio de 2026",
-      "cta": "Avísame →"
+      "cta_collection": "Ver los bolsos"
     },
     "receipt": {
       "brand": "PRETTY ABSURD",
@@ -26,9 +20,14 @@
       "blue": "El Azul Hielo",
       "dot": "El Lunar",
       "total": "TOTAL",
-      "status_line": "ESTADO … próximamente<br>LISTA DE ESPERA … abierta",
-      "cta_main": "TOCA PARA RESERVARLO",
-      "cta_sub": "únete a la lista de espera — xo"
+      "status_line": "ESTADO … en stock<br>ENTREGA … The Courier Guy",
+      "cta_main": "TOCA PARA COMPRAR",
+      "cta_sub": "los bolsos ya están aquí — xo"
+    },
+    "shop": {
+      "label": "Los Bolsos",
+      "headline": "Brocado, anudado y con flecos.",
+      "cta": "Ver todos los bolsos →"
     },
     "designer": {
       "label": "La Diseñadora",
@@ -38,28 +37,36 @@
     },
     "notify": {
       "headline": "Sé la primera en saberlo.",
-      "sub": "Los pedidos anticipados abren el 25 de julio de 2026. Deja tu correo y te avisamos en cuanto abran.",
+      "sub": "Deja tu correo y te avisaremos de nuevos bolsos y reposiciones.",
       "placeholder": "tu@email.com",
       "btn": "Avísame"
     }
   },
+  "bags": {
+    "shoulder":    { "descriptor": "bolso de hombro en brocado", "desc": "divine… un bolso de hombro suave y redondeado en brocado, cortado con generosidad y rematado con un fleco que se mueve en cuanto tú lo haces. la pieza más atrevida de la línea." },
+    "knot-fringe": { "descriptor": "bolso anudado en brocado, con flecos", "desc": "candy… el bolso anudado de inspiración japonesa, atado a la muñeca y rematado con un largo fleco que no se está quieto ni un momento." },
+    "knot":        { "descriptor": "bolso anudado en brocado", "desc": "edie… un bolso anudado tomado de la tradición japonesa del furoshiki, y luego llevado a donde no debía. brocado cortado a mano, tul con lentejuelas, forro de tafetán. hecho a mano en johannesburgo… 15 a la vez." }
+  },
   "collection": {
+    "bags_label": "Los Bolsos",
+    "bags_headline": "Brocado, anudado y con flecos.",
+    "bags_sub": "Tres formas, un puñado de colores, hechos en pocas unidades. Cuando un color se agota, se agota para siempre.",
     "label": "La Colección",
     "headline": "Tres Vestidos.",
-    "sub": "Cada uno hecho para ser mirado. Los pedidos anticipados abren el 25 de julio — Colección disponible el 25 de julio de 2026.",
+    "sub": "Cada uno hecho para ser mirado. Los pedidos anticipados abren el 22 de agosto — Colección disponible el 22 de agosto de 2026.",
     "view_dress": "Ver el vestido ↓",
     "price_label": "Precio",
     "cta_inquire": "Preguntar por este vestido",
-    "launch_note": "Los pedidos anticipados abren el 25 de julio — Disponible el 25 de julio de 2026",
+    "launch_note": "Los pedidos anticipados abren el 22 de agosto — Disponible el 22 de agosto de 2026",
     "pieces": {
       "pink": {
         "num": "01 — 03",
         "name": "El Satén Rosa",
-        "desc": "Un corsé que va en serio. Una falda plisada que no. Confeccionado en suave satén rosa lila con varillaje estructurado, escote corazón y un cordón trasero que se toma su tiempo.",
+        "desc": "Un corsé que va en serio. Una falda plisada que no. Confeccionado en suave satén Duquesa rosa lila, con escote corazón y un cordón trasero que se toma su tiempo.",
         "details": [
-          "Satén con estructura de varillaje",
+          "Suave satén Duquesa rosa lila",
           "Escote corazón con volante",
-          "Cierre de cordón trasero",
+          "Cordón trasero",
           "Cremallera invisible lateral",
           "Minifalda plisada"
         ],
@@ -68,9 +75,9 @@
       "blue": {
         "num": "02 — 03",
         "name": "El Azul Hielo",
-        "desc": "Satén azul empolvado. Escote corazón. Estructuralmente absurdo. La misma silueta que el rosa — mismos huesos, distinto ánimo. Es más discreto, hasta que lo ves moverse.",
+        "desc": "Satén Duquesa azul empolvado. Escote corazón. Estructuralmente absurdo. La misma silueta que el rosa — mismos huesos, distinto ánimo. Es más discreto, hasta que lo ves moverse.",
         "details": [
-          "Satén azul hielo con estructura de varillaje",
+          "Satén Duquesa azul hielo",
           "Escote corazón con volante",
           "Cordón trasero de cinta a juego",
           "Cremallera invisible lateral",
@@ -83,9 +90,9 @@
         "name": "El Lunar",
         "desc": "Lunares negros sobre blanco. Encanto clásico. Caos contemporáneo. Misma silueta, misma estructura — pero el lunar lo cambia todo. Es el que hace que te giren a mirar dos veces.",
         "details": [
-          "Tela estructurada blanca con lunares negros",
+          "Satén Duquesa blanco con lunares negros",
           "Escote corazón con volante",
-          "Cierre de cordón trasero",
+          "Cordón trasero",
           "Cremallera invisible lateral",
           "Minifalda plisada"
         ],
@@ -103,13 +110,13 @@
       "label": "La Historia",
       "headline": "Prendas que pertenecen a una película que no logras ubicar.",
       "p1": "La ropa de mujer suele elegir un bando: invisible, o esforzándose demasiado. Kaylah se saltó esa elección y creó tres vestidos en su lugar.",
-      "p2": "Cada uno comparte la misma base — corsé, escote corazón, falda plisada — y cuenta una historia distinta. El satén rosa que parece un sueño de Barbie. El azul hielo digno de una pasarela parisina. Los lunares que evocan a Marilyn Monroe en una azotea.",
+      "p2": "Cada uno comparte la misma base — corsé, escote corazón, falda plisada — y cuenta una historia distinta. El satén Duquesa rosa que parece un sueño de Barbie. El azul hielo digno de una pasarela parisina. Los lunares que evocan a Marilyn Monroe en una azotea.",
       "p3": "El nombre lo dice todo. Pretty Absurd es moda deliberada y alegremente fuera de lugar. Prendas que hacen que la gente mire — no porque sean extrañas, sino porque están exactamente bien en todo lo que tienen de incorrecto."
     },
     "philosophy": {
       "label": "La Filosofía",
       "quote": "«Pretty Absurd se basa en una sola idea: la ropa debe hacerte sentir la persona más interesante de la sala. No la más elegante. La más interesante.»",
-      "body": "Femenina o seria. Divertida o pulida. A las mujeres se les impone constantemente esa elección. Kaylah la ignoró. El varillaje del corsé va en serio. Los lunares son divertidos. Ambas cosas, a la vez, a propósito."
+      "body": "Femenina o seria. Divertida o pulida. A las mujeres se les impone constantemente esa elección. Kaylah la ignoró. La estructura del corsé va en serio. Los lunares son divertidos. Ambas cosas, a la vez, a propósito."
     },
     "studio_caption": "El estudio — donde todo empieza",
     "process": {
@@ -117,43 +124,17 @@
       "headline_1": "Cada costura colocada con intención.",
       "headline_2": "El caos está en llevarlo puesto, no en hacerlo.",
       "step1_title": "Primero la estructura",
-      "step1_text": "Cada vestido empieza por los huesos. El varillaje del corsé define la silueta antes de cortar un solo trozo de satén. La estructura nunca es una idea de último momento.",
+      "step1_text": "Cada vestido empieza por la forma. La silueta del corsé se dibuja antes de cortar un solo trozo de satén Duquesa. La estructura nunca es una idea de último momento.",
       "step2_title": "La tela como carácter",
-      "step2_text": "La tela nunca es solo un revestimiento — es la personalidad de la prenda. El satén capta la luz de forma distinta. Los lunares cambian la conversación antes de que digas una palabra.",
+      "step2_text": "La tela nunca es solo un revestimiento — es la personalidad de la prenda. El satén Duquesa capta la luz de forma distinta. Los lunares cambian la conversación antes de que digas una palabra.",
       "step3_title": "Detalles que se ganan su lugar",
       "step3_text": "El volante en el escote corazón. El cordón en la espalda. La cremallera invisible al costado. Nada está ahí por decoración — cada detalle cumple una función."
     },
     "cta_strip": {
-      "text": "Tres vestidos. Los pedidos anticipados abren el 25 de julio — Colección disponible el 25 de julio de 2026.",
-      "cta_collection": "Ver los vestidos →",
+      "text": "Tres vestidos. Los pedidos anticipados abren el 22 de agosto — Colección disponible el 22 de agosto de 2026.",
+      "cta_collection": "Ver los bolsos →",
       "cta_lookbook": "Entrar al lookbook →"
     }
-  },
-  "brandWorld": {
-    "label": "Universo de Marca",
-    "headline_1": "El Universo de",
-    "headline_2": "Pretty Absurd.",
-    "intro": "Lunares en el metro. Césped en la sala de estar. Un vestido perfectamente planchado en el lugar equivocado. Este es el mundo del que vienen las prendas.",
-    "manifesto": {
-      "one": "El vestido que no combina con el entorno. La tela demasiado bella para la ocasión. La silueta que detiene la sala. Nadie planea recordar un look. Pretty Absurd se asegura de que lo hagan.",
-      "two": "Las referencias están en todas partes: Marilyn Monroe sobre una rejilla del metro, Barbie en una casa de ensueño ligeramente torcida, un editorial de Vogue fotografiado donde Vogue jamás iría. Pretty Absurd toma prestado de todo eso — y lo mete en un corsé.",
-      "three": "Esta no es una moda que quiera desaparecer en el armario. Quiere ser usada, mirada, y usada otra vez."
-    },
-    "captions": {
-      "dot_subway": "Lunares en el metro — Número 01",
-      "pink_butterfly": "Satén Rosa — detalle",
-      "blue_armchair": "Azul Hielo — ambiente retro",
-      "pink_street": "Satén Rosa — calle",
-      "dot_highway": "El Lunar — tumbona de autopista",
-      "blue_newspaper": "Azul Hielo — editorial",
-      "blue_playful": "Azul Hielo — Número 01",
-      "dot_crosswalk": "El Lunar — paso de cebra B&N",
-      "dot_navy": "El Lunar — retrato"
-    },
-    "quote": "«Vestidos hechos para ser mirados.»",
-    "quote_attr": "— Pretty Absurd, SS26",
-    "cta_lookbook": "Entrar al lookbook →",
-    "cta_collection": "Ver la colección →"
   },
   "contact": {
     "label": "Ponte en Contacto",
@@ -161,40 +142,29 @@
     "headline_2": ".",
     "sub": "Consultas de prensa, conversaciones con tiendas y curiosos de todo tipo son bienvenidos.",
     "preorder_label": "Pedido anticipado",
-    "preorder_val": "Abre el 25 de julio de 2026 — Disponible el 25 de julio de 2026",
+    "preorder_val": "Abre el 22 de agosto de 2026 — Disponible el 22 de agosto de 2026",
     "inquiries_label": "Consultas",
     "inquiries_val": "Usa el formulario — respondemos en 48 horas",
     "stockists_label": "Tiendas",
     "stockists_val": "Actualmente aceptando solicitudes",
-    "early_access": {
-      "tag": "Círculo Interno",
-      "headline": "Consíguelo antes que nadie.",
-      "perk1": "Acceso a pedidos anticipados el <strong>25 de julio</strong> — antes del lanzamiento público",
-      "perk2": "<strong>15% de descuento</strong> en tu primer vestido, aplicado al pagar",
-      "nudge": "Selecciona \"Unirme al acceso anticipado\" en el formulario →"
-    },
     "form": {
       "name": "Tu nombre",
       "email": "Correo electrónico",
       "country": "País",
       "type": "¿De qué se trata?",
       "type_choose": "Elige una opción",
-      "type_early": "Unirme al acceso anticipado — 15% de descuento",
       "type_notify": "Avisarme cuando abran los pedidos",
       "type_dress": "Consulta sobre un vestido",
       "type_press": "Consulta de prensa",
       "type_stockist": "Consulta de tienda",
       "type_general": "General",
-      "early_note": "Te estás uniendo al círculo interno — te enviaremos tu código del 15% en cuanto abran los pedidos anticipados, el 25 de julio.",
       "message": "Tu mensaje",
       "submit": "Enviar",
-      "submit_early": "Unirme al acceso anticipado",
       "sending": "Enviando…",
       "sent": "Enviado",
       "try_again": "Intentar de nuevo",
       "footer_note": "Te responderemos en un plazo de 48 horas.",
-      "success": "Enviado. Te contactaremos pronto.",
-      "success_early": "Ya estás en el círculo interno. Tu código del 15% llega en cuanto abran los pedidos anticipados — el 25 de julio."
+      "success": "Enviado. Te contactaremos pronto."
     }
   },
   "lookbook": {
@@ -278,12 +248,15 @@
     "nav_prev": "ANT",
     "nav_next": "SIG"
   },
+  "faq": {
+    "pricing_answer": "Divine cuesta R600, Candy R500 y Edie R400. La entrega tiene un costo fijo de R150 en cualquier parte de Sudáfrica."
+  },
   "footer": {
-    "tagline": "Vestidos hechos para ser mirados.",
+    "tagline": "Hechos para ser mirados.",
     "copy": "© 2026 Pretty Absurd. Todos los derechos reservados.",
     "links": {
       "lookbook": "Lookbook",
-      "collection": "Los Vestidos",
+      "collection": "Los Bolsos",
       "about": "Sobre Nosotros",
       "contact": "Contacto"
     }

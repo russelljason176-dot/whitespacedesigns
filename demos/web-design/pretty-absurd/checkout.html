@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<script>/* DEMO: simulate checkout + forms so the copy can never take a payment or send an email */
+(function(){var f=window.fetch;window.fetch=function(u,o){var s=String(u&&u.url||u);
+if(/workers\.dev|formspree\.io/.test(s)){var b=/promo\/check/.test(s)?{valid:false}:/workers\.dev/.test(s)?{redirectUrl:'order-confirmation.html'}:{ok:true};
+return Promise.resolve(new Response(JSON.stringify(b),{status:200,headers:{'Content-Type':'application/json'}}));}
+return f.apply(this,arguments);};})();</script>
+<style>.wsd-demo-bar{position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#1a1a1a;color:#fff;font:500 11px/1.4 system-ui,sans-serif;letter-spacing:.04em;text-align:center;padding:7px 12px}.wsd-demo-bar a{color:#fff;text-decoration:underline}</style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2R6JZW1R9L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2R6JZW1R9L');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pretty Absurd — Checkout.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://prettyabsurd.co.za/checkout.html">
+  <meta name="theme-color" content="#F7F2EE">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <title>Checkout — Pretty Absurd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body data-page="checkout">
+
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">Pretty Absurd</a>
+      <ul class="nav__links" role="list">
+        <li><a href="collection.html"  class="nav__link">The Bags</a></li>
+        <li><a href="about.html"       class="nav__link">About</a></li>
+        <li><a href="faq.html"         class="nav__link">FAQ</a></li>
+        <li><a href="contact.html"     class="nav__link">Contact</a></li>
+      </ul>
+      <button class="pa-cart-toggle" aria-label="Open cart" type="button">
+        <svg class="pa-cart-toggle__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="pa-cart-toggle__count" hidden>0</span>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-overlay">
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+        <span class="nav__toggle-line" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="nav__overlay" id="nav-overlay" role="dialog" aria-label="Mobile navigation">
+      <ul class="nav__overlay-links" role="list">
+        <li><a href="collection.html"  class="nav__overlay-link">The Bags</a></li>
+        <li><a href="about.html"       class="nav__overlay-link">About</a></li>
+        <li><a href="faq.html"         class="nav__overlay-link">FAQ</a></li>
+        <li><a href="contact.html"     class="nav__overlay-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <div class="nav-spacer"></div>
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol class="breadcrumbs__list">
+          <li><a href="index.html" class="breadcrumbs__link">Home</a></li>
+          <li class="breadcrumbs__sep">/</li>
+          <li class="breadcrumbs__current" aria-current="page">Checkout</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="container" id="checkout-populated" hidden>
+      <div class="checkout-layout">
+        <div>
+          <h1 class="collection-header__headline" style="margin-bottom: var(--space-8);">Checkout.</h1>
+
+          <form id="checkout-form">
+            <div class="checkout-form__section">
+              <span class="checkout-form__label">Contact</span>
+              <div class="checkout-form__field">
+                <label for="co-email">Email address</label>
+                <input id="co-email" type="email" name="email_address" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="checkout-form__section">
+              <span class="checkout-form__label">Shipping to</span>
+              <div class="checkout-form__row">
+                <div class="checkout-form__field">
+                  <label for="co-first">First name</label>
+                  <input id="co-first" type="text" name="name_first" required autocomplete="given-name">
+                </div>
+                <div class="checkout-form__field">
+                  <label for="co-last">Last name</label>
+                  <input id="co-last" type="text" name="name_last" required autocomplete="family-name">
+                </div>
+              </div>
+              <div class="checkout-form__field">
+                <label for="co-address">Address</label>
+                <input id="co-address" type="text" required autocomplete="street-address">
+              </div>
+              <div class="checkout-form__row">
+                <div class="checkout-form__field">
+                  <label for="co-city">City</label>
+                  <input id="co-city" type="text" required autocomplete="address-level2">
+                </div>
+                <div class="checkout-form__field">
+                  <label for="co-postal">Postal code</label>
+                  <input id="co-postal" type="text" required autocomplete="postal-code">
+                </div>
+              </div>
+              <div class="checkout-form__field">
+                <label for="co-country">Country</label>
+                <select id="co-country" required style="padding:12px 14px;border:var(--border-mid);background:var(--white);font-family:var(--font-body);font-size:16px;color:var(--ink);">
+                  <option value="South Africa" selected>South Africa</option>
+                  <option value="other">Outside South Africa</option>
+                </select>
+              </div>
+              <p class="checkout-form__intl-note" id="checkout-intl-note" hidden style="font-size:var(--text-xs);color:var(--pink-dark);margin:-8px 0 16px;line-height:1.6;">
+                We currently only ship within South Africa through checkout. For international orders, please <a href="contact.html" style="color:inherit;text-decoration:underline;">get in touch</a> for a shipping quote before ordering — international freight isn't covered by the listed price.
+              </p>
+              <div class="checkout-form__field">
+                <label for="co-phone">Phone</label>
+                <input id="co-phone" type="tel" required autocomplete="tel">
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="checkout-summary">
+          <div class="checkout-summary__title">Order Summary</div>
+          <div id="checkout-summary-items"></div>
+          <div class="checkout-summary__item"><span>Delivery (The Courier Guy)</span><span id="checkout-summary-delivery">R0</span></div>
+          <div class="checkout-summary__item" id="checkout-summary-discount-row" hidden><span id="checkout-summary-discount-label">Promo</span><span id="checkout-summary-discount">&minus;R0</span></div>
+
+          <div class="checkout-promo">
+            <input type="text" id="checkout-promo-input" placeholder="Promo code" autocomplete="off" spellcheck="false">
+            <button type="button" id="checkout-promo-apply">Apply</button>
+          </div>
+          <p class="checkout-promo__note" id="checkout-promo-note" hidden></p>
+
+          <div class="checkout-summary__totalrow"><span>Total</span><span id="checkout-summary-total">R0</span></div>
+          <p class="checkout-summary__note">Delivered anywhere in South Africa by The Courier Guy. You'll get a tracking number by email once your bag ships.</p>
+          <p class="checkout-summary__note">International orders aren't available through checkout — contact us for a shipping quote first. Payment is handled securely by Yoco — your card details never touch this site.</p>
+          <button type="submit" form="checkout-form" class="checkout-pay-btn" id="checkout-pay-btn">Pay with Yoco</button>
+          <p class="checkout-summary__note">By placing this order you agree to our <a href="policies.html#terms" style="color:inherit;">Terms &amp; Conditions</a> and <a href="policies.html#returns" style="color:inherit;">Returns &amp; Refunds Policy</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container checkout-empty" id="checkout-empty" hidden>
+      <p style="font-size: var(--text-subheading); margin-bottom: var(--space-4);">Your bag is empty.</p>
+      <a href="collection.html" class="error-404__link">See the bags</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div>
+          <div class="footer__brand">Pretty Absurd</div>
+          <div class="footer__tagline">Made to be stared at.</div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">© 2026 Pretty Absurd. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+
+  <!-- ── Cart drawer ── -->
+  <div class="pa-cart-scrim" id="pa-cart-scrim"></div>
+  <aside class="pa-cart-drawer" id="pa-cart-drawer" aria-label="Shopping cart">
+    <div class="pa-cart-drawer__head">
+      <span class="pa-cart-drawer__title">Your Bag</span>
+      <button class="pa-cart-drawer__close" id="pa-cart-close" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="pa-cart-drawer__body">
+      <p class="pa-cart-empty" id="pa-cart-empty">Your bag is empty.</p>
+      <div id="pa-cart-items"></div>
+    </div>
+    <div class="pa-cart-drawer__foot">
+      <div class="pa-cart-drawer__totalrow"><span>Total</span><span id="pa-cart-total">R0</span></div>
+      <button class="pa-cart-drawer__checkout" id="pa-cart-checkout" type="button">Checkout</button>
+    </div>
+  </aside>
+
+  <script>
+    /* ============================================================
+       Yoco checkout — via a small Cloudflare Worker backend, since
+       Yoco's Checkout API needs a secret key that can't live in this
+       static site's browser code. The Worker creates a real Yoco
+       Checkout session and hands back a redirectUrl to send the
+       customer to. The order is also emailed via Formspree (fire and
+       forget) so Kaylah has a record even before payment completes.
+       Running on Yoco's LIVE keys as of 2026-08-27 — real payments are
+       being taken. Yoco domain verification for prettyabsurd.co.za
+       is complete (Manage > Connect > Checkout API in the Yoco app).
+
+       Bags launch (2026-09-30): full payment at checkout, plus a flat
+       Courier Guy delivery fee. The Worker recalculates the total
+       from its own price list (see PRICES / DELIVERY_FEE in
+       cloudflare-worker/yoco-checkout.js) — keep both in sync.
+       ============================================================ */
+    const YOCO_CHECKOUT_ENDPOINT = 'https://yoco-checkout.pretty-absurdd.workers.dev/';
+    const ORDER_FORM_ENDPOINT = 'https://formspree.io/f/mnjejwqz';
+
+    /* ============================================================
+       Waitlist promo codes — 10% off, one code per waitlist member.
+       Enforced server-side by the yoco-checkout Worker (Cloudflare KV
+       tracks which codes have been used) — /promo/check here is just
+       a preview so the customer sees the discount before submitting;
+       the Worker independently re-checks and marks the code used when
+       the checkout session is actually created, so this can't
+       be bypassed by skipping the preview call.
+       ============================================================ */
+    let PROMO_DISCOUNT = 0.10; // default; overwritten by the Worker's response on a valid check
+    let appliedPromo = null;
+
+    function normalizePromo(code) {
+      return (code || '').trim().toUpperCase();
+    }
+
+    const DELIVERY_FEE = 150; // flat, South Africa — The Courier Guy. Must match DELIVERY_FEE in the Worker.
+
+    function currentSubtotal() {
+      const raw = PaCart.total();
+      return appliedPromo ? raw * (1 - PROMO_DISCOUNT) : raw; // promo applies to bags, not delivery
+    }
+
+    function currentTotal() {
+      return currentSubtotal() + DELIVERY_FEE;
+    }
+
+    function applyPromo(code, { silent } = {}) {
+      const note = document.getElementById('checkout-promo-note');
+      const normalized = normalizePromo(code);
+      if (!normalized) return;
+
+      fetch(YOCO_CHECKOUT_ENDPOINT + 'promo/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: normalized }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.valid) {
+            appliedPromo = normalized;
+            PROMO_DISCOUNT = data.discount || PROMO_DISCOUNT;
+            localStorage.setItem('pa-promo-code', normalized);
+            note.textContent = '10% waitlist discount applied.';
+            note.hidden = false;
+            note.style.color = '';
+          } else {
+            appliedPromo = null;
+            localStorage.removeItem('pa-promo-code');
+            if (!silent) {
+              note.textContent = data.reason === 'used' ? 'That code has already been used.' : "That code isn't valid.";
+              note.hidden = false;
+              note.style.color = 'var(--pink-dark)';
+            }
+          }
+          renderCheckout();
+        })
+        .catch(() => {
+          if (!silent) {
+            note.textContent = "Couldn't check that code — try again in a moment.";
+            note.hidden = false;
+            note.style.color = 'var(--pink-dark)';
+          }
+        });
+    }
+
+    function renderCheckout() {
+      const items = PaCart.items();
+      const populated = document.getElementById('checkout-populated');
+      const empty = document.getElementById('checkout-empty');
+
+      if (!items.length) {
+        populated.hidden = true;
+        empty.hidden = false;
+        return;
+      }
+      populated.hidden = false;
+      empty.hidden = true;
+
+      const summary = document.getElementById('checkout-summary-items');
+      summary.innerHTML = items.map(i => `
+        <div class="checkout-summary__item">
+          <span>${i.name} (${i.size}) &times; ${i.qty}</span>
+          <span>${paCartFormatZAR(i.price * i.qty)}</span>
+        </div>
+      `).join('');
+
+      const discountRow = document.getElementById('checkout-summary-discount-row');
+      if (appliedPromo) {
+        discountRow.hidden = false;
+        document.getElementById('checkout-summary-discount-label').textContent = `Promo (${appliedPromo})`;
+        document.getElementById('checkout-summary-discount').textContent =
+          '−' + paCartFormatZAR(PaCart.total() * PROMO_DISCOUNT);
+      } else {
+        discountRow.hidden = true;
+      }
+
+      document.getElementById('checkout-summary-delivery').textContent = paCartFormatZAR(DELIVERY_FEE);
+      document.getElementById('checkout-summary-total').textContent = paCartFormatZAR(currentTotal());
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCheckout();
+      const savedPromo = localStorage.getItem('pa-promo-code');
+      if (savedPromo) {
+        document.getElementById('checkout-promo-input').value = savedPromo;
+        applyPromo(savedPromo, { silent: true });
+      }
+    });
+    document.addEventListener('pa-cart-change', renderCheckout);
+
+    document.getElementById('checkout-promo-apply').addEventListener('click', () => {
+      applyPromo(document.getElementById('checkout-promo-input').value);
+    });
+    document.getElementById('checkout-promo-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyPromo(e.target.value);
+      }
+    });
+
+    document.getElementById('co-country').addEventListener('change', function () {
+      document.getElementById('checkout-intl-note').hidden = this.value === 'South Africa';
+    });
+
+    document.getElementById('checkout-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const items = PaCart.items();
+      if (!items.length) return;
+
+      const country = document.getElementById('co-country').value;
+      if (country !== 'South Africa') {
+        document.getElementById('checkout-intl-note').hidden = false;
+        document.getElementById('checkout-intl-note').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const btn = document.getElementById('checkout-pay-btn');
+      btn.disabled = true;
+      btn.textContent = 'Redirecting to Yoco…';
+
+      const itemNames = items.map(i => `${i.name} (${i.size}) x${i.qty}`).join(', ');
+      const orderId = 'PA-' + Date.now();
+      const name = document.getElementById('co-first').value + ' ' + document.getElementById('co-last').value;
+      const email = document.getElementById('co-email').value;
+      const total = currentTotal();
+      const cart = items.map(i => ({ productId: i.productId, colour: i.size, qty: i.qty }));
+
+      // Fire-and-forget order record for Kaylah, doesn't block the Yoco redirect.
+      fetch(ORDER_FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          order_id: orderId,
+          name,
+          email,
+          phone: document.getElementById('co-phone').value,
+          address: document.getElementById('co-address').value,
+          city: document.getElementById('co-city').value,
+          postal: document.getElementById('co-postal').value,
+          items: appliedPromo ? itemNames + ` [promo: ${appliedPromo}]` : itemNames,
+          delivery: 'R' + DELIVERY_FEE.toFixed(2) + ' (The Courier Guy)',
+          total_paid: 'R' + total.toFixed(2),
+          _subject: `New order ${orderId} — Pretty Absurd — book Courier Guy`,
+        }),
+      }).catch(() => {});
+
+      fetch(YOCO_CHECKOUT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: total, cart, orderId, items: itemNames, name, email, promoCode: appliedPromo }),
+      })
+        .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+          if (!ok || !data.redirectUrl) throw new Error(data.error || 'Yoco checkout creation failed');
+          sessionStorage.setItem('pa-last-order', JSON.stringify({ mPaymentId: orderId, items, total, delivery: DELIVERY_FEE, promo: appliedPromo }));
+          if (appliedPromo) localStorage.removeItem('pa-promo-code');
+          window.location.href = data.redirectUrl;
+        })
+        .catch(() => {
+          btn.disabled = false;
+          btn.textContent = 'Pay with Yoco';
+          alert('Something went wrong starting payment — please try again, or contact us directly.');
+        });
+    });
+  </script>
+<div class="wsd-demo-bar">Portfolio demo of the live Pretty Absurd site by White Space Designs &middot; checkout and forms are simulated &middot; <a href="https://prettyabsurd.co.za" rel="noopener">Visit the real site</a></div>
+</body>
+</html>

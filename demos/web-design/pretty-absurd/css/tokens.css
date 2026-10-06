@@ -1,13 +1,14 @@
 :root {
   /* Palette */
   --cream:        #F7F2EE;
-  --cream-dark:   #EDE5DD;
+  --cream-dark:   #F8E8F2;
   --ink:          #111111;
   --ink-soft:     #333333;
   --ink-muted:    #777777;
   --ink-faint:    #AAAAAA;
   --pink:         #EDA0BE;
   --pink-light:   #F8E8F2;
+  --pink-page:    #FCF0F9;
   --pink-mid:     #D87AA4;
   --pink-dark:    #A04870;
   --blue:         #9BBAD8;
